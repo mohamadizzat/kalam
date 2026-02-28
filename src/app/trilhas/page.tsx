@@ -4,75 +4,9 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { BlurFade } from '@/components/effects/BlurFade'
+import { TRAILS, type Trail } from '@/lib/data/trails'
 
-export const TRAILS = [
-  {
-    slug: 'deus-e-amor',
-    title: 'Deus é Amor',
-    arabicTitle: 'الله محبة',
-    subtitle: '5 dias para entender o amor de Deus sem culpa e sem medo',
-    description:
-      'A maior distorção sobre Deus é que Ele é juiz antes de ser pai. Esta trilha percorre o Alcorão em busca de uma imagem diferente — um Deus que ama primeiro, que perdoa primeiro, que está mais perto do que sua própria veia jugular.',
-    duration: '5 dias',
-    theme: 'Amor & Misericórdia',
-    available: true,
-    days: [
-      { day: 1, title: 'O Nome que Vem Primeiro' },
-      { day: 2, title: 'Mais Próximo que Sua Veia' },
-      { day: 3, title: 'Não Desespere' },
-      { day: 4, title: 'Lembra de Mim' },
-      { day: 5, title: 'Ele os Ama' },
-    ],
-  },
-  {
-    slug: 'sem-medo',
-    title: 'Sem Medo',
-    arabicTitle: 'لَا خَوْفٌ',
-    subtitle: '4 dias para substituir o medo de Deus por conexão com Deus',
-    description:
-      'Muito do que chamamos de "religiosidade" é na verdade ansiedade disfarçada. Esta trilha usa versículos do Alcorão para substituir o medo como motor espiritual pela presença como fundação.',
-    duration: '4 dias',
-    theme: 'Ansiedade & Paz',
-    available: true,
-    days: [
-      { day: 1, title: 'Com a Dificuldade Vem a Facilidade' },
-      { day: 2, title: 'Não Sobrecarregado' },
-      { day: 3, title: 'Allah Está Com Você' },
-      { day: 4, title: 'A Calma dos Crentes' },
-    ],
-  },
-  {
-    slug: 'jesus-no-quran',
-    title: 'Jesus no Alcorão',
-    arabicTitle: 'عيسى في القرآن',
-    subtitle: '4 dias para entender o que o Islam acredita sobre Jesus — da perspectiva islâmica',
-    description:
-      'Se você é cristão ou cresceu em contexto cristão, Jesus é central para sua fé. Este trilha mostra o que o Alcorão diz sobre Isa (Jesus) — com honestidade sobre os pontos de concordância e os de divergência.',
-    duration: '4 dias',
-    theme: 'Pontes & Entendimento',
-    available: true,
-    days: [
-      { day: 1, title: 'Nascido de Virgem' },
-      { day: 2, title: 'Os Milagres' },
-      { day: 3, title: 'O Que o Alcorão Diz que Não Aconteceu' },
-      { day: 4, title: 'Ele Voltará' },
-    ],
-  },
-  {
-    slug: 'os-profetas',
-    title: 'Os Profetas: Uma Família',
-    arabicTitle: 'الأنبياء',
-    subtitle: '7 dias pelos profetas que Bíblia e Alcorão compartilham',
-    description:
-      'Adão, Abraão, José, Moisés, Davi, Jesus, Muhammad — todos fazem parte de uma única cadeia de mensageiros enviados pelo mesmo Deus. Esta trilha percorre cada um em 7 dias.',
-    duration: '7 dias',
-    theme: 'História & Profecia',
-    available: false,
-    days: [],
-  },
-]
-
-function TrailCard({ trail, index }: { trail: typeof TRAILS[0]; index: number }) {
+function TrailCard({ trail, index }: { trail: Trail; index: number }) {
   const [hovered, setHovered] = useState(false)
   const previewDays = trail.days.slice(0, 2)
   const hasMore = trail.days.length > 2

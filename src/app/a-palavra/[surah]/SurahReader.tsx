@@ -1,8 +1,9 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
+import { Bookmark } from 'lucide-react'
 import type { Surah } from '@/lib/data/surahs'
 
 type Verse = {
@@ -11,11 +12,160 @@ type Verse = {
   portuguese: string
 }
 
+type BookmarkEntry = {
+  surah: number
+  verse: number
+  arabic: string
+  portuguese: string
+}
+
+type ArabicSize = 'sm' | 'md' | 'lg' | 'xl'
+
+const arabicSizes: Record<ArabicSize, string> = {
+  sm: 'clamp(18px, 4vw, 24px)',
+  md: 'clamp(24px, 5vw, 36px)',
+  lg: 'clamp(32px, 6vw, 48px)',
+  xl: 'clamp(40px, 8vw, 60px)',
+}
+
+const sizeOptions: { key: ArabicSize; label: string; previewSize: string }[] = [
+  { key: 'sm', label: 'ع', previewSize: '14px' },
+  { key: 'md', label: 'ع', previewSize: '18px' },
+  { key: 'lg', label: 'ع', previewSize: '22px' },
+  { key: 'xl', label: 'ع', previewSize: '26px' },
+]
+
 export function SurahReader({ surah }: { surah: Surah }) {
   const [verses, setVerses] = useState<Verse[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   const [showTranslation, setShowTranslation] = useState(true)
+
+  // A. Font size control
+  const [arabicSize, setArabicSize] = useState<ArabicSize>('md')
+
+  // B. Reading progress
+  const [scrollProgress, setScrollProgress] = useState(0)
+
+  // C. Bookmarks
+  const [bookmarks, setBookmarks] = useState<BookmarkEntry[]>([])
+
+  // D. Last visible verse tracking
+  const lastVisibleVerseRef = useRef<number>(1)
+  const verseRefs = useRef<Map<number, HTMLDivElement>>(new Map())
+  const scrollTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  // E. Surah read tracking
+  const [surahRead, setSurahRead] = useState(false)
+
+  // ── Load persisted preferences ──────────────────────────────────────────────
+
+  useEffect(() => {
+    // Font size
+    const savedSize = localStorage.getItem('kalam-arabic-size')
+    if (savedSize && savedSize in arabicSizes) setArabicSize(savedSize as ArabicSize)
+
+    // Bookmarks
+    try {
+      const savedBookmarks = localStorage.getItem('kalam-bookmarks')
+      if (savedBookmarks) setBookmarks(JSON.parse(savedBookmarks))
+    } catch { /* ignore parse errors */ }
+
+    // Check if surah already read
+    try {
+      const readSurahs = JSON.parse(localStorage.getItem('kalam-surahs-read') || '[]')
+      if (readSurahs.includes(surah.number)) setSurahRead(true)
+    } catch { /* ignore */ }
+  }, [surah.number])
+
+  // Persist font size
+  useEffect(() => {
+    localStorage.setItem('kalam-arabic-size', arabicSize)
+  }, [arabicSize])
+
+  // ── B. Scroll progress ──────────────────────────────────────────────────────
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const winScroll = document.documentElement.scrollTop
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight
+      setScrollProgress(height > 0 ? (winScroll / height) * 100 : 0)
+
+      // D. Save position after 2 seconds of no scrolling
+      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current)
+      scrollTimeoutRef.current = setTimeout(() => {
+        localStorage.setItem('kalam-last-read', JSON.stringify({
+          surah: surah.number,
+          verse: lastVisibleVerseRef.current,
+          name: surah.name,
+        }))
+      }, 2000)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current)
+    }
+  }, [surah.number, surah.name])
+
+  // ── D + E. IntersectionObserver for verse visibility ────────────────────────
+
+  useEffect(() => {
+    if (verses.length === 0) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        let maxVerse = lastVisibleVerseRef.current
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const verseNum = Number(entry.target.getAttribute('data-verse'))
+            if (verseNum > maxVerse) maxVerse = verseNum
+          }
+        })
+        lastVisibleVerseRef.current = maxVerse
+
+        // E. Mark as read when last verse is visible
+        if (maxVerse === verses.length && !surahRead) {
+          setSurahRead(true)
+          try {
+            const readSurahs = JSON.parse(localStorage.getItem('kalam-surahs-read') || '[]')
+            if (!readSurahs.includes(surah.number)) {
+              readSurahs.push(surah.number)
+              localStorage.setItem('kalam-surahs-read', JSON.stringify(readSurahs))
+            }
+          } catch { /* ignore */ }
+        }
+      },
+      { threshold: 0.5 }
+    )
+
+    verseRefs.current.forEach((el) => observer.observe(el))
+
+    return () => observer.disconnect()
+  }, [verses, surah.number, surahRead])
+
+  // ── C. Bookmark toggle ──────────────────────────────────────────────────────
+
+  const isBookmarked = useCallback(
+    (verseNum: number) => bookmarks.some((b) => b.surah === surah.number && b.verse === verseNum),
+    [bookmarks, surah.number]
+  )
+
+  const toggleBookmark = useCallback(
+    (verse: Verse) => {
+      setBookmarks((prev) => {
+        const exists = prev.some((b) => b.surah === surah.number && b.verse === verse.number)
+        const next = exists
+          ? prev.filter((b) => !(b.surah === surah.number && b.verse === verse.number))
+          : [...prev, { surah: surah.number, verse: verse.number, arabic: verse.arabic, portuguese: verse.portuguese }]
+        localStorage.setItem('kalam-bookmarks', JSON.stringify(next))
+        return next
+      })
+    },
+    [surah.number]
+  )
+
+  // ── Fetch verses ────────────────────────────────────────────────────────────
 
   useEffect(() => {
     async function fetchVerses() {
@@ -47,13 +197,52 @@ export function SurahReader({ surah }: { surah: Surah }) {
     fetchVerses()
   }, [surah.number])
 
+  // ── Ref callback for verse elements ─────────────────────────────────────────
+
+  const setVerseRef = useCallback((el: HTMLDivElement | null, verseNum: number) => {
+    if (el) {
+      verseRefs.current.set(verseNum, el)
+    } else {
+      verseRefs.current.delete(verseNum)
+    }
+  }, [])
+
   return (
     <main style={{ background: '#0D0B12', minHeight: '100vh' }}>
+      {/* B. Reading progress bar */}
+      <div
+        style={{
+          position: 'sticky',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '2px',
+          background: 'transparent',
+          zIndex: 50,
+        }}
+      >
+        <div
+          style={{
+            height: '100%',
+            width: `${scrollProgress}%`,
+            background: '#C9A84C',
+            transition: 'width 0.1s linear',
+          }}
+        />
+      </div>
+
       {/* Header */}
       <header style={{ borderBottom: '1px solid #272230', padding: '16px 24px' }}>
-        <Link href="/a-palavra" style={{ color: '#7A7870', fontSize: '14px', textDecoration: 'none' }}>
-          &#8592; Voltar
-        </Link>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <Link href="/a-palavra" style={{ color: '#7A7870', fontSize: '14px', textDecoration: 'none' }}>
+            &#8592; Voltar
+          </Link>
+          {surahRead && (
+            <span style={{ fontSize: '11px', color: '#C9A84C', opacity: 0.7, letterSpacing: '0.05em' }}>
+              &#10003; Lida
+            </span>
+          )}
+        </div>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '12px' }}>
           <div>
             <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: '24px', color: '#F0EBE2' }}>
@@ -107,6 +296,33 @@ export function SurahReader({ surah }: { surah: Surah }) {
         </button>
       </div>
 
+      {/* A. Font size control */}
+      <div style={{ padding: '0 24px 16px', display: 'flex', gap: '8px', alignItems: 'center' }}>
+        {sizeOptions.map((opt) => (
+          <button
+            key={opt.key}
+            onClick={() => setArabicSize(opt.key)}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '40px',
+              height: '40px',
+              borderRadius: '10px',
+              fontFamily: 'var(--font-arabic)',
+              fontSize: opt.previewSize,
+              background: arabicSize === opt.key ? 'rgba(201, 168, 76, 0.1)' : 'transparent',
+              border: arabicSize === opt.key ? '1px solid #C9A84C' : '1px solid #272230',
+              color: arabicSize === opt.key ? '#C9A84C' : '#7A7870',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease',
+            }}
+          >
+            {opt.label}
+          </button>
+        ))}
+      </div>
+
       {/* Bismillah */}
       {surah.number !== 1 && surah.number !== 9 && (
         <div style={{ textAlign: 'center', padding: '32px', borderBottom: '1px solid #272230' }}>
@@ -138,26 +354,56 @@ export function SurahReader({ surah }: { surah: Surah }) {
         <div className="divide-y" style={{ borderColor: '#272230' }}>
           {verses.map((verse, index) => {
             const shouldAnimate = index < 20
+            const bookmarked = isBookmarked(verse.number)
 
             const content = (
-              <div key={verse.number} style={{ padding: '32px 24px' }}>
-                {/* Verse number */}
-                <span
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    width: '28px',
-                    height: '28px',
-                    borderRadius: '50%',
-                    border: '1px solid #272230',
-                    fontSize: '12px',
-                    color: '#C9A84C',
-                    marginBottom: '16px',
-                  }}
-                >
-                  {verse.number}
-                </span>
+              <div
+                key={verse.number}
+                ref={(el) => setVerseRef(el, verse.number)}
+                data-verse={verse.number}
+                style={{ padding: '32px 24px' }}
+              >
+                {/* Verse number + bookmark */}
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
+                  <span
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: '28px',
+                      height: '28px',
+                      borderRadius: '50%',
+                      border: '1px solid #272230',
+                      fontSize: '12px',
+                      color: '#C9A84C',
+                    }}
+                  >
+                    {verse.number}
+                  </span>
+
+                  {/* C. Bookmark icon */}
+                  <button
+                    onClick={() => toggleBookmark(verse)}
+                    aria-label={bookmarked ? 'Remover marcador' : 'Adicionar marcador'}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      cursor: 'pointer',
+                      padding: '4px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      transition: 'transform 0.15s ease',
+                    }}
+                  >
+                    <Bookmark
+                      size={18}
+                      fill={bookmarked ? '#C9A84C' : 'none'}
+                      stroke={bookmarked ? '#C9A84C' : '#7A7870'}
+                      strokeWidth={1.5}
+                    />
+                  </button>
+                </div>
 
                 {/* Arabic text */}
                 <p
@@ -165,7 +411,7 @@ export function SurahReader({ surah }: { surah: Surah }) {
                     fontFamily: 'var(--font-arabic)',
                     direction: 'rtl',
                     textAlign: 'right',
-                    fontSize: 'clamp(24px, 5vw, 36px)',
+                    fontSize: arabicSizes[arabicSize],
                     lineHeight: 1.8,
                     color: '#C9A84C',
                     marginBottom: showTranslation ? '16px' : '0',

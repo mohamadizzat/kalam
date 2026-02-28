@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
 import { BlurFade } from '@/components/effects/BlurFade'
-import type { Trail } from './page'
+import type { Trail } from '@/lib/data/trails'
 
 interface Props {
   trail: Trail | null

@@ -25,7 +25,7 @@ const prophets = [
     episode: 2,
     title: 'O Pai das Nações',
     status: 'available',
-    hook: 'Jogado no fogo por questionar os ídolos do pai. Saiu andando.',
+    hook: 'Jogado no fogo por questionar os ídolos do pai. Saiu andando. Ergueu a Kaaba com o filho que a Bíblia esqueceu.',
     bibleRef: 'Gênesis 12–22',
     quranRef: 'Al-Baqarah 2:124–132',
     insight: 'Ibrahim é o homem que encontrou Deus através da razão pura — testando estrelas, lua e sol.',
@@ -47,36 +47,36 @@ const prophets = [
     name: 'Moisés',
     arabicName: 'موسى',
     episode: 4,
-    title: 'O Mensageiro do Faraó',
-    status: 'coming-soon',
-    hook: 'O profeta mais mencionado no Alcorão. 136 vezes. Um homem que gaguejava e libertou um povo.',
+    title: 'O Libertador',
+    status: 'available',
+    hook: 'Um bebê num cesto no Nilo. Criado pelo homem que escravizava seu povo. Depois, enfrentou-o.',
     bibleRef: 'Êxodo 1–40',
-    quranRef: 'Ta-Ha 20:9–98',
-    insight: 'Musa é mencionado no Alcorão mais do que qualquer outro profeta — mais do que o próprio Muhammad.',
+    quranRef: 'Al-Qasas 28 / Ta-Ha 20',
+    insight: 'Musa é o profeta mais mencionado no Alcorão — 136 vezes. Mais do que Muhammad. Mais do que qualquer outro.',
   },
   {
-    slug: 'isa',
+    slug: 'issa',
     name: 'Jesus',
     arabicName: 'عيسى',
     episode: 5,
-    title: 'O Profeta que Voltará',
-    status: 'coming-soon',
-    hook: 'No Islam, Jesus não morreu na cruz. Ele está vivo — e voltará antes do fim do mundo.',
-    bibleRef: 'Mateus 1–28',
-    quranRef: 'Maryam 19:16–36',
-    insight: 'Jesus (Isa) no Islam: nascido de virgem, faz milagres, não foi crucificado e voltará antes do Dia do Juízo.',
+    title: 'A Palavra de Deus',
+    status: 'available',
+    hook: 'Nasceu sem pai. Falou no berço. Curou cegos. O Alcorão o chama de "Palavra de Deus" e "Espírito de Deus."',
+    bibleRef: 'Mateus 1–28 / Lucas 1–24',
+    quranRef: 'Maryam 19 / Al-Imran 3',
+    insight: 'Jesus é chamado de "Kalimatullah" (Palavra de Deus) e "Ruh min Allah" (Espírito de Deus) no Alcorão — títulos que nenhum outro profeta recebe.',
   },
   {
     slug: 'muhammad',
-    name: 'Muhammad',
+    name: 'Muhammad ﷺ',
     arabicName: 'محمد',
     episode: 6,
-    title: 'O Último da Linhagem',
-    status: 'coming-soon',
-    hook: 'Analfabeto. Órfão. Comerciante. O homem que mudou o mundo em 23 anos.',
-    bibleRef: 'Deuteronômio 18:15–18 (referência)',
-    quranRef: 'Al-Ahzab 33:40',
-    insight: 'Muhammad é o Khatam an-Nabiyyin — o Selo dos Profetas. Não começa uma nova religião: conclui a cadeia.',
+    title: 'O Selo',
+    status: 'available',
+    hook: 'Órfão aos 6 anos. Analfabeto. Aos 40, recebeu as primeiras palavras de um livro que 1.8 bilhão de pessoas memorizam.',
+    bibleRef: 'Deuteronômio 18:18 / João 14:16',
+    quranRef: 'Al-Alaq 96:1–5 / Al-Ahzab 33:40',
+    insight: 'Muhammad não é adorado no Islam. Ele é "abd" (servo) primeiro, "rasul" (mensageiro) segundo. Chorou, sangrou, duvidou e morreu.',
   },
 ]
 
@@ -486,7 +486,7 @@ export default function OsProfetasPage() {
             color: '#7A7870',
             marginBottom: 16,
           }}>
-            PRÓXIMOS EPISÓDIOS EM CONSTRUÇÃO
+            TODOS OS 6 EPISÓDIOS DISPONÍVEIS
           </p>
           <p style={{
             fontFamily: 'var(--font-serif)',
@@ -496,7 +496,7 @@ export default function OsProfetasPage() {
             color: '#B3B0A6',
             marginBottom: 32,
           }}>
-            Moisés, Jesus e Muhammad estão chegando.
+            De Adão a Muhammad. Uma linhagem completa.
           </p>
         </BlurFade>
 

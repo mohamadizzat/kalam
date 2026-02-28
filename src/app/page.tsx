@@ -9,7 +9,7 @@ import { ArrowRight, ChevronDown, BookOpen, Sun, Compass, Heart } from 'lucide-r
 
 const SANCTUARY_VERSES = [
   { arabic: '\u0642\u064F\u0644\u0652 \u0647\u064F\u0648\u064E \u0627\u0644\u0644\u0651\u064E\u0647\u064F \u0623\u064E\u062D\u064E\u062F\u064C', portuguese: 'Diz: Ele é Allah, o Único.', ref: 'Al-Ikhlas 112:1' },
-  { arabic: '\u0648\u064E\u0625\u0650\u0630\u064E\u0627 \u0633\u064E\u0623\u064E\u0644\u064E\u0643\u064E \u0639\u0650\u0628\u064E\u0627\u062F\u0650\u064A \u0639\u064E\u0646\u0651\u0650\u064A \u0641\u064E\u0625\u0650\u0646\u0651\u0650\u064A \u0642\u064E\u0631\u0650\u064A\u0628\u064C', portuguese: 'E quando Meus servos te perguntarem sobre Mim \u2014 Eu estou próximo.', ref: 'Al-Baqarah 2:186' },
+  { arabic: '\u0648\u064E\u0625\u0650\u0630\u064E\u0627 \u0633\u064E\u0623\u064E\u0644\u064E\u0643\u064E \u0639\u0650\u0628\u064E\u0627\u062F\u0650\u064A \u0639\u064E\u0646\u0651\u0650\u064A \u0641\u064E\u0625\u0650\u0646\u0651\u0650\u064A \u0642\u064E\u0631\u0650\u064A\u0628\u064C', portuguese: 'E quando Meus servos te perguntarem sobre Mim — Eu estou próximo.', ref: 'Al-Baqarah 2:186' },
   { arabic: '\u0625\u0650\u0646\u0651\u064E \u0645\u064E\u0639\u064E \u0627\u0644\u0652\u0639\u064F\u0633\u0652\u0631\u0650 \u064A\u064F\u0633\u0652\u0631\u064B\u0627', portuguese: 'Certamente, com a dificuldade vem a facilidade.', ref: 'Al-Inshirah 94:6' },
   { arabic: '\u0641\u064E\u0627\u0630\u0652\u0643\u064F\u0631\u064F\u0648\u0646\u0650\u064A \u0623\u064E\u0630\u0652\u0643\u064F\u0631\u0652\u0643\u064F\u0645\u0652', portuguese: 'Lembrai-vos de Mim, e Eu Me lembrarei de vós.', ref: 'Al-Baqarah 2:152' },
   { arabic: '\u0648\u064E\u0647\u064F\u0648\u064E \u0645\u064E\u0639\u064E\u0643\u064F\u0645\u0652 \u0623\u064E\u064A\u0652\u0646\u064E \u0645\u064E\u0627 \u0643\u064F\u0646\u062A\u064F\u0645\u0652', portuguese: 'E Ele está convosco onde quer que estejais.', ref: 'Al-Hadid 57:10' },
@@ -45,9 +45,17 @@ const fadeUp = {
 
 // ─── PAGE ─────────────────────────────────────────────────────────────────────
 
+type LastRead = {
+  surah: number
+  verse: number
+  name: string
+}
+
 export default function SanctuaryPage() {
   const [dateLabel, setDateLabel] = useState('')
   const [verseIndex, setVerseIndex] = useState(0)
+  const [streak, setStreak] = useState(0)
+  const [lastRead, setLastRead] = useState<LastRead | null>(null)
 
   useEffect(() => {
     const now = new Date()
@@ -55,6 +63,31 @@ export default function SanctuaryPage() {
     const months = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro']
     setDateLabel(`${days[now.getDay()]} \u00B7 ${now.getDate()} de ${months[now.getMonth()]}`)
     setVerseIndex(now.getDate() % SANCTUARY_VERSES.length)
+  }, [])
+
+  // Streak logic
+  useEffect(() => {
+    const lastVisit = localStorage.getItem('kalam-last-visit')
+    const currentStreak = parseInt(localStorage.getItem('kalam-streak') || '0')
+    const today = new Date().toISOString().split('T')[0]
+
+    if (lastVisit !== today) {
+      const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0]
+      const newStreak = lastVisit === yesterday ? currentStreak + 1 : 1
+      localStorage.setItem('kalam-streak', String(newStreak))
+      localStorage.setItem('kalam-last-visit', today)
+      setStreak(newStreak)
+    } else {
+      setStreak(currentStreak)
+    }
+  }, [])
+
+  // Last read position
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('kalam-last-read')
+      if (saved) setLastRead(JSON.parse(saved))
+    } catch { /* ignore */ }
   }, [])
 
   const verse = SANCTUARY_VERSES[verseIndex]
@@ -71,7 +104,7 @@ export default function SanctuaryPage() {
         {/* Streak top-right */}
         <div className="absolute top-4 right-6">
           <span style={{ color: '#C9A84C', fontFamily: 'var(--font-serif)', fontSize: '14px' }}>
-            Dia 1
+            {streak > 0 ? `Dia ${streak}` : '\u00A0'}
           </span>
         </div>
 
@@ -178,6 +211,45 @@ export default function SanctuaryPage() {
           Explorar os 99 Nomes &rarr;
         </Link>
       </motion.section>
+
+      {/* ── ONDE VOCE PAROU (Continue where I left off) ────────────────────── */}
+      {lastRead && (
+        <motion.section
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-30px' }}
+          transition={{ duration: 0.6 }}
+          className="px-6 pb-8"
+        >
+          <p style={{ fontSize: '11px', letterSpacing: '0.2em', color: '#7A7870', marginBottom: '12px' }} className="uppercase">
+            Onde voc&ecirc; parou
+          </p>
+          <Link
+            href={`/a-palavra/${lastRead.surah}`}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '16px',
+              padding: '20px',
+              borderRadius: '12px',
+              background: 'rgba(201,168,76,0.06)',
+              border: '1px solid rgba(201,168,76,0.15)',
+              textDecoration: 'none',
+            }}
+          >
+            <BookOpen size={22} style={{ color: '#C9A84C', flexShrink: 0 }} />
+            <div style={{ flex: 1 }}>
+              <p style={{ fontSize: '15px', color: '#F0EBE2', fontWeight: 500 }}>
+                Continuar: {lastRead.name}
+              </p>
+              <p style={{ fontSize: '13px', color: '#7A7870', marginTop: '2px' }}>
+                Vers&iacute;culo {lastRead.verse}
+              </p>
+            </div>
+            <ArrowRight size={16} style={{ color: '#C9A84C', flexShrink: 0 }} />
+          </Link>
+        </motion.section>
+      )}
 
       {/* ── 4 PORTALS ───────────────────────────────────────────────────────── */}
       <motion.section

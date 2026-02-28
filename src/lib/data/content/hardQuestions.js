@@ -1,171 +1,343 @@
 export const hardQuestionsData = [
+  // ── THEOLOGY ──────────────────────────────────────────────────────────────────
+
   {
-    id: "aisha-age",
-    question: "Muhammad se casou com Aisha quando ela tinha 6 anos?",
-    directAnswer:
-      "Sim. Segundo os hadices mais aceitos dentro da tradição sunita — especialmente os registrados por Bukhari e Muslim, considerados as coleções mais confiáveis —, o contrato de casamento foi feito quando Aisha tinha 6 anos e o casamento foi consumado quando ela tinha 9. Aisha ela mesma narra isso. Não é invenção de crítico: está nos textos islâmicos canônicos.",
+    id: 'copiou-biblia',
+    question: 'O Alcorão copiou a Bíblia?',
+    summary:
+      'Não. O Alcorão compartilha histórias com a Bíblia — Adão, Noé, Abraão, Moisés, Jesus — mas conta essas histórias de forma radicalmente diferente. A estrutura literária é outra, as conclusões teológicas são outras, e os detalhes narrativos divergem significativamente. Histórias compartilhadas entre tradições não significam cópia.',
     context:
-      "O século VII na Arábia — e no mundo inteiro — operava por normas radicalmente diferentes das nossas. Na Roma antiga, as meninas podiam se casar a partir dos 12 anos; na Europa medieval cristã, casamentos aos 12-13 anos eram comuns entre famílias nobres e até ordenados por lei canônica. Na própria Arábia pré-islâmica, o casamento precoce era norma cultural sem exceção. O conceito de infância como etapa de proteção especial é uma construção moderna — emerge principalmente no século XIX com a industrialização e a luta contra o trabalho infantil, e se consolida com a Convenção dos Direitos da Criança da ONU em 1989. Avaliar o século VII com lentes éticas do século XXI é um anacronismo — o mesmo que condenar Abraão, Moisés ou qualquer figura histórica por não seguir a Declaração Universal dos Direitos Humanos. O que não elimina o desconforto real, mas contextualiza de onde veio essa prática.",
-    islamicScholarship:
-      "O debate dentro do Islam hoje é mais aberto do que a maioria das pessoas imagina. Uma corrente de estudiosos islâmicos progressistas — como a dra. Kecia Ali (EUA), o xeique Javed Ahmad Ghamidi (Paquistão) e outros reformistas — questiona a própria cadeia de transmissão do hadice, argumentando que a idade de 9 anos pode ser um erro de cálculo histórico, e que evidências alternativas sugerem que Aisha tinha entre 14 e 18 anos no casamento. Há análises baseadas em cronologia: se Aisha era jovem o suficiente para se lembrar de certos eventos históricos, as contas não fecham com 6 anos. Estudiosos conservadores, por outro lado, aceitam os hadices como são e argumentam que Aisha atingiu maturidade física nessa idade, que o casamento era culturalmente normal, e que não causou dano comprovado a ela — de fato, ela se tornou uma das figuras mais influentes do Islam, transmitindo milhares de hadices e liderando exércitos. O consenso clássico aceita os hadices; o debate moderno é real e legítimo dentro do Islam.",
-    honestConclusion:
-      "Isso é difícil. Não tem como não ser. Se você aplica padrões morais do século XXI, esse casamento é problemático — ponto. Se você aplica os padrões históricos do século VII, era normal dentro de um contexto específico que hoje não existe mais. O que não é honesto é fingir que não aconteceu, ou que não importa. O que também não é honesto é usar isso como prova de que o Islam inteiro é monstruoso — milhões de muçulmanos hoje condenam o casamento infantil, muitos países de maioria muçulmana têm leis de idade mínima para casamento, e o debate interno islâmico sobre esse tema é genuíno. A questão que vale para quem está explorando o Islam é: uma religião é definida pelas normas culturais do seu tempo de fundação, ou pelos seus princípios centrais e pela sua capacidade de evoluir? Cada um precisa responder isso por si.",
-    difficulty: "high"
+      'A acusação de "cópia" ignora como tradições religiosas funcionam. O Judaísmo, o Cristianismo e o Islam compartilham um tronco abraâmico comum — todos reconhecem Abraão, Moisés e outros profetas. Mas o modo como cada tradição conta essas histórias revela teologias fundamentalmente diferentes. No Alcorão, Adão é perdoado diretamente por Allah — não há pecado original transmitido à humanidade. Abraão não "quase sacrifica" seu filho como teste de obediência cega — o Alcorão enfatiza a consulta entre pai e filho. Jesus fala no berço, cria pássaros de barro, e nega ser Deus — detalhes ausentes dos Evangelhos canônicos.\n\nAlém disso, a estrutura literária do Alcorão é completamente diferente da Bíblia. A Bíblia é cronológica e narrativa; o Alcorão é temático e não-linear. A Bíblia contém múltiplos autores humanos reconhecidos ao longo de séculos; o Alcorão se apresenta como um único discurso de Deus. Muhammad era analfabeto segundo a tradição islâmica — o que torna a acusação de "cópia" de textos hebraicos e gregos historicamente problemática.\n\nO que a análise comparada honesta mostra é que o Alcorão conhece as tradições bíblicas mas as reinterpreta conscientemente. Em muitos casos, o Alcorão corrige o que considera distorções das escrituras anteriores. Isso é reivindicação teológica, não plágio.',
+    sources: [
+      'Al-Baqarah 2:136 — "Cremos em Allah e no que nos foi revelado, e no que foi revelado a Abraão, Ismael, Isaac..."',
+      'Al-Ma\'idah 5:48 — "E revelamos a ti o Livro com a verdade, confirmando e guardando o que veio antes dele."',
+      'Gabriel Said Reynolds — "The Qur\'an and the Bible: Text and Commentary"',
+      'Sidney Griffith — "The Bible in Arabic"',
+    ],
+    category: 'theology',
   },
 
   {
-    id: "beating-wives",
-    question: "O Islam permite que homens batam em suas esposas?",
-    directAnswer:
-      "O versículo 4:34 do Quran existe e é real. Ele usa a palavra 'idribuhunna', que pode ser traduzida como 'bater' ou 'golpear'. A leitura literal tradicional diz que, como último recurso em caso de desobediência grave, o marido pode tocar fisicamente na esposa. Isso está no texto. Não dá para negar.",
+    id: 'jesus-deus',
+    question: 'Por que não aceitar Jesus como Deus?',
+    summary:
+      'O Islam honra Jesus (Isa) profundamente — ele é Kalimatullah (Palavra de Deus), nascido de virgem, realizou milagres, e retornará antes do Fim do Mundo. Mas o Tawhid — a unicidade absoluta de Deus — é o pilar central do Islam. Nenhum ser humano, por mais elevado que seja, compartilha a natureza divina. Jesus é o maior sinal de Deus. Não é Deus.',
     context:
-      "O versículo 4:34 tem sido um dos mais debatidos da história do Islam. O contexto completo do versículo é: primeiro aconselhar, depois separar os leitos, e só depois o passo físico — que a tradição clássica já limitava enormemente. O Profeta Muhammad disse explicitamente em seu último sermão: 'Não batam nas servas de Allah.' Há hadices em que ele condena homens que batem em mulheres. A maioria dos juristas clássicos estabelecia que qualquer toque não podia deixar marca, não podia atingir o rosto, e era considerado makruh (desaconselhável) mesmo sendo permitido. Na prática, era uma permissão que os próprios juristas desestimulavam ao máximo. A raiz da palavra 'daraba' em árabe tem 40+ significados diferentes — 'viajar', 'exemplificar', 'separar' — e há uma corrente legítima que traduz o versículo como 'afaste-se delas' ou 'rompa com elas', não como 'bata'. A língua árabe clássica suporta essa leitura.",
-    islamicScholarship:
-      "O espectro de opiniões é amplo. Estudiosos conservadores aceitam a tradução 'bater' mas insistem que é o último recurso e quase nunca aplicável, e que o Profeta nunca bateu em nenhuma de suas esposas (fato documentado nos hadices). Estudiosos progressistas — como Laleh Bakhtiar, que produziu uma tradução feminista do Quran, ou o Professor Khaled Abou El Fadl — defendem a tradução alternativa e argumentam que qualquer violência doméstica é haram (proibida) pela ética islâmica total, mesmo que um versículo possa ser lido de outra forma. Países como a Tunísia e o Marrocos reformaram suas leis de família explicitamente contra a violência doméstica, baseando-se em princípios islâmicos. O Qatar e a Arábia Saudita têm interpretações mais conservadoras. O Islam não é monolítico.",
-    honestConclusion:
-      "O versículo existe. A tradução 'bater' é legítima e histórica. E isso é um problema real para qualquer pessoa que valoriza a igualdade entre homens e mulheres. O que também é verdade: o próprio texto coloca isso como último recurso, a tradição profética desestimulava fortemente qualquer violência, e há uma tradução alternativa linguisticamente defensável. Muçulmanos praticantes hoje — incluindo muitos conservadores — condenam qualquer forma de violência doméstica. Mas o versículo não desaparece. Quem explora o Islam precisa saber que esse debate existe, que não há resposta fácil, e que a posição de cada estudioso e de cada comunidade muçulmana varia significativamente nesse ponto.",
-    difficulty: "high"
+      'O Islam dedica mais espaço a Jesus do que a maioria dos cristãos imagina. O Alcorão o chama de Kalimatullah (Palavra de Deus), Ruhullah (Espírito de Deus), Masih (Messias), e o descreve como um dos maiores profetas. O Alcorão narra o nascimento virginal de Jesus com detalhes não presentes nos Evangelhos — incluindo Jesus falando no berço para defender a honra de Maria. Maryam (Maria) é a única mulher nomeada no Alcorão e tem uma surah inteira dedicada a ela.\n\nA divergência central é sobre a natureza de Jesus. O Cristianismo ortodoxo afirma que Jesus é "verdadeiro Deus de verdadeiro Deus" — a segunda pessoa da Trindade. O Islam afirma que isso contradiz o monoteísmo absoluto. O Alcorão diz explicitamente: "Não digam três. Cessem — é melhor para vocês. Allah é um Deus único. Glória a Ele — está acima de ter um filho" (An-Nisa 4:171). Para o Islam, dizer que Deus "gerou" um filho é atribuir a Deus uma característica humana — limitação, necessidade, reprodução — que contradiz Sua transcendência absoluta.\n\nO ponto mais sutil é este: o Islam não rebaixa Jesus ao negar sua divindade. Eleva-o ao mais alto patamar possível para um ser humano — profeta, messias, palavra de Deus — mas mantém que entre o Criador e a criação há uma linha que nenhum ser cruza. Isso é Tawhid.',
+    sources: [
+      'An-Nisa 4:171 — "O Messias, Jesus filho de Maria, foi apenas um mensageiro de Allah e Sua Palavra..."',
+      'Al-Ma\'idah 5:72 — "Certamente blasfemaram aqueles que disseram: Allah é o Messias, filho de Maria."',
+      'Maryam 19:30-35 — Jesus fala no berço e nega ser divino',
+      'Bart Ehrman — "How Jesus Became God" (perspectiva acadêmica secular)',
+    ],
+    category: 'theology',
   },
 
   {
-    id: "woman-testimony",
-    question: "Por que o Islam diz que a testemunha de uma mulher vale metade?",
-    directAnswer:
-      "O versículo 2:282 do Quran instrui que em contratos financeiros específicos, se não houver duas testemunhas masculinas disponíveis, substitua por um homem e duas mulheres — 'para que se uma esquecer, a outra lembre.' Esse é o texto. Em contextos de jurisprudência clássica, isso foi generalizado para valer metade do testemunho masculino em várias situações.",
+    id: 'trindade-biblica',
+    question: 'A Trindade é bíblica?',
+    summary:
+      'A palavra "Trindade" não aparece na Bíblia. A doutrina foi formulada ao longo de séculos de debates teológicos, concílios e disputas dentro do próprio Cristianismo. O Concílio de Niceia (325 d.C.) e o de Constantinopla (381 d.C.) definiram o que hoje é ortodoxia cristã — mas houve cristãos que discordaram e foram declarados hereges. O Islam aponta para isso: a doutrina é construção humana posterior, não revelação original.',
     context:
-      "O versículo está falando especificamente de contratos financeiros de dívida — o contexto mais específico possível. A razão dada pelo próprio texto é pragmática ('para que uma lembre a outra'), não ontológica ('porque mulheres são menos confiáveis'). Na Arábia do século VII, mulheres raramente participavam de transações comerciais formais e, portanto, teriam menos familiaridade com esses termos e práticas — a dupla testemunha era uma proteção para a própria mulher, não uma punição. Outros versículos do Quran tratam o testemunho de mulheres como igualmente válido: a mulher que é acusada de adultério e jura quatro vezes sua inocência tem seu testemunho que cancela o do marido (24:8). Em casos de família e parentesco, o testemunho feminino é aceito sem redução. A regra das duas mulheres é específica, não universal.",
-    islamicScholarship:
-      "Juristas clássicos como Ibn Rushd (Averrois) já debatiam os limites dessa regra. Modernamente, o debate é intenso. Estudiosos como Fatima Mernissi (Marrocos), Amina Wadud (EUA) e Tariq Ramadan argumentam que a regra era contextual — sobre experiência prática em transações financeiras, não sobre capacidade cognitiva ou moral. Em muitos países de maioria muçulmana, o testemunho legal de mulheres é tratado como igual ao masculino, sem que isso seja visto como contradição com o Islam. No Irã, a lei ainda aplica a distinção. Na maioria dos países árabes, as leis civis tratam o testemunho igualmente. A divergência é real e reflete posições genuinamente diferentes dentro do Islam.",
-    honestConclusion:
-      "O versículo existe e tem sido usado historicamente para diminuir o peso legal do testemunho feminino. Isso é um fato histórico com consequências reais para mulheres em sistemas jurídicos baseados em interpretações conservadoras do fiqh. O que também é verdade: a regra é mais limitada no próprio texto do que a jurisprudência clássica a tornou; há leituras contextualistas igualmente embasadas; e o Islam produziu figuras femininas de imenso peso intelectual e jurídico — Aisha transmitiu um quarto de toda a jurisprudência islâmica, e seu testemunho foi aceito sem redução. Não é uma questão com resposta fácil, mas é uma questão que merece ser enfrentada honestamente.",
-    difficulty: "high"
+      'O desenvolvimento da doutrina trinitária é um dos capítulos mais fascinantes da história religiosa. Jesus nunca disse "Eu sou a segunda pessoa da Trindade" em nenhum Evangelho. A formulação "um Deus em três pessoas — Pai, Filho, Espírito Santo" emerge gradualmente nos primeiros séculos do Cristianismo, em resposta a debates sobre a natureza de Jesus. No Concílio de Niceia (325 d.C.), convocado pelo imperador Constantino, os bispos votaram — literalmente votaram — sobre se Jesus era "da mesma substância" (homoousios) ou "de substância similar" (homoiousios) ao Pai. O arianismo — que afirmava que Jesus era criado por Deus e subordinado a Ele — foi declarado heresia, mas havia sido a posição de muitos cristãos.\n\nO Alcorão aborda a Trindade diretamente: "Não digam três" (4:171). Estudiosos debatem se o Alcorão se refere à Trindade cristã ortodoxa ou a uma variante que incluía Maria como terceira pessoa (o que alguns cristãos árabes do século VII podem ter praticado). Independente disso, o ponto islâmico é claro: qualquer multiplicidade na natureza divina contradiz o monoteísmo puro.\n\nO que torna esse debate honesto é reconhecer que a própria tradição cristã tem uma história longa de discordância interna sobre isso. Unitaristas cristãos — desde os primeiros séculos até hoje — rejeitam a Trindade usando a própria Bíblia. O Islam não está sozinho nessa crítica.',
+    sources: [
+      'An-Nisa 4:171 — "Não digam três. Cessem."',
+      'Al-Ma\'idah 5:73 — "Certamente blasfemaram aqueles que disseram: Allah é o terceiro de três."',
+      'Marcos 12:29 — Jesus cita o Shema: "O Senhor nosso Deus é o único Senhor"',
+      'Bart Ehrman — "How Jesus Became God"',
+      'Concílio de Niceia, 325 d.C.',
+    ],
+    category: 'theology',
   },
 
   {
-    id: "jihad-violence",
-    question: "O Islam promove violência? Jihad significa guerra santa?",
-    directAnswer:
-      "Jihad não significa 'guerra santa' — essa tradução é um erro histórico popularizado no Ocidente. Jihad significa 'esforço' ou 'luta'. Pode ser interior (contro o próprio ego), social (contra a injustiça) ou militar. O Islam autoriza a guerra em condições específicas. Isso é diferente de 'promover violência'.",
+    id: 'sofrimento',
+    question: 'Se Deus é misericordioso, por que existe sofrimento?',
+    summary:
+      'Essa é a pergunta mais antiga da filosofia da religião — e nenhuma tradição tem uma resposta que elimina o desconforto. O Islam não finge que o sofrimento não existe. Diz que a vida é uma prova temporária, que o ser humano tem livre arbítrio real (e causa a maior parte do sofrimento), e que a justiça final não acontece neste mundo. Se isso é suficiente depende do que você traz para a pergunta.',
     context:
-      "O Quran contém versículos que autorizam o combate (2:191, 9:5, 9:29) e versículos que proíbem o excesso e a agressão (2:190, 60:8). Lidos no contexto histórico — resposta a perseguições e guerras iniciadas pelos opositores de Muhammad — os versículos de combate têm uma lógica de legítima defesa e proteção de comunidades vulneráveis. O versículo 9:5 ('verso da espada'), frequentemente citado fora de contexto, fazia parte de um tratado quebrado por tribos específicas — não era uma ordem geral de matar todos os não-muçulmanos. O Islam clássico desenvolveu uma jurisprudência de guerra (siyar) sofisticada: não matar civis, não destruir colheitas, não matar religiosos em seus templos, oferecer paz antes do combate. Essas regras precederam as Convenções de Genebra por mais de mil anos. O Islamismo político do século XX e o jihadismo do século XXI são fenômenos modernos com raízes em contextos de colonialismo, humilhação política e distorções ideológicas — não são o 'Islam verdadeiro revelado', são produtos históricos específicos.",
-    islamicScholarship:
-      "A vasta maioria dos estudiosos islâmicos — incluindo Al-Azhar, a mais antiga e prestigiosa universidade islâmica do mundo — condenam explicitamente o terrorismo e o jihadismo como heresia. Estudiosos como Hamza Yusuf, Abdal Hakim Murad, e instituições como o Forum for Promoting Peace in Muslim Societies trabalham ativamente contra a radicalização. Há uma minoria — os ideólogos do jihadismo como Sayyid Qutb, Abdullah Azzam — que desenvolveu uma teologia do conflito permanente que a maioria dos muçulmanos rejeita. As duas correntes existem. Uma delas move 1.8 bilhão de pessoas no mundo; a outra justificou atrocidades.",
-    honestConclusion:
-      "O Islam não é uma religião de paz no sentido ingênuo — tem versículos que autorizam a guerra e uma história de expansão militar. Também não é uma religião de violência no sentido que críticos extremos afirmam — tem uma ética de guerra mais desenvolvida que a maioria das civilizações antigas, e a maioria esmagadora de muçulmanos vive vidas pacíficas. O jihad mais enfatizado na tradição islâmica é o 'jihad maior' — o esforço contra a própria tendência ao mal. Terrorismo em nome do Islam é uma distorção real, mas atribuir essa distorção aos 1.8 bilhão de muçulmanos é o mesmo que responsabilizar todos os cristãos pelas Cruzadas ou pela Inquisição.",
-    difficulty: "high"
+      'O Problema do Mal (teodiceia) foi formulado por Epicuro na Grécia Antiga e persiste em todas as tradições religiosas. A formulação clássica é: se Deus é todo-poderoso e todo-misericordioso, por que permite o sofrimento? O Islam responde em múltiplas camadas.\n\nPrimeira camada: a dunya (vida terrena) é temporária e é uma prova. O Alcorão diz: "Certamente vos testaremos com algo de medo, fome, perda de bens, vidas e frutos. E dá boas novas aos pacientes" (Al-Baqarah 2:155). A vida não foi projetada para ser confortável — foi projetada para revelar caráter.\n\nSegunda camada: o livre arbítrio é real. A maior parte do sofrimento humano — guerra, fome, pobreza, violência — é causada por escolhas humanas. Crianças morrem de fome não porque falta comida no mundo, mas porque a distribuição é injusta. Atribuir isso a Deus é deslocar a responsabilidade.\n\nTerceira camada: a akhirah (vida após a morte) é onde a conta fecha. O Islam não promete justiça neste mundo — promete que cada injustiça será pesada e compensada. "Quem fizer o peso de um átomo de bem o verá, e quem fizer o peso de um átomo de mal o verá" (Az-Zalzalah 99:7-8).\n\nO que é honesto reconhecer: essa resposta exige fé para ser aceita. Para quem não tem fé, "a justiça vem depois" pode parecer uma evasão. Mas a alternativa — um universo sem propósito onde o sofrimento é aleatório e sem consequência — também não é reconfortante.',
+    sources: [
+      'Al-Baqarah 2:155 — "Certamente vos testaremos..."',
+      'Al-Baqarah 2:286 — "Allah não sobrecarrega nenhuma alma além do que ela pode suportar."',
+      'Az-Zalzalah 99:7-8 — "Quem fizer o peso de um átomo de bem o verá."',
+      'Al-Ghazali — "Ihya Ulum al-Din" (capítulos sobre teodiceia)',
+      'Qaf 50:16 — "Estamos mais perto dele que sua veia jugular."',
+    ],
+    category: 'theology',
   },
 
   {
-    id: "empty-tomb",
-    question: "Se Jesus não morreu na cruz, por que existe o túmulo vazio?",
-    directAnswer:
-      "O Islam não afirma que Jesus foi para o túmulo e saiu dele vazio. O Quran diz que Jesus não foi crucificado — 'mas assim lhes pareceu' (4:157). Portanto, para o Islam, a questão do túmulo vazio simplesmente não se aplica: se não houve crucificação, não houve enterro, e não há túmulo vazio para explicar.",
+    id: 'predestinacao',
+    question: 'Predestinação vs livre arbítrio — qual é?',
+    summary:
+      'Os dois coexistem no Islam, e isso não é contradição — é sofisticação teológica. Allah sabe tudo o que vai acontecer (Qadr). O ser humano escolhe livremente (Ikhtiyar). Deus saber o que você vai escolher não significa que Ele escolheu por você. É como um professor que conhece o aluno tão bem que sabe qual resposta ele vai dar na prova — mas não escreveu a resposta por ele.',
     context:
-      "O versículo 4:157-158 do Quran afirma que os judeus não mataram Jesus nem o crucificaram, mas 'assim lhes pareceu', e que Allah o elevou para Si. As interpretações islâmicas variam: alguns dizem que outra pessoa (possivelmente Judas ou Simão de Cirene) foi crucificada em seu lugar; outros dizem que foi uma ilusão coletiva; outros, que Jesus foi arrebatado antes do momento da morte. Nenhuma dessas narrativas coloca Jesus no túmulo. A evidência do 'túmulo vazio' é um argumento cristão para a ressurreição — mas o próprio historiador de primeiro século Flávio Josefo não menciona o túmulo vazio. As fontes históricas primárias sobre a crucificação são escassas e posteriores ao evento. O Islam não nega que houve uma execução romana de alguém, ou que os discípulos acreditaram que Jesus havia ressuscitado — nega que o próprio Jesus tenha sido o executado.",
-    islamicScholarship:
-      "O debate islâmico-cristão sobre esse tema é antigo e sofisticado. Apologistas islâmicos modernos como Ahmed Deedat e Zakir Naik argumentaram que há evidências históricas de que Jesus sobreviveu (baseados em teorias como a do desmaio ou a da substituição). Estudiosos islâmicos mais tradicionais simplesmente aceitam o texto do Quran como revelação e não precisam entrar no debate histórico-arqueológico cristão. A posição honesta é: o Islam e o Cristianismo têm narrativas fundamentalmente incompatíveis sobre o que aconteceu com Jesus. Não há como reconciliar as duas sem abandonar uma delas. O debate do túmulo vazio é relevante dentro do quadro cristão — dentro do quadro islâmico, ele nem se coloca.",
-    honestConclusion:
-      "Se você está vindo de uma perspectiva cristã, o argumento do túmulo vazio é poderoso dentro da sua própria tradição de evidências. Mas ele não 'refuta' o Islam, porque o Islam parte de premissas diferentes sobre o que aconteceu. O diálogo honesto entre as duas tradições precisa reconhecer que elas têm fontes de autoridade diferentes — o Quran de um lado, os Evangelhos do outro — e que escolher entre elas não é uma questão de evidência arqueológica, é uma questão de em qual revelação você deposita confiança. O Islam respeita Jesus profundamente — o considera um dos maiores profetas — e discorda especificamente sobre o que aconteceu nos últimos dias de sua vida.",
-    difficulty: "medium"
+      'O conceito de Qadr (destino/decreto divino) é um dos seis artigos de fé no Islam. Mas a tradição islâmica nunca o reduziu a fatalismo. O Alcorão equilibra duas verdades simultaneamente: Allah tem conhecimento absoluto de tudo o que foi, é e será; e o ser humano é responsável por suas escolhas e será julgado por elas.\n\nSe não houvesse livre arbítrio real, o Dia do Julgamento não faria sentido — como julgar alguém por ações que não escolheu? O Islam insiste no julgamento individual, o que pressupõe liberdade real de escolha. O Alcorão diz: "Na verdade, nós o guiamos ao caminho — seja ele agradecido ou ingrato" (Al-Insan 76:3). O caminho é mostrado. A escolha é humana.\n\nTeologicamente, o debate dentro do Islam foi intenso nos primeiros séculos. Os Mu\'tazilitas enfatizavam o livre arbítrio quase absoluto. Os Ash\'aritas desenvolveram a posição intermediária que se tornou dominante: o ser humano "adquire" (kasb) suas ações — Deus cria a possibilidade, o ser humano escolhe e assume responsabilidade.\n\nA analogia mais simples: Deus saber o futuro é como uma câmera de segurança que grava o que acontece — ela registra sem causar. O conhecimento divino não é coerção divina.',
+    sources: [
+      'Al-Insan 76:3 — "Nós o guiamos ao caminho — seja ele agradecido ou ingrato."',
+      'Al-Kahf 18:29 — "Diga: a verdade vem do vosso Senhor. Quem quiser, que creia; quem quiser, que descreia."',
+      'Al-Qamar 54:49 — "Tudo criamos com Qadr (medida/decreto)."',
+      'Imam Al-Ash\'ari — Teoria do kasb (aquisição)',
+      'Ibn Taymiyya — Discussão sobre Qadr e responsabilidade humana',
+    ],
+    category: 'theology',
+  },
+
+  // ── HISTORY ───────────────────────────────────────────────────────────────────
+
+  {
+    id: 'muhammad-violento',
+    question: 'Muhammad era violento?',
+    summary:
+      'Muhammad participou de guerras — isso é fato histórico. Mas o contexto do século VII na Arábia era de tribos em conflito constante. A maioria das batalhas foi defensiva. O Tratado de Hudaybiyyah mostrou Muhammad escolhendo a paz mesmo em desvantagem. A Conquista de Meca — a maior vitória militar — aconteceu praticamente sem derramamento de sangue, seguida de anistia geral.',
+    context:
+      'Muhammad nasceu numa sociedade onde a guerra tribal era constante e a sobrevivência de uma comunidade dependia de sua capacidade militar. Quando os muçulmanos migraram para Medina (Hijra, 622 d.C.), foram perseguidos pelos Quraysh de Meca, que confiscaram suas propriedades, torturaram e mataram muçulmanos. As primeiras batalhas — Badr, Uhud — foram respostas diretas a ameaças existenciais à comunidade.\n\nO Tratado de Hudaybiyyah (628 d.C.) é talvez o episódio mais revelador do caráter de Muhammad. Quando os muçulmanos marcharam para Meca para a peregrinação, os Quraysh os bloquearam. Muhammad aceitou um tratado com condições que seus próprios companheiros consideraram humilhantes — incluindo devolver muçulmanos que fugissem de Meca. O Alcorão chamou esse tratado de "vitória clara" (Al-Fath 48:1) porque a paz era a vitória.\n\nA Conquista de Meca (630 d.C.) — quando os Quraysh quebraram o tratado — poderia ter sido um banho de sangue. Muhammad entrou na cidade com 10.000 guerreiros e declarou anistia geral. Até Hind bint Utbah, que havia ordenado a mutilação do corpo do tio de Muhammad (Hamza), foi perdoada. Compare isso com qualquer conquista militar do mesmo período — ou de mil anos depois — e o contraste é notável.\n\nIsso não significa que Muhammad foi pacifista. Ele autorizou execuções específicas (os poetas que incitavam ao massacre, os Banu Qurayza após a Batalha da Trincheira). Esses episódios são debatidos intensamente — mas ignorar o contexto de guerra total é desonesto.',
+    sources: [
+      'Al-Fath 48:1 — "Na verdade, te concedemos uma vitória clara" (sobre Hudaybiyyah)',
+      'Al-Baqarah 2:190 — "Combatei pela causa de Allah aqueles que vos combatem, mas não transgredi."',
+      'Martin Lings — "Muhammad: His Life Based on the Earliest Sources"',
+      'Karen Armstrong — "Muhammad: A Prophet for Our Time"',
+    ],
+    category: 'history',
   },
 
   {
-    id: "arabic-prayer",
-    question: "Por que orar em árabe se não entendo nada?",
-    directAnswer:
-      "Porque o árabe é a língua original do Quran, e a tradição islâmica clássica considera que a oração ritual (salah) em sua forma prescrita — incluindo o árabe — é um ato de obediência específico, não apenas uma conversa com Deus. Não é sobre entender cada palavra no momento; é sobre realizar um rito coletivo e histórico.",
+    id: 'aisha-idade',
+    question: 'E a questão da idade de Aisha?',
+    summary:
+      'Sim. Os hadices mais aceitos na tradição sunita registram que Aisha tinha 6 anos no noivado e 9 no casamento consumado. Isso não é invenção de críticos — está nos textos islâmicos canônicos. Mas o século VII operava por normas radicalmente diferentes, e há um debate crescente entre estudiosos muçulmanos sobre o cálculo da idade.',
     context:
-      "A salah — a oração ritual cinco vezes ao dia — não é o único modo de comunicação com Allah no Islam. O du'a (súplica pessoal) pode ser feito em qualquer língua, em qualquer momento, e é considerado igualmente válido e valorizado. A salah em árabe funciona mais como um rito litúrgico — comparável ao latim na missa católica por séculos, ou ao hebraico nas sinagogas. O árabe coránico cria uma língua sagrada compartilhada por 1.8 bilhão de muçulmanos de culturas completamente diferentes — um indonésio e um senegalês que nunca se viram antes podem orar lado a lado com as mesmas palavras. Isso cria uma unidade global que transcende etnia e cultura. Também há um argumento espiritual: a repetição de palavras que você está aprendendo a entender gradualmente é diferente da oração espontânea — é uma disciplina que transforma o praticante ao longo do tempo.",
-    islamicScholarship:
-      "A maioria dos juristas clássicos exige o árabe na salah obrigatória. O Imam Abu Hanifa (fundador da escola hanafi) inicialmente permitiu o persa, mas depois reverteu. Modernamente, estudiosos como Tariq Ramadan e outros reformistas discutem se essa regra é um princípio fixo ou uma norma cultural que pode evoluir. Na prática, muçulmanos não-árabes são encorajados a aprender o significado das frases da oração — e a maioria aprende. 'Allahu Akbar', 'Al-Fatiha', 'Subhanallah' deixam de ser sons estranhos rapidamente. A crítica de 'papagaio em árabe' é real quando a comunidade não investe em educação; é menos real quando o praticamente investe em entender o que diz.",
-    honestConclusion:
-      "É uma questão legítima. Orar em palavras que você não entende pode parecer mecânico e vazio — e para algumas pessoas, é exatamente assim que se sente no começo. O que a tradição islâmica pede é que você invista em entender: aprenda o significado da Al-Fatiha, aprenda o que está dizendo no ruku e no sujud. Muçulmanos que fazem isso descrevem a oração árabe como profundamente significativa. O du'a em português existe e é válido para a comunicação pessoal com Deus. A salah em árabe é um rito específico com sua própria lógica. Você não precisa aceitar essa lógica para encontrar valor espiritual no Islam — mas vale entendê-la antes de descartá-la.",
-    difficulty: "low"
+      'As fontes primárias (Sahih al-Bukhari, Sahih Muslim) registram que Aisha narrou ela mesma os detalhes do casamento. Isso não é contestado pela maioria dos estudiosos tradicionais. O que é debatido é a interpretação e o contexto.\n\nNo século VII — em todo o mundo, não apenas na Arábia — o conceito de infância como fase protegida não existia. Na Europa medieval cristã, casamentos aos 12-13 anos eram comuns e legais por lei canônica. Na Roma Antiga, meninas podiam casar a partir dos 12. A Convenção dos Direitos da Criança da ONU é de 1989. Avaliar o século VII com ética do século XXI é anacronismo — o mesmo que condenar Abraão, Moisés ou qualquer figura histórica por não seguir a Declaração Universal dos Direitos Humanos.\n\nDentro do Islam contemporâneo, o debate é mais aberto do que a maioria imagina. Estudiosos como Javed Ahmad Ghamidi (Paquistão) e a dra. Kecia Ali (EUA) questionam a cadeia de transmissão do hadice, argumentando que evidências cronológicas alternativas sugerem que Aisha tinha entre 14 e 18 anos. Estudiosos conservadores aceitam os hadices como são e argumentam que Aisha atingiu maturidade e se tornou uma das figuras mais influentes do Islam — transmitindo milhares de hadices e liderando exércitos. O debate é legítimo e está acontecendo dentro do Islam.',
+    sources: [
+      'Sahih al-Bukhari — Hadice 5134 (narração de Aisha)',
+      'Sahih Muslim — Hadice 1422',
+      'Kecia Ali — "Sexual Ethics and Islam"',
+      'Javed Ahmad Ghamidi — Análises sobre cronologia da idade de Aisha',
+    ],
+    category: 'history',
   },
 
   {
-    id: "evolution",
-    question: "Islam e evolução são compatíveis?",
-    directAnswer:
-      "Depende de qual interpretação do Islam e de qual aspecto da evolução você está falando. O Quran não descreve um processo biológico de criação — descreve que Allah criou. Muçulmanos que aceitam a teoria evolutiva como o mecanismo desse processo existem em grande número. Muçulmanos que rejeitam a evolução também existem. Não há um 'Islam oficial' sobre isso.",
+    id: 'espada',
+    question: 'Islam foi espalhado pela espada?',
+    summary:
+      'A Indonésia é o maior país muçulmano do mundo — 275 milhões de muçulmanos. Nunca teve um exército islâmico. A Malásia, a África subsaariana, grande parte do Sudeste Asiático se converteram pelo comércio, pelo sufismo e por contato individual. A narrativa de "espalhado pela espada" ignora como a maioria dos muçulmanos do mundo de fato se tornou muçulmana.',
     context:
-      "O Quran fala da criação do ser humano em vários versículos — de argila, de água, de um 'nutfa' (gota seminal). Esses versículos são poéticos e teológicos, não são um manual de biologia. A tradição islâmica medieval foi altamente científica — Ibn Rushd (Averrois), Ibn Sina (Avicena), Al-Biruni eram ao mesmo tempo cientistas e muçulmanos profundos. A ciência islâmica clássica não via contradição entre razão e revelação; aliás, a palavra 'iqra' (leia) foi o primeiro versículo revelado. A questão evolutiva entrou em tensão com o Islam principalmente no século XIX-XX, importando o conflito que já existia no Ocidente cristão. Países como o Irã e a Turquia incluem evolução nos currículos escolares. A Arábia Saudita é mais restritiva. A posição varia por país, escola teológica e comunidade.",
-    islamicScholarship:
-      "O xeique Hamza Yusuf, uma das vozes mais respeitadas do Islam ocidental, disse publicamente que aceita a evolução como possibilidade dentro da criação divina. O Dr. Nidhal Guessoum (Argélia) escreveu 'Islam's Quantum Question' argumentando pela compatibilidade total entre Islam e ciência moderna, incluindo evolução. Muçulmanos na Academia — biólogos, geneticistas, médicos — trabalham com evolução diariamente sem sentir contradição com sua fé. Por outro lado, o Conselho de Ulemas da Arábia Saudita e outros órgãos conservadores rejeitam a evolução humana. O debate interno existe, é vivo, e não tem resolução consensual.",
-    honestConclusion:
-      "Islam e evolução não são necessariamente incompatíveis — mas essa compatibilidade exige ou uma interpretação não-literal de certos versículos, ou uma separação clara entre linguagem teológica e descrição científica. Muçulmanos que aceitam a evolução argumentam que o Quran nunca quis ser um livro de biologia — descreve o que e o porquê, não o como. Muçulmanos que rejeitam argumentam que a criação especial do ser humano é central à dignidade humana na teologia islâmica. Ambas as posições têm defensores sérios. Não é uma questão resolvida, e nenhum dos lados é obviamente desonesto.",
-    difficulty: "medium"
+      'A expansão militar islâmica nos primeiros séculos é real — os exércitos muçulmanos conquistaram territórios do Norte da África à Pérsia em poucas décadas após a morte de Muhammad. Mas conquista militar e conversão religiosa são coisas diferentes. Os Impérios Omíada e Abássida governaram populações majoritariamente não-muçulmanas por séculos. Cristãos, judeus e zoroastristas viveram sob domínio islâmico pagando a jizya (imposto) e mantendo sua fé. A conversão em massa ao Islam nessas regiões aconteceu gradualmente ao longo de 200-300 anos — não na ponta da espada.\n\nO Alcorão é explícito: "Não há compulsão na religião" (Al-Baqarah 2:256). Isso não significa que nunca houve conversão forçada na história — houve, assim como houve no Cristianismo e em outras tradições. Significa que a doutrina islâmica proíbe isso.\n\nOs maiores centros populacionais muçulmanos do mundo — Indonésia, Malásia, Bangladesh, grande parte da África — nunca viram exércitos islâmicos. A conversão veio por comerciantes, por sufis (místicos), por casamentos, por atração à mensagem. O Islam se espalhou na Índia medieval tanto por sufis como Moinuddin Chishti quanto por conquistas militares como as de Mahmud de Ghazni — e esses dois caminhos produziram Islams muito diferentes.\n\nComparar historicamente: os Vikings se converteram ao Cristianismo gradualmente pelo comércio, não pela força. Os Romanos se cristianizaram após Constantino — uma conversão política de cima para baixo. Nenhuma grande religião se espalhou por um único mecanismo.',
+    sources: [
+      'Al-Baqarah 2:256 — "Não há compulsão na religião."',
+      'Richard Bulliet — "Conversion to Islam in the Medieval Period"',
+      'Marshall Hodgson — "The Venture of Islam"',
+      'Thomas Arnold — "The Preaching of Islam"',
+    ],
+    category: 'history',
   },
 
   {
-    id: "homosexuality",
-    question: "O Islam condena homossexuais?",
-    directAnswer:
-      "A posição clássica dominante do Islam — baseada no Quran e no hadice — é que os atos homossexuais são haram (proibidos). A história de Lot (Lut) no Quran é lida pela tradição clássica como condena a relações homossexuais. Isso é o que a maioria dos juristas islâmicos ao longo da história ensinou.",
+    id: 'sharia',
+    question: 'O que é Sharia de verdade?',
+    summary:
+      'Sharia não é o que a mídia mostra. A palavra significa "caminho para a fonte de água" — literalmente, o caminho que dá vida. Os Maqasid al-Sharia (objetivos da Sharia) são: proteção da vida, da mente, da propriedade, da família e da fé. Se uma lei contradiz esses objetivos, ela contradiz a própria Sharia. A caricatura de "mão cortada e apedrejamento" é como reduzir o Cristianismo à Inquisição.',
     context:
-      "A questão de orientação versus ato é importante: a maioria dos juristas clássicos proibiu o ato, não a atração em si — uma distinção relevante mas que ainda coloca uma restrição enorme sobre pessoas LGBT. A história de Lot no Quran (7:80-84, 26:165-175) descreve a destruição de uma cidade por 'fawahisha' (coisas abomináveis) — a tradição clássica interpreta isso como homossexualidade, mas há leituras que argumentam que o crime central era a violação de hóspedes e a injustiça social, não a homossexualidade por si. Em termos históricos, o califado islâmico medieval foi, em alguns períodos, significativamente mais tolerante com a homossexualidade do que a Europa cristã contemporânea — há poesia árabe clássica com temas homoafetivos explícitos, e a punição legal foi raramente aplicada. Isso não é equivalente à aceitação, mas é um contexto importante.",
-    islamicScholarship:
-      "A posição conservadora dominante permanece: atos homossexuais são haram. Estudiosos como Yusuf Al-Qaradawi e instituições como Al-Azhar mantêm essa posição. Uma corrente progressista emergente — muito pequena mas existente — argumenta por releituras do texto. Scott Kugle, professor americano e muçulmano, escreveu 'Homosexuality in Islam' argumentando que a tradição clássica errou na interpretação. Rahul Rao e outros acadêmicos questionam se a proibição no Quran se refere a homossexualidade como conhecemos hoje. Organizações como Muslims for Progressive Values afirmam que o Islam e a identidade LGBT são compatíveis. Essa é uma posição minoritária e contestada dentro do Islam global — mas existe.",
-    honestConclusion:
-      "A posição islâmica dominante e historicamente prevalente é que os atos homossexuais são proibidos. Para pessoas LGBT, isso é uma restrição real e dolorosa. O que também é verdade: há muçulmanos LGBT que encontraram modos de viver sua espiritualidade sem abrir mão de sua identidade; há um debate teológico emergente que questiona as interpretações clássicas; e há uma diferença enorme entre o que o Quran diz, o que os juristas interpretaram, e como diferentes países e comunidades aplicam isso. Países como a Indonésia não criminalizam a homossexualidade; países como o Irã executam. O Islam não é monolítico. Mas seria desonesto dizer que essa não é uma tensão real para pessoas LGBT que se interessam pelo Islam.",
-    difficulty: "high"
+      'A Sharia é um sistema jurídico e ético vastamente mais complexo do que a imagem popular sugere. Ela abrange tudo: contratos comerciais, direito de família, ética alimentar, relações internacionais, proteção ambiental, direitos dos animais. Reduzir a Sharia a punições criminais (hudud) é como reduzir a Constituição brasileira ao Código Penal.\n\nOs Maqasid al-Sharia, desenvolvidos pelo Imam Al-Shatibi (século XIV), estabelecem que toda lei islâmica deve servir a cinco objetivos: preservação da vida (nafs), da mente (aql), da propriedade (mal), da linhagem/família (nasl) e da fé (din). Se uma lei contradiz esses objetivos, ela deve ser reinterpretada. Isso dá à Sharia uma flexibilidade que surpreende quem a vê como código petrificado.\n\nAs punições criminais severas (hudud) — como a amputação por roubo ou o apedrejamento por adultério — têm requisitos probatórios tão altos na jurisprudência clássica que eram raramente aplicadas. O adultério, por exemplo, requer quatro testemunhas oculares do ato em si — uma condição quase impossível de cumprir. O próprio Califa Omar ibn Al-Khattab suspendeu a punição por roubo durante uma fome, porque o contexto social mudou a aplicação da lei.\n\nO que países como o Afeganistão do Talibã ou a Arábia Saudita aplicam não é "a Sharia" — é uma interpretação particular, frequentemente politizada, que muitos juristas muçulmanos rejeitam.',
+    sources: [
+      'Imam Al-Shatibi — "Al-Muwafaqat" (Maqasid al-Sharia)',
+      'Jasser Auda — "Maqasid al-Shariah as Philosophy of Islamic Law"',
+      'Tariq Ramadan — "Radical Reform: Islamic Ethics and Liberation"',
+      'Wael Hallaq — "An Introduction to Islamic Law"',
+    ],
+    category: 'history',
   },
 
   {
-    id: "extremism-terrorism",
-    question: "Por que existem tanto extremismo e terrorismo em nome do Islam?",
-    directAnswer:
-      "Porque o extremismo tem causas reais que incluem — mas não se limitam a — interpretações religiosas específicas. Pobreza, humilhação política, colonialismo, ditaduras apoiadas pelo Ocidente, e identidade traumatizada são tão centrais quanto teologia. Mas sim, há ideólogos islâmicos reais que produziram justificativas religiosas para violência, e isso precisa ser reconhecido.",
+    id: 'sunitas-xiitas',
+    question: 'Sunitas vs Xiitas — qual é a diferença?',
+    summary:
+      'A divisão começou como disputa política sobre quem deveria liderar a comunidade após a morte de Muhammad — não como divergência teológica. Sunitas apoiaram Abu Bakr (eleito por consenso). Xiitas apoiaram Ali (primo e genro de Muhammad, que consideravam o legítimo herdeiro). Com o tempo, essa divergência política se tornou teológica, litúrgica e cultural.',
     context:
-      "O jihadismo moderno tem uma genealogia específica e relativamente recente. Sayyid Qutb (Egito, executado em 1966) desenvolveu a teoria de que sociedades muçulmanas haviam regredido à 'jahiliyya' (ignorância pré-islâmica) e precisavam ser transformadas por força. Abdullah Azzam (Palestina/Jordânia) operacionalizou isso no jihad afegão contra a União Soviética nos anos 80 — com apoio financeiro americano e saudita. Osama bin Laden foi produto diretamente desse contexto. O Estado Islâmico emergiu do caos do Iraque pós-invasão americana de 2003. Removendo esses contextos políticos específicos, a narrativa de 'o Islam é violento por natureza' não explica por que países muçulmanos como a Indonésia (maior nação muçulmana do mundo) têm taxas de terrorismo muito menores. Também não explica por que o terrorismo cristão (IRA, KKK, milícias evangélicas na África) raramente é chamado de 'terrorismo cristão'.",
-    islamicScholarship:
-      "A condenação do terrorismo por parte da grande maioria dos estudiosos islâmicos é consistente e clara. O problema é que essas condenações raramente recebem cobertura midiática proporcional. O Conselho Muçulmano da Grã-Bretanha, Al-Azhar, centenas de organizações islâmicas globais condenam explicitamente ataques terroristas. Estudiosos como Sheikh Abdullah bin Bayyah lançaram a 'Declaração de Marrakesh' (2016) afirmando que minorias religiosas em países muçulmanos têm direitos plenos. Ao mesmo tempo, há uma crise de autoridade no Islam sunita — sem um papa ou uma hierarquia centralizada, qualquer um pode declarar-se autoridade religiosa e recrutar seguidores. Isso é tanto uma vulnerabilidade ao extremismo quanto uma força da tradição descentralizada islâmica.",
-    honestConclusion:
-      "O terrorismo em nome do Islam é real, causa sofrimento real, e merece ser chamado pelo nome. Também é verdade que atribuir isso ao Islam como religião — e não a contextos políticos específicos, a movimentos ideológicos particulares, e a traumas históricos reais — é um erro de análise. A maioria esmagadora de muçulmanos não apenas não apoia o terrorismo como é a principal vítima dele — a maioria das vítimas do ISIS, Al-Qaeda, e grupos similares são muçulmanos. Entender o jihadismo requer entender Qutb, Azzam, o Iraque de 2003, a Arábia Saudita dos anos 80 — não apenas o Quran de 622.",
-    difficulty: "high"
+      'Quando Muhammad morreu em 632 d.C., não deixou instruções claras e explícitas sobre seu sucessor — ou, mais precisamente, sunitas e xiitas discordam se deixou ou não. Os sunitas sustentam que a comunidade elegeu Abu Bakr por shura (consulta). Os xiitas sustentam que Muhammad designou Ali como sucessor no evento de Ghadir Khumm, e que Abu Bakr usurpou o direito de Ali.\n\nA ruptura se tornou definitiva em 680 d.C. com a Batalha de Karbala, quando Husayn (neto de Muhammad e filho de Ali) foi massacrado junto com sua família pelo exército do califa Omíada Yazid. Para os xiitas, Karbala é o evento central de sua identidade — um martírio fundacional que define sua teologia de sofrimento, resistência e justiça. O luto anual de Ashura celebra esse sacrifício.\n\nTeologicamente: sunitas seguem quatro escolas jurídicas (Hanafi, Maliki, Shafi\'i, Hanbali) e não reconhecem autoridade religiosa centralizada. Xiitas seguem a linhagem dos doze Imams (descendentes de Ali), sendo o último o Imam Mahdi, que está em "ocultação" e retornará. Xiitas têm uma hierarquia clerical (com Ayatollahs e Marjas) que sunitas não têm.\n\nNa prática diária, as diferenças são menores do que a geopolítica sugere. Ambos rezam cinco vezes ao dia, jejuam no Ramadan, fazem o Hajj, e recitam o mesmo Alcorão. As diferenças são mais sobre jurisprudência, hadices aceitos, e liderança comunitária do que sobre o núcleo da fé.',
+    sources: [
+      'Evento de Ghadir Khumm — narrado em fontes sunitas e xiitas',
+      'Batalha de Karbala, 680 d.C.',
+      'Lesley Hazleton — "After the Prophet: The Epic Story of the Shia-Sunni Split"',
+      'Vali Nasr — "The Shia Revival"',
+    ],
+    category: 'history',
+  },
+
+  // ── WOMEN ─────────────────────────────────────────────────────────────────────
+
+  {
+    id: 'oprime-mulheres',
+    question: 'Islam oprime mulheres?',
+    summary:
+      'Khadijah, a primeira esposa de Muhammad, era uma empresária bem-sucedida que o contratou e depois pediu ele em casamento. Aisha transmitiu um quarto da jurisprudência islâmica. Fatima al-Fihri fundou a primeira universidade do mundo (al-Qarawiyyin, Marrocos, 859 d.C.). Se o Islam "oprime mulheres", há algo errado com o que se entende por Islam ou por opressão.',
+    context:
+      'A questão exige separar três coisas: o que os textos dizem, o que a tradição jurídica desenvolveu, e o que culturas específicas praticam. Essas três coisas frequentemente divergem.\n\nOs textos: o Alcorão deu às mulheres direito a herança, propriedade, divórcio e educação no século VII — direitos que as mulheres europeias só conquistaram séculos depois. No contexto da Arábia pré-islâmica, onde meninas recém-nascidas eram enterradas vivas, o Islam representou uma revolução nos direitos femininos. O Alcorão afirma: "Elas têm direitos similares aos direitos contra elas, de acordo com o que é razoável" (Al-Baqarah 2:228).\n\nA tradição jurídica: a jurisprudência islâmica (fiqh), desenvolvida majoritariamente por homens em contextos patriarcais, interpretou certos versículos de maneiras que restringiram mulheres além do que o texto exigia. A distinção entre o que o Alcorão diz e o que juristas medievais interpretaram é real e crucial.\n\nA prática cultural: Talibã no Afeganistão proibindo meninas de estudar não é Islam — é tribalismo pashtun com verniz religioso. A Tunísia garantindo igualdade de herança também é muçulmana. A Indonésia teve uma presidenta muçulmana. O Paquistão teve Benazir Bhutto como primeira-ministra. Turquia, Bangladesh — países muçulmanos com líderes mulheres antes de muitos países ocidentais.\n\nO que é honesto: há problemas reais com a posição da mulher em muitas sociedades muçulmanas. Esses problemas são culturais, jurídicos e às vezes textuais. Mas atribuir opressão ao Islam como um todo é como atribuir a escravidão ao Cristianismo — ignora a complexidade, a diversidade e a capacidade de reforma interna.',
+    sources: [
+      'Al-Baqarah 2:228 — "Elas têm direitos similares aos direitos contra elas."',
+      'An-Nahl 16:97 — "Quem praticar o bem, seja homem ou mulher, e for crente — daremos uma vida boa."',
+      'Fatima Mernissi — "The Veil and the Male Elite"',
+      'Universidade al-Qarawiyyin, fundada por Fatima al-Fihri (859 d.C.)',
+      'Leila Ahmed — "Women and Gender in Islam"',
+    ],
+    category: 'women',
   },
 
   {
-    id: "polygamy",
-    question: "A poligamia é permitida — isso é moral?",
-    directAnswer:
-      "Sim, o Quran permite que homens muçulmanos tenham até quatro esposas, com a condição explícita de tratar todas com justiça absoluta. O mesmo versículo (4:3) que permite a poligamia conclui: 'mas se temeis não ser justos, então [case com] apenas uma.' Isso é o texto. A permissão existe, e a condição de justiça é tão alta que a maioria dos juristas concluiu que é quase impossível de cumprir.",
+    id: 'versiculo-434',
+    question: 'E o versículo 4:34 (bater na esposa)?',
+    summary:
+      'O versículo existe e é real. Ele usa a palavra árabe "idribuhunna", que pode ser traduzida como "bater" ou "afastar-se". A tradução "bater" é legítima e histórica. Mas o próprio Muhammad nunca bateu em nenhuma de suas esposas e disse: "Os melhores entre vocês são os que tratam melhor suas mulheres." O debate interno sobre esse versículo é intenso e não resolvido.',
     context:
-      "O versículo 4:3 foi revelado no contexto pós-batalha de Uhud, quando a comunidade muçulmana de Medina tinha muitas viúvas e órfãos sem proteção. A poligamia era uma prática pré-existente sem limite — o Islam reduziu o limite de ilimitado para quatro, e adicionou a condição de justiça. No século VII, viúvas sem maridos em uma sociedade sem Estado de bem-estar social, sem pensões e sem herança feminina garantida estavam em situação de extrema vulnerabilidade. A poligamia protegeu mulheres que de outra forma ficariam sem sustento ou proteção. Isso não é uma justificativa moral para o presente — é contexto histórico. Na maioria dos países muçulmanos hoje, a poligamia é rara: na Turquia e na Tunísia é ilegal; no Marrocos requer aprovação judicial; em países onde é legal, menos de 4% dos casamentos são polígamos.",
-    islamicScholarship:
-      "O versículo 4:129 diz: 'Não podeis ser justos entre as esposas, mesmo que o desejeis.' Isso levou muitos juristas — desde Ibn Hazm até modernos como Muhammad Abduh (Egito, século XIX) — a argumentar que o Quran na prática inviabilizou a poligamia ao tornar a condição humanamente impossível de cumprir. Abduh foi além: usou esses versículos para argumentar pela proibição legal da poligamia. A Tunísia seguiu esse raciocínio. Outros estudiosos conservadores dizem que a poligamia é permitida quando as condições são cumpridas, e que a decisão cabe ao homem, às mulheres envolvidas, e ao contexto específico.",
-    honestConclusion:
-      "A pergunta moral sobre a poligamia depende de premissas que variam: se a autonomia feminina for o valor supremo, qualquer sistema que não exija consentimento ativo da primeira esposa é problemático. Se proteção e sustento forem os valores centrais em contextos de escassez, a lógica original fazia sentido. O que é honesto dizer: a poligamia islâmica não é o mesmo que a poligamia sem regras — tem limites e condições que os próprios textos declaram quase impossíveis de cumprir. É uma permissão regulada, não um incentivo. Muçulmanos progressistas e países muçulmanos modernos estão ativando as ferramentas do próprio texto islâmico para limitá-la ou proibi-la. O debate é vivo e vai continuar.",
-    difficulty: "medium"
+      'An-Nisa 4:34 é um dos versículos mais debatidos do Alcorão. O contexto completo do versículo prescreve uma sequência para lidar com "nushuz" (desobediência grave/rebeldia): primeiro aconselhamento verbal, depois separação do leito, e só então a ação descrita como "idribuhunna".\n\nA raiz árabe "daraba" tem mais de 25 significados no árabe clássico — bater, separar, partir em viagem, dar um exemplo, cunhar moeda. A maioria das traduções históricas escolheu "bater". Mas a estudiosa Laleh Bakhtiar, na primeira tradução feminina do Alcorão para o inglês, traduziu como "afastar-se/partir" — o que é linguisticamente defensável e coerente com o versículo seguinte (4:35), que instrui mediação e reconciliação.\n\nA tradição jurídica clássica, mesmo aceitando "bater", cercou essa ação de tantas restrições que a tornou quase inaplicável: não podia deixar marca, não podia atingir o rosto, deveria ser com algo leve como um miswak (escova de dentes), e era considerada makruh (desaconselhável). O próprio Muhammad disse: "Nenhum de vocês deveria bater sua esposa como bate um escravo e depois deitar-se com ela no final do dia."\n\nEstudiosos modernos como Khaled Abou El Fadl argumentam que qualquer violência doméstica é incompatível com a ética islâmica total — mesmo que um versículo possa ser lido dessa forma. Países como Tunísia e Marrocos reformaram leis de família contra violência doméstica baseando-se em princípios islâmicos.',
+    sources: [
+      'An-Nisa 4:34 — O versículo completo',
+      'An-Nisa 4:35 — "Se temerdes ruptura entre ambos, enviai um árbitro da família dele e um da dela."',
+      'Laleh Bakhtiar — "The Sublime Quran" (tradução alternativa)',
+      'Khaled Abou El Fadl — "Speaking in God\'s Name"',
+      'Hadice — "Os melhores entre vocês são os que tratam melhor suas mulheres" (Tirmidhi)',
+    ],
+    category: 'women',
   },
 
   {
-    id: "problem-of-evil",
-    question: "Onde está Allah quando crianças sofrem?",
-    directAnswer:
-      "Essa é a pergunta mais antiga e mais difícil da filosofia da religião — não apenas do Islam. O Islam não tem uma resposta que elimine o sofrimento ou que o explique de forma que pareça completamente satisfatória. O que o Islam tem é uma teologia do sofrimento que tenta dar sentido a ele — mas não nega que ele dói.",
+    id: 'hijab',
+    question: 'Por que o hijab?',
+    summary:
+      'O Alcorão instrui modéstia para homens e mulheres. Nenhum versículo menciona a palavra "hijab" como peça de roupa específica. A interpretação sobre o grau de cobertura varia entre estudiosos. Na prática, o hijab é vivido de formas radicalmente diferentes — desde a escolha pessoal empoderada até a imposição estatal. Ambas as realidades existem.',
     context:
-      "O Problema do Mal (theodicy) foi formulado por Epicuro e continua sem resposta consensual em qualquer tradição religiosa. No Islam, o sofrimento é visto dentro de um quadro maior: a vida terrena (dunya) é temporária e uma prova (imtihan); o ser humano tem agência real e pode causar sofrimento a outros; Allah prometeu que nenhuma alma carrega mais do que pode suportar (2:286); e a promessa de que cada injustiça terá sua conta na akhirah (vida após a morte). O Quran não diz que a vida é justa — diz que haverá justiça. Há uma distinção islâmica entre sofrimento causado por ações humanas (guerras, fome por distribuição injusta) e sofrimento causado por forças naturais. A maioria do sofrimento infantil global é causado por escolhas humanas: pobreza evitável, guerras desnecessárias, falta de acesso a saúde. Atribuir isso a Allah é deslocar a responsabilidade humana.",
-    islamicScholarship:
-      "O filósofo islâmico medieval Al-Ghazali escreveu extensivamente sobre teodiceia — 'Ihya Ulum al-Din' tem capítulos inteiros sobre o sentido do sofrimento. Ibn Taymiyya e Ibn Qayyim desenvolveram a ideia de que o sofrimento pode ser qadar (destino divino) mas que a resposta humana ao sofrimento é onde a agência moral se revela. Modernamente, estudiosos como Timothy Winter (Abdal Hakim Murad) discutem o problema do mal com sofisticação filosófica completa, sem negar a dificuldade. Nenhum estudioso sério diz 'Allah quis assim, aceita'. Todos reconhecem que a pergunta dói e que a resposta completa só vem com a perspectiva da eternidade — o que, reconheçamos, é uma resposta que exige fé para ser aceita.",
-    honestConclusion:
-      "Não há resposta fácil e qualquer religião que ofereça uma é desonesta. O Islam diz: a vida é uma prova, o sofrimento é real, a injustiça será acertada, e Allah está mais próximo de você do que sua própria jugular (50:16). Isso é consolo para quem já tem fé; pode parecer insuficiente para quem está fora olhando para dentro. A pergunta 'onde está Deus quando crianças sofrem' é legítima e nobre — nasce do amor e da indignação moral que o próprio Islam valoriza. A resposta islâmica não é 'Deus não se importa' nem 'tudo tem um propósito que você vai entender um dia.' É mais próxima de: 'Deus se importa, o ser humano tem responsabilidade real, e a conta não fecha nesta vida — mas fecha.' Se isso é suficiente depende do que você traz para a pergunta.",
-    difficulty: "high"
+      'Os versículos centrais são An-Nur 24:31 ("...que cubram seus peitos com seus véus...") e Al-Ahzab 33:59 ("...que estendam seus mantos sobre si"). Ambos instruem cobertura e modéstia, mas o grau exato é debatido há 14 séculos. Hijab como conceito no Alcorão significa "barreira" ou "separação" — não uma peça de vestuário específica.\n\nA diversidade de prática é enorme: uma mulher na Indonésia com hijab colorido, uma no Irã com chador preto obrigatório, uma na Turquia sem qualquer cobertura — todas se consideram muçulmanas. O Islam não é monolítico em nenhum aspecto, e o hijab é talvez onde isso fica mais visível.\n\nO debate central é: escolha vs. coerção. Quando países como o Irã ou o Afeganistão impõem o véu, estão violando o princípio coránico "não há compulsão na religião" (2:256). Quando países como a França proíbem o hijab em espaços públicos, estão restringindo a liberdade religiosa. Muçulmanas que usam hijab por escolha pessoal — como afirmação de identidade, modéstia ou espiritualidade — relatam que é empoderador. Muçulmanas que o removeram relatam alívio. Ambas as experiências são reais.\n\nHistoricamente, cobrir a cabeça não é exclusivo do Islam — freiras cristãs, mulheres judias ortodoxas, hindus em certas regiões praticam formas de cobertura. A modéstia como valor transcende tradições.',
+    sources: [
+      'An-Nur 24:31 — "...que cubram seus peitos com seus véus..."',
+      'Al-Ahzab 33:59 — "...que estendam seus mantos sobre si."',
+      'Al-Baqarah 2:256 — "Não há compulsão na religião."',
+      'Leila Ahmed — "A Quiet Revolution: The Veil\'s Resurgence"',
+      'Khaled Abou El Fadl — Análises sobre modéstia e autonomia',
+    ],
+    category: 'women',
   },
 
   {
-    id: "last-prophet-bahai",
-    question: "Se Muhammad era o último profeta, o que dizer dos profetas que vieram depois (Bahá'í, etc)?",
-    directAnswer:
-      "Para o Islam, Muhammad é o 'Khatam an-Nabiyyin' — o Selo dos Profetas. A crença de que não virá profeta depois dele é um dos pilares centrais da fé islâmica. Qualquer reivindicação de profecia após Muhammad é, para o Islam, teologicamente impossível por definição. Isso não é julgamento sobre pessoas — é simplesmente o que o Islam afirma.",
+    id: 'poligamia',
+    question: 'Poligamia — como defender isso?',
+    summary:
+      'O Alcorão permite até quatro esposas com a condição de justiça absoluta. O mesmo texto que permite diz: "Mas se temeis não ser justos, então apenas uma" (4:3). E outro versículo declara: "Não podeis ser justos entre as esposas, mesmo que o desejeis" (4:129). Muitos juristas concluíram que o Alcorão na prática inviabilizou o que permitiu. Na maioria dos países muçulmanos hoje, a poligamia é rara ou ilegal.',
     context:
-      "O versículo 33:40 do Quran afirma que Muhammad é 'o Selo dos Profetas'. A tradição islâmica interpretou isso como encerramento da profecia — a revelação está completa, o Quran é a última palavra de Allah, e nenhum novo mensageiro ou profeta virá. Isso é diferente de 'santos', 'homens de Deus' ou 'sábios' — o Islam permite a continuidade de figuras religiosas, apenas não de profetas com nova revelação. A Fé Bahá'í surgiu no século XIX no Irã, com Bahá'u'lláh declarando-se manifestação divina após o Báb. Do ponto de vista islâmico, isso é uma negação direta de um artigo fundamental de fé. O movimento Ahmadiyya, dentro do contexto islâmico, tem debates internos sobre se Mirza Ghulam Ahmad foi um profeta (o que a maioria sunita rejeita) ou um renovador (mujaddid). Essas disputas resultaram em perseguições reais — particularmente no Paquistão, onde os Ahmadis são legalmente proibidos de se autodenominar muçulmanos.",
-    islamicScholarship:
-      "Não há debate dentro do Islam ortodoxo sobre esse ponto — é considerado ijma' (consenso) que a profecia encerrou com Muhammad. O debate existe nas margens: algumas correntes sufis falam de 'wali' (santos) que continuam a receber iluminação espiritual, mas isso é cuidadosamente distinguido de profecia com nova revelação. Teólogos islâmicos como Al-Nawawi e Ibn Hajar Al-Asqalani documentaram esse consenso. Do ponto de vista acadêmico comparado, Bahá'í, Ahmadiyya, e outras tradições são estudadas como novas religiões derivadas do Islam — não como Islam reformado. A perseguição dos Ahmadis no Paquistão é um caso documentado de onde essa crença teológica vira violência política, o que é um problema real que muçulmanos progressistas reconhecem.",
-    honestConclusion:
-      "O Islam diz que Muhammad é o último profeta — e isso é um limite claro da teologia islâmica, não uma opinião opcional. Tradições como a Bahá'í são, do ponto de vista islâmico, religiões separadas — podem ser respeitadas, não podem ser chamadas de Islam. O que vale notar: o Islam afirma ser a última e completa revelação — o que implica que revelações anteriores (Torá, Evangelho) foram reais mas incompletas ou corrompidas. É uma posição excludente por natureza, como são o Judaísmo e o Cristianismo em suas versões ortodoxas. Nenhuma dessas tradições considera todas as outras igualmente verdadeiras ao mesmo tempo. A questão honesta para quem explora o Islam é: você consegue aceitar que uma revelação pode ser final? Ou sua concepção de espiritualidade requer abertura contínua?",
-    difficulty: "medium"
-  }
+      'O versículo 4:3 foi revelado após a Batalha de Uhud, quando a comunidade de Medina ficou com muitas viúvas e órfãos sem proteção. Numa sociedade sem Estado de bem-estar social, sem pensões, sem herança feminina garantida — viúvas sem maridos estavam em situação de extrema vulnerabilidade. A poligamia era prática pré-existente sem limite na Arábia. O Islam reduziu de ilimitado para quatro e adicionou a condição de justiça.\n\nO contexto histórico não é uma justificativa para o presente — é uma explicação de como a regra surgiu. O que torna o debate interno interessante é que o próprio texto islâmico fornece as ferramentas para limitar ou eliminar a prática. O versículo 4:129 diz: "Não podeis ser justos entre as esposas, mesmo que o desejeis." Muhammad Abduh, reformista egípcio do século XIX, usou exatamente esses versículos para argumentar pela proibição legal da poligamia. A Tunísia seguiu esse raciocínio e proibiu.\n\nNa prática contemporânea: menos de 4% dos casamentos em países onde a poligamia é legal são polígamos. No Marrocos, requer aprovação judicial. Na Turquia, é ilegal. Em contextos ocidentais, a esmagadora maioria dos muçulmanos vive em casamentos monogâmicos.\n\nA questão honesta para quem explora o Islam é: se os próprios textos islâmicos tornam a condição "quase impossível de cumprir", e os próprios reformistas muçulmanos usam o texto para limitar a prática — isso é uma religião que encoraja poligamia ou uma que a regulou até quase eliminar?',
+    sources: [
+      'An-Nisa 4:3 — "...casai com duas, três ou quatro... mas se temeis não ser justos, então apenas uma."',
+      'An-Nisa 4:129 — "Não podeis ser justos entre as esposas, mesmo que o desejeis."',
+      'Muhammad Abduh — Argumentos pela proibição baseados no próprio Alcorão',
+      'Código de Família tunisiano (1956) — proibição da poligamia',
+    ],
+    category: 'women',
+  },
+
+  // ── PRACTICE ──────────────────────────────────────────────────────────────────
+
+  {
+    id: 'jihad',
+    question: 'O que é jihad de verdade?',
+    summary:
+      'Jihad significa "esforço" ou "luta" — não "guerra santa". A tradução "guerra santa" não existe no árabe e foi criada por cronistas europeus durante as Cruzadas. O "jihad maior" é a luta contra o próprio ego, a preguiça, a injustiça interna. O "jihad menor" é a defesa militar com regras estritas. Os dois conceitos existem e os dois são islâmicos.',
+    context:
+      'Quando Muhammad retornou de uma batalha, disse aos companheiros: "Voltamos do jihad menor para o jihad maior." Quando perguntaram qual era o jihad maior, respondeu: "O jihad contra o nafs (ego)." Este hadice — cuja cadeia de transmissão é debatida — estabeleceu uma hierarquia que a tradição islâmica sempre manteve: a luta interior contra a própria tendência ao mal é mais importante e mais difícil que qualquer guerra.\n\nO jihad militar no Islam clássico tem regras estritas que precedem as Convenções de Genebra por mais de mil anos: não matar civis, não matar mulheres e crianças, não destruir colheitas, não cortar árvores, não matar religiosos em seus templos, oferecer paz antes do combate, proteger prisioneiros. Abu Bakr, o primeiro califa, instrui seu exército: "Não traiam, não sejam excessivos, não matem crianças, velhos ou mulheres. Não destruam palmeiras nem queimem colheitas."\n\nO jihadismo moderno — ISIS, Al-Qaeda — viola todas essas regras. É por isso que a esmagadora maioria dos estudiosos islâmicos o condena como heresia, não como jihad legítimo. O ISIS matou mais muçulmanos do que não-muçulmanos. Al-Azhar, a mais antiga universidade islâmica do mundo, emitiu fatwas explícitas condenando o terrorismo.\n\nA tradução "guerra santa" vem do latim "bellum sacrum", usado por cronistas cristãos para descrever as Cruzadas — e foi depois projetada sobre o conceito islâmico de jihad. Nenhum texto islâmico usa esse termo.',
+    sources: [
+      'Hadice do "jihad maior" — narrado por Al-Bayhaqi',
+      'Al-Baqarah 2:190 — "Combatei pela causa de Allah aqueles que vos combatem, mas não transgredi."',
+      'Instrução de Abu Bakr ao exército — múltiplas fontes históricas',
+      'Al-Ma\'idah 5:32 — "Quem matar uma alma... é como se matasse toda a humanidade."',
+    ],
+    category: 'practice',
+  },
+
+  {
+    id: 'musica-haram',
+    question: 'Música é haram (proibida)?',
+    summary:
+      'Não há consenso. Estudiosos divergem genuinamente. Há hadices que desaprovam instrumentos musicais e há evidências de que Muhammad permitiu o daff (tambor) e canto em celebrações. A realidade é que a história islâmica produziu algumas das tradições musicais mais ricas do mundo — desde o qawwali sufi até o nasheed contemporâneo.',
+    context:
+      'O Alcorão não proíbe música explicitamente. O versículo mais citado pelos que proíbem é Luqman 31:6 — "Entre as pessoas há quem compre entretenimento vão para desviar do caminho de Allah" — mas a palavra usada é "lahw al-hadith" (entretenimento vão), e estudiosos discordam se isso se refere especificamente à música ou ao entretenimento que distrai da fé em geral.\n\nEntre os hadices, há narrações que mencionam instrumentos musicais em contexto negativo — mas há também narrações em que Muhammad permitiu e até encorajou o canto e o uso do daff (tambor) em casamentos e celebrações do Eid. Aisha narrou que havia cantoras em sua casa durante o Eid e Muhammad não as impediu.\n\nAs posições variam por escola jurídica: a escola Hanbali tende a ser mais restritiva; a escola Maliki tende a ser mais permissiva. O Imam Al-Ghazali (um dos maiores estudiosos da história islâmica) escreveu capítulos inteiros no "Ihya Ulum al-Din" defendendo o uso do sama (audição musical) como ferramenta espiritual.\n\nNa prática, a civilização islâmica produziu tradições musicais extraordinárias: o maqam árabe, o qawwali sufi do subcontinente indiano (Nusrat Fateh Ali Khan), o gnawa marroquino, a música otomana clássica. Dizer que "o Islam proíbe música" é historicamente insustentável. Dizer que "todos os estudiosos permitem música" também é falso. O debate é real.',
+    sources: [
+      'Luqman 31:6 — "lahw al-hadith" (entretenimento vão)',
+      'Sahih al-Bukhari — Hadice sobre cantoras no Eid (narração de Aisha)',
+      'Al-Ghazali — "Ihya Ulum al-Din" (capítulo sobre sama/música)',
+      'Ibn Hazm — Argumentos pela permissão da música',
+    ],
+    category: 'practice',
+  },
+
+  {
+    id: 'juros-riba',
+    question: 'E os juros — por que proibidos?',
+    summary:
+      'O Alcorão proíbe a riba (juros/usura) de forma categórica — é um dos poucos pecados contra os quais Allah declara "guerra" no texto. A lógica é econômica e ética: dinheiro gerando dinheiro sem produzir valor real é exploração do necessitado. A crítica islâmica ao sistema de juros é surpreendentemente alinhada com críticas modernas ao capitalismo financeiro.',
+    context:
+      'Al-Baqarah 2:275-279 é uma das passagens mais fortes do Alcorão sobre qualquer tema: "Aqueles que consomem riba não se levantarão senão como aquele que é tocado pela loucura de Satã... Allah declarou guerra contra a riba." Não há muitos temas em que o Alcorão usa linguagem tão severa.\n\nA lógica por trás da proibição é tanto espiritual quanto econômica. No sistema de juros, quem tem dinheiro lucra simplesmente por ter dinheiro — sem assumir risco, sem produzir valor, sem trabalho. Quem não tem dinheiro paga cada vez mais pelo que já era caro. O resultado sistêmico é concentração crescente de riqueza — o que a economia moderna documenta extensivamente (Piketty, "O Capital no Século XXI").\n\nAs finanças islâmicas oferecem alternativas: mudarabah (parceria com compartilhamento de lucros e perdas), murabaha (compra e revenda com margem declarada), sukuk (títulos baseados em ativos reais). O princípio é: todo ganho financeiro deve estar ligado a um ativo real ou a um risco compartilhado. Você não pode ganhar dinheiro simplesmente emprestando dinheiro.\n\nO setor de finanças islâmicas globais movimenta mais de US$3 trilhões e cresce cerca de 10% ao ano. Bancos ocidentais como HSBC e Goldman Sachs operam divisões de finanças islâmicas. Não é nicho — é um sistema financeiro alternativo com escala.\n\nA crítica honesta: muitos produtos de "finanças islâmicas" são essencialmente juros com nova embalagem. A indústria tem problemas reais de autenticidade. Mas o princípio — que dinheiro não deve gerar dinheiro sem valor real — é uma crítica ao capitalismo financeiro que ressoa muito além do Islam.',
+    sources: [
+      'Al-Baqarah 2:275-279 — Proibição da riba',
+      'Al-Baqarah 2:280 — "Se o devedor estiver em dificuldade, dai-lhe prazo."',
+      'Ar-Rum 30:39 — "O que dais em riba para aumentar nos bens dos outros não aumenta junto a Allah."',
+      'Thomas Piketty — "O Capital no Século XXI" (paralelo com a crítica islâmica)',
+      'Taqi Usmani — "An Introduction to Islamic Finance"',
+    ],
+    category: 'practice',
+  },
+
+  // ── SCIENCE ───────────────────────────────────────────────────────────────────
+
+  {
+    id: 'big-bang',
+    question: 'Big Bang no Alcorão?',
+    summary:
+      'O versículo Al-Anbiya 21:30 diz: "Os céus e a terra eram uma massa unida e Nós os separamos." Isso é notavelmente consistente com o Big Bang. Mas honestidade intelectual exige cautela: o versículo é teológico, não científico. O que ele diz é genuinamente impressionante. O que ele não diz é "Big Bang" — e overclaiming enfraquece o argumento.',
+    context:
+      'Al-Anbiya 21:30 afirma que os céus e a terra eram "ratqan" (uma coisa unida/costurada) e Allah os "fataqnahuma" (separou/dividiu). A ideia de que o universo começou como uma singularidade que se expandiu é o modelo do Big Bang, proposto por Georges Lemaître em 1927 e confirmado por observações de Edwin Hubble em 1929.\n\nO paralelo é genuinamente notável. No século VII, a cosmologia dominante — tanto na Grécia quanto na Pérsia — era de um universo estático e eterno. A ideia de que tudo começou como "uma coisa só" e depois se separou é contraintuitiva e presciente.\n\nMas a honestidade intelectual exige ressalvas. Primeiro: o versículo é curto e teológico — não descreve temperatura, radiação cósmica de fundo, ou inflação cósmica. Interpretar "ratqan" como singularidade quântica é uma projeção retroativa. Segundo: o versículo poderia se referir à separação dos céus e da terra como ato criativo — uma ideia presente em cosmogonias anteriores (mesopotâmica, egípcia). Terceiro: estudiosos islâmicos medievais interpretaram esse versículo de formas diversas, sem referência a nada parecido com o Big Bang.\n\nO que é honesto dizer: o versículo descreve algo que é consistente com a cosmologia moderna de uma forma que surpreende. Isso pode ser evidência de origem divina — ou pode ser coincidência interpretativa. O que não é honesto é overclaimar: "o Alcorão descreveu o Big Bang com 1.400 anos de antecedência" é mais forte do que o texto sustenta. "O Alcorão descreve uma origem unificada do universo que é notavelmente consistente com a cosmologia moderna" é mais preciso.',
+    sources: [
+      'Al-Anbiya 21:30 — "Os céus e a terra eram uma massa unida e Nós os separamos."',
+      'Adh-Dhariyat 51:47 — "E o universo, nós o construímos com poder, e certamente o expandimos."',
+      'Georges Lemaître — Modelo do Big Bang (1927)',
+      'Nidhal Guessoum — "Islam\'s Quantum Question"',
+    ],
+    category: 'science',
+  },
+
+  {
+    id: 'embriologia',
+    question: 'Embriologia no Alcorão?',
+    summary:
+      'Al-Mu\'minun 23:12-14 descreve estágios do desenvolvimento embrionário: nutfah (gota), alaqah (coisa que se agarra/coágulo), mudghah (pedaço mastigado), ossos, depois revestimento com carne. A sequência é notavelmente precisa para o século VII. O que é genuinamente impressionante merece reconhecimento; o que é contestado merece honestidade.',
+    context:
+      'Os versículos descrevem uma progressão: o ser humano é criado de uma essência de argila, depois de uma "nutfah" (gota/semente) em lugar seguro, depois a nutfah se torna "alaqah" (algo que se agarra ou coágulo de sangue), depois "mudghah" (pedaço mastigado), depois ossos, depois os ossos são revestidos de carne.\n\nO que é genuinamente notável: a sequência embriológica moderna confirma que o embrião passa por estágios que correspondem a essas descrições. Na fase de somitos (~4 semanas), o embrião tem uma aparência que lembra algo mastigado. O embrião se "agarra" à parede uterina (implantação). A formação óssea precede o desenvolvimento muscular completo em certas regiões do corpo.\n\nO que é contestado: o médico grego Galeno (século II d.C.) descreveu estágios embrionários similares, e é possível que esse conhecimento circulasse na região. Críticos argumentam que a descrição coránica pode refletir conhecimento médico pré-existente, não revelação divina. Defensores respondem que Muhammad era analfabeto e que textos médicos gregos não estavam disponíveis em árabe no século VII.\n\nA sequência "ossos depois carne" é debatida: embriologicamente, ossos e músculos se desenvolvam parcialmente em paralelo, não estritamente em sequência. Keith Moore, embriologista canadense que inicialmente endossou a precisão coránica, depois moderou suas afirmações.\n\nO que é honesto: há elementos genuinamente impressionantes na descrição. Há elementos contestáveis. Apresentar só os impressionantes é apologética. Apresentar só os contestáveis é enviesamento. Os dois existem.',
+    sources: [
+      'Al-Mu\'minun 23:12-14 — Estágios embrionários',
+      'Al-Alaq 96:1-2 — "Criou o ser humano de um alaq (coágulo/algo que se agarra)"',
+      'Keith Moore — "The Developing Human" (edição com referências coránicas)',
+      'Nidhal Guessoum — "Islam\'s Quantum Question" (análise equilibrada)',
+    ],
+    category: 'science',
+  },
+
+  // ── ETHICS ────────────────────────────────────────────────────────────────────
+
+  {
+    id: 'homossexualidade',
+    question: 'Islam e homossexualidade — qual é a posição?',
+    summary:
+      'A posição clássica dominante é que atos homossexuais são haram (proibidos). A história de Lut (Ló) no Alcorão é lida como condenação. Isso é o que a maioria dos juristas sempre ensinou. Há uma corrente progressista minoritária que questiona as interpretações. Há muçulmanos LGBTQ+ que vivem essa tensão diariamente. O texto diz uma coisa. A realidade é mais complexa. A tensão é real.',
+    context:
+      'O Alcorão menciona a história de Lut (Ló) em vários versículos (7:80-84, 26:165-175, 29:28-30), descrevendo a destruição de sua cidade por "fawahisha" (atos abomináveis). A tradição clássica interpretou isso como condenação da homossexualidade. Os hadices reforçam a proibição com linguagem severa.\n\nMas a questão tem camadas. Primeiro: a maioria dos juristas clássicos distinguiu entre orientação e ato. A atração em si não é pecado; o ato é. Essa distinção é relevante mas ainda coloca uma restrição enorme sobre pessoas LGBTQ+.\n\nSegundo: há leituras que argumentam que o crime central do povo de Lut era a violação de hóspedes, a violência sexual e a injustiça social — não a homossexualidade consensual entre adultos. O Alcorão enfatiza a agressão: "Abordais os homens com desejo ao invés das mulheres?" pode ser lido como referência à violação, não à orientação.\n\nTerceiro: historicamente, o mundo islâmico medieval foi, em vários períodos, significativamente mais tolerante que a Europa cristã. Há poesia árabe e persa clássica com temas homoafetivos explícitos (Abu Nuwas, Rumi em certos poemas). A punição legal era raramente aplicada. Isso não é equivalente a aceitação — mas é contexto crucial.\n\nQuarto: hoje, a realidade varia enormemente. Indonésia não criminaliza. Irã executa. Turquia descriminalizou no século XIX. Arábia Saudita proíbe. O "Islam" não tem uma prática uniforme — tem uma posição textual dominante e uma diversidade enorme de aplicação.\n\nO que é honesto: a posição clássica é clara na proibição. A corrente progressista (Scott Kugle, Muslims for Progressive Values) existe mas é minoritária. Muçulmanos LGBTQ+ existem e vivem uma tensão real entre sua fé e sua identidade. Negar qualquer um desses fatos é desonestidade.',
+    sources: [
+      'Al-A\'raf 7:80-84 — História de Lut',
+      'Ash-Shu\'ara 26:165-175 — "Abordais os homens dentre as criaturas?"',
+      'Scott Kugle — "Homosexuality in Islam"',
+      'Abu Nuwas — Poesia homoafetiva na tradição árabe clássica',
+      'Muslims for Progressive Values — Posição sobre Islam e LGBTQ+',
+    ],
+    category: 'ethics',
+  },
 ];
 
 export default hardQuestionsData;

@@ -1,55 +1,14 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { BlurFade } from '@/components/effects/BlurFade'
-import { HelpCircle, Microscope, MessageCircle, ChevronDown } from 'lucide-react'
+import { HelpCircle, Microscope, MessageCircle, BookOpen, ChevronDown, Search } from 'lucide-react'
+import { hardQuestionsData } from '@/lib/data/content/hardQuestions'
+import { glossary, type GlossaryTerm } from '@/lib/data/glossary'
 
 // ─── DATA ────────────────────────────────────────────────────────────────────
-
-const hardQuestions = [
-  {
-    id: 'aisha',
-    question: 'Muhammad se casou com Aisha quando ela tinha 6 anos?',
-    summary:
-      'Sim. Os hadices confirmam. Mas o século VII operava por normas radicalmente diferentes. Avaliar o passado com lentes do presente é anacronismo — o mesmo que condenar Moisés ou Abraão por não seguir a ONU. O debate dentro do Islam hoje sobre essa questão é real e legítimo.',
-    context:
-      'As fontes islâmicas primárias (Sahih al-Bukhari, Sahih Muslim) registram que Aisha tinha 6 ou 7 anos no noivado e 9 no casamento consumado. Isso não é contestado por estudiosos muçulmanos tradicionais. O que é debatido é a interpretação: sociedades pré-modernas não tinham o conceito de infância como fase protegida — casamentos eram alianças tribais e familiares, frequentemente contraídos na pré-adolescência em todas as culturas da época, incluindo a Europa medieval cristã. O debate contemporâneo islâmico sobre maioridade e consentimento é real, crescente, e conduzido por estudiosos muçulmanos, não imposto de fora.',
-  },
-  {
-    id: 'esposas',
-    question: 'O Islam permite que homens batam em suas esposas?',
-    summary:
-      'O versículo 4:34 existe. A tradução "bater" é legítima e histórica. Mas é apresentado como último recurso, a tradição profética desestimulava explicitamente a violência, e há tradução alternativa linguisticamente defensável. O Islam não é monolítico — o debate interno sobre esse versículo é intenso.',
-    context:
-      'An-Nisa 4:34 usa o verbo árabe "daraba", que tem mais de 25 significados no árabe clássico — bater, separar, partir em viagem, dar um exemplo. A maioria das traduções históricas escolheu "bater". Mas estudiosos como Laleh Bakhtiar traduziram como "partir" (separar-se), o que é linguisticamente defensável. O próprio Muhammad nunca bateu em nenhuma de suas esposas e disse explicitamente: "Os melhores entre vocês são aqueles que tratam melhor suas mulheres." O versículo prescreve uma sequência: admoestação, separação do leito, e só então — em interpretação clássica — um toque simbólico não violento. O debate interno muçulmano sobre esse versículo é robusto e não resolvido.',
-  },
-  {
-    id: 'testemunho',
-    question: 'Por que o Islam diz que o testemunho de uma mulher vale metade?',
-    summary:
-      'O versículo 2:282 fala de contratos financeiros específicos em contexto da sociedade do século VII. Juristas modernos e países de maioria muçulmana tratam testemunho igualmente em cortes contemporâneas. A regra é mais limitada no texto do que a jurisprudência clássica tornou.',
-    context:
-      'Al-Baqarah 2:282 instrui que em contratos financeiros, caso não haja dois homens disponíveis como testemunhas, dois homens ou um homem e duas mulheres devem testemunhar — para que, se uma esquecer, a outra lembre. O contexto explícito é financeiro e comercial, numa sociedade em que mulheres raramente participavam de transações mercantis e, portanto, seriam menos familiarizadas com os detalhes. Estudiosos como Khaled Abou El Fadl argumentam que aplicar essa regra a contextos modernos, onde mulheres são advogadas, juízas e especialistas financeiras, é uma traição ao propósito original do texto. Em crimes, assassinato, direito de família e a maioria dos contextos jurídicos islâmicos clássicos, o testemunho feminino tem peso igual.',
-  },
-  {
-    id: 'democracia',
-    question: 'Islam é compatível com democracia?',
-    summary:
-      'Não há califado islâmico ativo hoje. Turquia, Tunísia, Indonésia, Bangladesh têm democracias de maioria muçulmana. A questão é sobre interpretação política, não teologia fundamental.',
-    context:
-      'O Alcorão não prescreve um sistema de governo específico. O conceito de "shura" (consulta) é korânico, mas não detalha como essa consulta deve ser estruturada. Historicamente, estados islâmicos variaram de repúblicas a monarquias a califados. Hoje, as maiores populações muçulmanas do mundo — Indonésia (275M), Bangladesh (170M), Paquistão (230M) — vivem em democracias formais com eleições regulares. Turquia e Tunísia têm histórico democrático. O debate não é se Islam e democracia são compatíveis — é qual modelo de democracia, e qual papel a religião joga no espaço público. Esse debate existe em TODAS as democracias com populações religiosas, incluindo os EUA e o Brasil.',
-  },
-  {
-    id: 'meca',
-    question: 'Por que muçulmanos rezam em direção a Meca?',
-    summary:
-      'A Kaaba é a primeira casa de adoração construída para o único Deus — por Abraão e Ismael. Rezar em direção a ela não é idolatria — é unidade de direção, como o Git tem um repositório central.',
-    context:
-      'A Kaaba em Meca é, para o Islam, a casa original de adoração ao único Deus — construída por Ibrahim (Abraão) e seu filho Ismael. Ao rezar em direção a ela, muçulmanos não adoram o edifício — da mesma forma que cristãos em igrejas não adoram o altar. É uma qibla: um ponto de referência que unifica a oração de mais de um bilhão de pessoas em direção comum. Ironicamente, os primeiros muçulmanos rezavam em direção a Jerusalém — a mudança para Meca veio por revelação divina, registrada em Al-Baqarah 2:144. A Kaaba é coberta com um pano preto chamado kiswah, renovado anualmente, e representa a morada espiritual — não divina — de Allah na terra.',
-  },
-]
 
 const quranPhenomena = [
   {
@@ -142,19 +101,45 @@ const faqs = [
   },
 ]
 
+// ─── CATEGORY LABELS ─────────────────────────────────────────────────────────
+
+const categoryLabels: Record<string, string> = {
+  theology: 'TEOLOGIA',
+  history: 'HISTÓRIA',
+  practice: 'PRÁTICA',
+  women: 'MULHERES',
+  comparison: 'COMPARAÇÃO',
+  science: 'CIÊNCIA',
+  ethics: 'ÉTICA',
+  core: 'FUNDAMENTOS',
+  prayer: 'ORAÇÃO',
+  quran: 'ALCORÃO',
+}
+
+const glossaryCategoryLabels: Record<string, string> = {
+  core: 'Fundamentos',
+  prayer: 'Oração',
+  quran: 'Alcorão',
+  theology: 'Teologia',
+  practice: 'Prática',
+  history: 'História',
+  ethics: 'Ética',
+}
+
 // ─── TAB CONFIG ──────────────────────────────────────────────────────────────
 
 const TABS = [
   { id: 'dificeis', label: 'Perguntas Difíceis', icon: HelpCircle },
   { id: 'fenomenos', label: 'Fenômenos do Quran', icon: Microscope },
   { id: 'rapidas', label: 'Perguntas Rápidas', icon: MessageCircle },
+  { id: 'glossario', label: 'Glossário', icon: BookOpen },
 ] as const
 
 type TabId = typeof TABS[number]['id']
 
 // ─── HARD QUESTION CARD ──────────────────────────────────────────────────────
 
-function HardQuestionCard({ q, index }: { q: typeof hardQuestions[0]; index: number }) {
+function HardQuestionCard({ q, index, total }: { q: typeof hardQuestionsData[0]; index: number; total: number }) {
   const [expanded, setExpanded] = useState(false)
   const [hovered, setHovered] = useState(false)
 
@@ -188,27 +173,44 @@ function HardQuestionCard({ q, index }: { q: typeof hardQuestions[0]; index: num
       }} />
 
       {/* Badge row */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
-        <span style={{
-          fontFamily: 'var(--font-sans)',
-          fontSize: 9,
-          letterSpacing: '2px',
-          textTransform: 'uppercase',
-          color: '#C9A84C',
-          background: 'rgba(201,168,76,0.07)',
-          border: '1px solid rgba(201,168,76,0.18)',
-          borderRadius: 2,
-          padding: '3px 8px',
-        }}>
-          PERGUNTA DIFÍCIL
-        </span>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20, flexWrap: 'wrap', gap: 8 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <span style={{
+            fontFamily: 'var(--font-sans)',
+            fontSize: 9,
+            letterSpacing: '2px',
+            textTransform: 'uppercase',
+            color: '#C9A84C',
+            background: 'rgba(201,168,76,0.07)',
+            border: '1px solid rgba(201,168,76,0.18)',
+            borderRadius: 2,
+            padding: '3px 8px',
+          }}>
+            PERGUNTA DIFÍCIL
+          </span>
+          {q.category && (
+            <span style={{
+              fontFamily: 'var(--font-sans)',
+              fontSize: 9,
+              letterSpacing: '1.5px',
+              textTransform: 'uppercase',
+              color: '#7A7870',
+              background: 'rgba(122,120,112,0.08)',
+              border: '1px solid rgba(122,120,112,0.15)',
+              borderRadius: 2,
+              padding: '3px 8px',
+            }}>
+              {categoryLabels[q.category] || q.category.toUpperCase()}
+            </span>
+          )}
+        </div>
         <span style={{
           fontFamily: 'var(--font-sans)',
           fontSize: 10,
           letterSpacing: '2px',
           color: '#7A7870',
         }}>
-          {String(index + 1).padStart(2, '0')} / {String(hardQuestions.length).padStart(2, '0')}
+          {String(index + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
         </span>
       </div>
 
@@ -221,7 +223,7 @@ function HardQuestionCard({ q, index }: { q: typeof hardQuestions[0]; index: num
         lineHeight: 1.35,
         marginBottom: 20,
       }}>
-        "{q.question}"
+        &ldquo;{q.question}&rdquo;
       </h3>
 
       {/* Answer label */}
@@ -263,14 +265,49 @@ function HardQuestionCard({ q, index }: { q: typeof hardQuestions[0]; index: num
               background: '#272230',
               marginBottom: 20,
             }} />
-            <p style={{
-              fontFamily: 'var(--font-sans)',
-              fontSize: 14,
-              color: '#7A7870',
-              lineHeight: 1.85,
-            }}>
-              {q.context}
-            </p>
+
+            {/* Context paragraphs */}
+            {q.context.split('\n\n').map((paragraph: string, pIdx: number) => (
+              <p key={pIdx} style={{
+                fontFamily: 'var(--font-sans)',
+                fontSize: 14,
+                color: '#7A7870',
+                lineHeight: 1.85,
+                marginBottom: pIdx < q.context.split('\n\n').length - 1 ? 16 : 0,
+              }}>
+                {paragraph}
+              </p>
+            ))}
+
+            {/* Sources */}
+            {q.sources && q.sources.length > 0 && (
+              <div style={{ marginTop: 24 }}>
+                <p style={{
+                  fontFamily: 'var(--font-sans)',
+                  fontSize: 9,
+                  letterSpacing: '2.5px',
+                  textTransform: 'uppercase',
+                  color: 'rgba(201,168,76,0.5)',
+                  marginBottom: 10,
+                }}>
+                  FONTES E REFERÊNCIAS
+                </p>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                  {q.sources.map((source: string, sIdx: number) => (
+                    <p key={sIdx} style={{
+                      fontFamily: 'var(--font-sans)',
+                      fontSize: 12,
+                      color: '#5A5850',
+                      lineHeight: 1.6,
+                      paddingLeft: 12,
+                      borderLeft: '2px solid rgba(201,168,76,0.15)',
+                    }}>
+                      {source}
+                    </p>
+                  ))}
+                </div>
+              </div>
+            )}
           </motion.div>
         )}
       </AnimatePresence>
@@ -473,6 +510,151 @@ function FaqCard({ faq, index }: { faq: typeof faqs[0]; index: number }) {
   )
 }
 
+// ─── GLOSSARY CARD ───────────────────────────────────────────────────────────
+
+function GlossaryCard({ term, index }: { term: GlossaryTerm; index: number }) {
+  const [expanded, setExpanded] = useState(false)
+  const [hovered, setHovered] = useState(false)
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-20px' }}
+      transition={{ duration: 0.4, delay: Math.min(index * 0.03, 0.3), ease: [0.25, 0.4, 0.25, 1] }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      onClick={() => setExpanded((v) => !v)}
+      style={{
+        background: expanded ? '#1A1828' : '#161220',
+        border: hovered || expanded ? '1px solid rgba(201,168,76,0.25)' : '1px solid #272230',
+        borderRadius: 4,
+        padding: '20px 24px',
+        cursor: 'pointer',
+        transition: 'all 0.25s ease',
+        position: 'relative',
+        overflow: 'hidden',
+      }}
+    >
+      {/* Top line on expanded */}
+      {expanded && (
+        <div style={{
+          position: 'absolute',
+          top: 0, left: 0, right: 0,
+          height: 1,
+          background: 'linear-gradient(90deg, transparent, rgba(201,168,76,0.35), transparent)',
+        }} />
+      )}
+
+      {/* Main row */}
+      <div style={{
+        display: 'flex',
+        alignItems: 'flex-start',
+        justifyContent: 'space-between',
+        gap: 16,
+      }}>
+        <div style={{ flex: 1 }}>
+          {/* Term + Arabic */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'baseline',
+            gap: 12,
+            marginBottom: 6,
+            flexWrap: 'wrap',
+          }}>
+            <h4 style={{
+              fontFamily: 'var(--font-serif)',
+              fontSize: 17,
+              fontWeight: 700,
+              color: '#F0EBE2',
+              lineHeight: 1.3,
+            }}>
+              {term.term}
+            </h4>
+            <span style={{
+              fontFamily: "'Noto Sans Arabic', 'Amiri', serif",
+              fontSize: 18,
+              color: 'rgba(201,168,76,0.7)',
+              direction: 'rtl',
+            }}>
+              {term.arabic}
+            </span>
+          </div>
+
+          {/* Short meaning */}
+          <p style={{
+            fontFamily: 'var(--font-sans)',
+            fontSize: 14,
+            color: '#B3B0A6',
+            lineHeight: 1.6,
+          }}>
+            {term.meaning}
+          </p>
+        </div>
+
+        {/* Expand indicator */}
+        <motion.span
+          animate={{ rotate: expanded ? 180 : 0 }}
+          transition={{ duration: 0.25 }}
+          style={{
+            display: 'flex',
+            flexShrink: 0,
+            marginTop: 4,
+            color: expanded ? 'rgba(201,168,76,0.7)' : '#7A7870',
+          }}
+        >
+          <ChevronDown size={14} />
+        </motion.span>
+      </div>
+
+      {/* Expanded content */}
+      <AnimatePresence>
+        {expanded && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.25, ease: [0.25, 0.4, 0.25, 1] }}
+            style={{ overflow: 'hidden' }}
+          >
+            <div style={{
+              width: '100%',
+              height: 1,
+              background: '#272230',
+              margin: '14px 0',
+            }} />
+
+            <p style={{
+              fontFamily: 'var(--font-sans)',
+              fontSize: 13,
+              color: '#7A7870',
+              lineHeight: 1.8,
+              marginBottom: 10,
+            }}>
+              {term.explanation}
+            </p>
+
+            {/* Category tag */}
+            <span style={{
+              fontFamily: 'var(--font-sans)',
+              fontSize: 9,
+              letterSpacing: '1.5px',
+              textTransform: 'uppercase',
+              color: 'rgba(201,168,76,0.5)',
+              background: 'rgba(201,168,76,0.05)',
+              border: '1px solid rgba(201,168,76,0.12)',
+              borderRadius: 2,
+              padding: '2px 7px',
+            }}>
+              {glossaryCategoryLabels[term.category] || term.category}
+            </span>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  )
+}
+
 // ─── SECTION LABEL ────────────────────────────────────────────────────────────
 
 function SectionLabel({ label }: { label: string }) {
@@ -503,6 +685,31 @@ function SectionLabel({ label }: { label: string }) {
 
 export default function EstudosPage() {
   const [activeTab, setActiveTab] = useState<TabId>('dificeis')
+  const [glossarySearch, setGlossarySearch] = useState('')
+  const [glossaryCategoryFilter, setGlossaryCategoryFilter] = useState<string>('all')
+
+  const filteredGlossary = useMemo(() => {
+    let result = glossary
+    if (glossaryCategoryFilter !== 'all') {
+      result = result.filter((t) => t.category === glossaryCategoryFilter)
+    }
+    if (glossarySearch.trim()) {
+      const q = glossarySearch.toLowerCase().trim()
+      result = result.filter(
+        (t) =>
+          t.term.toLowerCase().includes(q) ||
+          t.arabic.includes(q) ||
+          t.meaning.toLowerCase().includes(q) ||
+          t.explanation.toLowerCase().includes(q)
+      )
+    }
+    return result
+  }, [glossarySearch, glossaryCategoryFilter])
+
+  const glossaryCategories = useMemo(() => {
+    const cats = new Set(glossary.map((t) => t.category))
+    return Array.from(cats).sort()
+  }, [])
 
   return (
     <div style={{
@@ -696,8 +903,8 @@ export default function EstudosPage() {
                 As perguntas que brasileiros evitam fazer sobre o Islam — mas que merecem respostas honestas, contextualizadas e sem defesa.
               </p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-                {hardQuestions.map((q, i) => (
-                  <HardQuestionCard key={q.id} q={q} index={i} />
+                {hardQuestionsData.map((q, i) => (
+                  <HardQuestionCard key={q.id} q={q} index={i} total={hardQuestionsData.length} />
                 ))}
               </div>
             </div>
@@ -770,6 +977,154 @@ export default function EstudosPage() {
                   <FaqCard key={faq.question} faq={faq} index={i} />
                 ))}
               </div>
+            </div>
+          </motion.section>
+        )}
+
+        {/* ── GLOSSARY ── */}
+        {activeTab === 'glossario' && (
+          <motion.section
+            key="glossario"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.35 }}
+            style={{ padding: '0 24px clamp(80px, 10vw, 120px)' }}
+          >
+            <div style={{ maxWidth: 900, margin: '0 auto' }}>
+              <SectionLabel label="GLOSSÁRIO ISLÂMICO" />
+              <p style={{
+                fontFamily: 'var(--font-sans)',
+                fontSize: 15,
+                color: '#7A7870',
+                lineHeight: 1.8,
+                maxWidth: 640,
+                marginBottom: 32,
+              }}>
+                100 termos essenciais para entender o Islam. Cada termo com transliteração, árabe original, significado e contexto.
+              </p>
+
+              {/* Search + Filter */}
+              <div style={{
+                display: 'flex',
+                gap: 12,
+                marginBottom: 32,
+                flexWrap: 'wrap',
+              }}>
+                {/* Search input */}
+                <div style={{
+                  flex: '1 1 300px',
+                  position: 'relative',
+                }}>
+                  <Search
+                    size={14}
+                    style={{
+                      position: 'absolute',
+                      left: 14,
+                      top: '50%',
+                      transform: 'translateY(-50%)',
+                      color: '#7A7870',
+                      pointerEvents: 'none',
+                    }}
+                  />
+                  <input
+                    type="text"
+                    placeholder="Buscar termo, significado ou explicação..."
+                    value={glossarySearch}
+                    onChange={(e) => setGlossarySearch(e.target.value)}
+                    style={{
+                      width: '100%',
+                      padding: '12px 16px 12px 38px',
+                      background: '#161220',
+                      border: '1px solid #272230',
+                      borderRadius: 4,
+                      fontFamily: 'var(--font-sans)',
+                      fontSize: 13,
+                      color: '#F0EBE2',
+                      outline: 'none',
+                      transition: 'border-color 0.25s ease',
+                    }}
+                    onFocus={(e) => { e.currentTarget.style.borderColor = 'rgba(201,168,76,0.35)' }}
+                    onBlur={(e) => { e.currentTarget.style.borderColor = '#272230' }}
+                  />
+                </div>
+
+                {/* Category filter */}
+                <select
+                  value={glossaryCategoryFilter}
+                  onChange={(e) => setGlossaryCategoryFilter(e.target.value)}
+                  style={{
+                    padding: '12px 16px',
+                    background: '#161220',
+                    border: '1px solid #272230',
+                    borderRadius: 4,
+                    fontFamily: 'var(--font-sans)',
+                    fontSize: 12,
+                    letterSpacing: '1px',
+                    textTransform: 'uppercase',
+                    color: '#B3B0A6',
+                    outline: 'none',
+                    cursor: 'pointer',
+                    minWidth: 160,
+                    appearance: 'none',
+                    WebkitAppearance: 'none',
+                  }}
+                >
+                  <option value="all">Todas categorias</option>
+                  {glossaryCategories.map((cat) => (
+                    <option key={cat} value={cat}>
+                      {glossaryCategoryLabels[cat] || cat}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Results count */}
+              <p style={{
+                fontFamily: 'var(--font-sans)',
+                fontSize: 11,
+                letterSpacing: '2px',
+                textTransform: 'uppercase',
+                color: '#5A5850',
+                marginBottom: 20,
+              }}>
+                {filteredGlossary.length} {filteredGlossary.length === 1 ? 'TERMO' : 'TERMOS'}
+              </p>
+
+              {/* Glossary cards */}
+              {filteredGlossary.length > 0 ? (
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 400px), 1fr))',
+                  gap: 8,
+                }}>
+                  {filteredGlossary.map((term, i) => (
+                    <GlossaryCard key={term.term} term={term} index={i} />
+                  ))}
+                </div>
+              ) : (
+                <div style={{
+                  textAlign: 'center',
+                  padding: '64px 24px',
+                }}>
+                  <p style={{
+                    fontFamily: 'var(--font-serif)',
+                    fontSize: 18,
+                    color: '#7A7870',
+                    fontStyle: 'italic',
+                  }}>
+                    Nenhum termo encontrado.
+                  </p>
+                  <p style={{
+                    fontFamily: 'var(--font-sans)',
+                    fontSize: 13,
+                    color: '#5A5850',
+                    marginTop: 8,
+                  }}>
+                    Tente outra busca ou remova o filtro de categoria.
+                  </p>
+                </div>
+              )}
             </div>
           </motion.section>
         )}
