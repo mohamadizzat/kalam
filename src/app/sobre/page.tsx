@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { X, Check, MessageCircle, Mail } from "lucide-react";
+import Link from "next/link";
+import { X, Check, MessageCircle, Mail, ArrowLeft, Heart, BookOpen, Users, Globe, Code } from "lucide-react";
 import { SectionReveal } from "@/components/shared/SectionReveal";
 import { GoldDivider } from "@/components/shared/GoldDivider";
 import { NumberTicker } from "@/components/effects/NumberTicker";
@@ -13,7 +14,7 @@ function HeroSection() {
     <section
       style={{
         position: "relative",
-        minHeight: "100vh",
+        minHeight: "85vh",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -36,8 +37,32 @@ function HeroSection() {
       />
 
       <div style={{ position: "relative", zIndex: 1, maxWidth: 780 }}>
-        {/* Eyebrow */}
+        {/* Back button */}
         <BlurFade delay={0}>
+          <Link
+            href="/"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "8px",
+              color: "#7A7870",
+              textDecoration: "none",
+              fontSize: "13px",
+              fontFamily: "var(--font-sans)",
+              letterSpacing: "0.5px",
+              marginBottom: "40px",
+              transition: "color 0.2s ease",
+            }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = '#C9A84C' }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = '#7A7870' }}
+          >
+            <ArrowLeft size={14} />
+            Voltar ao inicio
+          </Link>
+        </BlurFade>
+
+        {/* Eyebrow */}
+        <BlurFade delay={0.05}>
           <p
             style={{
               fontFamily: "var(--font-sans)",
@@ -79,7 +104,7 @@ function HeroSection() {
               lineHeight: 1.4,
             }}
           >
-            Chegou até você.
+            Chegou ate voce.
           </p>
         </BlurFade>
       </div>
@@ -121,7 +146,7 @@ function MissionSection() {
                 marginBottom: 20,
               }}
             >
-              O QUE É O KALAM
+              O QUE E O KALAM
             </p>
             <p
               style={{
@@ -131,17 +156,17 @@ function MissionSection() {
                 lineHeight: 1.85,
               }}
             >
-              Kalam (كلام) em árabe significa{" "}
+              Kalam (<span style={{ fontFamily: "var(--font-arabic)" }}>كلام</span>) em arabe significa{" "}
               <span style={{ color: "#F0EBE2", fontWeight: 500 }}>
-                "A Palavra"
+                &quot;A Palavra&quot;
               </span>{" "}
               ou{" "}
               <span style={{ color: "#F0EBE2", fontWeight: 500 }}>
-                "O Discurso"
+                &quot;O Discurso&quot;
               </span>
-              . É o nome de um projeto cultural que acredita que a mensagem
-              islâmica — completa, honesta, sem filtros — merece ser conhecida
-              por todo brasileiro que já se perguntou sobre Deus, sobre os
+              . E o nome de um projeto cultural que acredita que a mensagem
+              islamica — completa, honesta, sem filtros — merece ser conhecida
+              por todo brasileiro que ja se perguntou sobre Deus, sobre os
               profetas, sobre a origem das coisas.
             </p>
           </div>
@@ -175,20 +200,223 @@ function MissionSection() {
   );
 }
 
+/* ─────────────────────────── Mission Statement ─────────────────────────── */
+function MissionStatementSection() {
+  return (
+    <section
+      style={{
+        background: "#0D0B12",
+        padding: "clamp(72px, 10vw, 112px) 24px",
+      }}
+    >
+      <div style={{ maxWidth: 720, margin: "0 auto", textAlign: "center" }}>
+        <SectionReveal delay={0}>
+          <p
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: 11,
+              letterSpacing: "3px",
+              textTransform: "uppercase",
+              color: "rgba(201,168,76,0.55)",
+              marginBottom: 32,
+            }}
+          >
+            NOSSA MISSAO
+          </p>
+        </SectionReveal>
+
+        <SectionReveal delay={0.1}>
+          <blockquote
+            style={{
+              fontFamily: "var(--font-serif)",
+              fontSize: "clamp(22px, 3.5vw, 32px)",
+              fontWeight: 700,
+              color: "#F0EBE2",
+              lineHeight: 1.4,
+              marginBottom: 24,
+              position: "relative",
+            }}
+          >
+            <span style={{
+              position: "absolute",
+              top: "-20px",
+              left: "50%",
+              transform: "translateX(-50%)",
+              fontFamily: "var(--font-serif)",
+              fontSize: "60px",
+              color: "rgba(201,168,76,0.15)",
+              lineHeight: 1,
+            }}>
+              &ldquo;
+            </span>
+            Tornar a mensagem do Islam acessivel, honesta e respeitosa para todo brasileiro que busca respostas.
+          </blockquote>
+        </SectionReveal>
+
+        <SectionReveal delay={0.2}>
+          <p
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: "clamp(15px, 2vw, 17px)",
+              color: "#B3B0A6",
+              lineHeight: 1.85,
+              maxWidth: 600,
+              margin: "0 auto",
+            }}
+          >
+            Nao queremos convencer ninguem. Queremos que as pessoas tenham acesso a uma mensagem que existe ha 14 seculos — sem distorcao, sem pressao, sem medo. O Kalam e um espaco de{" "}
+            <span style={{ color: "#C9A84C" }}>conhecimento</span>, nao de conversao.
+          </p>
+        </SectionReveal>
+      </div>
+    </section>
+  );
+}
+
+/* ─────────────────────────── 4 Spaces ─────────────────────────── */
+function SpacesSection() {
+  const spaces = [
+    {
+      icon: BookOpen,
+      title: "A Palavra",
+      arabic: "كلمة",
+      description: "O Quran completo em arabe e portugues. Estudos profundos, hadiths, parabolas, recitacao e busca inteligente.",
+    },
+    {
+      icon: Heart,
+      title: "A Presenca",
+      arabic: "حضور",
+      description: "99 Nomes de Deus, duas, dhikr digital, flashcards, horarios de oracao e contemplacao meditativa.",
+    },
+    {
+      icon: Users,
+      title: "A Jornada",
+      arabic: "رحلة",
+      description: "Historias dos profetas, Seerah do Profeta Muhammad, companheiros, mulheres no Islam, trilhas de estudo e desafios.",
+    },
+    {
+      icon: Globe,
+      title: "A Alma",
+      arabic: "روح",
+      description: "Seu espaco mais intimo. Journal espiritual, progresso pessoal, rotina diaria e sabedoria para a mente.",
+    },
+  ];
+
+  return (
+    <section
+      style={{
+        background: "#111111",
+        borderTop: "1px solid #272230",
+        borderBottom: "1px solid #272230",
+        padding: "clamp(72px, 10vw, 112px) 24px",
+      }}
+    >
+      <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+        <SectionReveal delay={0}>
+          <p
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: 11,
+              letterSpacing: "3px",
+              textTransform: "uppercase",
+              color: "rgba(201,168,76,0.55)",
+              textAlign: "center",
+              marginBottom: 48,
+            }}
+          >
+            4 ESPACOS, 1 JORNADA
+          </p>
+        </SectionReveal>
+
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+            gap: 16,
+          }}
+        >
+          {spaces.map((space, i) => (
+            <SectionReveal key={space.title} delay={0.1 * (i + 1)}>
+              <div
+                style={{
+                  background: "#0D0B12",
+                  border: "1px solid #272230",
+                  borderRadius: 4,
+                  padding: "clamp(28px, 4vw, 36px)",
+                  height: "100%",
+                  position: "relative",
+                  overflow: "hidden",
+                }}
+              >
+                {/* Gold corner accent */}
+                <div
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: 80,
+                    height: 80,
+                    background:
+                      "radial-gradient(circle at top left, rgba(201,168,76,0.05) 0%, transparent 70%)",
+                    pointerEvents: "none",
+                  }}
+                />
+
+                <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "16px" }}>
+                  <space.icon size={22} style={{ color: "#C9A84C" }} />
+                  <span style={{
+                    fontFamily: "var(--font-arabic)",
+                    fontSize: "18px",
+                    color: "rgba(201,168,76,0.4)",
+                  }}>
+                    {space.arabic}
+                  </span>
+                </div>
+
+                <p
+                  style={{
+                    fontFamily: "var(--font-serif)",
+                    fontSize: "18px",
+                    fontWeight: 600,
+                    color: "#F0EBE2",
+                    marginBottom: 10,
+                  }}
+                >
+                  {space.title}
+                </p>
+                <p
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: 14,
+                    color: "#7A7870",
+                    lineHeight: 1.65,
+                  }}
+                >
+                  {space.description}
+                </p>
+              </div>
+            </SectionReveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ─────────────────────────── Is / Is Not ─────────────────────────── */
 function IsIsNotSection() {
   const notList = [
-    "Proselitismo disfarçado",
-    "Portal de conversão",
+    "Proselitismo disfarcado",
+    "Portal de conversao",
     "Propaganda religiosa",
-    "Representante de nenhuma mesquita ou organização",
+    "Representante de nenhuma mesquita ou organizacao",
   ];
 
   const isList = [
-    "Exploração honesta de uma tradição de 1.400 anos",
-    "Conteúdo para quem tem perguntas sem medo de respostas",
-    "Paralelos entre Bíblia e Alcorão",
-    "Informação — o que você faz com ela é sua decisão",
+    "Exploracao honesta de uma tradicao de 1.400 anos",
+    "Conteudo para quem tem perguntas sem medo de respostas",
+    "Paralelos entre Biblia e Alcorao",
+    "Informacao — o que voce faz com ela e sua decisao",
   ];
 
   return (
@@ -244,7 +472,7 @@ function IsIsNotSection() {
                   textDecorationColor: "rgba(90,90,80,0.4)",
                 }}
               >
-                O Kalam NÃO É
+                O Kalam NAO E
               </p>
               <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 16 }}>
                 {notList.map((item, i) => (
@@ -323,7 +551,7 @@ function IsIsNotSection() {
                   marginBottom: 28,
                 }}
               >
-                O Kalam É
+                O Kalam E
               </p>
               <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 16 }}>
                 {isList.map((item, i) => (
@@ -371,12 +599,127 @@ function IsIsNotSection() {
   );
 }
 
+/* ─────────────────────────── Para Quem ─────────────────────────── */
+function ParaQuemSection() {
+  const audiences = [
+    {
+      title: "O curioso",
+      description: "Voce ja ouviu falar do Islam mas nunca teve acesso a informacao sem filtro. Aqui voce encontra.",
+    },
+    {
+      title: "O cristao com perguntas",
+      description: "Voce reverencia Abraao, Moises e Jesus. Sabia que eles sao profetas do Islam tambem? Descubra o que une as duas tradicoes.",
+    },
+    {
+      title: "O muçulmano brasileiro",
+      description: "Voce pratica mas quer aprofundar. Quran em portugues, hadiths, 99 Nomes, dhikr digital — tudo num so lugar.",
+    },
+    {
+      title: "O buscador",
+      description: "Voce nao segue nenhuma religiao mas sente que existe algo maior. O Kalam nao pede fe — pede honestidade intelectual.",
+    },
+  ];
+
+  return (
+    <section
+      style={{
+        background: "#111111",
+        borderTop: "1px solid #272230",
+        borderBottom: "1px solid #272230",
+        padding: "clamp(72px, 10vw, 112px) 24px",
+      }}
+    >
+      <div style={{ maxWidth: 800, margin: "0 auto" }}>
+        <SectionReveal delay={0}>
+          <p
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: 11,
+              letterSpacing: "3px",
+              textTransform: "uppercase",
+              color: "rgba(201,168,76,0.55)",
+              textAlign: "center",
+              marginBottom: 16,
+            }}
+          >
+            PARA QUEM E O KALAM?
+          </p>
+          <h2
+            style={{
+              fontFamily: "var(--font-serif)",
+              fontSize: "clamp(24px, 3.5vw, 32px)",
+              fontWeight: 700,
+              color: "#F0EBE2",
+              textAlign: "center",
+              marginBottom: 48,
+            }}
+          >
+            Para todo brasileiro com perguntas honestas
+          </h2>
+        </SectionReveal>
+
+        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+          {audiences.map((item, i) => (
+            <SectionReveal key={item.title} delay={0.1 * (i + 1)}>
+              <div
+                style={{
+                  display: "flex",
+                  gap: "20px",
+                  padding: "24px",
+                  background: "#0D0B12",
+                  border: "1px solid #272230",
+                  borderRadius: 4,
+                }}
+              >
+                <div style={{
+                  width: "32px",
+                  height: "32px",
+                  borderRadius: "50%",
+                  background: "rgba(201,168,76,0.08)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  flexShrink: 0,
+                  marginTop: "2px",
+                }}>
+                  <span style={{ color: "#C9A84C", fontSize: "14px", fontWeight: 700 }}>
+                    {i + 1}
+                  </span>
+                </div>
+                <div>
+                  <p style={{
+                    fontFamily: "var(--font-serif)",
+                    fontSize: "17px",
+                    fontWeight: 600,
+                    color: "#F0EBE2",
+                    marginBottom: "6px",
+                  }}>
+                    {item.title}
+                  </p>
+                  <p style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: "14px",
+                    color: "#B3B0A6",
+                    lineHeight: 1.7,
+                  }}>
+                    {item.description}
+                  </p>
+                </div>
+              </div>
+            </SectionReveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ─────────────────────────── Numbers ─────────────────────────── */
 function NumbersSection() {
   const stats = [
-    { value: 1400, suffix: "", label: "anos de documentação", sublabel: "preservados sem alteração" },
-    { value: 114, suffix: "", label: "suratas no Alcorão", sublabel: "capítulos do documento original" },
-    { value: 25, suffix: "", label: "profetas em comum", sublabel: "com a Bíblia" },
+    { value: 1400, suffix: "", label: "anos de documentacao", sublabel: "preservados sem alteracao" },
+    { value: 114, suffix: "", label: "suratas no Alcorao", sublabel: "capitulos do documento original" },
+    { value: 25, suffix: "", label: "profetas em comum", sublabel: "com a Biblia" },
   ];
 
   return (
@@ -401,7 +744,7 @@ function NumbersSection() {
               marginBottom: 56,
             }}
           >
-            EM NÚMEROS
+            EM NUMEROS
           </p>
         </SectionReveal>
 
@@ -532,21 +875,105 @@ function PhilosophySection() {
             >
               Porque{" "}
               <span style={{ color: "#F0EBE2" }}>
-                1.8 bilhão de pessoas no mundo
+                1.8 bilhao de pessoas no mundo
               </span>{" "}
-              seguem uma tradição que a maioria dos brasileiros nunca viu de
-              dentro. Porque os mesmos profetas que o cristão brasileiro
+              seguem uma tradicao que a maioria dos brasileiros nunca viu de
+              dentro. Porque os mesmos profetas que o cristao brasileiro
               reverencia —{" "}
               <span style={{ color: "#C9A84C" }}>
-                Abraão, Moisés, Jesus
+                Abraao, Moises, Jesus
               </span>{" "}
-              — são profetas do Islam também. Porque há perguntas difíceis que
-              merecem respostas honestas, não respostas fáceis. Porque{" "}
+              — sao profetas do Islam tambem. Porque ha perguntas dificeis que
+              merecem respostas honestas, nao respostas faceis. Porque{" "}
               <span style={{ color: "#F0EBE2", fontStyle: "italic" }}>
-                "conhecer" não é "concordar"
+                &quot;conhecer&quot; nao e &quot;concordar&quot;
               </span>
-              . E porque você tem o direito de saber.
+              . E porque voce tem o direito de saber.
             </p>
+          </div>
+        </SectionReveal>
+      </div>
+    </section>
+  );
+}
+
+/* ─────────────────────────── Credits ─────────────────────────── */
+function CreditsSection() {
+  return (
+    <section
+      style={{
+        background: "#0D0B12",
+        padding: "clamp(72px, 10vw, 112px) 24px",
+      }}
+    >
+      <div style={{ maxWidth: 600, margin: "0 auto", textAlign: "center" }}>
+        <SectionReveal delay={0}>
+          <p
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: 11,
+              letterSpacing: "3px",
+              textTransform: "uppercase",
+              color: "rgba(201,168,76,0.55)",
+              marginBottom: 32,
+            }}
+          >
+            CREDITOS & FONTES
+          </p>
+        </SectionReveal>
+
+        <SectionReveal delay={0.1}>
+          <div
+            style={{
+              background: "#111111",
+              border: "1px solid #272230",
+              borderRadius: 4,
+              padding: "clamp(28px, 4vw, 40px)",
+              textAlign: "left",
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "20px" }}>
+              <Code size={18} style={{ color: "#C9A84C" }} />
+              <p style={{
+                fontFamily: "var(--font-serif)",
+                fontSize: "18px",
+                fontWeight: 600,
+                color: "#F0EBE2",
+              }}>
+                Projeto de codigo aberto
+              </p>
+            </div>
+
+            <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+              {[
+                { label: "Texto do Quran", value: "API quran.com (tanzil.net)" },
+                { label: "Traducao", value: "King Fahd Complex (PT-BR)" },
+                { label: "Recitacao", value: "Mishary Rashid Alafasy" },
+                { label: "99 Nomes", value: "Fontes tradicionais islamicas" },
+                { label: "Hadiths", value: "Sahih Bukhari & Muslim (selecao)" },
+                { label: "Design", value: "Feito com respeito e cuidado" },
+              ].map((item) => (
+                <div key={item.label} style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+                  <span style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: "13px",
+                    color: "#7A7870",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.5px",
+                  }}>
+                    {item.label}
+                  </span>
+                  <span style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: "14px",
+                    color: "#B3B0A6",
+                    textAlign: "right",
+                  }}>
+                    {item.value}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         </SectionReveal>
       </div>
@@ -577,7 +1004,7 @@ function CommunitySection() {
               marginBottom: 24,
             }}
           >
-            COMUNIDADE
+            CONTATO & FEEDBACK
           </p>
 
           <h2
@@ -590,7 +1017,7 @@ function CommunitySection() {
               marginBottom: 16,
             }}
           >
-            Faça parte
+            Faca parte
           </h2>
 
           <p
@@ -599,11 +1026,21 @@ function CommunitySection() {
               fontSize: "clamp(15px, 2vw, 17px)",
               color: "#B3B0A6",
               lineHeight: 1.75,
+              marginBottom: 12,
+            }}
+          >
+            Receba novos episodios, estudos e reflexoes direto no WhatsApp ou
+            email. Tem uma sugestao ou encontrou um erro? Nos mande uma mensagem.
+          </p>
+          <p
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: "14px",
+              color: "#7A7870",
               marginBottom: 40,
             }}
           >
-            Receba novos episódios, estudos e reflexões direto no WhatsApp ou
-            email.
+            Cada feedback nos ajuda a melhorar o Kalam para todos.
           </p>
         </SectionReveal>
 
@@ -680,7 +1117,7 @@ function CommunitySection() {
               letterSpacing: "0.5px",
             }}
           >
-            Zero spam. Você sai quando quiser.
+            Zero spam. Voce sai quando quiser.
           </p>
         </SectionReveal>
       </div>
@@ -732,7 +1169,7 @@ function FooterQuoteSection() {
               marginBottom: 12,
             }}
           >
-            Iqra — "Leia"
+            Iqra — &quot;Leia&quot;
           </p>
 
           <p
@@ -743,7 +1180,7 @@ function FooterQuoteSection() {
               letterSpacing: "0.5px",
             }}
           >
-            A primeira palavra revelada ao profeta Muhammad. Há 1.400 anos.
+            A primeira palavra revelada ao profeta Muhammad. Ha 1.400 anos.
           </p>
         </motion.div>
       </SectionReveal>
@@ -762,9 +1199,13 @@ export default function SobrePage() {
       </div>
 
       <MissionSection />
+      <MissionStatementSection />
+      <SpacesSection />
       <IsIsNotSection />
+      <ParaQuemSection />
       <NumbersSection />
       <PhilosophySection />
+      <CreditsSection />
       <CommunitySection />
       <FooterQuoteSection />
     </>

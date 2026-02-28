@@ -2,20 +2,21 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { Compass, Users, BookOpen, Library, Target, Heart, CalendarDays, Star, Coins, Shield, Calculator } from 'lucide-react'
+import { Compass, Users, BookOpen, Library, Target, Heart, CalendarDays, Star, Coins, Shield, Calculator, Moon } from 'lucide-react'
 
 const SECTIONS = [
+  { icon: Moon, title: 'Ramadan', subtitle: '30 dias de transformacao: misericordia, perdao e libertacao', href: '/a-jornada/ramadan' },
   { icon: Compass, title: 'Trilhas de Estudo', subtitle: 'Jornadas guiadas de aprendizado', href: '/trilhas' },
-  { icon: Users, title: 'Os Profetas', subtitle: 'Histórias que transformam', href: '/os-profetas' },
-  { icon: Star, title: 'Seerah', subtitle: 'A vida do Profeta Muhammad em 12 capítulos', href: '/a-jornada/seerah' },
+  { icon: Users, title: 'Os Profetas', subtitle: 'Historias que transformam', href: '/os-profetas' },
+  { icon: Star, title: 'Seerah', subtitle: 'A vida do Profeta Muhammad em 12 capitulos', href: '/a-jornada/seerah' },
   { icon: Shield, title: 'Companheiros', subtitle: 'Os homens que mudaram o mundo ao lado do Profeta', href: '/a-jornada/companheiros' },
-  { icon: Heart, title: 'Mulheres no Islam', subtitle: 'As histórias que o mundo não conta', href: '/a-jornada/mulheres' },
-  { icon: CalendarDays, title: 'Linha do Tempo', subtitle: '14 séculos de história islâmica', href: '/a-jornada/historia' },
-  { icon: BookOpen, title: 'Estudos e Perguntas', subtitle: 'Aprofunde sua compreensão', href: '/estudos' },
-  { icon: Library, title: 'Biblioteca', subtitle: 'Acervo completo de conteúdos', href: '/biblioteca' },
-  { icon: Coins, title: 'Finanças Islâmicas', subtitle: 'Riqueza com propósito: Zakat, Riba, investimento halal', href: '/a-jornada/financas' },
+  { icon: Heart, title: 'Mulheres no Islam', subtitle: 'As historias que o mundo nao conta', href: '/a-jornada/mulheres' },
+  { icon: CalendarDays, title: 'Linha do Tempo', subtitle: '14 seculos de historia islamica', href: '/a-jornada/historia' },
+  { icon: BookOpen, title: 'Estudos e Perguntas', subtitle: 'Aprofunde sua compreensao', href: '/estudos' },
+  { icon: Library, title: 'Biblioteca', subtitle: 'Acervo completo de conteudos', href: '/biblioteca' },
+  { icon: Coins, title: 'Financas Islamicas', subtitle: 'Riqueza com proposito: Zakat, Riba, investimento halal', href: '/a-jornada/financas' },
   { icon: Calculator, title: 'Calculadora de Zakat', subtitle: 'Calcule o valor do seu Zakat de forma simples', href: '/a-jornada/zakat' },
-  { icon: Target, title: 'Desafios de 7 Dias', subtitle: 'Transformação prática, uma semana de cada vez', href: '/a-jornada/desafios' },
+  { icon: Target, title: 'Desafios de 7 Dias', subtitle: 'Transformacao pratica, uma semana de cada vez', href: '/a-jornada/desafios' },
 ]
 
 const fadeUp = {
@@ -28,25 +29,25 @@ export default function AJornadaPage() {
     <main className="min-h-screen" style={{ background: '#0D0B12' }}>
       <div style={{ maxWidth: '640px', margin: '0 auto', padding: '48px 24px 100px' }}>
 
-        {/* Title */}
+        {/* Header */}
         <motion.div
           {...fadeUp}
           transition={{ duration: 0.8, ease: 'easeOut' }}
-          className="text-center mb-12"
+          style={{ marginBottom: '32px' }}
         >
           <h1 style={{
             fontFamily: 'var(--font-serif)',
+            fontSize: '32px',
             fontWeight: 700,
-            fontSize: 'clamp(28px, 5vw, 36px)',
             color: '#F0EBE2',
-            marginBottom: '8px',
             letterSpacing: '-0.02em',
           }}>
             A Jornada
           </h1>
           <p style={{
+            color: '#B3B0A6',
             fontSize: '15px',
-            color: '#7A7870',
+            marginTop: '8px',
           }}>
             Seu caminho de aprendizado
           </p>
