@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import '@fontsource-variable/inter'
 import '@fontsource/playfair-display/400.css'
 import '@fontsource/playfair-display/600.css'
@@ -14,17 +14,46 @@ import { Header } from '@/components/layout/Header'
 import { BottomNav } from '@/components/layout/BottomNav'
 import { Footer } from '@/components/layout/Footer'
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  viewportFit: 'cover',
+  themeColor: '#0D0B12',
+}
+
 export const metadata: Metadata = {
   title: 'KALAM — Deus. Todo dia.',
   description: 'Seu companheiro diário para se conectar com Deus. Versículos, trilhas de aprendizado, sabedoria dos profetas — sem ruído, sem culpa, com profundidade.',
   keywords: 'profetas, bíblia, alcorão, história, fé, espiritualidade, Islam, aya do dia, quran',
+  manifest: '/manifest.json',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'black-translucent',
+    title: 'Kalam',
+  },
+  icons: {
+    icon: [
+      { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/icon-512.png', sizes: '512x512', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
+    ],
+  },
   openGraph: {
     title: 'KALAM — Deus. Todo dia.',
-    description: 'Seu companheiro diário para se conectar com Deus.',
+    description: 'Seu santuário digital de conexão com Deus.',
     type: 'website',
     locale: 'pt_BR',
+    siteName: 'Kalam',
   },
-  twitter: { card: 'summary_large_image' },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'KALAM — Deus. Todo dia.',
+    description: 'Seu santuário digital de conexão com Deus.',
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

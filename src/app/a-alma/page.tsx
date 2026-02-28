@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { PenLine, TrendingUp, Clock } from 'lucide-react'
+import { PenLine, TrendingUp, Clock, Brain } from 'lucide-react'
 import { motion } from 'framer-motion'
 
 export default function AAlmaPage() {
@@ -84,6 +84,27 @@ export default function AAlmaPage() {
           </p>
           <p style={{ fontSize: '14px', color: '#7A7870', marginTop: '4px' }}>
             Checklists diarios. Manha e noite.
+          </p>
+        </Link>
+
+        <Link
+          href="/a-alma/saude-mental"
+          className="card-hover"
+          style={{
+            padding: '32px',
+            borderRadius: '16px',
+            background: '#161220',
+            border: '1px solid #272230',
+            textDecoration: 'none',
+            display: 'block',
+          }}
+        >
+          <Brain size={28} style={{ color: '#C9A84C', marginBottom: '16px' }} />
+          <p style={{ fontFamily: 'var(--font-serif)', fontSize: '20px', color: '#F0EBE2' }}>
+            Saude Mental
+          </p>
+          <p style={{ fontSize: '14px', color: '#7A7870', marginTop: '4px' }}>
+            Sabedoria islamica para a mente e o coracao.
           </p>
         </Link>
       </div>

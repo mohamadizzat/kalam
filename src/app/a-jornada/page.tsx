@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { Compass, Users, BookOpen, Library, Target, Heart, CalendarDays, Star, Coins, Shield } from 'lucide-react'
+import { Compass, Users, BookOpen, Library, Target, Heart, CalendarDays, Star, Coins, Shield, Calculator } from 'lucide-react'
 
 const SECTIONS = [
   { icon: Compass, title: 'Trilhas de Estudo', subtitle: 'Jornadas guiadas de aprendizado', href: '/trilhas' },
@@ -14,6 +14,7 @@ const SECTIONS = [
   { icon: BookOpen, title: 'Estudos e Perguntas', subtitle: 'Aprofunde sua compreensão', href: '/estudos' },
   { icon: Library, title: 'Biblioteca', subtitle: 'Acervo completo de conteúdos', href: '/biblioteca' },
   { icon: Coins, title: 'Finanças Islâmicas', subtitle: 'Riqueza com propósito: Zakat, Riba, investimento halal', href: '/a-jornada/financas' },
+  { icon: Calculator, title: 'Calculadora de Zakat', subtitle: 'Calcule o valor do seu Zakat de forma simples', href: '/a-jornada/zakat' },
   { icon: Target, title: 'Desafios de 7 Dias', subtitle: 'Transformação prática, uma semana de cada vez', href: '/a-jornada/desafios' },
 ]
 

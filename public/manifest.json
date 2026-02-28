@@ -1,0 +1,24 @@
+{
+  "name": "Kalam — Companheiro Espiritual",
+  "short_name": "Kalam",
+  "description": "Seu santuário digital de conexão com Deus",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0D0B12",
+  "theme_color": "#C9A84C",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
