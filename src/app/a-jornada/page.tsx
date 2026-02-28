@@ -2,13 +2,16 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { Compass, Users, BookOpen, Library } from 'lucide-react'
+import { Compass, Users, BookOpen, Library, Target, Heart, CalendarDays } from 'lucide-react'
 
 const SECTIONS = [
   { icon: Compass, title: 'Trilhas de Estudo', subtitle: 'Jornadas guiadas de aprendizado', href: '/trilhas' },
   { icon: Users, title: 'Os Profetas', subtitle: 'Histórias que transformam', href: '/os-profetas' },
+  { icon: Heart, title: 'Mulheres no Islam', subtitle: 'As histórias que o mundo não conta', href: '/a-jornada/mulheres' },
+  { icon: CalendarDays, title: 'Linha do Tempo', subtitle: '14 séculos de história islâmica', href: '/a-jornada/historia' },
   { icon: BookOpen, title: 'Estudos e Perguntas', subtitle: 'Aprofunde sua compreensão', href: '/estudos' },
   { icon: Library, title: 'Biblioteca', subtitle: 'Acervo completo de conteúdos', href: '/biblioteca' },
+  { icon: Target, title: 'Desafios de 7 Dias', subtitle: 'Transformação prática, uma semana de cada vez', href: '/a-jornada/desafios' },
 ]
 
 const fadeUp = {

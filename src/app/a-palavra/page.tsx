@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { BookOpen, ArrowRight, Search } from 'lucide-react'
 import { surahs } from '@/lib/data/surahs'
+import { surahStudies } from '@/lib/data/surah-studies'
 
 type LastRead = {
   surah: number
@@ -70,6 +71,36 @@ export default function APalavraPage() {
           <ArrowRight size={16} style={{ color: '#C9A84C', flexShrink: 0 }} />
         </Link>
       )}
+
+      {/* Deep studies section */}
+      <div style={{ marginBottom: '32px' }}>
+        <p style={{ fontFamily: 'var(--font-serif)', fontSize: '18px', color: '#F0EBE2', marginBottom: '12px' }}>
+          Estudos Profundos
+        </p>
+        <div className="flex gap-3 overflow-x-auto no-scrollbar pb-2">
+          {surahStudies.map(study => (
+            <Link
+              key={study.slug}
+              href={`/a-palavra/estudo/${study.slug}`}
+              className="card-hover"
+              style={{
+                flexShrink: 0,
+                padding: '16px 20px',
+                borderRadius: '12px',
+                background: '#161220',
+                border: '1px solid #272230',
+                textDecoration: 'none',
+                minWidth: '140px',
+              }}
+            >
+              <p style={{ fontFamily: 'var(--font-arabic)', fontSize: '18px', color: '#C9A84C', marginBottom: '4px' }}>
+                {study.arabicTitle}
+              </p>
+              <p style={{ fontSize: '14px', color: '#F0EBE2', fontWeight: 500 }}>{study.title}</p>
+            </Link>
+          ))}
+        </div>
+      </div>
 
       {/* Search */}
       <div

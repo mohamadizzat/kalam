@@ -169,6 +169,49 @@ export default function APresencaPage() {
             </Link>
           </motion.div>
 
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: 'easeOut', delay: 0.4 }}
+          >
+            <Link href="/a-presenca/salah" className="card-hover" style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '16px',
+              padding: '32px',
+              borderRadius: '16px',
+              background: '#161220',
+              border: '1px solid #272230',
+              textDecoration: 'none',
+            }}>
+              <p style={{
+                fontFamily: 'var(--font-arabic)',
+                fontSize: '32px',
+                color: '#C9A84C',
+                direction: 'rtl',
+              }}>
+                صلاة
+              </p>
+              <div>
+                <p style={{
+                  fontFamily: 'var(--font-serif)',
+                  fontSize: '20px',
+                  color: '#F0EBE2',
+                  fontWeight: 600,
+                }}>
+                  Horarios de Oracao
+                </p>
+                <p style={{
+                  fontSize: '14px',
+                  color: '#7A7870',
+                  marginTop: '4px',
+                }}>
+                  Qibla e horarios das 5 oracoes
+                </p>
+              </div>
+            </Link>
+          </motion.div>
+
         </div>
 
       </div>

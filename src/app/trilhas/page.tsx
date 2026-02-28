@@ -267,7 +267,7 @@ export default function TrilhasPage() {
               margin: '0 auto 40px',
               lineHeight: 1.75,
             }}>
-              Cada trilha é uma experiência de 4 a 7 dias. Um dia. Uma ideia. Uma mudança.
+              Cada trilha é uma jornada guiada — de 4 a 35 dias. Um dia. Uma ideia. Uma mudança.
             </p>
           </BlurFade>
 
