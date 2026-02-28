@@ -1056,7 +1056,7 @@ function CommunitySection() {
           >
             {/* WhatsApp button */}
             <motion.a
-              href="#"
+              href="https://wa.me/?text=Assalamu%20Alaykum!%20Vim%20pelo%20Kalam"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               style={{
@@ -1083,7 +1083,7 @@ function CommunitySection() {
 
             {/* Email button */}
             <motion.a
-              href="#"
+              href="mailto:kalam@mensagem-unica.com"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               style={{

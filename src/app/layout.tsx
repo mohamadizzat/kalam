@@ -13,6 +13,7 @@ import { LenisProvider } from '@/providers/lenis-provider'
 import { Header } from '@/components/layout/Header'
 import { BottomNav } from '@/components/layout/BottomNav'
 import { Footer } from '@/components/layout/Footer'
+import { Analytics } from '@vercel/analytics/next'
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -24,6 +25,7 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://mensagem-unica.vercel.app'),
   title: 'KALAM — Deus. Todo dia.',
   description: 'Seu companheiro diário para se conectar com Deus. Versículos, trilhas de aprendizado, sabedoria dos profetas — sem ruído, sem culpa, com profundidade.',
   keywords: 'profetas, bíblia, alcorão, história, fé, espiritualidade, Islam, aya do dia, quran',
@@ -68,6 +70,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <BottomNav />
           </LenisProvider>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   )
