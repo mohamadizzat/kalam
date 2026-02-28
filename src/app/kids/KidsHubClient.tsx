@@ -3,8 +3,35 @@
 import { useEffect, useState, useMemo } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { getProgress, getLevel, getNextLevel, getLevelProgress, LEVELS } from '@/lib/kids-progress'
+import { getProgress, getLevel, getNextLevel, getLevelProgress } from '@/lib/kids-progress'
 import type { KidsProgress } from '@/lib/kids-progress'
+import { KidsProgressBar } from '@/components/kids/KidsProgressBar'
+
+// ── COMPLETION THRESHOLDS ──────────────────────────────────────────────────
+
+type CompletionKey = keyof Pick<KidsProgress,
+  'completedStories' | 'completedPillars' | 'completedFaithPillars' |
+  'completedSurahs' | 'completedDuas' | 'completedAdab' |
+  'completedQuizzes' | 'completedActivities' | 'completedHeroes'
+>
+
+const SECTION_COMPLETION: Record<string, { key: CompletionKey; threshold: number }> = {
+  '/kids/historias': { key: 'completedStories', threshold: 15 },
+  '/kids/pilares-do-islam': { key: 'completedPillars', threshold: 5 },
+  '/kids/pilares-da-fe': { key: 'completedFaithPillars', threshold: 6 },
+  '/kids/quran-kids': { key: 'completedSurahs', threshold: 15 },
+  '/kids/dua-do-dia': { key: 'completedDuas', threshold: 20 },
+  '/kids/bons-modos': { key: 'completedAdab', threshold: 12 },
+  '/kids/quiz': { key: 'completedQuizzes', threshold: 5 },
+  '/kids/atividades': { key: 'completedActivities', threshold: 6 },
+  '/kids/herois': { key: 'completedHeroes', threshold: 10 },
+}
+
+function isSectionComplete(progress: KidsProgress, href: string): boolean {
+  const config = SECTION_COMPLETION[href]
+  if (!config) return false
+  return progress[config.key].length >= config.threshold
+}
 
 // ── SECTION DATA ────────────────────────────────────────────────────────────
 
@@ -111,6 +138,7 @@ function KidsCard({
   color,
   count,
   index,
+  isComplete,
 }: {
   emoji: string
   title: string
@@ -119,6 +147,7 @@ function KidsCard({
   color: string
   count?: string
   index: number
+  isComplete?: boolean
 }) {
   const [hovered, setHovered] = useState(false)
 
@@ -222,110 +251,30 @@ function KidsCard({
             {count}
           </div>
         )}
-      </Link>
-    </motion.div>
-  )
-}
 
-// ── PROGRESS BAR ────────────────────────────────────────────────────────────
-
-function ProgressSummary({ progress }: { progress: KidsProgress }) {
-  const level = getLevel(progress.stars)
-  const nextLevel = getNextLevel(progress.stars)
-  const percentage = getLevelProgress(progress.stars)
-
-  return (
-    <motion.div
-      {...fadeUp}
-      transition={{ duration: 0.6, ease: 'easeOut', delay: 0.15 }}
-      style={{
-        background: '#161220',
-        border: '1px solid #272230',
-        borderRadius: '20px',
-        padding: '20px',
-        marginBottom: '24px',
-      }}
-    >
-      {/* Level + Stars row */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <span style={{ fontSize: '28px' }}>{level.emoji}</span>
-          <div>
-            <p style={{
-              fontFamily: 'var(--font-serif)',
-              fontSize: '16px',
-              fontWeight: 600,
-              color: '#F0EBE2',
-            }}>
-              {level.name}
-            </p>
-            <p style={{ fontSize: '12px', color: '#7A7870' }}>
-              Nivel {LEVELS.indexOf(level) + 1}
-            </p>
+        {/* Completion checkmark */}
+        {isComplete && (
+          <div
+            style={{
+              width: '24px',
+              height: '24px',
+              borderRadius: '50%',
+              background: '#22C55E20',
+              border: '1.5px solid #22C55E60',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexShrink: 0,
+              position: 'relative',
+              zIndex: 1,
+            }}
+          >
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <path d="M2.5 6L5 8.5L9.5 3.5" stroke="#22C55E" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
           </div>
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-          <span style={{ fontSize: '18px' }}>⭐</span>
-          <span style={{
-            fontSize: '20px',
-            fontWeight: 700,
-            color: '#FFD93D',
-            fontFamily: 'var(--font-sans)',
-          }}>
-            {progress.stars}
-          </span>
-        </div>
-      </div>
-
-      {/* Progress bar */}
-      <div style={{
-        background: '#0D0B12',
-        borderRadius: '10px',
-        height: '10px',
-        overflow: 'hidden',
-        position: 'relative',
-      }}>
-        <motion.div
-          initial={{ width: 0 }}
-          animate={{ width: `${percentage}%` }}
-          transition={{ duration: 1, ease: 'easeOut', delay: 0.5 }}
-          style={{
-            height: '100%',
-            borderRadius: '10px',
-            background: 'linear-gradient(90deg, #FF8C42, #FFD93D)',
-          }}
-        />
-      </div>
-
-      {/* Next level label */}
-      {nextLevel && (
-        <p style={{
-          fontSize: '11px',
-          color: '#7A7870',
-          marginTop: '8px',
-          textAlign: 'right',
-        }}>
-          {nextLevel.emoji} {nextLevel.name} em {nextLevel.minStars - progress.stars} estrelas
-        </p>
-      )}
-
-      {/* Streak */}
-      {progress.streak > 0 && (
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '6px',
-          marginTop: '12px',
-          padding: '8px 12px',
-          background: '#0D0B12',
-          borderRadius: '10px',
-        }}>
-          <span style={{ fontSize: '16px' }}>🔥</span>
-          <span style={{ fontSize: '13px', color: '#FF6B6B', fontWeight: 600 }}>
-            {progress.streak} {progress.streak === 1 ? 'dia' : 'dias'} seguidos!
-          </span>
-        </div>
-      )}
+        )}
+      </Link>
     </motion.div>
   )
 }
@@ -382,8 +331,41 @@ export function KidsHubClient() {
           </motion.div>
         </div>
 
-        {/* Progress Summary */}
-        {progress && <ProgressSummary progress={progress} />}
+        {/* Progress Summary — shared KidsProgressBar */}
+        {progress && (() => {
+          const level = getLevel(progress.stars)
+          const nextLevel = getNextLevel(progress.stars)
+          const percentage = getLevelProgress(progress.stars)
+          return (
+            <div style={{ marginBottom: '24px' }}>
+              <KidsProgressBar
+                stars={progress.stars}
+                levelName={level.name}
+                levelEmoji={level.emoji}
+                progress={percentage}
+                nextLevelName={nextLevel?.name}
+              />
+              {/* Streak */}
+              {progress.streak > 0 && (
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  marginTop: '10px',
+                  padding: '8px 12px',
+                  background: '#161220',
+                  border: '1px solid #272230',
+                  borderRadius: '12px',
+                }}>
+                  <span style={{ fontSize: '16px' }}>🔥</span>
+                  <span style={{ fontSize: '13px', color: '#FF6B6B', fontWeight: 600 }}>
+                    {progress.streak} {progress.streak === 1 ? 'dia' : 'dias'} seguidos!
+                  </span>
+                </div>
+              )}
+            </div>
+          )
+        })()}
 
         {/* Section Cards Grid */}
         <div
@@ -403,6 +385,7 @@ export function KidsHubClient() {
               color={section.color}
               count={section.count}
               index={i}
+              isComplete={progress ? isSectionComplete(progress, section.href) : false}
             />
           ))}
         </div>
