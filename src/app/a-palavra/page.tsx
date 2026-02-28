@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { BookOpen, ArrowRight, Search } from 'lucide-react'
+import { BookOpen, ArrowRight, Search, ScrollText } from 'lucide-react'
 import { surahs } from '@/lib/data/surahs'
 import { surahStudies } from '@/lib/data/surah-studies'
 
@@ -101,6 +101,41 @@ export default function APalavraPage() {
           ))}
         </div>
       </div>
+
+      {/* Hadiths card */}
+      <Link
+        href="/a-palavra/hadiths"
+        className="card-hover"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '16px',
+          padding: '20px',
+          borderRadius: '12px',
+          background: '#161220',
+          border: '1px solid #272230',
+          marginBottom: '24px',
+          textDecoration: 'none',
+        }}
+      >
+        <div style={{
+          width: '44px',
+          height: '44px',
+          borderRadius: '10px',
+          background: 'rgba(201,168,76,0.08)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexShrink: 0,
+        }}>
+          <ScrollText size={20} style={{ color: '#C9A84C' }} />
+        </div>
+        <div style={{ flex: 1 }}>
+          <p style={{ fontSize: '16px', color: '#F0EBE2', fontWeight: 500 }}>Hadiths</p>
+          <p style={{ fontSize: '13px', color: '#7A7870' }}>50 ditos do Profeta Muhammad (saws)</p>
+        </div>
+        <ArrowRight size={16} style={{ color: '#7A7870', flexShrink: 0 }} />
+      </Link>
 
       {/* Search */}
       <div

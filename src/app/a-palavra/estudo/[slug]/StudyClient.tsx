@@ -1,8 +1,8 @@
 'use client'
 
-import Link from 'next/link'
 import { motion } from 'framer-motion'
 import type { SurahStudy } from '@/lib/data/surah-studies'
+import { BackButton } from '@/components/shared/BackButton'
 
 interface Props {
   study: SurahStudy
@@ -18,12 +18,7 @@ export function StudyClient({ study }: Props) {
     <main style={{ background: '#0D0B12', minHeight: '100vh' }}>
       {/* Header */}
       <header style={{ padding: '24px', borderBottom: '1px solid #272230' }}>
-        <Link
-          href="/a-palavra"
-          style={{ color: '#7A7870', fontSize: '14px', textDecoration: 'none' }}
-        >
-          &larr; A Palavra
-        </Link>
+        <BackButton href="/a-palavra" label="A Palavra" />
         <div
           style={{
             marginTop: '16px',

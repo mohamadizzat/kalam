@@ -1,10 +1,11 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowLeft } from 'lucide-react'
+import { BookOpen } from 'lucide-react'
 import { journalQuestions } from '@/lib/data/journal-questions'
+import { EmptyState } from '@/components/shared/EmptyState'
+import { BackButton } from '@/components/shared/BackButton'
 
 type JournalEntry = {
   id: string
@@ -72,20 +73,7 @@ export function JournalClient() {
   return (
     <main style={{ background: '#0D0B12', minHeight: '100vh' }} className="px-6 py-8">
       {/* Back link */}
-      <Link
-        href="/a-alma"
-        style={{
-          color: '#7A7870',
-          fontSize: '14px',
-          textDecoration: 'none',
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: '6px',
-        }}
-      >
-        <ArrowLeft size={16} />
-        A Alma
-      </Link>
+      <BackButton href="/a-alma" label="A Alma" />
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -286,19 +274,13 @@ export function JournalClient() {
           style={{ marginTop: '32px' }}
         >
           {entries.length === 0 ? (
-            <div
-              style={{
-                textAlign: 'center',
-                padding: '60px 20px',
-                color: '#7A7870',
-                fontSize: '15px',
-              }}
-            >
-              <p style={{ fontFamily: 'var(--font-serif)', fontSize: '18px', color: '#B3B0A6' }}>
-                Nenhuma reflexao ainda.
-              </p>
-              <p style={{ marginTop: '8px' }}>Comece hoje.</p>
-            </div>
+            <EmptyState
+              icon={BookOpen}
+              title="Seu diario esta vazio"
+              description="Comece sua primeira reflexao. So voce e Deus leem isso."
+              actionLabel="Escrever agora"
+              onAction={() => setView('write')}
+            />
           ) : (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               {entries.map((entry) => {

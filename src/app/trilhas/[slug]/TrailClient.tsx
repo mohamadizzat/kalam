@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
 import { BlurFade } from '@/components/effects/BlurFade'
+import { BackButton } from '@/components/shared/BackButton'
 import type { Trail } from '@/lib/data/trails'
 
 interface Props {
@@ -293,25 +294,7 @@ export function TrailClient({ trail }: Props) {
 
       {/* ── BACK NAV ── */}
       <div style={{ padding: '32px 24px 0', maxWidth: 900, margin: '0 auto' }}>
-        <Link
-          href="/trilhas"
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: 8,
-            fontFamily: 'var(--font-sans)',
-            fontSize: 11,
-            letterSpacing: '3px',
-            textTransform: 'uppercase',
-            color: 'rgba(201,168,76,0.5)',
-            textDecoration: 'none',
-            transition: 'color 0.2s ease',
-          }}
-          onMouseEnter={(e) => { e.currentTarget.style.color = '#C9A84C' }}
-          onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(201,168,76,0.5)' }}
-        >
-          ← TRILHAS
-        </Link>
+        <BackButton href="/trilhas" label="Trilhas" />
       </div>
 
       {/* ── HERO ── */}

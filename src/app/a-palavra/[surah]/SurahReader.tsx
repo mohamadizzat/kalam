@@ -1,10 +1,11 @@
 'use client'
 
 import { useState, useEffect, useRef, useCallback } from 'react'
-import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { Bookmark } from 'lucide-react'
+import { Bookmark, Share2 } from 'lucide-react'
 import type { Surah } from '@/lib/data/surahs'
+import { VerseShareCard } from '@/components/shared/VerseShareCard'
+import { BackButton } from '@/components/shared/BackButton'
 
 type Verse = {
   number: number
@@ -57,6 +58,9 @@ export function SurahReader({ surah }: { surah: Surah }) {
 
   // E. Surah read tracking
   const [surahRead, setSurahRead] = useState(false)
+
+  // F. Verse share modal
+  const [shareVerse, setShareVerse] = useState<Verse | null>(null)
 
   // ── Load persisted preferences ──────────────────────────────────────────────
 
@@ -234,9 +238,7 @@ export function SurahReader({ surah }: { surah: Surah }) {
       {/* Header */}
       <header style={{ borderBottom: '1px solid #272230', padding: '16px 24px' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <Link href="/a-palavra" style={{ color: '#7A7870', fontSize: '14px', textDecoration: 'none' }}>
-            &#8592; Voltar
-          </Link>
+          <BackButton href="/a-palavra" label="A Palavra" />
           {surahRead && (
             <span style={{ fontSize: '11px', color: '#C9A84C', opacity: 0.7, letterSpacing: '0.05em' }}>
               &#10003; Lida
@@ -381,57 +383,94 @@ export function SurahReader({ surah }: { surah: Surah }) {
                     {verse.number}
                   </span>
 
-                  {/* C. Bookmark icon */}
-                  <button
-                    onClick={() => toggleBookmark(verse)}
-                    aria-label={bookmarked ? 'Remover marcador' : 'Adicionar marcador'}
-                    style={{
-                      background: 'none',
-                      border: 'none',
-                      cursor: 'pointer',
-                      padding: '4px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      transition: 'transform 0.15s ease',
-                    }}
-                  >
-                    <Bookmark
-                      size={18}
-                      fill={bookmarked ? '#C9A84C' : 'none'}
-                      stroke={bookmarked ? '#C9A84C' : '#7A7870'}
-                      strokeWidth={1.5}
-                    />
-                  </button>
+                  {/* C. Bookmark + F. Share icons */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        setShareVerse(verse)
+                      }}
+                      aria-label="Compartilhar versículo"
+                      style={{
+                        background: 'none',
+                        border: 'none',
+                        cursor: 'pointer',
+                        padding: '4px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        transition: 'opacity 0.15s ease',
+                        opacity: 0.6,
+                      }}
+                    >
+                      <Share2
+                        size={16}
+                        stroke="#7A7870"
+                        strokeWidth={1.5}
+                      />
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        toggleBookmark(verse)
+                      }}
+                      aria-label={bookmarked ? 'Remover marcador' : 'Adicionar marcador'}
+                      style={{
+                        background: 'none',
+                        border: 'none',
+                        cursor: 'pointer',
+                        padding: '4px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        transition: 'transform 0.15s ease',
+                      }}
+                    >
+                      <Bookmark
+                        size={18}
+                        fill={bookmarked ? '#C9A84C' : 'none'}
+                        stroke={bookmarked ? '#C9A84C' : '#7A7870'}
+                        strokeWidth={1.5}
+                      />
+                    </button>
+                  </div>
                 </div>
 
-                {/* Arabic text */}
-                <p
-                  style={{
-                    fontFamily: 'var(--font-arabic)',
-                    direction: 'rtl',
-                    textAlign: 'right',
-                    fontSize: arabicSizes[arabicSize],
-                    lineHeight: 1.8,
-                    color: '#C9A84C',
-                    marginBottom: showTranslation ? '16px' : '0',
-                  }}
+                {/* Arabic text + Translation — tappable for share */}
+                <div
+                  onClick={() => setShareVerse(verse)}
+                  style={{ cursor: 'pointer' }}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`Compartilhar versículo ${verse.number}`}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setShareVerse(verse) }}
                 >
-                  {verse.arabic}
-                </p>
-
-                {/* Portuguese translation */}
-                {showTranslation && (
                   <p
                     style={{
-                      fontSize: '16px',
-                      lineHeight: 1.75,
-                      color: '#B3B0A6',
+                      fontFamily: 'var(--font-arabic)',
+                      direction: 'rtl',
+                      textAlign: 'right',
+                      fontSize: arabicSizes[arabicSize],
+                      lineHeight: 1.8,
+                      color: '#C9A84C',
+                      marginBottom: showTranslation ? '16px' : '0',
                     }}
                   >
-                    {verse.portuguese}
+                    {verse.arabic}
                   </p>
-                )}
+
+                  {showTranslation && (
+                    <p
+                      style={{
+                        fontSize: '16px',
+                        lineHeight: 1.75,
+                        color: '#B3B0A6',
+                      }}
+                    >
+                      {verse.portuguese}
+                    </p>
+                  )}
+                </div>
               </div>
             )
 
@@ -452,6 +491,16 @@ export function SurahReader({ surah }: { surah: Surah }) {
           })}
         </div>
       )}
+
+      {/* F. Verse Share Modal */}
+      <VerseShareCard
+        arabic={shareVerse?.arabic || ''}
+        translation={shareVerse?.portuguese || ''}
+        surahName={surah.name}
+        verseNumber={shareVerse?.number || 0}
+        isOpen={shareVerse !== null}
+        onClose={() => setShareVerse(null)}
+      />
     </main>
   )
 }

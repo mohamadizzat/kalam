@@ -1,9 +1,10 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { ArrowLeft } from 'lucide-react'
+import { Compass } from 'lucide-react'
+import { EmptyState } from '@/components/shared/EmptyState'
+import { BackButton } from '@/components/shared/BackButton'
 
 export function ProgressClient() {
   const [streak, setStreak] = useState(0)
@@ -74,24 +75,12 @@ export function ProgressClient() {
   }, [])
 
   const readCount = readSurahs.size
+  const hasNoActivity = readCount === 0 && namesCount === 0 && journalCount === 0 && dhikrCount === 0
 
   return (
     <main style={{ background: '#0D0B12', minHeight: '100vh' }} className="px-6 py-8">
       {/* Back link */}
-      <Link
-        href="/a-alma"
-        style={{
-          color: '#7A7870',
-          fontSize: '14px',
-          textDecoration: 'none',
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: '6px',
-        }}
-      >
-        <ArrowLeft size={16} />
-        A Alma
-      </Link>
+      <BackButton href="/a-alma" label="A Alma" />
 
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
         <h1
@@ -135,6 +124,19 @@ export function ProgressClient() {
           {streak === 1 ? 'dia consecutivo' : 'dias consecutivos'}
         </p>
       </motion.div>
+
+      {/* Empty state when no activities */}
+      {hasNoActivity && (
+        <div style={{ marginTop: '32px' }}>
+          <EmptyState
+            icon={Compass}
+            title="Sua jornada comeca aqui"
+            description="Leia suratas, estude os Nomes de Deus, escreva no diario — cada acao constroi seu progresso."
+            actionLabel="Explorar A Palavra"
+            actionHref="/a-palavra"
+          />
+        </div>
+      )}
 
       {/* Stats grid */}
       <div className="grid gap-6 mt-8">

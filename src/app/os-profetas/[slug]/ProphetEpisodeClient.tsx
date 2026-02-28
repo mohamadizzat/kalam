@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { BlurFade } from '@/components/effects/BlurFade'
 import { ScriptureCompare } from '@/components/shared/ScriptureCompare'
+import { BackButton } from '@/components/shared/BackButton'
 import type { Prophet } from './page'
 
 interface Props {
@@ -58,25 +59,7 @@ export function ProphetEpisodeClient({ prophet }: Props) {
         maxWidth: 1100,
         margin: '0 auto',
       }}>
-        <Link
-          href="/os-profetas"
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: 8,
-            fontFamily: 'var(--font-sans)',
-            fontSize: 11,
-            letterSpacing: '3px',
-            textTransform: 'uppercase',
-            color: 'rgba(201,168,76,0.5)',
-            textDecoration: 'none',
-            transition: 'color 0.2s ease',
-          }}
-          onMouseEnter={(e) => { e.currentTarget.style.color = '#C9A84C' }}
-          onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(201,168,76,0.5)' }}
-        >
-          ← OS PROFETAS
-        </Link>
+        <BackButton href="/os-profetas" label="Os Profetas" />
       </div>
 
       {/* ── HERO ── */}
