@@ -2,20 +2,22 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
+import { DifficultyBadge, type DifficultyLevel } from '@/components/shared/ContentBadges'
+import { RelatedContent } from '@/components/shared/RelatedContent'
 
 const fadeUp = {
   initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },
 }
 
-const CARDS = [
-  { arabic: 'الله', title: '99 Nomes de Deus', subtitle: 'Conheca Deus pelos Seus atributos', href: '/a-presenca/99-nomes' },
-  { arabic: 'دعاء', title: 'Duas & Adhkar', subtitle: 'Suplicas para todo momento', href: '/a-presenca/duas' },
-  { arabic: 'ذكر', title: 'Dhikr Digital', subtitle: 'Lembranca contemplativa de Deus', href: '/a-presenca/dhikr' },
-  { arabic: 'بطاقات', title: 'Flashcards', subtitle: 'Memorize os 99 Nomes com cartoes', href: '/a-presenca/flashcards' },
-  { arabic: 'صلاة', title: 'Horarios de Oracao', subtitle: 'Qibla e horarios das 5 oracoes', href: '/a-presenca/salah' },
-  { arabic: 'تأمّل', title: 'Contemplacao', subtitle: 'Leitura meditativa de versiculos', href: '/a-presenca/contemplacao' },
-  { arabic: 'أبجد', title: 'Alfabeto Arabe', subtitle: '28 letras — a lingua do Quran', href: '/a-presenca/arabe' },
+const CARDS: Array<{ arabic: string; title: string; subtitle: string; href: string; level: DifficultyLevel }> = [
+  { arabic: 'الله', title: '99 Nomes de Deus', subtitle: 'Conheca Deus pelos Seus atributos', href: '/a-presenca/99-nomes', level: 'iniciante' },
+  { arabic: 'دعاء', title: 'Duas & Adhkar', subtitle: 'Suplicas para todo momento', href: '/a-presenca/duas', level: 'iniciante' },
+  { arabic: 'ذكر', title: 'Dhikr Digital', subtitle: 'Lembranca contemplativa de Deus', href: '/a-presenca/dhikr', level: 'iniciante' },
+  { arabic: 'بطاقات', title: 'Flashcards', subtitle: 'Memorize os 99 Nomes com cartoes', href: '/a-presenca/flashcards', level: 'iniciante' },
+  { arabic: 'صلاة', title: 'Horarios de Oracao', subtitle: 'Qibla e horarios das 5 oracoes', href: '/a-presenca/salah', level: 'iniciante' },
+  { arabic: 'تأمّل', title: 'Contemplacao', subtitle: 'Leitura meditativa de versiculos', href: '/a-presenca/contemplacao', level: 'iniciante' },
+  { arabic: 'أبجد', title: 'Alfabeto Arabe', subtitle: '28 letras — a lingua do Quran', href: '/a-presenca/arabe', level: 'iniciante' },
 ]
 
 export default function APresencaPage() {
@@ -101,11 +103,17 @@ export default function APresencaPage() {
                   }}>
                     {card.subtitle}
                   </p>
+                  <div style={{ marginTop: '6px' }}>
+                    <DifficultyBadge level={card.level} />
+                  </div>
                 </div>
               </Link>
             </motion.div>
           ))}
         </div>
+
+        {/* Related Content */}
+        <RelatedContent currentPath="/a-presenca" currentCategory="presenca" />
 
       </div>
     </main>

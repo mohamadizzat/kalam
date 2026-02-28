@@ -2,13 +2,16 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { PenLine, TrendingUp, Clock, Brain } from 'lucide-react'
+import { PenLine, TrendingUp, Clock, Brain, BarChart3 } from 'lucide-react'
+import { DifficultyBadge, type DifficultyLevel } from '@/components/shared/ContentBadges'
+import { RelatedContent } from '@/components/shared/RelatedContent'
 
-const CARDS = [
-  { icon: PenLine, title: 'Journal Espiritual', subtitle: 'Escreva. Reflita. Cresca.', href: '/a-alma/journal' },
-  { icon: TrendingUp, title: 'Minha Jornada', subtitle: 'Streak, progresso e presenca.', href: '/a-alma/progresso' },
-  { icon: Clock, title: 'Rotina Espiritual', subtitle: 'Checklists diarios. Manha e noite.', href: '/a-alma/rotina' },
-  { icon: Brain, title: 'Saude Mental', subtitle: 'Sabedoria islamica para a mente e o coracao.', href: '/a-alma/saude-mental' },
+const CARDS: Array<{ icon: typeof PenLine; title: string; subtitle: string; href: string; level: DifficultyLevel }> = [
+  { icon: BarChart3, title: 'Painel de Aprendizado', subtitle: 'Todo seu progresso e conquistas.', href: '/a-alma/painel', level: 'iniciante' },
+  { icon: PenLine, title: 'Journal Espiritual', subtitle: 'Escreva. Reflita. Cresca.', href: '/a-alma/journal', level: 'iniciante' },
+  { icon: TrendingUp, title: 'Minha Jornada', subtitle: 'Streak, progresso e presenca.', href: '/a-alma/progresso', level: 'iniciante' },
+  { icon: Clock, title: 'Rotina Espiritual', subtitle: 'Checklists diarios. Manha e noite.', href: '/a-alma/rotina', level: 'iniciante' },
+  { icon: Brain, title: 'Saude Mental', subtitle: 'Sabedoria islamica para a mente e o coracao.', href: '/a-alma/saude-mental', level: 'intermediario' },
 ]
 
 const fadeUp = {
@@ -92,11 +95,17 @@ export default function AAlmaPage() {
                   }}>
                     {card.subtitle}
                   </p>
+                  <div style={{ marginTop: '6px' }}>
+                    <DifficultyBadge level={card.level} />
+                  </div>
                 </div>
               </Link>
             </motion.div>
           ))}
         </div>
+
+        {/* Related Content */}
+        <RelatedContent currentPath="/a-alma" currentCategory="alma" />
 
       </div>
     </main>

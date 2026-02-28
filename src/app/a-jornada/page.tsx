@@ -2,21 +2,23 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { Compass, Users, BookOpen, Library, Target, Heart, CalendarDays, Star, Coins, Shield, Calculator, Moon } from 'lucide-react'
+import { Compass, Users, BookOpen, Library, Target, Heart, CalendarDays, Star, Coins, Shield, Calculator, Moon, ListChecks } from 'lucide-react'
+import { DifficultyBadge, type DifficultyLevel } from '@/components/shared/ContentBadges'
 
-const SECTIONS = [
-  { icon: Moon, title: 'Ramadan', subtitle: '30 dias de transformacao: misericordia, perdao e libertacao', href: '/a-jornada/ramadan' },
-  { icon: Compass, title: 'Trilhas de Estudo', subtitle: 'Jornadas guiadas de aprendizado', href: '/trilhas' },
-  { icon: Users, title: 'Os Profetas', subtitle: 'Historias que transformam', href: '/os-profetas' },
-  { icon: Star, title: 'Seerah', subtitle: 'A vida do Profeta Muhammad em 12 capitulos', href: '/a-jornada/seerah' },
-  { icon: Shield, title: 'Companheiros', subtitle: 'Os homens que mudaram o mundo ao lado do Profeta', href: '/a-jornada/companheiros' },
-  { icon: Heart, title: 'Mulheres no Islam', subtitle: 'As historias que o mundo nao conta', href: '/a-jornada/mulheres' },
-  { icon: CalendarDays, title: 'Linha do Tempo', subtitle: '14 seculos de historia islamica', href: '/a-jornada/historia' },
+const SECTIONS: Array<{ icon: typeof Moon; title: string; subtitle: string; href: string; level?: DifficultyLevel }> = [
+  { icon: ListChecks, title: 'Plano Diario', subtitle: '3 micro-tarefas espirituais para hoje', href: '/a-jornada/plano-diario', level: 'iniciante' },
+  { icon: Moon, title: 'Ramadan', subtitle: '30 dias de transformacao: misericordia, perdao e libertacao', href: '/a-jornada/ramadan', level: 'iniciante' },
+  { icon: Compass, title: 'Trilhas de Estudo', subtitle: 'Jornadas guiadas de aprendizado', href: '/trilhas', level: 'iniciante' },
+  { icon: Users, title: 'Os Profetas', subtitle: 'Historias que transformam', href: '/os-profetas', level: 'iniciante' },
+  { icon: Star, title: 'Seerah', subtitle: 'A vida do Profeta Muhammad em 12 capitulos', href: '/a-jornada/seerah', level: 'intermediario' },
+  { icon: Shield, title: 'Companheiros', subtitle: 'Os homens que mudaram o mundo ao lado do Profeta', href: '/a-jornada/companheiros', level: 'intermediario' },
+  { icon: Heart, title: 'Mulheres no Islam', subtitle: 'As historias que o mundo nao conta', href: '/a-jornada/mulheres', level: 'iniciante' },
+  { icon: CalendarDays, title: 'Linha do Tempo', subtitle: '14 seculos de historia islamica', href: '/a-jornada/historia', level: 'intermediario' },
   { icon: BookOpen, title: 'Estudos e Perguntas', subtitle: 'Aprofunde sua compreensao', href: '/estudos' },
   { icon: Library, title: 'Biblioteca', subtitle: 'Acervo completo de conteudos', href: '/biblioteca' },
-  { icon: Coins, title: 'Financas Islamicas', subtitle: 'Riqueza com proposito: Zakat, Riba, investimento halal', href: '/a-jornada/financas' },
-  { icon: Calculator, title: 'Calculadora de Zakat', subtitle: 'Calcule o valor do seu Zakat de forma simples', href: '/a-jornada/zakat' },
-  { icon: Target, title: 'Desafios de 7 Dias', subtitle: 'Transformacao pratica, uma semana de cada vez', href: '/a-jornada/desafios' },
+  { icon: Coins, title: 'Financas Islamicas', subtitle: 'Riqueza com proposito: Zakat, Riba, investimento halal', href: '/a-jornada/financas', level: 'avancado' },
+  { icon: Calculator, title: 'Calculadora de Zakat', subtitle: 'Calcule o valor do seu Zakat de forma simples', href: '/a-jornada/zakat', level: 'intermediario' },
+  { icon: Target, title: 'Desafios de 7 Dias', subtitle: 'Transformacao pratica, uma semana de cada vez', href: '/a-jornada/desafios', level: 'iniciante' },
 ]
 
 const fadeUp = {
@@ -100,6 +102,11 @@ export default function AJornadaPage() {
                   }}>
                     {section.subtitle}
                   </p>
+                  {section.level && (
+                    <div style={{ marginTop: '6px' }}>
+                      <DifficultyBadge level={section.level} />
+                    </div>
+                  )}
                 </div>
               </Link>
             </motion.div>

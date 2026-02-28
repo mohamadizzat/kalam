@@ -2,12 +2,13 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { motion } from 'framer-motion'
-import { Bookmark, Share2, Headphones } from 'lucide-react'
+import { Bookmark, Share2, Headphones, BookOpen } from 'lucide-react'
 import type { Surah } from '@/lib/data/surahs'
 import { surahs } from '@/lib/data/surahs'
 import { VerseShareCard } from '@/components/shared/VerseShareCard'
 import { BackButton } from '@/components/shared/BackButton'
 import { AudioPlayer } from '@/components/shared/AudioPlayer'
+import { ReadingMode } from '@/components/shared/ReadingMode'
 
 type Verse = {
   number: number
@@ -66,6 +67,9 @@ export function SurahReader({ surah }: { surah: Surah }) {
 
   // G. Audio player
   const [audioSurah, setAudioSurah] = useState<number | null>(null)
+
+  // H. Reading mode
+  const [readingMode, setReadingMode] = useState(false)
 
   const handleAudioSurahChange = useCallback((num: number) => {
     setAudioSurah(num)
@@ -256,6 +260,27 @@ export function SurahReader({ surah }: { surah: Surah }) {
                 &#10003; Lida
               </span>
             )}
+            <button
+              onClick={() => setReadingMode(true)}
+              aria-label="Modo leitura"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                padding: '6px 12px',
+                borderRadius: '999px',
+                fontSize: '12px',
+                fontWeight: 500,
+                background: 'rgba(201, 168, 76, 0.06)',
+                border: '1px solid rgba(201, 168, 76, 0.2)',
+                color: '#C9A84C',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+              }}
+            >
+              <BookOpen size={14} />
+              <span>Leitura</span>
+            </button>
             <button
               onClick={() => setAudioSurah(audioSurah === surah.number ? null : surah.number)}
               aria-label="Ouvir recitacao"
@@ -546,6 +571,68 @@ export function SurahReader({ surah }: { surah: Surah }) {
           onSurahChange={handleAudioSurahChange}
         />
       )}
+
+      {/* H. Reading Mode */}
+      <ReadingMode
+        isOpen={readingMode}
+        onClose={() => setReadingMode(false)}
+        title={surah.name}
+      >
+        {/* Surah info */}
+        <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+          <p style={{ fontFamily: 'var(--font-arabic)', fontSize: '32px', color: '#C9A84C', direction: 'rtl' }}>
+            {surah.arabicName}
+          </p>
+          <p style={{ fontSize: '14px', color: '#7A7870', marginTop: '8px' }}>
+            {surah.translation} · {surah.versesCount} versiculos · {surah.revelationPlace}
+          </p>
+        </div>
+
+        {/* Bismillah in reading mode */}
+        {surah.number !== 1 && surah.number !== 9 && (
+          <div style={{ textAlign: 'center', padding: '24px 0 32px', borderBottom: '1px solid #272230', marginBottom: '32px' }}>
+            <p style={{ fontFamily: 'var(--font-arabic)', fontSize: '26px', color: '#C9A84C', direction: 'rtl' }}>
+              بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
+            </p>
+            <p style={{ fontSize: '13px', color: '#7A7870', marginTop: '8px' }}>
+              Em nome de Deus, o Infinitamente Misericordioso, o Constantemente Misericordioso
+            </p>
+          </div>
+        )}
+
+        {/* Verses in reading mode */}
+        {verses.map((verse) => (
+          <div key={verse.number} style={{ marginBottom: '36px' }}>
+            <span style={{
+              display: 'inline-block',
+              fontSize: '12px',
+              color: '#7A7870',
+              marginBottom: '12px',
+              fontFamily: 'var(--font-sans)',
+            }}>
+              {verse.number}
+            </span>
+            <p style={{
+              fontFamily: 'var(--font-arabic)',
+              direction: 'rtl',
+              textAlign: 'right',
+              fontSize: 'clamp(24px, 5vw, 32px)',
+              lineHeight: 1.9,
+              color: '#C9A84C',
+              marginBottom: '14px',
+            }}>
+              {verse.arabic}
+            </p>
+            <p style={{
+              fontSize: '18px',
+              lineHeight: 1.85,
+              color: '#B3B0A6',
+            }}>
+              {verse.portuguese}
+            </p>
+          </div>
+        ))}
+      </ReadingMode>
     </main>
   )
 }

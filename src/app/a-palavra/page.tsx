@@ -6,6 +6,7 @@ import { motion } from 'framer-motion'
 import { BookOpen, ArrowRight, Search, ScrollText, Headphones, Bookmark, Sparkles, BookOpenText, GraduationCap } from 'lucide-react'
 import { surahs } from '@/lib/data/surahs'
 import { surahStudies } from '@/lib/data/surah-studies'
+import { DifficultyBadge, type DifficultyLevel } from '@/components/shared/ContentBadges'
 
 type LastRead = {
   surah: number
@@ -130,7 +131,8 @@ export default function APalavraPage() {
                 <p style={{ fontFamily: 'var(--font-arabic)', fontSize: '18px', color: '#C9A84C', marginBottom: '4px' }}>
                   {study.arabicTitle}
                 </p>
-                <p style={{ fontSize: '14px', color: '#F0EBE2', fontWeight: 500 }}>{study.title}</p>
+                <p style={{ fontSize: '14px', color: '#F0EBE2', fontWeight: 500, marginBottom: '6px' }}>{study.title}</p>
+                <DifficultyBadge level="avancado" />
               </Link>
             ))}
           </div>
@@ -138,14 +140,14 @@ export default function APalavraPage() {
 
         {/* Feature cards */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '24px' }}>
-          {[
-            { href: '/a-palavra/hadiths', icon: ScrollText, title: 'Hadiths', desc: '50 ditos do Profeta Muhammad (saws)', delay: 0.2 },
-            { href: '/a-palavra/parabolas', icon: BookOpenText, title: 'Parabolas', desc: '15 historias do Quran que transformam', delay: 0.25 },
-            { href: '/a-palavra/recitacao', icon: Headphones, title: 'Recitacao', desc: 'Ouca o Quran completo — Mishary Alafasy', delay: 0.3 },
-            { href: '/a-palavra/hifz', icon: GraduationCap, title: 'Hifz', desc: 'Memorize as suratas curtas do Quran', delay: 0.33 },
+          {([
+            { href: '/a-palavra/hadiths', icon: ScrollText, title: 'Hadiths', desc: '50 ditos do Profeta Muhammad (saws)', delay: 0.2, level: 'iniciante' as DifficultyLevel },
+            { href: '/a-palavra/parabolas', icon: BookOpenText, title: 'Parabolas', desc: '15 historias do Quran que transformam', delay: 0.25, level: 'iniciante' as DifficultyLevel },
+            { href: '/a-palavra/recitacao', icon: Headphones, title: 'Recitacao', desc: 'Ouca o Quran completo — Mishary Alafasy', delay: 0.3, level: 'iniciante' as DifficultyLevel },
+            { href: '/a-palavra/hifz', icon: GraduationCap, title: 'Hifz', desc: 'Memorize as suratas curtas do Quran', delay: 0.33, level: 'intermediario' as DifficultyLevel },
             { href: '/a-palavra/favoritos', icon: Bookmark, title: 'Favoritos', desc: 'Seus versiculos salvos', delay: 0.36 },
             { href: '/a-palavra/busca', icon: Sparkles, title: 'Buscar no Quran', desc: 'Versiculos populares e busca por tema', delay: 0.4 },
-          ].map(card => (
+          ]).map(card => (
             <motion.div
               key={card.href}
               initial={{ opacity: 0, y: 20 }}
@@ -181,6 +183,11 @@ export default function APalavraPage() {
                 <div style={{ flex: 1 }}>
                   <p style={{ fontSize: '16px', color: '#F0EBE2', fontWeight: 500 }}>{card.title}</p>
                   <p style={{ fontSize: '13px', color: '#7A7870' }}>{card.desc}</p>
+                  {card.level && (
+                    <div style={{ marginTop: '6px' }}>
+                      <DifficultyBadge level={card.level} />
+                    </div>
+                  )}
                 </div>
                 <ArrowRight size={16} style={{ color: '#7A7870', flexShrink: 0 }} />
               </Link>

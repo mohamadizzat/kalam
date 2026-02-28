@@ -6,6 +6,7 @@ import { ArrowLeft, Check, BookOpen, ChevronDown, Lightbulb, X } from 'lucide-re
 import Link from 'next/link'
 import { seerahChapters, type SeerahChapter } from '@/lib/data/seerah'
 import { BlurFade } from '@/components/effects/BlurFade'
+import { EnrichedText } from '@/components/shared/EnrichedText'
 
 const STORAGE_KEY = 'kalam-seerah-read'
 
@@ -179,7 +180,7 @@ export default function SeerahClient() {
                 color: '#B3B0A6',
                 marginBottom: 24,
               }}>
-                {paragraph}
+                <EnrichedText text={paragraph} />
               </p>
             ))}
           </motion.div>

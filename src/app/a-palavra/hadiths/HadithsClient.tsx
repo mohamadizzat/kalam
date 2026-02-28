@@ -5,6 +5,8 @@ import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowLeft, Search, Heart, Star } from 'lucide-react'
 import { hadiths, hadithCategories, type Hadith, type HadithCategory } from '@/lib/data/hadiths'
+import { EnrichedText } from '@/components/shared/EnrichedText'
+import { RelatedContent } from '@/components/shared/RelatedContent'
 
 const FAVORITES_KEY = 'kalam-fav-hadiths'
 
@@ -400,6 +402,9 @@ export function HadithsClient() {
           </AnimatePresence>
         </div>
 
+        {/* Related Content */}
+        <RelatedContent currentPath="/a-palavra/hadiths" currentCategory="palavra" />
+
       </div>
     </main>
   )
@@ -546,7 +551,7 @@ function HadithCard({
                 color: '#F0EBE2',
                 lineHeight: 1.7,
               }}>
-                {hadith.translation}
+                <EnrichedText text={hadith.translation} />
               </p>
 
               {/* Divider */}

@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Settings } from 'lucide-react'
+import { Settings, Map } from 'lucide-react'
 
 const NAV_LINKS = [
   { label: 'A Palavra', href: '/a-palavra' },
@@ -132,39 +132,66 @@ export function Header() {
           })}
         </nav>
 
-        {/* Settings */}
-        <Link
-          href="/configuracoes"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '6px',
-            textDecoration: 'none',
-            color: pathname === '/configuracoes' ? '#C9A84C' : '#7A7870',
-            transition: 'color 0.2s ease',
-            padding: '6px',
-            borderRadius: '8px',
-          }}
-          onMouseEnter={(e) => {
-            (e.currentTarget as HTMLAnchorElement).style.color = '#C9A84C'
-          }}
-          onMouseLeave={(e) => {
-            (e.currentTarget as HTMLAnchorElement).style.color = pathname === '/configuracoes' ? '#C9A84C' : '#7A7870'
-          }}
-        >
-          <Settings size={18} strokeWidth={1.5} />
-          <span
-            className="header-settings-label"
+        {/* Right actions */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+          {/* Mapa */}
+          <Link
+            href="/mapa"
+            aria-label="Mapa do conteudo"
             style={{
-              fontFamily: 'var(--font-sans)',
-              fontSize: '12px',
-              letterSpacing: '0.06em',
-              textTransform: 'uppercase',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              textDecoration: 'none',
+              color: pathname === '/mapa' ? '#C9A84C' : '#7A7870',
+              transition: 'color 0.2s ease',
+              padding: '6px',
+              borderRadius: '8px',
+            }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLAnchorElement).style.color = '#C9A84C'
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLAnchorElement).style.color = pathname === '/mapa' ? '#C9A84C' : '#7A7870'
             }}
           >
-            Config
-          </span>
-        </Link>
+            <Map size={18} strokeWidth={1.5} />
+          </Link>
+
+          {/* Settings */}
+          <Link
+            href="/configuracoes"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              textDecoration: 'none',
+              color: pathname === '/configuracoes' ? '#C9A84C' : '#7A7870',
+              transition: 'color 0.2s ease',
+              padding: '6px',
+              borderRadius: '8px',
+            }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLAnchorElement).style.color = '#C9A84C'
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLAnchorElement).style.color = pathname === '/configuracoes' ? '#C9A84C' : '#7A7870'
+            }}
+          >
+            <Settings size={18} strokeWidth={1.5} />
+            <span
+              className="header-settings-label"
+              style={{
+                fontFamily: 'var(--font-sans)',
+                fontSize: '12px',
+                letterSpacing: '0.06em',
+                textTransform: 'uppercase',
+              }}
+            >
+              Config
+            </span>
+          </Link>
+        </div>
       </header>
     </>
   )

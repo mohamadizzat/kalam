@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import {
   ArrowRight,
   ChevronDown,
@@ -14,6 +14,8 @@ import {
   Flame,
   BookMarked,
   PenLine,
+  Sparkles,
+  X,
 } from 'lucide-react'
 
 // ── DATA ────────────────────────────────────────────────────────────────────────
@@ -191,6 +193,18 @@ export default function SanctuaryPage() {
   const [surahsReadCount, setSurahsReadCount] = useState(0)
   const [journalCount, setJournalCount] = useState(0)
   const [shareState, setShareState] = useState<'idle' | 'copied'>('idle')
+  const [showNewUserBanner, setShowNewUserBanner] = useState(false)
+
+  // Check if user has completed onboarding
+  useEffect(() => {
+    try {
+      const done = localStorage.getItem('kalam-onboarding-done')
+      const dismissed = localStorage.getItem('kalam-banner-dismissed')
+      if (!done && !dismissed) {
+        setShowNewUserBanner(true)
+      }
+    } catch {}
+  }, [])
 
   useEffect(() => {
     const now = new Date()
@@ -268,6 +282,67 @@ export default function SanctuaryPage() {
 
   return (
     <main className="min-h-screen" style={{ background: '#0D0B12' }}>
+
+      {/* ── NEW USER BANNER ────────────────────────────────────────────────── */}
+      <AnimatePresence>
+        {showNewUserBanner && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.4, ease: 'easeInOut' }}
+            style={{ overflow: 'hidden' }}
+          >
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '12px',
+              padding: '12px 20px',
+              background: 'rgba(201,168,76,0.06)',
+              borderBottom: '1px solid rgba(201,168,76,0.12)',
+              position: 'relative',
+            }}>
+              <Sparkles size={15} style={{ color: '#C9A84C', flexShrink: 0 }} />
+              <Link
+                href="/comecar"
+                style={{
+                  fontSize: '14px',
+                  color: '#C9A84C',
+                  textDecoration: 'none',
+                  fontFamily: 'var(--font-sans)',
+                }}
+              >
+                Novo aqui? <span style={{ textDecoration: 'underline', textUnderlineOffset: '3px' }}>Veja como começar</span>
+              </Link>
+              <button
+                onClick={() => {
+                  setShowNewUserBanner(false)
+                  try { localStorage.setItem('kalam-banner-dismissed', 'true') } catch {}
+                }}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  background: 'none',
+                  border: 'none',
+                  color: '#7A7870',
+                  cursor: 'pointer',
+                  padding: '4px',
+                  borderRadius: '4px',
+                  position: 'absolute',
+                  right: '12px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                }}
+                aria-label="Fechar banner"
+              >
+                <X size={14} />
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* ── HERO — fullscreen verse experience ──────────────────────────────── */}
       <section
