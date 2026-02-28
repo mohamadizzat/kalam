@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://mensagem-unica.vercel.app/sitemap.xml',
+    sitemap: 'https://kalambrasil.com/sitemap.xml',
   }
 }

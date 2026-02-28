@@ -14,6 +14,7 @@ import { Header } from '@/components/layout/Header'
 import { BottomNav } from '@/components/layout/BottomNav'
 import { Footer } from '@/components/layout/Footer'
 import { Analytics } from '@vercel/analytics/next'
+import { AuthProvider } from '@/providers/auth-provider'
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -25,7 +26,7 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://mensagem-unica.vercel.app'),
+  metadataBase: new URL('https://kalambrasil.com'),
   title: 'KALAM — Deus. Todo dia.',
   description: 'Seu companheiro diário para se conectar com Deus. Versículos, trilhas de aprendizado, sabedoria dos profetas — sem ruído, sem culpa, com profundidade.',
   keywords: 'profetas, bíblia, alcorão, história, fé, espiritualidade, Islam, aya do dia, quran',
@@ -62,14 +63,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="pt-BR" suppressHydrationWarning>
       <body>
-        <ThemeProvider attribute="class" defaultTheme="dark" forcedTheme="dark" disableTransitionOnChange>
-          <LenisProvider>
-            <Header />
-            <main className="pb-20 md:pb-0">{children}</main>
-            <Footer />
-            <BottomNav />
-          </LenisProvider>
-        </ThemeProvider>
+        <AuthProvider>
+          <ThemeProvider attribute="class" defaultTheme="dark" forcedTheme="dark" disableTransitionOnChange>
+            <LenisProvider>
+              <Header />
+              <main className="pb-20 md:pb-0">{children}</main>
+              <Footer />
+              <BottomNav />
+            </LenisProvider>
+          </ThemeProvider>
+        </AuthProvider>
         <Analytics />
       </body>
     </html>

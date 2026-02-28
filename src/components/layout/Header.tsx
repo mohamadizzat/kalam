@@ -3,7 +3,8 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Settings, Map } from 'lucide-react'
+import { Settings, Map, User, LogOut } from 'lucide-react'
+import { useAuth } from '@/providers/auth-provider'
 
 const NAV_LINKS = [
   { label: 'A Palavra', href: '/a-palavra' },
@@ -16,6 +17,7 @@ const NAV_LINKS = [
 export function Header() {
   const [scrolled, setScrolled] = useState(false)
   const pathname = usePathname()
+  const { user, signOut } = useAuth()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
@@ -158,6 +160,49 @@ export function Header() {
           >
             <Map size={18} strokeWidth={1.5} />
           </Link>
+
+          {/* Auth */}
+          {user ? (
+            <button
+              onClick={() => signOut()}
+              aria-label="Sair"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                color: '#7A7870',
+                transition: 'color 0.2s ease',
+                padding: '6px',
+                borderRadius: '8px',
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = '#C9A84C' }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = '#7A7870' }}
+            >
+              <LogOut size={18} strokeWidth={1.5} />
+            </button>
+          ) : (
+            <Link
+              href="/entrar"
+              aria-label="Entrar"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                textDecoration: 'none',
+                color: pathname === '/entrar' ? '#C9A84C' : '#7A7870',
+                transition: 'color 0.2s ease',
+                padding: '6px',
+                borderRadius: '8px',
+              }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = '#C9A84C' }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = pathname === '/entrar' ? '#C9A84C' : '#7A7870' }}
+            >
+              <User size={18} strokeWidth={1.5} />
+            </Link>
+          )}
 
           {/* Settings */}
           <Link

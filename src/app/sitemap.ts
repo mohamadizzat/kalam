@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://mensagem-unica.vercel.app'
+  const baseUrl = 'https://kalambrasil.com'
   const now = new Date()
 
   return [
