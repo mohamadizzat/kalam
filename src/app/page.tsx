@@ -1,399 +1,342 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { motion } from 'framer-motion'
+import { Flame, ArrowRight, ChevronDown, Library, Users, Layers, BookOpen } from 'lucide-react'
 
-const DAYS = ['Domingo','Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sábado']
-const MONTHS = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro']
+// ─── DATA ─────────────────────────────────────────────────────────────────────
 
-const TOPICS = [
-  { symbol: '♥', name: 'Amor', count: '47 versículos', slug: 'amor' },
-  { symbol: '☁', name: 'Medo', count: '32 versículos', slug: 'medo' },
-  { symbol: '✦', name: 'Propósito', count: '28 versículos', slug: 'proposito' },
-  { symbol: '✿', name: 'Gratidão', count: '41 versículos', slug: 'gratidao' },
-  { symbol: '〰', name: 'Ansiedade', count: '19 versículos', slug: 'ansiedade' },
-  { symbol: '◎', name: 'Perdão', count: '35 versículos', slug: 'perdao' },
+const HOME_VERSES = [
+  { arabic: 'قُلْ هُوَ اللَّهُ أَحَدٌ', portuguese: 'Diz: Ele é Allah, o Único.', ref: 'Al-Ikhlas 112:1' },
+  { arabic: 'وَإِذَا سَأَلَكَ عِبَادِي عَنِّي فَإِنِّي قَرِيبٌ', portuguese: 'E quando Meus servos te perguntarem sobre Mim — Eu estou próximo.', ref: 'Al-Baqarah 2:186' },
+  { arabic: 'إِنَّ مَعَ الْعُسْرِ يُسْرًا', portuguese: 'Certamente, com a dificuldade vem a facilidade.', ref: 'Al-Inshirah 94:6' },
+  { arabic: 'وَلَا تَقْنَطُوا مِن رَّحْمَةِ اللَّهِ', portuguese: 'E não desespereis da misericórdia de Allah.', ref: 'Az-Zumar 39:53' },
+  { arabic: 'فَاذْكُرُونِي أَذْكُرْكُمْ', portuguese: 'Lembrai-vos de Mim, e Eu Me lembrarei de vós.', ref: 'Al-Baqarah 2:152' },
+  { arabic: 'وَهُوَ مَعَكُمْ أَيْنَ مَا كُنتُمْ', portuguese: 'E Ele está convosco onde quer que estejais.', ref: 'Al-Hadid 57:10' },
+  { arabic: 'إِنَّ اللَّهَ لَا يُضَيِّعُ أَجْرَ الْمُحْسِنِينَ', portuguese: 'Allah não desperdiça a recompensa dos que fazem o bem.', ref: 'At-Tawbah 9:120' },
 ]
 
 const TRAILS = [
-  {
-    arabic: 'الرَّحْمَن',
-    name: 'Deus é Amor',
-    meta: '5 dias · Jornada',
-    progress: 20,
-    href: '/trilhas/deus-e-amor',
-  },
-  {
-    arabic: 'لَا تَحْزَنْ',
-    name: 'Sem Medo',
-    meta: '4 dias · Jornada',
-    progress: 0,
-    href: '/trilhas/sem-medo',
-  },
-  {
-    arabic: 'الأنبياء',
-    name: 'Os Profetas',
-    meta: '7 dias · Jornada',
-    progress: 0,
-    href: '/trilhas/os-profetas',
-  },
+  { name: 'Deus é Amor', meta: '5 dias', href: '/trilhas/deus-e-amor' },
+  { name: 'Sem Medo', meta: '4 dias', href: '/trilhas/sem-medo' },
+  { name: 'Jesus no Alcorão', meta: '4 dias', href: '/trilhas/jesus-no-alcurao' },
 ]
 
+const EXPLORE = [
+  { label: 'Biblioteca', icon: Library, href: '/biblioteca' },
+  { label: 'Os Profetas', icon: Users, href: '/os-profetas' },
+  { label: 'O Sistema', icon: Layers, href: '/o-sistema' },
+  { label: 'Estudos', icon: BookOpen, href: '/estudos' },
+]
+
+// ─── PAGE ─────────────────────────────────────────────────────────────────────
+
 export default function HomePage() {
-  const now = new Date()
-  const greeting = `${DAYS[now.getDay()]}, ${now.getDate()} de ${MONTHS[now.getMonth()]}`
+  const [dateLabel, setDateLabel] = useState('')
+  const [verse, setVerse] = useState(HOME_VERSES[0])
+
+  useEffect(() => {
+    const now = new Date()
+    const days = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado']
+    const months = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro']
+    setDateLabel(`${days[now.getDay()]} · ${now.getDate()} de ${months[now.getMonth()]}`)
+    setVerse(HOME_VERSES[now.getDate() % HOME_VERSES.length])
+  }, [])
 
   return (
-    <div
-      style={{
-        paddingTop: 104,
-        paddingBottom: 100,
-        maxWidth: 720,
-        margin: '0 auto',
-        padding: '104px 24px 100px',
-      }}
-    >
-      {/* SECTION 1 — GREETING */}
-      <section style={{ marginBottom: 40 }}>
-        <p style={{
-          fontFamily: 'var(--font-sans)',
-          fontSize: 12,
-          color: '#5A5A50',
-          letterSpacing: '2px',
-          textTransform: 'uppercase',
-          marginBottom: 12,
-        }}>
-          {greeting}
-        </p>
-        <h1 style={{
-          fontFamily: 'var(--font-serif)',
-          fontSize: 40,
-          fontWeight: 600,
-          color: '#F5F5F0',
-          margin: '0 0 12px',
-          lineHeight: 1.2,
-        }}>
-          Bom dia.
-        </h1>
-        <p style={{
-          fontFamily: 'var(--font-sans)',
-          fontSize: 16,
-          color: '#8A8A7A',
-          margin: '0 0 32px',
-        }}>
-          Sua presença com Deus começa aqui.
-        </p>
-        <div style={{
-          height: 1,
-          background: 'rgba(201,168,76,0.15)',
-          width: '100%',
-        }} />
-      </section>
+    <main style={{ minHeight: '100vh', background: '#0D0B12', display: 'flex', flexDirection: 'column' }}>
 
-      {/* SECTION 2 — AYA DO DIA */}
-      <motion.section
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.1 }}
-        style={{ marginBottom: 48 }}
+      {/* ── TOP BAR ───────────────────────────────────────────────────────── */}
+      <header
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '16px 24px',
+          position: 'relative',
+          zIndex: 10,
+        }}
       >
-        <Link href="/aya-do-dia" style={{ textDecoration: 'none', display: 'block' }}>
-          <div style={{
-            background: '#111111',
-            borderRadius: 20,
-            padding: 32,
-            border: '1px solid rgba(201,168,76,0.2)',
-            cursor: 'pointer',
-            transition: 'border-color 0.2s ease',
-          }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLDivElement).style.borderColor = 'rgba(201,168,76,0.4)'
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLDivElement).style.borderColor = 'rgba(201,168,76,0.2)'
-            }}
-          >
-            <p style={{
-              fontFamily: 'var(--font-sans)',
-              fontSize: 10,
-              color: '#C9A84C',
-              letterSpacing: '3px',
-              textTransform: 'uppercase',
-              marginBottom: 24,
-            }}>
-              Aya do Dia
-            </p>
-            <p style={{
-              fontFamily: 'var(--font-arabic)',
-              fontSize: 48,
-              color: '#C9A84C',
-              direction: 'rtl',
-              textAlign: 'center',
-              marginBottom: 20,
-              lineHeight: 1.6,
-              textShadow: '0 0 30px rgba(201,168,76,0.2)',
-            }}>
-              إِنَّ مَعَ ٱلْعُسْرِ يُسْرًا
-            </p>
-            <p style={{
-              fontFamily: 'var(--font-serif)',
-              fontStyle: 'italic',
-              fontSize: 18,
-              color: '#F5F5F0',
-              textAlign: 'center',
-              marginBottom: 10,
-              lineHeight: 1.6,
-            }}>
-              &ldquo;De fato, com a dificuldade vem a facilidade.&rdquo;
-            </p>
-            <p style={{
-              fontFamily: 'var(--font-sans)',
-              fontSize: 12,
-              color: '#5A5A50',
-              textAlign: 'center',
-              marginBottom: 24,
-            }}>
-              — Al-Inshirah 94:6
-            </p>
-            <div style={{
-              display: 'flex',
-              justifyContent: 'flex-end',
-            }}>
-              <span style={{
-                fontFamily: 'var(--font-sans)',
-                fontSize: 13,
-                color: '#C9A84C',
-              }}>
-                Refletir sobre este versículo →
-              </span>
-            </div>
-          </div>
-        </Link>
-      </motion.section>
-
-      {/* SECTION 3 — TRILHAS */}
-      <motion.section
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-        style={{ marginBottom: 48 }}
-      >
-        <p style={{
-          fontFamily: 'var(--font-sans)',
-          fontSize: 10,
-          color: '#5A5A50',
-          letterSpacing: '3px',
-          textTransform: 'uppercase',
-          marginBottom: 16,
-        }}>
-          Suas Jornadas
-        </p>
-
-        {/* Hide scrollbar globally for this container */}
-        <style>{`
-          .trail-row::-webkit-scrollbar { display: none; }
-          .trail-row { -ms-overflow-style: none; scrollbar-width: none; }
-          @media (min-width: 769px) {
-            .trail-card { flex: 1; min-width: 0 !important; }
-          }
-        `}</style>
-
-        <div
-          className="trail-row"
+        <span
           style={{
-            display: 'flex',
-            gap: 12,
-            overflowX: 'auto',
+            fontFamily: 'var(--font-serif)',
+            fontWeight: 700,
+            fontSize: '22px',
+            letterSpacing: '-0.02em',
+            color: '#F0EBE2',
           }}
         >
-          {TRAILS.map((trail) => (
-            <Link
-              key={trail.href}
-              href={trail.href}
-              className="trail-card"
-              style={{
-                textDecoration: 'none',
-                minWidth: 180,
-                display: 'block',
-              }}
-            >
-              <div style={{
-                background: 'linear-gradient(135deg, #1A1A2E, #111111)',
-                border: '1px solid rgba(201,168,76,0.15)',
-                borderRadius: 16,
-                padding: '24px 20px',
-                height: '100%',
-                transition: 'border-color 0.2s ease, transform 0.2s ease',
-              }}
-                onMouseEnter={(e) => {
-                  const el = e.currentTarget as HTMLDivElement
-                  el.style.borderColor = 'rgba(201,168,76,0.35)'
-                  el.style.transform = 'translateY(-2px)'
-                }}
-                onMouseLeave={(e) => {
-                  const el = e.currentTarget as HTMLDivElement
-                  el.style.borderColor = 'rgba(201,168,76,0.15)'
-                  el.style.transform = 'translateY(0)'
-                }}
-              >
-                <p style={{
-                  fontFamily: 'var(--font-arabic)',
-                  fontSize: 28,
-                  color: '#C9A84C',
-                  marginBottom: 12,
-                  direction: 'rtl',
-                }}>
-                  {trail.arabic}
-                </p>
-                <p style={{
-                  fontFamily: 'var(--font-serif)',
-                  fontSize: 16,
-                  color: '#F5F5F0',
-                  marginBottom: 6,
-                }}>
-                  {trail.name}
-                </p>
-                <p style={{
-                  fontFamily: 'var(--font-sans)',
-                  fontSize: 11,
-                  color: '#5A5A50',
-                  marginBottom: 16,
-                }}>
-                  {trail.meta}
-                </p>
-                {/* Progress bar */}
-                <div style={{
-                  height: 2,
-                  background: 'rgba(201,168,76,0.15)',
-                  borderRadius: 2,
-                  overflow: 'hidden',
-                }}>
-                  <div style={{
-                    height: '100%',
-                    width: `${trail.progress}%`,
-                    background: '#C9A84C',
-                    borderRadius: 2,
-                  }} />
-                </div>
-              </div>
-            </Link>
-          ))}
+          KALAM
+        </span>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '6px',
+            color: '#C9A84C',
+          }}
+        >
+          <Flame size={15} strokeWidth={2} />
+          <span
+            style={{
+              fontFamily: 'var(--font-serif)',
+              fontWeight: 600,
+              fontSize: '14px',
+            }}
+          >
+            Dia 1
+          </span>
         </div>
-      </motion.section>
+      </header>
 
-      {/* SECTION 4 — BIBLIOTECA */}
-      <motion.section
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.3 }}
-        style={{ marginBottom: 48 }}
+      {/* ── HERO — fullscreen verse ────────────────────────────────────────── */}
+      <section
+        style={{
+          flex: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '0 24px',
+          textAlign: 'center',
+          minHeight: 'calc(100svh - 72px)',
+          position: 'relative',
+        }}
       >
-        <p style={{
-          fontFamily: 'var(--font-sans)',
-          fontSize: 10,
-          color: '#5A5A50',
-          letterSpacing: '3px',
-          textTransform: 'uppercase',
-          marginBottom: 16,
-        }}>
-          Explorar por Tema
+        {/* Date label */}
+        <p
+          style={{
+            fontSize: '11px',
+            letterSpacing: '0.15em',
+            textTransform: 'uppercase',
+            color: '#7A7870',
+            marginBottom: '48px',
+          }}
+        >
+          {dateLabel || '\u00A0'}
         </p>
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
-          gap: 12,
-        }}>
-          {TOPICS.map((topic) => (
-            <Link
-              key={topic.slug}
-              href={`/biblioteca#${topic.slug}`}
-              style={{ textDecoration: 'none' }}
-            >
-              <div
+
+        {/* Arabic */}
+        <p
+          className="arabic-glow arabic-pulse"
+          style={{
+            fontFamily: 'var(--font-arabic)',
+            direction: 'rtl',
+            fontSize: 'clamp(36px, 8vw, 68px)',
+            lineHeight: 1.6,
+            color: '#C9A84C',
+            maxWidth: '600px',
+            marginBottom: '32px',
+          }}
+        >
+          {verse.arabic}
+        </p>
+
+        {/* Translation */}
+        <p
+          style={{
+            fontFamily: 'var(--font-serif)',
+            fontStyle: 'italic',
+            fontSize: 'clamp(17px, 2.5vw, 21px)',
+            lineHeight: 1.8,
+            color: '#F0EBE2',
+            maxWidth: '560px',
+            marginBottom: '12px',
+          }}
+        >
+          &ldquo;{verse.portuguese}&rdquo;
+        </p>
+
+        {/* Surah ref */}
+        <p
+          style={{
+            fontSize: '13px',
+            color: '#7A7870',
+            marginBottom: '48px',
+            letterSpacing: '0.05em',
+          }}
+        >
+          — {verse.ref}
+        </p>
+
+        {/* CTA */}
+        <Link
+          href="/aya-do-dia"
+          className="shimmer-gold"
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '8px',
+            padding: '14px 28px',
+            borderRadius: '999px',
+            border: '1px solid rgba(201,168,76,0.3)',
+            color: '#C9A84C',
+            fontSize: '15px',
+            fontWeight: 500,
+            letterSpacing: '0.03em',
+            textDecoration: 'none',
+          }}
+        >
+          Ir mais fundo
+          <ArrowRight size={16} />
+        </Link>
+
+        {/* Scroll hint */}
+        <div
+          style={{
+            position: 'absolute',
+            bottom: '32px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '6px',
+            opacity: 0.3,
+          }}
+        >
+          <span style={{ fontSize: '10px', letterSpacing: '0.12em', color: '#7A7870', textTransform: 'uppercase' }}>
+            Explorar
+          </span>
+          <ChevronDown size={13} style={{ color: '#7A7870' }} />
+        </div>
+      </section>
+
+      {/* ── BELOW FOLD ────────────────────────────────────────────────────── */}
+      <div style={{ maxWidth: '720px', margin: '0 auto', width: '100%', padding: '64px 24px 100px' }}>
+
+        {/* ── TRILHAS ─────────────────────────────────────────────────────── */}
+        <section style={{ marginBottom: '56px' }}>
+          <p
+            style={{
+              fontFamily: 'var(--font-serif)',
+              fontWeight: 700,
+              fontSize: '18px',
+              color: '#F0EBE2',
+              marginBottom: '20px',
+              letterSpacing: '-0.01em',
+            }}
+          >
+            Trilhas
+          </p>
+
+          <style>{`
+            .trail-scroll::-webkit-scrollbar { display: none; }
+            .trail-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+          `}</style>
+
+          <div
+            className="trail-scroll"
+            style={{
+              display: 'flex',
+              gap: '12px',
+              overflowX: 'auto',
+              paddingBottom: '4px',
+            }}
+          >
+            {TRAILS.map((trail) => (
+              <Link
+                key={trail.href}
+                href={trail.href}
                 style={{
-                  background: '#111111',
-                  border: '1px solid #2A2A2A',
-                  borderRadius: 12,
-                  padding: 20,
-                  transition: 'border-color 0.2s ease, transform 0.2s ease',
-                  cursor: 'pointer',
-                }}
-                onMouseEnter={(e) => {
-                  const el = e.currentTarget as HTMLDivElement
-                  el.style.borderColor = 'rgba(201,168,76,0.3)'
-                  el.style.transform = 'translateY(-2px)'
-                }}
-                onMouseLeave={(e) => {
-                  const el = e.currentTarget as HTMLDivElement
-                  el.style.borderColor = '#2A2A2A'
-                  el.style.transform = 'translateY(0)'
+                  textDecoration: 'none',
+                  flexShrink: 0,
+                  display: 'block',
+                  minWidth: '160px',
                 }}
               >
-                <p style={{
-                  fontSize: 24,
-                  color: '#C9A84C',
-                  marginBottom: 8,
-                }}>
-                  {topic.symbol}
-                </p>
-                <p style={{
-                  fontFamily: 'var(--font-serif)',
-                  fontSize: 16,
-                  color: '#F5F5F0',
-                  marginBottom: 4,
-                }}>
-                  {topic.name}
-                </p>
-                <p style={{
-                  fontFamily: 'var(--font-sans)',
-                  fontSize: 11,
-                  color: '#5A5A50',
-                }}>
-                  {topic.count}
-                </p>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </motion.section>
+                <div
+                  className="card-hover"
+                  style={{
+                    background: '#161220',
+                    border: '1px solid #272230',
+                    borderRadius: '14px',
+                    padding: '20px 18px',
+                  }}
+                >
+                  <p
+                    style={{
+                      fontFamily: 'var(--font-serif)',
+                      fontSize: '15px',
+                      color: '#F0EBE2',
+                      marginBottom: '6px',
+                      fontWeight: 600,
+                    }}
+                  >
+                    {trail.name}
+                  </p>
+                  <p
+                    style={{
+                      fontSize: '12px',
+                      color: '#7A7870',
+                    }}
+                  >
+                    {trail.meta}
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
 
-      {/* SECTION 5 — HADITH */}
-      <motion.section
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.4 }}
-        style={{ textAlign: 'center', paddingTop: 16 }}
-      >
-        <p style={{
-          fontFamily: 'var(--font-sans)',
-          fontSize: 10,
-          color: '#5A5A50',
-          letterSpacing: '3px',
-          textTransform: 'uppercase',
-          marginBottom: 20,
-        }}>
-          Hadith de Hoje
-        </p>
-        <p style={{
-          fontFamily: 'var(--font-serif)',
-          fontStyle: 'italic',
-          fontSize: 17,
-          color: '#8A8A7A',
-          lineHeight: 1.8,
-          marginBottom: 16,
-          maxWidth: 520,
-          margin: '0 auto 16px',
-        }}>
-          &ldquo;As ações valem pelas intenções. E cada pessoa terá exatamente o que pretendeu.&rdquo;
-        </p>
-        <p style={{
-          fontFamily: 'var(--font-sans)',
-          fontSize: 12,
-          color: '#5A5A50',
-        }}>
-          — Profeta Muhammad ﷺ (Bukhari e Muslim)
-        </p>
-      </motion.section>
-    </div>
+        {/* ── EXPLORE ─────────────────────────────────────────────────────── */}
+        <section>
+          <p
+            style={{
+              fontFamily: 'var(--font-serif)',
+              fontWeight: 700,
+              fontSize: '18px',
+              color: '#F0EBE2',
+              marginBottom: '20px',
+              letterSpacing: '-0.01em',
+            }}
+          >
+            Explore mais
+          </p>
+
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(2, 1fr)',
+              gap: '12px',
+            }}
+          >
+            {EXPLORE.map(({ label, icon: Icon, href }) => (
+              <Link
+                key={href}
+                href={href}
+                style={{ textDecoration: 'none' }}
+              >
+                <div
+                  className="card-hover"
+                  style={{
+                    background: '#161220',
+                    border: '1px solid #272230',
+                    borderRadius: '14px',
+                    padding: '20px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '14px',
+                  }}
+                >
+                  <Icon size={18} style={{ color: '#C9A84C', flexShrink: 0 }} strokeWidth={1.5} />
+                  <span
+                    style={{
+                      fontFamily: 'var(--font-serif)',
+                      fontSize: '15px',
+                      color: '#F0EBE2',
+                      fontWeight: 600,
+                    }}
+                  >
+                    {label}
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+      </div>
+    </main>
   )
 }
