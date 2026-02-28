@@ -54,3 +54,107 @@ body {
   font-family: 'Amiri', serif;
   text-shadow: 0 0 20px rgba(201,168,76,0.3);
 }
+
+/* ── SPRINT 4: App companion utilities ─────────────────────────────────── */
+
+/* Bottom nav safe area support */
+.has-bottom-nav main {
+  padding-bottom: calc(64px + env(safe-area-inset-bottom));
+}
+
+/* Hide scrollbar but keep scroll */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Tab highlight animation */
+.tab-indicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #C9A84C;
+  border-radius: 2px;
+}
+
+/* Verse display — full RTL */
+.verse-arabic {
+  font-family: 'Amiri', serif;
+  direction: rtl;
+  text-align: center;
+  color: #C9A84C;
+  line-height: 1.8;
+}
+
+/* Gold text shadow glow */
+.gold-glow {
+  text-shadow: 0 0 30px rgba(201, 168, 76, 0.3);
+}
+
+/* Gold glow intense (for hero arabic text) */
+.gold-glow-intense {
+  text-shadow: 0 0 20px rgba(201, 168, 76, 0.4), 0 0 60px rgba(201, 168, 76, 0.15);
+}
+
+/* Card hover lift */
+.card-hover {
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.card-hover:hover {
+  transform: translateY(-4px);
+  border-color: rgba(201, 168, 76, 0.3) !important;
+  box-shadow: 0 16px 40px rgba(201, 168, 76, 0.06);
+}
+
+/* Progress bar base */
+.progress-bar-track {
+  height: 2px;
+  background: rgba(201, 168, 76, 0.1);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.progress-bar-fill {
+  height: 100%;
+  background: #C9A84C;
+  border-radius: 2px;
+  transition: width 0.6s ease;
+}
+
+/* Shimmer button animation */
+@keyframes shimmer {
+  0% { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+.shimmer-gold {
+  background: linear-gradient(
+    90deg,
+    rgba(201, 168, 76, 0.15) 0%,
+    rgba(201, 168, 76, 0.4) 50%,
+    rgba(201, 168, 76, 0.15) 100%
+  );
+  background-size: 200% auto;
+  animation: shimmer 3s linear infinite;
+}
+
+/* Pulse glow for Arabic */
+@keyframes pulseGlow {
+  0%, 100% { text-shadow: 0 0 20px rgba(201, 168, 76, 0.2); }
+  50% { text-shadow: 0 0 40px rgba(201, 168, 76, 0.5), 0 0 80px rgba(201, 168, 76, 0.2); }
+}
+.arabic-pulse {
+  animation: pulseGlow 4s ease-in-out infinite;
+}
+
+/* Section fade-up base (for non-framer fallback) */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-up {
+  animation: fadeUp 0.7s ease forwards;
+}

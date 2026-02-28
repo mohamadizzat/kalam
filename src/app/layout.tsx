@@ -12,14 +12,15 @@ import { ThemeProvider } from '@/providers/theme-provider'
 import { LenisProvider } from '@/providers/lenis-provider'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
+import { BottomNav } from '@/components/layout/BottomNav'
 
 export const metadata: Metadata = {
-  title: 'KALAM BRASIL — A Palavra. O Capítulo Final.',
-  description: 'Descubra a história que ninguém te contou. Os mesmos profetas. A mesma mensagem. O capítulo final.',
-  keywords: 'profetas, bíblia, alcorão, história, fé, espiritualidade, Islam',
+  title: 'KALAM — Deus. Todo dia.',
+  description: 'Seu companheiro diário para se conectar com Deus. Versículos, trilhas de aprendizado, sabedoria dos profetas — sem ruído, sem culpa, com profundidade.',
+  keywords: 'profetas, bíblia, alcorão, história, fé, espiritualidade, Islam, aya do dia, quran',
   openGraph: {
-    title: 'KALAM BRASIL — A Palavra. O Capítulo Final.',
-    description: 'Tudo que você acredita é verdade. Mas falta o capítulo final.',
+    title: 'KALAM — Deus. Todo dia.',
+    description: 'Seu companheiro diário para se conectar com Deus.',
     type: 'website',
     locale: 'pt_BR',
   },
@@ -35,6 +36,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Header />
             <main>{children}</main>
             <Footer />
+            <BottomNav />
           </LenisProvider>
         </ThemeProvider>
       </body>

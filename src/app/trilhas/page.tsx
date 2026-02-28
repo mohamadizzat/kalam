@@ -1,0 +1,460 @@
+'use client'
+
+import { useState } from 'react'
+import Link from 'next/link'
+import { motion } from 'framer-motion'
+import { BlurFade } from '@/components/effects/BlurFade'
+
+export const TRAILS = [
+  {
+    slug: 'deus-e-amor',
+    title: 'Deus é Amor',
+    arabicTitle: 'الله محبة',
+    subtitle: '5 dias para entender o amor de Deus sem culpa e sem medo',
+    description:
+      'A maior distorção sobre Deus é que Ele é juiz antes de ser pai. Esta trilha percorre o Alcorão em busca de uma imagem diferente — um Deus que ama primeiro, que perdoa primeiro, que está mais perto do que sua própria veia jugular.',
+    duration: '5 dias',
+    theme: 'Amor & Misericórdia',
+    available: true,
+    days: [
+      { day: 1, title: 'O Nome que Vem Primeiro' },
+      { day: 2, title: 'Mais Próximo que Sua Veia' },
+      { day: 3, title: 'Não Desespere' },
+      { day: 4, title: 'Lembra de Mim' },
+      { day: 5, title: 'Ele os Ama' },
+    ],
+  },
+  {
+    slug: 'sem-medo',
+    title: 'Sem Medo',
+    arabicTitle: 'لَا خَوْفٌ',
+    subtitle: '4 dias para substituir o medo de Deus por conexão com Deus',
+    description:
+      'Muito do que chamamos de "religiosidade" é na verdade ansiedade disfarçada. Esta trilha usa versículos do Alcorão para substituir o medo como motor espiritual pela presença como fundação.',
+    duration: '4 dias',
+    theme: 'Ansiedade & Paz',
+    available: true,
+    days: [
+      { day: 1, title: 'Com a Dificuldade Vem a Facilidade' },
+      { day: 2, title: 'Não Sobrecarregado' },
+      { day: 3, title: 'Allah Está Com Você' },
+      { day: 4, title: 'A Calma dos Crentes' },
+    ],
+  },
+  {
+    slug: 'jesus-no-quran',
+    title: 'Jesus no Alcorão',
+    arabicTitle: 'عيسى في القرآن',
+    subtitle: '4 dias para entender o que o Islam acredita sobre Jesus — da perspectiva islâmica',
+    description:
+      'Se você é cristão ou cresceu em contexto cristão, Jesus é central para sua fé. Este trilha mostra o que o Alcorão diz sobre Isa (Jesus) — com honestidade sobre os pontos de concordância e os de divergência.',
+    duration: '4 dias',
+    theme: 'Pontes & Entendimento',
+    available: true,
+    days: [
+      { day: 1, title: 'Nascido de Virgem' },
+      { day: 2, title: 'Os Milagres' },
+      { day: 3, title: 'O Que o Alcorão Diz que Não Aconteceu' },
+      { day: 4, title: 'Ele Voltará' },
+    ],
+  },
+  {
+    slug: 'os-profetas',
+    title: 'Os Profetas: Uma Família',
+    arabicTitle: 'الأنبياء',
+    subtitle: '7 dias pelos profetas que Bíblia e Alcorão compartilham',
+    description:
+      'Adão, Abraão, José, Moisés, Davi, Jesus, Muhammad — todos fazem parte de uma única cadeia de mensageiros enviados pelo mesmo Deus. Esta trilha percorre cada um em 7 dias.',
+    duration: '7 dias',
+    theme: 'História & Profecia',
+    available: false,
+    days: [],
+  },
+]
+
+function TrailCard({ trail, index }: { trail: typeof TRAILS[0]; index: number }) {
+  const [hovered, setHovered] = useState(false)
+  const previewDays = trail.days.slice(0, 2)
+  const hasMore = trail.days.length > 2
+
+  const cardInner = (
+    <motion.div
+      initial={{ opacity: 0, y: 32 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-60px' }}
+      transition={{ duration: 0.6, delay: index * 0.09, ease: [0.25, 0.4, 0.25, 1] }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        position: 'relative',
+        background: '#111111',
+        border: hovered && trail.available
+          ? '1px solid rgba(201,168,76,0.3)'
+          : '1px solid #2A2A2A',
+        borderRadius: 20,
+        padding: 32,
+        cursor: trail.available ? 'pointer' : 'default',
+        transition: 'border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease',
+        transform: hovered && trail.available ? 'translateY(-4px)' : 'translateY(0)',
+        boxShadow: hovered && trail.available
+          ? '0 24px 60px rgba(0,0,0,0.5), 0 0 40px rgba(201,168,76,0.04)'
+          : '0 4px 20px rgba(0,0,0,0.2)',
+        overflow: 'hidden',
+        height: '100%',
+      }}
+    >
+      {/* Top gradient line on hover */}
+      {trail.available && (
+        <div style={{
+          position: 'absolute',
+          top: 0, left: 0, right: 0,
+          height: 1,
+          background: hovered
+            ? 'linear-gradient(90deg, transparent, rgba(201,168,76,0.5), transparent)'
+            : 'transparent',
+          transition: 'background 0.4s ease',
+        }} />
+      )}
+
+      {/* Arabic title */}
+      <div style={{
+        fontFamily: 'var(--font-arabic)',
+        fontSize: 36,
+        color: trail.available ? '#C9A84C' : '#5A5A50',
+        direction: 'rtl',
+        textAlign: 'right',
+        marginBottom: 12,
+        lineHeight: 1.3,
+        textShadow: hovered && trail.available ? '0 0 20px rgba(201,168,76,0.2)' : 'none',
+        transition: 'text-shadow 0.3s ease',
+      }}>
+        {trail.arabicTitle}
+      </div>
+
+      {/* Badges row */}
+      <div style={{ display: 'flex', gap: 8, marginBottom: 12, flexWrap: 'wrap' }}>
+        <span style={{
+          fontFamily: 'var(--font-sans)',
+          fontSize: 10,
+          letterSpacing: '1.5px',
+          textTransform: 'uppercase',
+          color: trail.available ? '#C9A84C' : '#5A5A50',
+          background: trail.available ? 'rgba(201,168,76,0.08)' : 'rgba(90,90,80,0.08)',
+          border: trail.available ? '1px solid rgba(201,168,76,0.2)' : '1px solid rgba(90,90,80,0.2)',
+          borderRadius: 20,
+          padding: '3px 10px',
+        }}>
+          {trail.duration}
+        </span>
+        <span style={{
+          fontFamily: 'var(--font-sans)',
+          fontSize: 10,
+          letterSpacing: '1.5px',
+          textTransform: 'uppercase',
+          color: trail.available ? '#C9A84C' : '#5A5A50',
+          background: trail.available ? 'rgba(201,168,76,0.08)' : 'rgba(90,90,80,0.08)',
+          border: trail.available ? '1px solid rgba(201,168,76,0.2)' : '1px solid rgba(90,90,80,0.2)',
+          borderRadius: 20,
+          padding: '3px 10px',
+        }}>
+          {trail.theme}
+        </span>
+      </div>
+
+      {/* Title */}
+      <h3 style={{
+        fontFamily: 'var(--font-serif)',
+        fontSize: 24,
+        fontWeight: 600,
+        color: '#F5F5F0',
+        marginBottom: 6,
+        lineHeight: 1.25,
+      }}>
+        {trail.title}
+      </h3>
+
+      {/* Subtitle */}
+      <p style={{
+        fontFamily: 'var(--font-sans)',
+        fontSize: 13,
+        color: '#8A8A7A',
+        fontStyle: 'italic',
+        marginBottom: 12,
+        lineHeight: 1.6,
+      }}>
+        {trail.subtitle}
+      </p>
+
+      {/* Description */}
+      <p style={{
+        fontFamily: 'var(--font-sans)',
+        fontSize: 15,
+        color: '#8A8A7A',
+        lineHeight: 1.75,
+        marginBottom: 20,
+      }}>
+        {trail.description}
+      </p>
+
+      {/* Day preview */}
+      {previewDays.length > 0 && (
+        <div style={{
+          borderTop: '1px solid #2A2A2A',
+          paddingTop: 16,
+          marginBottom: 24,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 4,
+        }}>
+          {previewDays.map((d) => (
+            <span
+              key={d.day}
+              style={{
+                fontFamily: 'var(--font-sans)',
+                fontSize: 12,
+                color: '#5A5A50',
+              }}
+            >
+              Dia {d.day} — {d.title}
+            </span>
+          ))}
+          {hasMore && (
+            <span style={{
+              fontFamily: 'var(--font-sans)',
+              fontSize: 12,
+              color: '#5A5A50',
+            }}>
+              ...
+            </span>
+          )}
+        </div>
+      )}
+
+      {/* CTA */}
+      {trail.available ? (
+        <p style={{
+          fontFamily: 'var(--font-sans)',
+          fontSize: 11,
+          letterSpacing: '2px',
+          textTransform: 'uppercase',
+          color: hovered ? 'rgba(201,168,76,0.9)' : 'rgba(201,168,76,0.45)',
+          transition: 'color 0.3s ease',
+        }}>
+          Começar trilha →
+        </p>
+      ) : (
+        <span style={{
+          display: 'inline-block',
+          fontFamily: 'var(--font-sans)',
+          fontSize: 9,
+          letterSpacing: '2px',
+          textTransform: 'uppercase',
+          color: '#5A5A50',
+          background: 'rgba(90,90,80,0.08)',
+          border: '1px solid rgba(90,90,80,0.2)',
+          borderRadius: 4,
+          padding: '4px 10px',
+        }}>
+          Em breve
+        </span>
+      )}
+    </motion.div>
+  )
+
+  if (trail.available) {
+    return (
+      <Link href={`/trilhas/${trail.slug}`} style={{ textDecoration: 'none', display: 'flex' }}>
+        {cardInner}
+      </Link>
+    )
+  }
+
+  return <div style={{ display: 'flex' }}>{cardInner}</div>
+}
+
+export default function TrilhasPage() {
+  return (
+    <div style={{ minHeight: '100vh', background: '#0A0A0A', paddingTop: 64 }}>
+
+      {/* ── HERO ── */}
+      <section style={{
+        position: 'relative',
+        padding: 'clamp(80px, 12vw, 140px) 24px clamp(48px, 6vw, 80px)',
+        textAlign: 'center',
+        overflow: 'hidden',
+      }}>
+        {/* Ambient glow */}
+        <div style={{
+          position: 'absolute',
+          top: '50%', left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: 700, height: 500,
+          background: 'radial-gradient(ellipse, rgba(201,168,76,0.05) 0%, transparent 70%)',
+          pointerEvents: 'none',
+        }} />
+
+        <div style={{ position: 'relative', zIndex: 1, maxWidth: 800, margin: '0 auto' }}>
+
+          {/* Eyebrow */}
+          <BlurFade delay={0}>
+            <p style={{
+              fontFamily: 'var(--font-sans)',
+              fontSize: 10,
+              letterSpacing: '4px',
+              textTransform: 'uppercase',
+              color: 'rgba(201,168,76,0.6)',
+              marginBottom: 28,
+            }}>
+              TRILHAS
+            </p>
+          </BlurFade>
+
+          {/* H1 */}
+          <BlurFade delay={0.1}>
+            <h1 style={{
+              fontFamily: 'var(--font-serif)',
+              fontSize: 'clamp(36px, 6vw, 52px)',
+              fontWeight: 600,
+              color: '#F5F5F0',
+              lineHeight: 1.15,
+              marginBottom: 20,
+            }}>
+              Jornadas de Aprendizado
+            </h1>
+          </BlurFade>
+
+          {/* Subtitle */}
+          <BlurFade delay={0.2}>
+            <p style={{
+              fontFamily: 'var(--font-sans)',
+              fontSize: 17,
+              color: '#8A8A7A',
+              maxWidth: 520,
+              margin: '0 auto 40px',
+              lineHeight: 1.75,
+            }}>
+              Cada trilha é uma experiência de 4 a 7 dias. Um dia. Uma ideia. Uma mudança.
+            </p>
+          </BlurFade>
+
+          {/* Divider */}
+          <BlurFade delay={0.3}>
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 16,
+              justifyContent: 'center',
+            }}>
+              <div style={{ width: 40, height: 1, background: 'rgba(201,168,76,0.3)' }} />
+              <div style={{ width: 4, height: 4, borderRadius: '50%', background: '#C9A84C', opacity: 0.6 }} />
+              <div style={{ width: 40, height: 1, background: 'rgba(201,168,76,0.3)' }} />
+            </div>
+          </BlurFade>
+        </div>
+      </section>
+
+      {/* ── TRAILS GRID ── */}
+      <section style={{ padding: '0 24px clamp(80px, 10vw, 120px)' }}>
+        <div style={{ maxWidth: 900, margin: '0 auto' }}>
+
+          {/* Section label */}
+          <BlurFade delay={0}>
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 20,
+              marginBottom: 48,
+            }}>
+              <div style={{ flex: 1, height: 1, background: '#2A2A2A' }} />
+              <p style={{
+                fontFamily: 'var(--font-sans)',
+                fontSize: 11,
+                letterSpacing: '3px',
+                textTransform: 'uppercase',
+                color: '#5A5A50',
+                whiteSpace: 'nowrap',
+              }}>
+                TODAS AS TRILHAS
+              </p>
+              <div style={{ flex: 1, height: 1, background: '#2A2A2A' }} />
+            </div>
+          </BlurFade>
+
+          {/* Grid */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 400px), 1fr))',
+            gap: 20,
+            alignItems: 'start',
+          }}>
+            {TRAILS.map((trail, i) => (
+              <TrailCard key={trail.slug} trail={trail} index={i} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── BOTTOM CTA ── */}
+      <section style={{
+        padding: 'clamp(48px, 6vw, 80px) 24px clamp(80px, 10vw, 120px)',
+        textAlign: 'center',
+      }}>
+        {/* Gold divider */}
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 20,
+          justifyContent: 'center',
+          marginBottom: 48,
+          borderTop: '1px solid rgba(201,168,76,0.1)',
+          paddingTop: 48,
+        }}>
+          <div style={{ width: 80, height: 1, background: 'linear-gradient(90deg, transparent, rgba(201,168,76,0.3))' }} />
+          <div style={{ width: 6, height: 6, borderRadius: '50%', background: 'rgba(201,168,76,0.4)' }} />
+          <div style={{ width: 80, height: 1, background: 'linear-gradient(270deg, transparent, rgba(201,168,76,0.3))' }} />
+        </div>
+
+        <BlurFade delay={0}>
+          <p style={{
+            fontFamily: 'var(--font-sans)',
+            fontSize: 15,
+            color: '#8A8A7A',
+            marginBottom: 28,
+          }}>
+            Quer explorar por tema?
+          </p>
+        </BlurFade>
+
+        <BlurFade delay={0.1}>
+          <Link
+            href="/biblioteca"
+            style={{
+              display: 'inline-block',
+              fontFamily: 'var(--font-sans)',
+              fontSize: 12,
+              letterSpacing: '3px',
+              textTransform: 'uppercase',
+              color: '#C9A84C',
+              textDecoration: 'none',
+              border: '1px solid rgba(201,168,76,0.25)',
+              borderRadius: 2,
+              padding: '14px 36px',
+              transition: 'all 0.3s ease',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'rgba(201,168,76,0.06)'
+              e.currentTarget.style.borderColor = 'rgba(201,168,76,0.45)'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'transparent'
+              e.currentTarget.style.borderColor = 'rgba(201,168,76,0.25)'
+            }}
+          >
+            Ir para a Biblioteca →
+          </Link>
+        </BlurFade>
+      </section>
+
+    </div>
+  )
+}

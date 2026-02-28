@@ -2,20 +2,22 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { Menu } from 'lucide-react'
 import { MobileMenu } from './MobileMenu'
 
 const NAV_LINKS = [
+  { label: 'Aya do Dia', href: '/aya-do-dia' },
+  { label: 'Trilhas', href: '/trilhas' },
+  { label: 'Biblioteca', href: '/biblioteca' },
   { label: 'Os Profetas', href: '/os-profetas' },
-  { label: 'A Mensagem', href: '/a-mensagem' },
-  { label: 'O Sistema', href: '/o-sistema' },
   { label: 'Estudos', href: '/estudos' },
-  { label: 'Sobre', href: '/sobre' },
 ]
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const pathname = usePathname()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
@@ -25,6 +27,11 @@ export function Header() {
 
   return (
     <>
+      <style>{`
+        @media (max-width: 768px) { .header-desktop-nav { display: none !important; } }
+        @media (min-width: 769px) { .header-hamburger { display: none !important; } }
+      `}</style>
+
       <header
         style={{
           position: 'fixed',
@@ -72,8 +79,45 @@ export function Header() {
           </span>
         </Link>
 
-        {/* Hamburger */}
+        {/* Desktop Nav */}
+        <nav
+          className="header-desktop-nav"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 32,
+          }}
+        >
+          {NAV_LINKS.map((link) => {
+            const isActive = pathname === link.href
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                style={{
+                  fontFamily: "'Inter Variable', Inter, system-ui, sans-serif",
+                  fontSize: 13,
+                  letterSpacing: '1px',
+                  color: isActive ? '#F5F5F0' : '#8A8A7A',
+                  textDecoration: 'none',
+                  transition: 'color 0.2s ease',
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLAnchorElement).style.color = '#F5F5F0'
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLAnchorElement).style.color = isActive ? '#F5F5F0' : '#8A8A7A'
+                }}
+              >
+                {link.label}
+              </Link>
+            )
+          })}
+        </nav>
+
+        {/* Hamburger — mobile only */}
         <button
+          className="header-hamburger"
           onClick={() => setMenuOpen(true)}
           aria-label="Abrir menu"
           style={{
