@@ -1,0 +1,740 @@
+[
+  {
+    "key": "11:1",
+    "number": 1,
+    "arabic": " الٓر ۚ كِتَـٰبٌ أُحْكِمَتْ ءَايَـٰتُهُۥ ثُ��َّ فُصِّلَتْ مِن لَّدُنْ حَكِيمٍ خَبِيرٍ",
+    "portuguese": "Alif, Lãm, Rã. Este é um Livro, cujos versículos são precisos, em seguida, aclarados, da parte de um Sábio, Conhecedor."
+  },
+  {
+    "key": "11:2",
+    "number": 2,
+    "arabic": "أَلَّا تَعْبُدُوٓا۟ إِلَّا ٱللَّهَ ۚ إِنَّنِى لَكُم مِّنْهُ نَذِيرٌ وَبَشِيرٌ",
+    "portuguese": "Não adoreis senão a Allah. Por certo, sou dEle, para vós, admoestador e alvissareiro."
+  },
+  {
+    "key": "11:3",
+    "number": 3,
+    "arabic": "وَأَنِ ٱسْتَغْفِرُوا۟ رَبَّكُمْ ثُمَّ تُوبُوٓا۟ إِلَيْهِ يُمَتِّعْكُم مَّتَـٰعًا حَسَنًا إِلَىٰٓ أَجَلٍ مُّسَمًّى وَيُؤْتِ كُلَّ ذِى فَضْلٍ فَضْلَهُۥ ۖ وَإِن تَوَلَّوْا۟ فَإِنِّىٓ أَخَافُ عَلَيْكُمْ عَذَابَ يَوْمٍ كَبِيرٍ",
+    "portuguese": "E implorai perdão a vosso Senhor; em seguida, voltai-vos arrependidos para Ele. Ele vos fará gozar belo gozo, até um termo designado e concederá Seu favor a cada merecedor de favor; mas, se voltais as costas, por certo, temo por vós, o castigo de um grande dia."
+  },
+  {
+    "key": "11:4",
+    "number": 4,
+    "arabic": "إِلَى ٱللَّهِ مَرْجِعُكُمْ ۖ وَهُوَ عَلَىٰ كُلِّ شَىْءٍ قَدِيرٌ",
+    "portuguese": "A Allah será vosso retorno, e Ele, sobre todas as cousas, é Onipotente."
+  },
+  {
+    "key": "11:5",
+    "number": 5,
+    "arabic": "أَلَآ إِنَّهُمْ يَثْنُونَ صُدُورَهُمْ لِيَسْتَخْفُوا۟ مِنْهُ ۚ أَلَا حِينَ يَسْتَغْشُونَ ثِيَابَهُمْ يَعْلَمُ مَا يُسِرُّونَ وَمَا يُعْلِنُونَ ۚ إِنَّهُۥ عَلِيمٌۢ بِذَاتِ ٱلصُّدُورِ",
+    "portuguese": "Ora, eles dobram seus peitos para esconder-se dEle. Ora, mesmo quando se encobrem em seus trajes, Ele sabe o de que guardam segredo e o que manifestam. Por certo, Ele, do íntimo dos peitos, é Onisciente."
+  },
+  {
+    "key": "11:6",
+    "number": 6,
+    "arabic": "۞ وَمَا مِن دَآبَّةٍ فِى ٱلْأَرْضِ إِلَّا عَلَى ٱللَّهِ رِزْقُهَا وَيَعْلَمُ مُسْتَقَرَّهَا وَمُسْتَوْدَعَهَا ۚ كُلٌّ فِى كِتَـٰبٍ مُّبِينٍ",
+    "portuguese": "E não há ser animal algum na terra, sem que seu sustento impenda a Allah, e Ele conhece sua residência e seu depósito. Tudo está no evidente Livro."
+  },
+  {
+    "key": "11:7",
+    "number": 7,
+    "arabic": "وَهُوَ ٱلَّذِى خَلَقَ ٱلسَّمَـٰوَٰتِ وَٱلْأَرْضَ فِى سِتَّةِ أَيَّامٍ وَكَانَ عَرْشُهُۥ عَلَى ٱلْمَآءِ لِيَبْلُوَكُمْ أَيُّكُمْ أَحْسَنُ عَمَلًا ۗ وَلَئِن قُلْتَ إِنَّكُم مَّبْعُوثُونَ مِنۢ بَعْدِ ٱلْمَوْتِ لَيَقُولَنَّ ٱلَّذِينَ كَفَرُوٓا۟ إِنْ هَـٰذَآ إِلَّا سِحْرٌ مُّبِينٌ",
+    "portuguese": "E Ele é Quem criou os céus e a terra, em seis dias enquanto Seu Trono estava sobre a água para pôr à prova qual de vós é melhor em obras. E se dizes, Muhammad: \"Por certo, sereis ressuscitados, depois da morte\", os que renegam a Fé dizem: \"Em verdade, isso não é senão evidente magia!\""
+  },
+  {
+    "key": "11:8",
+    "number": 8,
+    "arabic": "وَلَئِنْ أَخَّرْنَا عَنْهُمُ ٱلْعَذَابَ إِلَىٰٓ أُمَّةٍ مَّعْدُودَةٍ لَّيَقُولُنَّ مَا يَحْبِسُهُۥٓ ۗ أَلَا يَوْمَ يَأْتِيهِمْ لَيْسَ مَصْرُوفًا عَنْهُمْ وَحَاقَ بِهِم مَّا كَانُوا۟ بِهِۦ يَسْتَهْزِءُونَ",
+    "portuguese": "E, se lhes adiamos o castigo, até um tempo contado, dizem: \"Que o detém?\" Ora, um dia, quando lhes chegar o castigo, deles não se desviará, e envolvê-los-á aquilo de que zombavam."
+  },
+  {
+    "key": "11:9",
+    "number": 9,
+    "arabic": "وَلَئِنْ أَذَقْنَا ٱلْإِنسَـٰنَ مِنَّا رَحْمَةً ثُمَّ نَزَعْنَـٰهَا مِنْهُ إِنَّهُۥ لَيَـُٔوسٌ كَفُورٌ",
+    "portuguese": "E, se fazemos experimentar ao ser humano Misericórdia de Nossa parte; em seguida, tiramo-la dele, por certo, fica desesperado, ingrato."
+  },
+  {
+    "key": "11:10",
+    "number": 10,
+    "arabic": "وَلَئِنْ أَذَقْنَـٰهُ نَعْمَآءَ بَعْدَ ضَرَّآءَ مَسَّتْهُ لَيَقُولَنَّ ذَهَبَ ٱلسَّيِّـَٔاتُ عَنِّىٓ ۚ إِنَّهُۥ لَفَرِحٌ فَخُورٌ",
+    "portuguese": "E, se o fazemos experimentar prosperidade, após infortúnio, que o haja tocado, diz: \"Os males se foram, para longe de mim.\" Por certo, fica jubiloso, vanglorioso."
+  },
+  {
+    "key": "11:11",
+    "number": 11,
+    "arabic": "إِلَّا ٱلَّذِينَ صَبَرُوا۟ وَعَمِلُوا۟ ٱلصَّـٰلِحَـٰتِ أُو۟لَـٰٓئِكَ لَهُم مَّغْفِرَةٌ وَأَجْرٌ كَبِيرٌ",
+    "portuguese": "Exceto os que pacientam e fazem as boas obras; esses terão perdão e grande prêmio."
+  },
+  {
+    "key": "11:12",
+    "number": 12,
+    "arabic": "فَلَعَلَّكَ تَارِكٌۢ بَعْضَ مَا يُوحَىٰٓ إِلَيْكَ وَضَآئِقٌۢ بِهِۦ صَدْرُكَ أَن يَقُولُوا۟ لَوْلَآ أُنزِلَ عَلَيْهِ كَنزٌ أَوْ جَآءَ مَعَهُۥ مَلَكٌ ۚ إِنَّمَآ أَنتَ نَذِيرٌ ۚ وَٱللَّهُ عَلَىٰ كُلِّ شَىْءٍ وَكِيلٌ",
+    "portuguese": "Então, talvez tu deixes de recitar algo do que te foi revelado e, com que teu peito se constrange, porque eles dizem: \"Que se faça descer um tesouro sobre ele, ou que chegue com ele um anjo!\" Tu és, apenas, admoestador. E Allah, sobre todas as cousas, é Patrono."
+  },
+  {
+    "key": "11:13",
+    "number": 13,
+    "arabic": "أَمْ يَقُولُونَ ٱفْتَرَىٰهُ ۖ قُلْ فَأْتُوا۟ بِعَشْرِ سُوَرٍ مِّثْلِهِۦ مُفْتَرَيَـٰتٍ وَٱدْعُوا۟ مَنِ ٱسْتَطَعْتُم مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
+    "portuguese": "Ou eles dizem: \"Ele o forjou?\" Dize: \"Então, fazei vir dez suras iguais à dele e para isso, convocai quem puderdes, em vez de Allah, se sois verídicos\""
+  },
+  {
+    "key": "11:14",
+    "number": 14,
+    "arabic": "فَإِلَّمْ يَسْتَجِيبُوا۟ لَكُمْ فَٱعْلَمُوٓا۟ أَنَّمَآ أُنزِلَ بِعِلْمِ ٱللَّهِ وَأَن لَّآ إِلَـٰهَ إِلَّا هُوَ ۖ فَهَلْ أَنتُم مُّسْلِمُونَ",
+    "portuguese": "E, se eles vos não atendem, sabei que ele foi descido com a ciência de Allah, e que não existe Deus senão Ele. Então, sois crentes?"
+  },
+  {
+    "key": "11:15",
+    "number": 15,
+    "arabic": "مَن كَانَ يُرِيدُ ٱلْحَيَوٰةَ ٱلدُّنْيَا وَزِينَتَهَا نُوَفِّ إِلَيْهِمْ أَعْمَـٰلَهُمْ فِيهَا وَهُمْ فِيهَا لَا يُبْخَسُونَ",
+    "portuguese": "Quem deseja a vida terrena e seus ornamentos, Nós, nela, compensar-lhes-emos as obras e, nela, em nada eles serão subtraídos."
+  },
+  {
+    "key": "11:16",
+    "number": 16,
+    "arabic": "أُو۟لَـٰٓئِكَ ٱلَّذِينَ لَيْسَ لَهُمْ فِى ٱلْـَٔاخِرَةِ إِلَّا ٱلنَّارُ ۖ وَحَبِطَ مَا صَنَعُوا۟ فِيهَا وَبَـٰطِلٌ مَّا كَانُوا۟ يَعْمَلُونَ",
+    "portuguese": "Esses são os que não terão, na Derradeira Vida, senão o Fogo, e anular-se-á o que engenharam nela, na vida terrena, e derrogar-se-á o que faziam."
+  },
+  {
+    "key": "11:17",
+    "number": 17,
+    "arabic": "أَفَمَن كَانَ عَلَىٰ بَيِّنَةٍ مِّن رَّبِّهِۦ وَيَتْلُوهُ شَاهِدٌ مِّنْهُ وَمِن قَبْلِهِۦ كِتَـٰبُ مُوسَىٰٓ إِمَامًا وَرَحْمَةً ۚ أُو۟لَـٰٓئِكَ يُؤْمِنُونَ بِهِۦ ۚ وَمَن يَكْفُرْ بِهِۦ مِنَ ٱلْأَحْزَابِ فَٱلنَّارُ مَوْعِدُهُۥ ۚ فَلَا تَكُ فِى مِرْيَةٍ مِّنْهُ ۚ إِنَّهُ ٱلْحَقُّ مِن رَّبِّكَ وَلَـٰكِنَّ أَكْثَرَ ٱلنَّاسِ لَا يُؤْمِنُونَ",
+    "portuguese": "Então, será que quem está fundado sobre evidência de seu Senhor, e segue-o uma testemunha d'Ele - e, antes dela, houve o Livro de Moisés, como guia e misericórdia - é igual ao que não está fundado sobre nada? Aqueles crêem nele. E para quem o renega dentre os partidos, o Fogo lhe é o lugar prometido. Então, não estejas em dúvida acerca dele, Muhammad. Por certo, ele é a verdade de teu Senhor, mas a maioria dos homens não crê."
+  },
+  {
+    "key": "11:18",
+    "number": 18,
+    "arabic": "وَمَنْ أَظْلَمُ مِمَّنِ ٱفْتَرَىٰ عَلَى ٱللَّهِ كَذِبًا ۚ أُو۟لَـٰٓئِكَ يُعْرَضُونَ عَلَىٰ رَبِّهِمْ وَيَقُولُ ٱلْأَشْهَـٰدُ هَـٰٓؤُلَآءِ ٱلَّذِينَ كَذَبُوا۟ عَلَىٰ رَبِّهِمْ ۚ أَلَا لَعْنَةُ ٱللَّهِ عَلَى ٱلظَّـٰلِمِينَ",
+    "portuguese": "E quem mais injusto que aquele que forja mentiras acerca de Allah? Esses serão expostos a seu Senhor, e as testemunhas dirão: \"Estes são os que mentiram acerca de seu Senhor.\" Ora, que a maldição de Allah seja sobre os injustos,"
+  },
+  {
+    "key": "11:19",
+    "number": 19,
+    "arabic": "ٱلَّذِينَ يَصُدُّونَ عَن سَبِيلِ ٱللَّهِ وَيَبْغُونَهَا عِوَجًا وَهُم بِٱلْـَٔاخِرَةِ هُمْ كَـٰفِرُونَ",
+    "portuguese": "Que afastam os homens do caminho de Allah, e buscam torná-lo tortuoso, e são renegadores da Derradeira Vida."
+  },
+  {
+    "key": "11:20",
+    "number": 20,
+    "arabic": "أُو۟لَـٰٓئِكَ لَمْ يَكُونُوا۟ مُعْجِزِينَ فِى ٱلْأَرْضِ وَمَا كَانَ لَهُم مِّن دُونِ ٱللَّهِ مِنْ أَوْلِيَآءَ ۘ يُضَـٰعَفُ لَهُمُ ٱلْعَذَابُ ۚ مَا كَانُوا۟ يَسْتَطِيعُونَ ٱلسَّمْعَ وَمَا كَانُوا۟ يُبْصِرُونَ",
+    "portuguese": "Esses não poderão escapar de Seu castigo, na terra e não terão protetores, além de Allah. Duplicar-se-lhes-á o castigo; eles não foram capazes de ouvir nem de nada enxergar."
+  },
+  {
+    "key": "11:21",
+    "number": 21,
+    "arabic": "أُو۟لَـٰٓئِكَ ٱلَّذِينَ خَسِرُوٓا۟ أَنفُسَهُمْ وَضَلَّ عَنْهُم مَّا كَانُوا۟ يَفْتَرُونَ",
+    "portuguese": "Esses são os que se perderam a si mesmos. E o que eles forjavam sumirá para longe deles."
+  },
+  {
+    "key": "11:22",
+    "number": 22,
+    "arabic": "لَا جَرَمَ أَنَّهُمْ فِى ٱلْـَٔاخِرَةِ هُمُ ٱلْأَخْسَرُونَ",
+    "portuguese": "É inconteste que serão, na Derradeira Vida, os mais perdedores."
+  },
+  {
+    "key": "11:23",
+    "number": 23,
+    "arabic": "إِنَّ ٱلَّذِينَ ءَامَنُوا۟ وَعَمِلُوا۟ ٱلصَّـٰلِحَـٰتِ وَأَخْبَتُوٓا۟ إِلَىٰ رَبِّهِمْ أُو۟لَـٰٓئِكَ أَصْحَـٰبُ ٱلْجَنَّةِ ۖ هُمْ فِيهَا خَـٰلِدُونَ",
+    "portuguese": "Por certo, os crentes e os que fazem as boas obras e se humildam a seu Senhor, esses são os companheiros do Paraíso. Nele, serão eternos."
+  },
+  {
+    "key": "11:24",
+    "number": 24,
+    "arabic": "۞ مَثَلُ ٱلْ��َرِيقَيْنِ كَٱلْأَعْمَىٰ وَٱلْأَصَمِّ وَٱلْبَصِيرِ وَٱلسَّمِيعِ ۚ هَلْ يَسْتَوِيَانِ مَثَلًا ۚ أَفَلَا تَذَكَّرُونَ",
+    "portuguese": "O exemplo dos dois grupos é como o do cego e do surdo, e do vidente e do ouvidor: igualam-se, como exemplo? Então, não meditais?"
+  },
+  {
+    "key": "11:25",
+    "number": 25,
+    "arabic": "وَلَقَدْ أَرْسَلْنَا نُوحًا إِلَىٰ قَوْمِهِۦٓ إِنِّى لَكُمْ نَذِيرٌ مُّبِينٌ",
+    "portuguese": "E, com efeito, enviamos Noé a seu povo. Disse: \"Por certo, sou-vos evidente admoestador.\""
+  },
+  {
+    "key": "11:26",
+    "number": 26,
+    "arabic": "أَن لَّا تَعْبُدُوٓا۟ إِلَّا ٱللَّهَ ۖ إِنِّىٓ أَخَافُ عَلَيْكُمْ عَذَابَ يَوْمٍ أَلِيمٍ",
+    "portuguese": "\"Não adoreis senão a Allah. Por certo, temo por vós, o castigo de um doloroso dia\""
+  },
+  {
+    "key": "11:27",
+    "number": 27,
+    "arabic": "فَقَالَ ٱلْمَلَأُ ٱلَّذِينَ كَفَرُوا۟ مِن قَوْمِهِۦ مَا نَرَىٰكَ إِلَّا بَشَرًا مِّثْلَنَا وَمَا نَرَىٰكَ ٱتَّبَعَكَ إِلَّا ٱلَّذِينَ هُمْ أَرَاذِلُنَا بَادِىَ ٱلرَّأْىِ وَمَا نَرَىٰ لَكُمْ عَلَيْنَا مِن فَضْلٍۭ بَلْ نَظُنُّكُمْ كَـٰذِبِينَ",
+    "portuguese": "Então, os dignitários que, dentre seu povo, renegavam a Fé disseram: \"Não te vemos senão um mortal como nós, e não vemos seguir-te, impensadamente, senão os mais ignóbeis dos nossos, e não vemos, em vós, privilégio algum sobre nós. Aliás, pensamos que sois mentirosos.\""
+  },
+  {
+    "key": "11:28",
+    "number": 28,
+    "arabic": "قَالَ يَـٰقَوْمِ أَرَءَيْتُمْ إِن كُنتُ عَلَىٰ بَيِّنَةٍ مِّن رَّبِّى وَءَاتَىٰنِى رَحْمَةً مِّنْ عِندِهِۦ فَعُمِّيَتْ عَلَيْكُمْ أَنُلْزِمُكُمُوهَا وَأَنتُمْ لَهَا كَـٰرِهُونَ",
+    "portuguese": "Disse: \"Ó meu povo! Vistes? Se estou fundado sobre evidência de meu Senhor, e Ele me concede misericórdia de Sua parte, e ela se vos obscurece, teremos de vo-la impor, enquanto a estais odiando?\""
+  },
+  {
+    "key": "11:29",
+    "number": 29,
+    "arabic": "وَيَـٰقَوْمِ لَآ أَسْـَٔلُكُمْ عَلَيْهِ مَالًا ۖ إِنْ أَجْرِىَ إِلَّا عَلَى ٱللَّهِ ۚ وَمَآ أَنَا۠ بِطَارِدِ ٱلَّذِينَ ءَامَنُوٓا۟ ۚ إِنَّهُم مُّلَـٰقُوا۟ رَبِّهِمْ وَلَـٰكِنِّىٓ أَرَىٰكُمْ قَوْمًا تَجْهَلُونَ",
+    "portuguese": "\"E ó meu povo! Não vos peço por isso riqueza alguma. Meu prêmio não impende senão a Allah. E não vou repulsar os que crêem. Por certo, eles depararão com seu Senhor, mas eu vos vejo um povo ignorante.\""
+  },
+  {
+    "key": "11:30",
+    "number": 30,
+    "arabic": "وَيَـٰقَوْمِ مَن يَنصُرُنِى مِنَ ٱللَّهِ إِن طَرَدتُّهُمْ ۚ أَفَلَا تَذَكَّرُونَ",
+    "portuguese": "\"E ó meu povo! Quem me socorrerá, contra a ira de Allah, se eu os repulsar? Então, não meditais?\""
+  },
+  {
+    "key": "11:31",
+    "number": 31,
+    "arabic": "وَلَآ أَقُولُ لَكُمْ عِندِى خَزَآئِنُ ٱللَّهِ وَلَآ أَعْلَمُ ٱلْغَيْبَ وَلَآ أَقُولُ إِنِّى مَلَكٌ وَلَآ أَقُولُ لِلَّذِينَ تَزْدَرِىٓ أَعْيُنُكُمْ لَن يُؤْتِيَهُمُ ٱللَّهُ خَيْرًا ۖ ٱللَّهُ أَعْلَمُ بِمَا فِىٓ أَنفُسِهِمْ ۖ إِنِّىٓ إِذًا لَّمِنَ ٱلظَّـٰلِمِينَ",
+    "portuguese": "\"E não vos digo que tenho os cofres de Allah nem que conheço o Invisível nem digo que sou anjo nem digo daqueles, que vossos olhos desprezam, que Allah não lhes concederá bem algum; - Allah é bem Sabedor do que há em suas almas - por certo, nesse caso, eu seria dos injustos.\""
+  },
+  {
+    "key": "11:32",
+    "number": 32,
+    "arabic": "قَالُوا۟ يَـٰنُوحُ قَدْ جَـٰدَلْتَنَا فَأَكْثَرْتَ جِدَٰلَنَا فَأْتِنَا بِمَا تَعِدُنَآ إِن كُنتَ مِنَ ٱلصَّـٰدِقِينَ",
+    "portuguese": "Disseram: \"Ó Noé! Com efeito, discutiste conosco e multiplicaste nossa discussão; então, faze-nos vir o que prometestes se és dos verídicos\""
+  },
+  {
+    "key": "11:33",
+    "number": 33,
+    "arabic": "قَالَ إِنَّمَا يَأْتِيكُم بِهِ ٱللَّهُ إِن شَآءَ وَمَآ أَنتُم بِمُعْجِزِينَ",
+    "portuguese": "Disse: \"Apenas, Allah vo-lo fará vir se quiser, e não podereis escapar de Seu castigo."
+  },
+  {
+    "key": "11:34",
+    "number": 34,
+    "arabic": "وَلَا يَنفَعُكُمْ نُصْحِىٓ إِنْ أَرَدتُّ أَنْ أَنصَحَ لَكُمْ إِن كَانَ ٱللَّهُ يُرِيدُ أَن يُغْوِيَكُمْ ۚ هُوَ رَبُّكُمْ وَإِلَيْهِ تُرْجَعُونَ",
+    "portuguese": "\"E meu conselho não vos beneficiará, caso deseje aconselhar-vos, se Allah deseja fazê-los incorrer no mal. Ele é vosso Senhor, e a Ele sereis retornados\""
+  },
+  {
+    "key": "11:35",
+    "number": 35,
+    "arabic": "أَمْ يَقُولُونَ ٱفْتَرَىٰهُ ۖ قُلْ إِنِ ٱفْتَرَيْتُهُۥ فَعَلَىَّ إِجْرَامِى وَأَنَا۠ بَرِىٓءٌ مِّمَّا تُجْرِمُونَ",
+    "portuguese": "Esta a verdadeira narrativa; mas eles dizem: \"Ele o forjou?\" Dize, Muhammad: \"Se o houvesse forjado, que esteja sobre mim meu crime! E estou em rompimento com vossas práticas\"."
+  },
+  {
+    "key": "11:36",
+    "number": 36,
+    "arabic": "وَأُوحِىَ إِلَىٰ نُوحٍ أَنَّهُۥ لَن يُؤْمِنَ مِن قَوْمِكَ إِلَّا مَن قَدْ ءَامَنَ فَلَا تَبْتَئِسْ بِمَا كَانُوا۟ يَفْعَلُونَ",
+    "portuguese": "E inspirou-se a Noé: \"Não crerá de teu povo senão quem já creu. Então, não te melancolizes, pelo que faziam\"."
+  },
+  {
+    "key": "11:37",
+    "number": 37,
+    "arabic": "وَٱصْنَعِ ٱلْفُلْكَ بِأَعْيُنِنَا وَوَحْيِنَا وَلَا تُخَـٰطِبْنِى فِى ٱلَّذِينَ ظَلَمُوٓا۟ ۚ إِنَّهُم مُّغْرَقُونَ",
+    "portuguese": "\"E fabrica o barco diante de Nossos olhos e com Nossa inspiração, e não Me fales mais acerca dos que são injustos. Por certo, eles serão afogados\""
+  },
+  {
+    "key": "11:38",
+    "number": 38,
+    "arabic": "وَيَصْنَعُ ٱلْفُلْكَ وَكُلَّمَا مَرَّ عَلَيْهِ مَلَأٌ مِّن قَوْمِهِۦ سَخِرُوا۟ مِنْهُ ۚ قَالَ إِن تَسْخَرُوا۟ مِنَّا فَإِنَّا نَسْخَرُ مِنكُمْ كَمَا تَسْخَرُونَ",
+    "portuguese": "E ele se pôs a fabricar o barco e, cada vez que alguns dos dignitários de seu povo passavam por ele, dele escarneciam. Ele disse: \"Se escarneceis de nós, por certo, escarneceremos de vós como escarneceis.\""
+  },
+  {
+    "key": "11:39",
+    "number": 39,
+    "arabic": "فَسَوْفَ تَعْلَمُونَ مَن يَأْتِيهِ عَذَابٌ يُخْزِيهِ وَيَحِلُّ عَلَيْهِ عَذَابٌ مُّقِيمٌ",
+    "portuguese": "\"Então, logo sabereis a quem chegará um castigo, que o ignominiará; e cairá sobre ele castigo permanente\""
+  },
+  {
+    "key": "11:40",
+    "number": 40,
+    "arabic": "حَتَّىٰٓ إِذَا جَآءَ أَمْرُنَا وَفَارَ ٱلتَّنُّورُ قُلْن��ا ٱحْمِلْ فِيهَا مِن كُلٍّ زَوْجَيْنِ ٱثْنَيْنِ وَأَهْلَكَ إِلَّا مَن سَبَقَ عَلَيْهِ ٱلْقَوْلُ وَمَنْ ءَامَنَ ۚ وَمَآ ءَامَنَ مَعَهُۥٓ إِلَّا قَلِيلٌ",
+    "portuguese": "E, assim, foi, até que, quando Nossa ordem chegou e as fontes da terra jorraram, dissemos: \"Carrega nele, de cada espécie um casal e tua família - exceto aquele contra quem o Dito, a sentença, se antecipou - e os que crêem.\" E não creram, com ele, senão poucos."
+  },
+  {
+    "key": "11:41",
+    "number": 41,
+    "arabic": "۞ وَقَالَ ٱرْكَبُوا۟ فِيهَا بِسْمِ ٱللَّهِ مَجْر۪ىٰهَا وَمُرْسَىٰهَآ ۚ إِنَّ رَبِّى لَغَفُورٌ رَّحِيمٌ",
+    "portuguese": "E ele disse: \"Embarcai nele: em nome de Allah será seu singrar e sua ancoragem. Por certo, meu Senhor é Perdoador, Misericordiador\""
+  },
+  {
+    "key": "11:42",
+    "number": 42,
+    "arabic": "وَهِىَ تَجْرِى بِهِمْ فِى مَوْجٍ كَٱلْجِبَالِ وَنَادَىٰ نُوحٌ ٱبْنَهُۥ وَكَانَ فِى مَعْزِلٍ يَـٰبُنَىَّ ٱرْكَب مَّعَنَا وَلَا تَكُن مَّعَ ٱلْكَـٰفِرِينَ",
+    "portuguese": "E ele corria com eles, entre ondas como as montanhas; e Noé chamou a seu filho, que se achava à parte: \"Ó meu filho! Embarca conosco e não te deixes estar com os renegadores da Fé\""
+  },
+  {
+    "key": "11:43",
+    "number": 43,
+    "arabic": "قَالَ سَـَٔاوِىٓ إِلَىٰ جَبَلٍ يَعْصِمُنِى مِنَ ٱلْمَآءِ ۚ قَالَ لَا عَاصِمَ ٱلْيَوْمَ مِنْ أَمْرِ ٱللَّهِ إِلَّا مَن رَّحِمَ ۚ وَحَالَ بَيْنَهُمَا ٱلْمَوْجُ فَكَانَ مِنَ ٱلْمُغْرَقِينَ",
+    "portuguese": "Ele disse: \"Abrigar-me-ei em uma montanha, que me protegerá da água.\" Noé disse: \"Hoje, não há protetor contra a ordem de Allah senão para aquele de quem Ele tem misericórdia.\" E as ondas interpuseram-se entre ambos: então, foi ele dos afogados."
+  },
+  {
+    "key": "11:44",
+    "number": 44,
+    "arabic": "وَقِيلَ يَـٰٓأَرْضُ ٱبْلَعِى مَآءَكِ وَيَـٰسَمَآءُ أَقْلِعِى وَغِيضَ ٱلْمَآءُ وَقُضِىَ ٱلْأَمْرُ وَٱسْتَوَتْ عَلَى ٱلْجُودِىِّ ۖ وَقِيلَ بُعْدًا لِّلْقَوْمِ ٱلظَّـٰلِمِينَ",
+    "portuguese": "E foi dito: \"Ó terra! Engole tua água\" e \"Ó céu! Detém-te\". E a água diminuiu e a ordem foi encerrada, e ele se instalou em Al-Judy(Iraque).[ E foi dito: \"Para trás! Para o povo injusto!\""
+  },
+  {
+    "key": "11:45",
+    "number": 45,
+    "arabic": "وَنَادَىٰ نُوحٌ رَّبَّهُۥ فَقَالَ رَبِّ إِنَّ ٱبْنِى مِنْ أَهْلِى وَإِنَّ وَعْدَكَ ٱلْحَقُّ وَأَنتَ أَحْكَمُ ٱلْحَـٰكِمِينَ",
+    "portuguese": "E Noé chamou a seu Senhor, e disse: \"Senhor meu! Por certo, meu filho é de minha família e, por certo. Tua promessa é a verdade, e Tu és O mais Justo dos juízes!\""
+  },
+  {
+    "key": "11:46",
+    "number": 46,
+    "arabic": "قَالَ يَـٰنُوحُ إِنَّهُۥ لَيْسَ مِنْ أَهْلِكَ ۖ إِنَّهُۥ عَمَلٌ غَيْرُ صَـٰلِحٍ ۖ فَلَا تَسْـَٔلْنِ مَا لَيْسَ لَكَ بِهِۦ عِلْمٌ ۖ إِنِّىٓ أَعِظُكَ أَن تَكُونَ مِنَ ٱلْجَـٰهِلِينَ",
+    "portuguese": "Ele disse: \"Ó Noé! Por certo, ele não é de tua família. Por certo, isso é ação incorreta. Então, não me perguntes aquilo de que não tens ciência. Por certo, exorto-te, para não seres dos ignorantes\""
+  },
+  {
+    "key": "11:47",
+    "number": 47,
+    "arabic": "قَالَ رَبِّ إِنِّىٓ أَعُوذُ بِكَ أَنْ أَسْـَٔلَكَ مَا لَيْسَ لِى بِهِۦ عِلْمٌ ۖ وَإِلَّا تَغْفِرْ لِى وَتَرْحَمْنِىٓ أَك��ن مِّنَ ٱلْخَـٰسِرِينَ",
+    "portuguese": "Noé disse: \"Senhor meu! Por certo, refugio-me em Ti contra o perguntar-Te aquilo de que não tenho ciência. E, se não me perdoas e não tens misericórdia de mim, eu serei dos perdedores\""
+  },
+  {
+    "key": "11:48",
+    "number": 48,
+    "arabic": "قِيلَ يَـٰنُوحُ ٱهْبِطْ بِسَلَـٰمٍ مِّنَّا وَبَرَكَـٰتٍ عَلَيْكَ وَعَلَىٰٓ أُمَمٍ مِّمَّن مَّعَكَ ۚ وَأُمَمٌ سَنُمَتِّعُهُمْ ثُمَّ يَمَسُّهُم مِّنَّا عَذَابٌ أَلِيمٌ",
+    "portuguese": "Foi-lhe dito: \"Ó Noé! Desembarca, com paz de Nossa parte, e com bênçãos sobre ti e sobre comunidades dos que estão contigo. E haverá comunidades, que faremos gozar, na vida terrena; em seguida, tocá-las-á doloroso castigo de Nossa parte\""
+  },
+  {
+    "key": "11:49",
+    "number": 49,
+    "arabic": "تِلْكَ مِنْ أَنۢبَآءِ ٱلْغَي��بِ نُوحِيهَآ إِلَيْكَ ۖ مَا كُنتَ تَعْلَمُهَآ أَنتَ وَلَا قَوْمُكَ مِن قَبْلِ هَـٰذَا ۖ فَٱصْبِرْ ۖ إِنَّ ٱلْعَـٰقِبَةَ لِلْمُتَّقِينَ",
+    "portuguese": "Esses são alguns informes do Invisível, que te revelamos, Muhammad. Não os conhecias, antes disso, nem tu nem teu povo. Então, pacienta. Por certo, o final feliz é para os piedosos."
+  },
+  {
+    "key": "11:50",
+    "number": 50,
+    "arabic": "وَإِلَىٰ عَادٍ أَخَاهُمْ هُودًا ۚ قَالَ يَـٰقَوْمِ ٱعْبُدُوا۟ ٱللَّهَ مَا لَكُم مِّنْ إِلَـٰهٍ غَيْرُهُۥٓ ۖ إِنْ أَنتُمْ إِلَّا مُفْتَرُونَ",
+    "portuguese": "E, ao povo de Ãd, enviamos seu irmão Hud. Disse: \"Ó meu povo! Adorai a Allah: não tendes outro deus que não seja Ele. Não sois senão forjadores de mentiras\""
+  },
+  {
+    "key": "11:51",
+    "number": 51,
+    "arabic": "يَـٰقَوْمِ لَآ أَسْـَٔلُكُمْ عَلَيْهِ أَجْرًا ۖ إِنْ أَجْرِىَ إِلَّا عَلَى ٱلَّذِى فَطَرَنِىٓ ۚ أَفَلَا تَعْقِلُونَ",
+    "portuguese": "\"Ó meu povo! Não vos peço por isso prêmio algum. Meu prêmio não impende senão a Quem me criou. Então, não razoais?\""
+  },
+  {
+    "key": "11:52",
+    "number": 52,
+    "arabic": "وَيَـٰقَوْمِ ٱسْتَغْفِرُوا۟ رَبَّكُمْ ثُمَّ تُوبُوٓا۟ إِلَيْهِ يُرْسِلِ ٱلسَّمَآءَ عَلَيْكُم مِّدْرَارًا وَيَزِدْكُمْ قُوَّةً إِلَىٰ قُوَّتِكُمْ وَلَا تَتَوَلَّوْا۟ مُجْرِمِينَ",
+    "portuguese": "\"E ó meu povo! Implorai perdão a vosso Senhor; em seguida, voltai-vos arrependidos para Ele. Ele vos enviará a chuva em abundância e vos acrescentará força à vossa força. E não volteis as costas, em sendo criminosos\""
+  },
+  {
+    "key": "11:53",
+    "number": 53,
+    "arabic": "قَالُوا�� يَـٰهُودُ مَا جِئْتَنَا بِبَيِّنَةٍ وَمَا نَحْنُ بِتَارِكِىٓ ءَالِهَتِنَا عَن قَوْلِكَ وَمَا نَحْنُ لَكَ بِمُؤْمِنِينَ",
+    "portuguese": "Disseram: \"Ó Hud! Não nos chegaste com evidência alguma e não deixaremos nossos deuses, por causa de seu dito, e não estamos crendo em ti\"."
+  },
+  {
+    "key": "11:54",
+    "number": 54,
+    "arabic": "إِن نَّقُولُ إِلَّا ٱعْتَرَىٰكَ بَعْضُ ءَالِهَتِنَا بِسُوٓءٍ ۗ قَالَ إِنِّىٓ أُشْهِدُ ٱللَّهَ وَٱشْهَدُوٓا۟ أَنِّى بَرِىٓءٌ مِّمَّا تُشْرِكُونَ",
+    "portuguese": "\"Não dizemos senão que alguns de nossos deuses te atingiram com um mal.\" Ele disse: \"Por certo, tomo Allah por testemunha, e testemunhai que estou em rompimento com os que idolatrais\"."
+  },
+  {
+    "key": "11:55",
+    "number": 55,
+    "arabic": "مِن دُونِه��ۦ ۖ فَكِيدُونِى جَمِيعًا ثُمَّ لَا تُنظِرُونِ",
+    "portuguese": "\"Em vez dEle. Então insidiai-me vós todos; em seguida, não me concedais dilação alguma.\""
+  },
+  {
+    "key": "11:56",
+    "number": 56,
+    "arabic": "إِنِّى تَوَكَّلْتُ عَلَى ٱللَّهِ رَبِّى وَرَبِّكُم ۚ مَّا مِن دَآبَّةٍ إِلَّا هُوَ ءَاخِذٌۢ بِنَاصِيَتِهَآ ۚ إِنَّ رَبِّى عَلَىٰ صِرَٰطٍ مُّسْتَقِيمٍ",
+    "portuguese": "\"Por certo, confio em Allah, meu Senhor e vosso Senhor. Não há ser animal algum, sem que Ele lhe apanhe o topete. Por certo, meu Senhor está na senda reta.\""
+  },
+  {
+    "key": "11:57",
+    "number": 57,
+    "arabic": "فَإِن تَوَلَّوْا۟ فَقَدْ أَبْلَغْتُكُم مَّآ أُرْسِلْتُ بِهِۦٓ إِلَيْكُمْ ۚ وَيَسْتَخْلِفُ رَبِّى قَوْمًا غَيْرَكُمْ وَلَا تَضُرُّونَهُۥ شَيْـًٔا ۚ إِنَّ رَبِّى عَلَىٰ كُلِّ شَىْءٍ حَفِيظٌ",
+    "portuguese": "\"E, se voltais as costas, com efeito, transmiti-vos aquilo com que vos fui enviado. E meu Senhor vos fará suceder outro povo e, em nada, O prejudicareis. Por certo, meu Senhor, sobre todas as cousas, é Custódio\""
+  },
+  {
+    "key": "11:58",
+    "number": 58,
+    "arabic": "وَلَمَّا جَآءَ أَمْرُنَا نَجَّيْنَا هُودًا وَٱلَّذِينَ ءَامَنُوا۟ مَعَهُۥ بِرَحْمَةٍ مِّنَّا وَنَجَّيْنَـٰهُم مِّنْ عَذَابٍ غَلِيظٍ",
+    "portuguese": "E, quando chegou Nossa ordem, salvamos por misericórdia de Nossa parte, a Hud e aos que creram com ele; e salvamo-los de duro castigo."
+  },
+  {
+    "key": "11:59",
+    "number": 59,
+    "arabic": "وَتِلْكَ عَادٌ ۖ جَحَدُوا۟ بِـَٔايَـٰتِ رَبِّهِمْ وَعَصَوْا۟ رُس��لَهُۥ وَٱتَّبَعُوٓا۟ أَمْرَ كُلِّ جَبَّارٍ عَنِيدٍ",
+    "portuguese": "E esse era o povo de Ãd. Negaram os sinais de seu Senhor e desobedeceram a Seus Mensageiros e seguiram a ordem de todo tirano obstinado."
+  },
+  {
+    "key": "11:60",
+    "number": 60,
+    "arabic": "وَأُتْبِعُوا۟ فِى هَـٰذِهِ ٱلدُّنْيَا لَعْنَةً وَيَوْمَ ٱلْقِيَـٰمَةِ ۗ أَلَآ إِنَّ عَادًا كَفَرُوا۟ رَبَّهُمْ ۗ أَلَا بُعْدًا لِّعَادٍ قَوْمِ هُودٍ",
+    "portuguese": "E foram perseguidos nesta vida terrena, por maldição, e sê-lo-ão, no Dia da Ressurreição. Ora, por certo, o povo de Ãd renegou a seu Senhor. Ora, para trás! Para Ãd, o povo de Hud!"
+  },
+  {
+    "key": "11:61",
+    "number": 61,
+    "arabic": "۞ وَإِلَىٰ ثَمُودَ أَخَاهُمْ صَـٰلِحًا ۚ قَالَ يَـٰقَوْمِ ٱعْبُدُوا۟ ٱللَّهَ مَ�� لَكُم مِّنْ إِلَـٰهٍ غَيْرُهُۥ ۖ هُوَ أَنشَأَكُم مِّنَ ٱلْأَرْضِ وَٱسْتَعْمَرَكُمْ فِيهَا فَٱسْتَغْفِرُوهُ ثُمَّ تُوبُوٓا۟ إِلَيْهِ ۚ إِنَّ رَبِّى قَرِيبٌ مُّجِيبٌ",
+    "portuguese": "E ao povo de Thamud, enviamos seu irmão Sãlih. Ele disse: \"Ó meu povo! Adorai a Allah. Vós não tendes outro deus que não seja Ele; Ele vos fez surgir da terra e vos fez povoá-la; então, implorai-Lhe perdão; em seguida, voltai-vos arrependidos para Ele. Por certo, meu Senhor está Próximo, Atento às súplicas\"."
+  },
+  {
+    "key": "11:62",
+    "number": 62,
+    "arabic": "قَالُوا۟ يَـٰصَـٰلِحُ قَدْ كُنتَ فِينَا مَرْجُوًّا قَبْلَ هَـٰذَآ ۖ أَتَنْهَىٰنَآ أَن نَّعْبُدَ مَا يَعْبُدُ ءَابَآؤُنَا وَإِنَّنَا لَفِى شَكٍّ مِّمَّا تَدْعُونَآ إِلَيْهِ مُرِيبٍ",
+    "portuguese": "Disseram: \"Ó Sãlih! Com efeito, antes disso eras esperança, entre nós. Queres coibir-nos de adorar o que nossos pais adoravam? E, por certo, estamos em dúvida tormentosa acerca daquilo a que nos convocas\""
+  },
+  {
+    "key": "11:63",
+    "number": 63,
+    "arabic": "قَالَ يَـٰقَوْمِ أَرَءَيْتُمْ إِن كُنتُ عَلَىٰ بَيِّنَةٍ مِّن رَّبِّى وَءَاتَىٰنِى مِنْهُ رَحْمَةً فَمَن يَنصُرُنِى مِنَ ٱللَّهِ إِنْ عَصَيْتُهُۥ ۖ فَمَا تَزِيدُونَنِى غَيْرَ تَخْسِيرٍ",
+    "portuguese": "Ele disse: \"Ó meu povo! Vistes? Se estou fundado sobre evidência de meu Senhor, e Ele me concede misericórdia vinda d'EIe, então, quem me socorreria contra a ira de Allah, se Lhe desobedecesse? Vós não me acrescentaríeis senão perdição.\""
+  },
+  {
+    "key": "11:64",
+    "number": 64,
+    "arabic": "وَيَـٰقَوْمِ هَـٰذِهِۦ نَاقَةُ ٱللَّهِ لَكُمْ ءَايَةً فَذَرُوهَا تَأْكُلْ فِىٓ أَرْضِ ٱللَّهِ وَلَا تَمَسُّوهَا بِسُوٓءٍ فَيَأْخُذَكُمْ عَذَابٌ قَرِيبٌ",
+    "portuguese": "\"E ó meu povo! Este camelo fêmea é, para vós, como sinal. Então, deixa-o comer na terra de Allah e não o toqueis com mal algum, pois, apanhar-vos-ia castigo próximo\"."
+  },
+  {
+    "key": "11:65",
+    "number": 65,
+    "arabic": "فَعَقَرُوهَا فَقَالَ تَمَتَّعُوا۟ فِى دَارِكُمْ ثَلَـٰثَةَ أَيَّامٍ ۖ ذَٰلِكَ وَعْدٌ غَيْرُ مَكْذُوبٍ",
+    "portuguese": "E eles abateram-no; então, disse ele: \"Gozai, em vossos lares, três dias. Essa é promessa que não será desmentida\"."
+  },
+  {
+    "key": "11:66",
+    "number": 66,
+    "arabic": "فَلَمَّا جَآءَ أَمْرُنَا نَجَّيْنَا صَـٰلِحًا وَٱلَّذِينَ ءَامَنُوا۟ مَعَهُۥ بِرَحْمَةٍ مِّنَّا وَمِنْ خِزْىِ يَوْمِئِذٍ ۗ إِنَّ رَبّ��كَ هُوَ ٱلْقَوِىُّ ٱلْعَزِيزُ",
+    "portuguese": "E, quando Nossa ordem chegou, salvamos, por misericórdia de Nossa parte, a Sãlih e aos que creram com ele, e salvamo-los da ignomínia desse dia. Por certo, teu Senhor é O Forte, O Todo-Poderoso."
+  },
+  {
+    "key": "11:67",
+    "number": 67,
+    "arabic": "وَأَخَذَ ٱلَّذِينَ ظَلَمُوا۟ ٱلصَّيْحَةُ فَأَصْبَحُوا۟ فِى دِيَـٰرِهِمْ جَـٰثِمِينَ",
+    "portuguese": "E o Grito apanhou aos que foram injustos; então, amanheceram inertes, sem vida, em seus lares,"
+  },
+  {
+    "key": "11:68",
+    "number": 68,
+    "arabic": "كَأَن لَّمْ يَغْنَوْا۟ فِيهَآ ۗ أَلَآ إِنَّ ثَمُودَا۟ كَفَرُوا۟ رَبَّهُمْ ۗ أَلَا بُعْدًا لِّثَمُودَ",
+    "portuguese": "Como se jamais lá houvessem morado. Ora, por certo, o povo de Thamud renegou a seu Senhor. Ora, para trás! Para Thamud!"
+  },
+  {
+    "key": "11:69",
+    "number": 69,
+    "arabic": "وَلَقَدْ جَآءَتْ رُسُلُنَآ إِبْرَٰهِيمَ بِٱلْبُشْرَىٰ قَالُوا۟ سَلَـٰمًا ۖ قَالَ سَلَـٰمٌ ۖ فَمَا لَبِثَ أَن جَآءَ بِعِجْلٍ حَنِيذٍ",
+    "portuguese": "E, com efeito, nossos Mensageiros chegaram a Abraão, com alvíssaras. Disseram: \"Salam!\" - Paz! - Disse: \"Salam!\" E não tardou em trazer-lhes um bezerro assado."
+  },
+  {
+    "key": "11:70",
+    "number": 70,
+    "arabic": "فَلَمَّا رَءَآ أَيْدِيَهُمْ لَا تَصِلُ إِلَيْهِ نَكِرَهُمْ وَأَوْجَسَ مِنْهُمْ خِيفَةً ۚ قَالُوا۟ لَا تَخَفْ إِنَّآ أُرْسِلْنَآ إِلَىٰ قَوْمِ لُوطٍ",
+    "portuguese": "E, quando ele viu que suas mãos não chegavam a ele desconfiou deles e deles teve medo. Disseram: \"Não te atemorizes; por certo, somos enviados ao povo de Lot\""
+  },
+  {
+    "key": "11:71",
+    "number": 71,
+    "arabic": "وَٱمْرَأَتُهُۥ قَآئِمَةٌ فَضَحِكَتْ فَبَشَّرْنَـٰهَا بِإِسْحَـٰقَ وَمِن وَرَآءِ إِسْحَـٰقَ يَعْقُوبَ",
+    "portuguese": "E sua mulher estava de pé, então, riu-se. E alvissaramo-lhe o nascimento de Isaque e, depois de Isaque, Jacó."
+  },
+  {
+    "key": "11:72",
+    "number": 72,
+    "arabic": "قَالَتْ يَـٰوَيْلَتَىٰٓ ءَأَلِدُ وَأَنَا۠ عَجُوزٌ وَهَـٰذَا بَعْلِى شَيْخًا ۖ إِنَّ هَـٰذَا لَشَىْءٌ عَجِيبٌ",
+    "portuguese": "Ela disse: \"Ai de mim! Darei à luz, enquanto estou velha e este meu marido é ancião? Por certo, isso é cousa admirável!\""
+  },
+  {
+    "key": "11:73",
+    "number": 73,
+    "arabic": "قَالُوٓا۟ أَتَعْجَبِينَ مِنْ أَمْرِ ٱللَّهِ ۖ رَحْمَتُ ٱللَّهِ وَبَرَكَـٰتُهُۥ عَلَيْكُمْ أَهْلَ ٱلْبَيْتِ ۚ إِنَّهُۥ حَمِيدٌ مَّجِيدٌ",
+    "portuguese": "Disseram: \"Admiras-te da ordem de Allah? Que a misericórdia de Allah e Suas bênçãos sejam sobre vós, ó família da casa de Abraão! Por certo, Ele é Louvável, Glorioso\""
+  },
+  {
+    "key": "11:74",
+    "number": 74,
+    "arabic": "فَلَمَّا ذَهَبَ عَنْ إِبْرَٰهِيمَ ٱلرَّوْعُ وَجَآءَتْهُ ٱلْبُشْرَىٰ يُجَـٰدِلُنَا فِى قَوْمِ لُوطٍ",
+    "portuguese": "E, quando o susto de Abraão se foi, e as alvíssaras lhe chegaram, discutiu conosco acerca do povo de Lot."
+  },
+  {
+    "key": "11:75",
+    "number": 75,
+    "arabic": "إِنَّ إِبْرَٰهِيمَ لَحَلِيمٌ أَوَّٰهٌ مُّنِيبٌ",
+    "portuguese": "Por certo, Abraão era clemente, suplicante, contrito."
+  },
+  {
+    "key": "11:76",
+    "number": 76,
+    "arabic": "يَـٰٓإِبْرَٰهِيمُ أَعْرِضْ عَنْ هَـٰذَآ ۖ إِنَّهُۥ قَدْ جَآءَ أَمْرُ رَبِّكَ ۖ وَإِنَّهُمْ ءَاتِيهِمْ عَذَابٌ غَيْرُ مَرْدُودٍ",
+    "portuguese": "Dissemos: \"Ó Abraão! Dá de ombros a isso. Por certo, chegou a ordem de teu Senhor. E, por certo, chegar-lhes-á um castigo irrevogável\""
+  },
+  {
+    "key": "11:77",
+    "number": 77,
+    "arabic": "وَلَمَّا جَآءَتْ رُسُلُنَا لُوطًا سِىٓءَ بِهِمْ وَضَاقَ بِهِمْ ذَرْعًا وَقَالَ هَـٰذَا يَوْمٌ عَصِيبٌ",
+    "portuguese": "E, quando Nossos Mensageiros, Nossos anjos, chegaram a Lot, afligiu-se com eles e sentiu-se impotente para defendê-los, e disse: \"Este é um terrível dia!\""
+  },
+  {
+    "key": "11:78",
+    "number": 78,
+    "arabic": "وَجَآءَهُۥ قَوْمُهُۥ يُهْرَعُونَ إِلَيْهِ وَمِن قَبْلُ كَانُوا۟ يَعْمَلُونَ ٱلسَّيِّـَٔاتِ ۚ قَالَ يَـٰقَوْمِ هَـٰٓؤُلَآءِ بَنَاتِى هُنَّ أَطْهَرُ لَكُمْ ۖ فَٱتَّقُوا۟ ٱللَّهَ وَلَا تُخْزُونِ فِى ضَيْفِىٓ ۖ أَلَيْسَ مِنكُمْ رَجُلٌ رَّشِيدٌ",
+    "portuguese": "E seu povo chegou-lhe, impetuosamente. E, antes, faziam as más obras. Ele disse: \"Ó meu povo! Eis minhas filhas: elas vos são mais puras. Então, temei a Allah e não me ignominieis, em ultrajando meus hóspedes. Não há, dentre vós, um homem assisado?\""
+  },
+  {
+    "key": "11:79",
+    "number": 79,
+    "arabic": "قَالُوا۟ لَقَدْ عَلِمْتَ مَا لَنَا فِى بَنَاتِكَ مِنْ حَقٍّ وَإِنَّكَ لَتَعْلَمُ مَا نُرِيدُ",
+    "portuguese": "Disseram: \"Com efeito, sabes que não temos direito a tuas filhas e, por certo, sabes o que desejamos\""
+  },
+  {
+    "key": "11:80",
+    "number": 80,
+    "arabic": "قَالَ لَوْ أَنَّ لِى بِكُمْ قُوَّةً أَوْ ءَاوِىٓ إِلَىٰ رُكْنٍ شَدِيدٍ",
+    "portuguese": "Disse: \"Se eu tivesse força contra vós, ou se me abrigasse a sólido esteio, aniquilar-vos-ia\""
+  },
+  {
+    "key": "11:81",
+    "number": 81,
+    "arabic": "قَالُوا۟ يَـٰلُوطُ إِنَّا رُسُلُ رَبِّكَ لَن يَصِلُوٓا۟ إِلَيْكَ ۖ فَأَسْرِ بِأَهْلِكَ بِقِطْعٍ مِّنَ ٱلَّيْلِ وَلَا يَلْتَفِتْ مِنكُمْ أَحَدٌ إِلَّا ٱمْرَأَتَكَ ۖ إِنَّهُۥ مُصِيبُهَا مَآ أَصَابَهُمْ ۚ إِنَّ مَوْعِدَهُمُ ٱلصُّبْحُ ۚ أَلَيْسَ ٱلصُّبْحُ بِقَرِيبٍ",
+    "portuguese": "Eles disseram: \"Ó Lot! Somos os Mensageiros de teu Senhor; eles não te chegarão. Então, parte com tua família, na calada da noite - e que nenhum de vós retorne para trás - exceto com tua mulher. Por certo, alcançá-la-á o que os alcançará. Por certo, o seu tempo prometido será amanhã de manhã. Não está próxima a manhã?\""
+  },
+  {
+    "key": "11:82",
+    "number": 82,
+    "arabic": "فَلَمَّا جَآءَ أَمْرُنَا جَعَلْنَا عَـٰلِيَهَا سَافِلَهَا وَأَمْطَرْنَا عَلَيْهَا حِجَارَةً مِّن سِجِّيلٍ مَّنضُودٍ",
+    "portuguese": "E, quando Nossa ordem chegou, revolvemos as cidades de cima para baixo e fizemos chover sobre elas pedras de sijjil(barro cozido)[ sem interrupção,"
+  },
+  {
+    "key": "11:83",
+    "number": 83,
+    "arabic": "مُّسَوَّمَةً عِندَ رَبِّكَ ۖ وَمَا هِىَ مِنَ ٱلظَّـٰلِمِينَ بِبَعِيدٍ",
+    "portuguese": "Marcadas junto de teu Senhor. E elas não estão longe dos injustos."
+  },
+  {
+    "key": "11:84",
+    "number": 84,
+    "arabic": "۞ وَإِلَىٰ مَدْيَنَ أَخَاهُمْ شُعَيْبًا ۚ قَالَ يَـٰقَوْمِ ٱعْبُدُوا۟ ٱللَّهَ مَا لَكُم مِّنْ إِلَـٰهٍ غَيْرُهُۥ ۖ وَلَا تَنقُصُوا۟ ٱلْمِكْيَالَ وَٱلْمِيزَانَ ۚ إِنِّىٓ أَرَىٰكُم بِخَيْرٍ وَإِنِّىٓ أَخَافُ عَلَيْكُمْ عَذَابَ يَوْمٍ مُّحِيطٍ",
+    "portuguese": "E ao povo de Madian, enviamos seu irmão Chuaib. Disse: \"Ó meu povo! Adorai a Allah; não tendes outro deus que não seja Ele. E não diminuais a medida e o peso. Por certo, vejo-vos em prosperidade e, por certo, temo, por vós, o castigo de um dia abarcante."
+  },
+  {
+    "key": "11:85",
+    "number": 85,
+    "arabic": "وَيَـٰقَوْمِ أَوْفُوا۟ ٱلْمِكْيَالَ وَٱلْمِيزَانَ بِٱلْقِسْطِ ۖ وَلَا تَبْخَسُوا۟ ٱلنَّاسَ أَشْيَآءَهُمْ وَلَا تَعْثَوْا۟ فِى ٱلْأَرْضِ مُفْسِدِينَ",
+    "portuguese": "\"E ó meu povo! Completai com eqüidade, a medida e o peso, e não subtraiais dos homens suas cousas e não semeeis a maldade na terra, sendo corruptores.\""
+  },
+  {
+    "key": "11:86",
+    "number": 86,
+    "arabic": "بَقِيَّتُ ٱللَّهِ خَيْرٌ لَّكُمْ إِن كُنتُم مُّؤْمِنِينَ ۚ وَمَآ أَنَا۠ عَلَيْكُم بِحَفِيظٍ",
+    "portuguese": "\"O que Allah vos deixa de lícito vos é melhor, se sois crentes. E não sou, sobre vós custódio\""
+  },
+  {
+    "key": "11:87",
+    "number": 87,
+    "arabic": "قَالُوا۟ يَـٰشُعَيْبُ أَصَلَوٰتُكَ تَأْمُرُكَ أَن نَّتْرُكَ مَا يَعْبُدُ ءَابَآؤُنَآ أَوْ أَن نَّفْعَلَ فِىٓ أَمْوَٰلِنَا مَا نَشَـٰٓؤُا۟ ۖ إِنَّكَ لَأَنتَ ٱلْحَلِيمُ ٱلرَّشِيدُ",
+    "portuguese": "Disseram: \"Ó Chuaib! Tua oração te ordena que deixemos o que nossos pais adoravam, ou que deixemos de fazer de nossas riquezas o que quisermos? Por certo, tu, tu és o clemente, o assisado\""
+  },
+  {
+    "key": "11:88",
+    "number": 88,
+    "arabic": "قَالَ يَـٰقَوْمِ أَرَءَيْتُمْ إِن كُنتُ عَلَىٰ بَيِّنَةٍ مِّن رَّبِّى وَرَزَقَنِى مِنْهُ رِزْقًا حَسَنًا ۚ وَمَآ أُرِيدُ أَنْ أُخَالِفَكُمْ إِلَىٰ مَآ أَنْهَىٰكُمْ عَنْهُ ۚ إِنْ أُرِيدُ إِلَّا ٱلْإِصْلَـٰحَ مَا ٱسْتَطَعْتُ ۚ وَمَا تَوْفِيقِىٓ إِلَّا بِٱللَّهِ ۚ عَلَيْهِ تَوَكَّلْتُ وَإِلَيْهِ أُنِيبُ",
+    "portuguese": "Disse: \"Ó meu povo! Vistes? Se estou fundado sobre evidência de meu Senhor, e Ele deu-me por sustento belo sustento vindo d'Ele, não deverei eu aconselhar-vos? E não desejo fazer, longe de vós, o de que vos estou coibindo. Não desejo senão a reconciliação, tanto quanto possa. E meu êxito não é senão pela ajuda de Allah. Nele confio e para Ele me volto contrito."
+  },
+  {
+    "key": "11:89",
+    "number": 89,
+    "arabic": "وَيَـٰقَوْمِ لَا يَجْرِمَنَّكُمْ شِقَاقِىٓ أَن يُصِيبَكُم مِّثْلُ مَآ أَصَابَ قَوْمَ نُوحٍ أَوْ قَوْمَ هُودٍ أَوْ قَوْمَ صَـٰلِحٍ ۚ وَمَا قَوْمُ لُوطٍ مِّنكُم بِبَعِيدٍ",
+    "portuguese": "\"E ó meu povo! Que minha discórdia convosco não vos induza a que vos alcance o mesmo que alcançou o povo de Noé ou o povo de Hud ou o povo de Sãlih. E o povo de Lot não está longe de vós.\""
+  },
+  {
+    "key": "11:90",
+    "number": 90,
+    "arabic": "وَٱسْتَغْفِرُوا۟ رَبَّكُمْ ثُمَّ تُوبُوٓا۟ إِلَيْهِ ۚ إِنَّ رَبِّى رَحِيمٌ وَدُودٌ",
+    "portuguese": "\"E implorai perdão a vosso Senhor; em seguida, voltai-vos arrependidos para Ele. Por certo, meu Senhor é Misericordiador, Afetuoso\""
+  },
+  {
+    "key": "11:91",
+    "number": 91,
+    "arabic": "قَالُوا۟ يَـٰشُعَيْبُ مَا نَفْقَهُ كَثِيرًا مِّمَّا تَقُولُ وَإِنَّا لَنَرَىٰكَ فِينَا ضَعِيفًا ۖ وَلَوْلَا رَهْطُكَ لَرَجَمْنَـٰكَ ۖ وَمَآ أَنتَ عَلَيْنَا بِعَزِيزٍ",
+    "portuguese": "Disseram: \"Ó Chuaib! Não entendemos muito do que dizes e, por certo, vemo-te fraco entre nós, e não fora teu clã, apedrejar-te-íamos. E, para nós, tu não és poderoso\""
+  },
+  {
+    "key": "11:92",
+    "number": 92,
+    "arabic": "قَالَ يَـٰقَوْمِ أَرَهْطِىٓ أَعَزُّ عَلَيْكُم مِّنَ ٱللَّهِ وَٱتَّخَذْتُمُوهُ وَرَآءَكُمْ ظِهْرِيًّا ۖ إِنَّ رَبِّى بِمَا تَعْمَلُونَ مُحِيطٌ",
+    "portuguese": "Disse: \"Ó meu povo! Será que meu clã é mais poderoso para vós que Allah, e a Quem voltais as costas? Por certo, Meu Senhor está, sempre, abarcando o que fazeis.\""
+  },
+  {
+    "key": "11:93",
+    "number": 93,
+    "arabic": "وَيَـٰقَوْمِ ٱعْمَلُوا۟ عَلَىٰ مَكَانَتِكُمْ إِنِّى عَـٰمِلٌ ۖ سَوْفَ تَعْلَمُونَ مَن يَأْتِيهِ عَذَابٌ يُخْزِيهِ وَمَنْ هُوَ كَـٰذِبٌ ۖ وَٱرْتَقِبُوٓا۟ إِنِّى مَعَكُمْ رَقِيبٌ",
+    "portuguese": "\"E ó meu povo! Fazei o que puderdes; por certo, farei o que puder. Logo sabereis a quem chegará o castigo que o ignominiará, e quem é mentiroso. E expectai; por certo, estou expectando, convosco\""
+  },
+  {
+    "key": "11:94",
+    "number": 94,
+    "arabic": "وَلَمَّا جَآءَ أَمْرُنَا نَجَّيْنَا شُعَيْبًا وَٱلَّذِينَ ءَامَنُوا۟ مَعَهُۥ بِرَحْمَةٍ مِّنَّا وَأَخَذَتِ ٱلَّذِينَ ظَلَمُوا۟ ٱلصَّيْحَةُ فَأَصْبَحُوا۟ فِى دِيَـٰرِهِمْ جَـٰثِمِينَ",
+    "portuguese": "E, quando Nossa ordem chegou, salvamos por misericórdia de Nossa parte, a Chuaib, e aos que creram com ele. E o Grito apanhou aos que foram injustos; então, amanheceram, em seus lares, inertes, sem vida."
+  },
+  {
+    "key": "11:95",
+    "number": 95,
+    "arabic": "كَأَن لَّمْ يَغْنَوْا۟ فِيهَآ ۗ أَلَا بُعْدًا لِّمَدْيَنَ كَمَا بَعِدَتْ ثَمُودُ",
+    "portuguese": "\"Como se, jamais, lá houvessem morado. Ora, para trás! Para Madian! Como houve para trás! Para Thamud!\""
+  },
+  {
+    "key": "11:96",
+    "number": 96,
+    "arabic": "وَلَقَدْ أَرْسَلْنَا مُوسَىٰ بِـَٔايَـٰتِنَا وَسُلْطَـٰنٍ مُّبِينٍ",
+    "portuguese": "E, com efeito, enviamos Moisés com Nossos sinais e evidente comprovação."
+  },
+  {
+    "key": "11:97",
+    "number": 97,
+    "arabic": "إِلَىٰ فِرْعَوْنَ وَمَلَإِي۟هِۦ فَٱتَّبَعُوٓا۟ أَمْرَ فِرْعَوْنَ ۖ وَمَآ أَمْرُ فِرْعَوْنَ بِرَشِيدٍ",
+    "portuguese": "A Faraó e a seus dignitários. Mas estes seguiram a ordem de Faraó. E a ordem de Faraó não era assisada."
+  },
+  {
+    "key": "11:98",
+    "number": 98,
+    "arabic": "يَقْدُمُ قَوْمَهُۥ يَوْمَ ٱلْقِيَـٰمَةِ فَأَوْرَدَهُمُ ٱلنَّارَ ۖ وَبِئْسَ ٱلْوِرْدُ ٱلْمَوْرُودُ",
+    "portuguese": "No Dia da Ressurreição, irá ele à frente de seu povo, e ele os levará para a aguada do Fogo. E que execrável aguada a que serão levados!"
+  },
+  {
+    "key": "11:99",
+    "number": 99,
+    "arabic": "وَأُتْبِعُوا۟ فِى هَـٰذِهِۦ لَعْنَةً وَيَوْمَ ٱلْقِيَـٰمَةِ ۚ بِئْسَ ٱلرِّفْدُ ٱلْمَرْفُودُ",
+    "portuguese": "E foram perseguidos nesta vida, por maldição, e sê-lo-ão no Dia da Ressurreição. Que execrável o dom dadivado!"
+  },
+  {
+    "key": "11:100",
+    "number": 100,
+    "arabic": "ذَٰلِكَ مِنْ أَنۢبَآءِ ٱلْقُرَىٰ نَقُصُّهُۥ عَلَيْكَ ۖ مِنْهَا قَآئِمٌ وَحَصِيدٌ",
+    "portuguese": "Esses são alguns informes das cidades: Nós tos narramos, Muhammad. Entre elas, há umas de pé e outras ceifadas."
+  },
+  {
+    "key": "11:101",
+    "number": 101,
+    "arabic": "وَمَا ظَلَمْنَـٰهُمْ وَلَـٰكِن ظَلَمُوٓا۟ أَنفُسَهُمْ ۖ فَمَآ أَغْنَتْ عَنْهُمْ ءَالِهَتُهُمُ ٱلَّتِى يَدْعُونَ مِن دُونِ ٱللَّهِ مِن شَىْءٍ لَّمَّا جَآءَ أَمْرُ رَبِّكَ ۖ وَمَا زَادُوهُمْ غَيْرَ تَتْبِيبٍ",
+    "portuguese": "E não fomos injustos com eles, mas eles foram injustos com si mesmos. E de nada lhes valeram os deuses que invocaram, em vez de Allah, quando a ordem de teu Senhor chegou. E nada lhes acrescentaram senão perdição."
+  },
+  {
+    "key": "11:102",
+    "number": 102,
+    "arabic": "وَكَذَٰلِكَ أَخْذُ رَبِّكَ إِذَآ أَخَذَ ٱلْقُرَىٰ وَهِىَ ظَـٰلِمَةٌ ۚ إِنَّ أَخْذَهُۥٓ أَلِيمٌ شَدِيدٌ",
+    "portuguese": "E, assim, é o apanhar de teu Senhor, quando apanha as cidades, enquanto injustas. Por certo, Seu apanhar é doloroso, veemente."
+  },
+  {
+    "key": "11:103",
+    "number": 103,
+    "arabic": "إِنَّ فِى ذَٰلِكَ لَـَٔايَةً لِّمَنْ خَافَ عَذَابَ ٱلْـَٔاخِرَةِ ۚ ذَٰلِكَ يَوْمٌ مَّجْمُوعٌ لَّهُ ٱلنَّاسُ وَذَٰلِكَ يَوْمٌ مَّشْهُودٌ",
+    "portuguese": "Por certo, há nisso um sinal para quem teme o castigo da Derradeira Vida. Esse será um dia, em que os humanos serão juntados, e esse será um dia testemunhado por todas as criaturas."
+  },
+  {
+    "key": "11:104",
+    "number": 104,
+    "arabic": "وَمَا نُؤَخِّرُهُۥٓ إِلَّا لِأَجَلٍ مَّعْدُودٍ",
+    "portuguese": "E não o adiaremos senão até um termo contado."
+  },
+  {
+    "key": "11:105",
+    "number": 105,
+    "arabic": "يَوْمَ يَأْتِ لَا تَكَلَّمُ نَفْسٌ إِلَّا بِإِذْنِهِۦ ۚ فَمِنْهُمْ شَقِىٌّ وَسَعِيدٌ",
+    "portuguese": "Um dia, quando este chegar, nenhuma alma falará senão com Sua permissão; e haverá, entre eles infelizes e felizes."
+  },
+  {
+    "key": "11:106",
+    "number": 106,
+    "arabic": "فَأَمَّا ٱلَّذِينَ شَقُوا۟ فَفِى ٱلنَّارِ لَهُمْ فِيهَا زَفِيرٌ وَشَهِيقٌ",
+    "portuguese": "Então, quanto aos infelizes, estarão no Fogo: nele, darão suspiros e soluços."
+  },
+  {
+    "key": "11:107",
+    "number": 107,
+    "arabic": "خَـٰلِدِينَ فِيهَا مَا دَامَتِ ٱلسَّمَـٰوَٰتُ وَٱلْأَرْضُ إِلَّا مَا شَآءَ رَبُّكَ ۚ إِنَّ رَبَّكَ فَعَّالٌ لِّمَا يُرِيدُ",
+    "portuguese": "Nele, serão eternos, enquanto se perpetuarem os céus e a terra, exceto se outra cousa teu Senhor quiser. Por certo, teu Senhor é realizador de quanto deseja."
+  },
+  {
+    "key": "11:108",
+    "number": 108,
+    "arabic": "۞ وَأَمَّا ٱلَّذِينَ سُعِدُوا۟ فَفِى ٱلْجَنَّةِ خَـٰلِدِينَ فِيهَا مَا دَامَتِ ٱلسَّمَـٰوَٰتُ وَٱلْأَرْضُ إِلَّا مَا شَآءَ رَبُّكَ ۖ عَطَآءً غَيْرَ مَجْذُوذٍ",
+    "portuguese": "E quanto aos felizes, estarão no Paraíso, em que serão eternos, enquanto se perpetuarem os céus e a terra, exceto se outra cousa teu Senhor quiser: é dádiva que não será extinguida."
+  },
+  {
+    "key": "11:109",
+    "number": 109,
+    "arabic": "فَلَا تَكُ فِى مِرْيَةٍ مِّمَّا يَعْبُدُ هَـٰٓؤُلَآءِ ۚ مَا يَعْبُدُونَ إِلَّا كَمَا يَعْبُدُ ءَابَآؤُهُم مِّن قَبْلُ ۚ وَإِنَّا لَمُوَفُّوهُمْ نَصِيبَهُمْ غَيْرَ مَنقُوصٍ",
+    "portuguese": "Então, não estejas em contestação, Muhammad, acerca do que estes adoram. Não adoram senão como seus pais adoravam antes. E, por certo, compensá-los-emos com sua porção, que não será diminuída."
+  },
+  {
+    "key": "11:110",
+    "number": 110,
+    "arabic": "وَلَقَدْ ءَاتَيْنَا مُوسَى ٱلْكِتَـٰبَ فَٱخْتُلِفَ فِيهِ ۚ وَلَوْلَا كَلِمَةٌ سَبَقَتْ مِن رَّبِّكَ لَقُضِىَ بَيْنَهُمْ ۚ وَإِنَّهُمْ لَفِى شَكٍّ مِّنْهُ مُرِيبٍ",
+    "portuguese": "E, com efeito, concedêramos a Moisés o Livro, e discreparam dele. E, não fora uma Palavra antecipada de teu Senhor, haver-se-ia arbitrado entre eles. E, por certo, estão em dúvida tormentosa acerca dele."
+  },
+  {
+    "key": "11:111",
+    "number": 111,
+    "arabic": "وَإِنَّ كُلًّا لَّمَّا لَيُوَفِّيَنَّهُمْ رَبُّكَ أَعْمَـٰلَهُمْ ۚ إِنَّهُۥ بِمَا يَعْمَلُونَ خَبِيرٌ",
+    "portuguese": "E por certo, teu Senhor compensá-los-á, a todos, por suas obras. Por certo, Ele, do que fazem, é Conhecedor."
+  },
+  {
+    "key": "11:112",
+    "number": 112,
+    "arabic": "فَٱسْتَقِمْ كَمَآ أُمِرْتَ وَمَن تَا��َ مَعَكَ وَلَا تَطْغَوْا۟ ۚ إِنَّهُۥ بِمَا تَعْمَلُونَ بَصِيرٌ",
+    "portuguese": "Então, sê reto, como te foi ordenado e, contigo, quem se volta arrependido e nada transgridais. Por certo, Ele, do que fazeis, é Onividente."
+  },
+  {
+    "key": "11:113",
+    "number": 113,
+    "arabic": "وَلَا تَرْكَنُوٓا۟ إِلَى ٱلَّذِينَ ظَلَمُوا۟ فَتَمَسَّكُمُ ٱلنَّارُ وَمَا لَكُم مِّن دُونِ ٱللَّهِ مِنْ أَوْلِيَآءَ ثُمَّ لَا تُنصَرُونَ",
+    "portuguese": "E não vos inclineis aos que são injustos, pois, tocar-vos-ia o Fogo, e não teríeis, além de Allah, protetores; em seguida, não seríeis socorridos."
+  },
+  {
+    "key": "11:114",
+    "number": 114,
+    "arabic": "وَأَقِمِ ٱلصَّلَوٰةَ طَرَفَىِ ٱلنَّهَارِ وَزُلَفًا مِّنَ ٱلَّيْلِ ۚ إِنَّ ٱلْحَسَنَـٰتِ يُذْهِبْنَ ٱلسَّيِّـَٔاتِ ۚ ذَٰلِكَ ذِكْرَىٰ لِلذَّٰكِرِينَ",
+    "portuguese": "E cumpre a oração, nos dois extremos do dia e nas primícias da noite. Por certo, as boas obras fazem ir as más obras. Isso é lembrança para os que se lembram de Allah."
+  },
+  {
+    "key": "11:115",
+    "number": 115,
+    "arabic": "وَٱصْبِرْ فَإِنَّ ٱللَّهَ لَا يُضِيعُ أَجْرَ ٱلْمُحْسِنِينَ",
+    "portuguese": "E pacienta, pois, por certo, Allah não faz perder o prêmio dos benfeitores."
+  },
+  {
+    "key": "11:116",
+    "number": 116,
+    "arabic": "فَلَوْلَا كَانَ مِنَ ٱلْقُرُونِ مِن قَبْلِكُمْ أُو۟لُوا۟ بَقِيَّةٍ يَنْهَوْنَ عَنِ ٱلْفَسَادِ فِى ٱلْأَرْضِ إِلَّا قَلِيلًا مِّمَّنْ أَنجَيْنَا مِنْهُمْ ۗ وَٱتَّبَعَ ٱلَّذِينَ ظَلَمُوا۟ مَآ أُتْرِفُوا۟ فِيهِ وَكَانُوا۟ مُجْرِمِينَ",
+    "portuguese": "Então, que houvesse entre as gerações antes de vós, homens dotados de bom senso que coibissem a corrupção na terra! Mas poucos, dentre os que deles salvamos fizeram-no. E os que foram injustos continuaram a seguir a opulência em que viviam, e foram criminosos."
+  },
+  {
+    "key": "11:117",
+    "number": 117,
+    "arabic": "وَمَا كَانَ رَبُّكَ لِيُهْلِكَ ٱلْقُرَىٰ بِظُلْمٍ وَأَهْلُهَا مُصْلِحُونَ",
+    "portuguese": "E não é admissível que teu Senhor aniquile, injustamente, as cidades, enquanto seus habitantes são reformadores."
+  },
+  {
+    "key": "11:118",
+    "number": 118,
+    "arabic": "وَلَوْ شَآءَ رَبُّكَ لَجَعَلَ ٱلنَّاسَ أُمَّةً وَٰحِدَةً ۖ وَلَا يَزَالُونَ مُخْتَلِفِينَ",
+    "portuguese": "E, se teu Senhor quisesse, haveria feito dos homens uma só comunidade. Mas eles não cessam de ser discrepantes."
+  },
+  {
+    "key": "11:119",
+    "number": 119,
+    "arabic": "إِلَّا مَن رَّحِمَ رَبُّكَ ۚ وَلِذَٰلِكَ خَلَقَهُمْ ۗ وَتَمَّتْ كَلِمَةُ رَبِّكَ لَأَمْلَأَنَّ جَهَنَّمَ مِنَ ٱلْجِنَّةِ وَٱلنَّاسِ أَجْمَعِينَ",
+    "portuguese": "Exceto os de quem teu Senhor tem misericórdia. E, por isso, Ele os criou. E a palavra de teu Senhor completar-se-á; \"Em verdade, encherei a Geena de jinns e de homens, de todos eles.\""
+  },
+  {
+    "key": "11:120",
+    "number": 120,
+    "arabic": "وَكُلًّا نَّقُصُّ عَلَيْكَ مِنْ أَنۢبَآءِ ٱلرُّسُلِ مَا نُثَبِّتُ بِهِۦ فُؤَادَكَ ۚ وَجَآءَكَ فِى هَـٰذِهِ ٱلْحَقُّ وَمَوْعِظَةٌ وَذِكْرَىٰ لِلْمُؤْمِنِينَ",
+    "portuguese": "E Nós te narramos, Muhammad, dos informes dos Mensageiros, tudo aquilo com que te tornamos firme o coração. E nestes, chegou-te a verdade e exortação e lembrança para os crentes."
+  },
+  {
+    "key": "11:121",
+    "number": 121,
+    "arabic": "وَقُل لِّلَّذِينَ لَا يُؤْمِنُونَ ٱعْمَلُوا۟ عَلَىٰ مَكَانَتِكُمْ إِنَّا عَـٰمِلُونَ",
+    "portuguese": "E dize aos que não crêem: \"Fazei o que puderdes; por certo, faremos o que pudermos.\""
+  },
+  {
+    "key": "11:122",
+    "number": 122,
+    "arabic": "وَٱنتَظِرُوٓا۟ إِنَّا مُنتَظِرُونَ",
+    "portuguese": "\"E esperai; por certo, Nós estaremos esperando!\""
+  },
+  {
+    "key": "11:123",
+    "number": 123,
+    "arabic": "وَلِلَّهِ غَيْبُ ٱلسَّمَـٰوَٰتِ وَٱلْأَرْضِ وَإِلَيْهِ يُرْجَعُ ٱلْأَمْرُ كُلُّهُۥ فَٱعْبُدْهُ وَتَوَكَّلْ عَلَيْهِ ۚ وَمَا رَبُّكَ بِغَـٰفِلٍ عَمَّا تَعْمَلُونَ",
+    "portuguese": "E de Allah é o Invisível dos céus e da terra. E a Ele retorna toda a determinação. Então, adora-O e nEle confia. E teu Senhor não está desatento ao que fazeis."
+  }
+]

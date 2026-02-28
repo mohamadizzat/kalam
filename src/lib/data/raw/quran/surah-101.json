@@ -1,0 +1,68 @@
+[
+  {
+    "key": "101:1",
+    "number": 1,
+    "arabic": " ٱلْقَارِعَةُ",
+    "portuguese": "O estrondo!"
+  },
+  {
+    "key": "101:2",
+    "number": 2,
+    "arabic": "مَا ٱلْقَارِعَةُ",
+    "portuguese": "Que é o estrondo?"
+  },
+  {
+    "key": "101:3",
+    "number": 3,
+    "arabic": "وَمَآ أَدْرَىٰكَ مَا ٱلْقَارِعَةُ",
+    "portuguese": "E o que te faz inteirar-te do que é o estrondo?"
+  },
+  {
+    "key": "101:4",
+    "number": 4,
+    "arabic": "يَوْمَ يَكُونُ ٱلنَّاسُ كَٱلْفَرَاشِ ٱلْمَبْثُوثِ",
+    "portuguese": "Ocorrerá, um dia, quando os humanos forem como as borboletas espalhadas,"
+  },
+  {
+    "key": "101:5",
+    "number": 5,
+    "arabic": "وَتَكُونُ ٱلْجِبَالُ كَٱلْعِهْنِ ٱلْمَنفُوشِ",
+    "portuguese": "E as montanhas, como a lã corada, cardada."
+  },
+  {
+    "key": "101:6",
+    "number": 6,
+    "arabic": "فَأَمَّا مَن ثَقُلَتْ مَوَٰزِينُهُۥ",
+    "portuguese": "Então, quanto àquele, cujos pesos em boas ações forem pesados,"
+  },
+  {
+    "key": "101:7",
+    "number": 7,
+    "arabic": "فَهُوَ فِى عِيشَةٍ رَّاضِيَةٍ",
+    "portuguese": "Estará em vida agradável;"
+  },
+  {
+    "key": "101:8",
+    "number": 8,
+    "arabic": "وَأَمَّا مَنْ خَفَّتْ مَوَٰزِينُهُۥ",
+    "portuguese": "E quanto áquele, cujos pesos em boas ações forem leves,"
+  },
+  {
+    "key": "101:9",
+    "number": 9,
+    "arabic": "فَأُمُّهُۥ هَاوِيَةٌ",
+    "portuguese": "Sua morada será um Abismo."
+  },
+  {
+    "key": "101:10",
+    "number": 10,
+    "arabic": "وَمَآ أَدْرَىٰكَ مَا هِيَهْ",
+    "portuguese": "E o que te faz inteirar-te do que é este Abismo?"
+  },
+  {
+    "key": "101:11",
+    "number": 11,
+    "arabic": "نَارٌ حَامِيَةٌۢ",
+    "portuguese": "É Fogo incandescente!"
+  }
+]

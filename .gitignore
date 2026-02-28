@@ -36,6 +36,11 @@ yarn-error.log*
 # vercel
 .vercel
 
+# terminal logs
+.terminal-activity.jsonl
+.terminal-live.log
+.vite/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
