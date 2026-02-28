@@ -2,16 +2,18 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { Compass, Users, BookOpen, Library, Target, Heart, CalendarDays, Star } from 'lucide-react'
+import { Compass, Users, BookOpen, Library, Target, Heart, CalendarDays, Star, Coins, Shield } from 'lucide-react'
 
 const SECTIONS = [
   { icon: Compass, title: 'Trilhas de Estudo', subtitle: 'Jornadas guiadas de aprendizado', href: '/trilhas' },
   { icon: Users, title: 'Os Profetas', subtitle: 'Histórias que transformam', href: '/os-profetas' },
   { icon: Star, title: 'Seerah', subtitle: 'A vida do Profeta Muhammad em 12 capítulos', href: '/a-jornada/seerah' },
+  { icon: Shield, title: 'Companheiros', subtitle: 'Os homens que mudaram o mundo ao lado do Profeta', href: '/a-jornada/companheiros' },
   { icon: Heart, title: 'Mulheres no Islam', subtitle: 'As histórias que o mundo não conta', href: '/a-jornada/mulheres' },
   { icon: CalendarDays, title: 'Linha do Tempo', subtitle: '14 séculos de história islâmica', href: '/a-jornada/historia' },
   { icon: BookOpen, title: 'Estudos e Perguntas', subtitle: 'Aprofunde sua compreensão', href: '/estudos' },
   { icon: Library, title: 'Biblioteca', subtitle: 'Acervo completo de conteúdos', href: '/biblioteca' },
+  { icon: Coins, title: 'Finanças Islâmicas', subtitle: 'Riqueza com propósito: Zakat, Riba, investimento halal', href: '/a-jornada/financas' },
   { icon: Target, title: 'Desafios de 7 Dias', subtitle: 'Transformação prática, uma semana de cada vez', href: '/a-jornada/desafios' },
 ]
 

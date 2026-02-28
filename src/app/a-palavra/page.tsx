@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { BookOpen, ArrowRight, Search, ScrollText } from 'lucide-react'
+import { BookOpen, ArrowRight, Search, ScrollText, Headphones, Bookmark, Sparkles, BookOpenText } from 'lucide-react'
 import { surahs } from '@/lib/data/surahs'
 import { surahStudies } from '@/lib/data/surah-studies'
 
@@ -114,7 +114,7 @@ export default function APalavraPage() {
           borderRadius: '12px',
           background: '#161220',
           border: '1px solid #272230',
-          marginBottom: '24px',
+          marginBottom: '12px',
           textDecoration: 'none',
         }}
       >
@@ -133,6 +133,146 @@ export default function APalavraPage() {
         <div style={{ flex: 1 }}>
           <p style={{ fontSize: '16px', color: '#F0EBE2', fontWeight: 500 }}>Hadiths</p>
           <p style={{ fontSize: '13px', color: '#7A7870' }}>50 ditos do Profeta Muhammad (saws)</p>
+        </div>
+        <ArrowRight size={16} style={{ color: '#7A7870', flexShrink: 0 }} />
+      </Link>
+
+      {/* Parabolas card */}
+      <Link
+        href="/a-palavra/parabolas"
+        className="card-hover"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '16px',
+          padding: '20px',
+          borderRadius: '12px',
+          background: '#161220',
+          border: '1px solid #272230',
+          marginBottom: '12px',
+          textDecoration: 'none',
+        }}
+      >
+        <div style={{
+          width: '44px',
+          height: '44px',
+          borderRadius: '10px',
+          background: 'rgba(201,168,76,0.08)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexShrink: 0,
+        }}>
+          <BookOpenText size={20} style={{ color: '#C9A84C' }} />
+        </div>
+        <div style={{ flex: 1 }}>
+          <p style={{ fontSize: '16px', color: '#F0EBE2', fontWeight: 500 }}>Parabolas</p>
+          <p style={{ fontSize: '13px', color: '#7A7870' }}>15 historias do Quran que transformam</p>
+        </div>
+        <ArrowRight size={16} style={{ color: '#7A7870', flexShrink: 0 }} />
+      </Link>
+
+      {/* Recitacao card */}
+      <Link
+        href="/a-palavra/recitacao"
+        className="card-hover"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '16px',
+          padding: '20px',
+          borderRadius: '12px',
+          background: '#161220',
+          border: '1px solid #272230',
+          marginBottom: '24px',
+          textDecoration: 'none',
+        }}
+      >
+        <div style={{
+          width: '44px',
+          height: '44px',
+          borderRadius: '10px',
+          background: 'rgba(201,168,76,0.08)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexShrink: 0,
+        }}>
+          <Headphones size={20} style={{ color: '#C9A84C' }} />
+        </div>
+        <div style={{ flex: 1 }}>
+          <p style={{ fontSize: '16px', color: '#F0EBE2', fontWeight: 500 }}>Recitacao</p>
+          <p style={{ fontSize: '13px', color: '#7A7870' }}>Ouca o Quran completo — Mishary Alafasy</p>
+        </div>
+        <ArrowRight size={16} style={{ color: '#7A7870', flexShrink: 0 }} />
+      </Link>
+
+      {/* Favoritos card */}
+      <Link
+        href="/a-palavra/favoritos"
+        className="card-hover"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '16px',
+          padding: '20px',
+          borderRadius: '12px',
+          background: '#161220',
+          border: '1px solid #272230',
+          marginBottom: '12px',
+          textDecoration: 'none',
+        }}
+      >
+        <div style={{
+          width: '44px',
+          height: '44px',
+          borderRadius: '10px',
+          background: 'rgba(201,168,76,0.08)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexShrink: 0,
+        }}>
+          <Bookmark size={20} style={{ color: '#C9A84C' }} />
+        </div>
+        <div style={{ flex: 1 }}>
+          <p style={{ fontSize: '16px', color: '#F0EBE2', fontWeight: 500 }}>Favoritos</p>
+          <p style={{ fontSize: '13px', color: '#7A7870' }}>Seus versiculos salvos</p>
+        </div>
+        <ArrowRight size={16} style={{ color: '#7A7870', flexShrink: 0 }} />
+      </Link>
+
+      {/* Buscar no Quran card */}
+      <Link
+        href="/a-palavra/busca"
+        className="card-hover"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '16px',
+          padding: '20px',
+          borderRadius: '12px',
+          background: '#161220',
+          border: '1px solid #272230',
+          marginBottom: '24px',
+          textDecoration: 'none',
+        }}
+      >
+        <div style={{
+          width: '44px',
+          height: '44px',
+          borderRadius: '10px',
+          background: 'rgba(201,168,76,0.08)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexShrink: 0,
+        }}>
+          <Sparkles size={20} style={{ color: '#C9A84C' }} />
+        </div>
+        <div style={{ flex: 1 }}>
+          <p style={{ fontSize: '16px', color: '#F0EBE2', fontWeight: 500 }}>Buscar no Quran</p>
+          <p style={{ fontSize: '13px', color: '#7A7870' }}>Versiculos populares e busca por tema</p>
         </div>
         <ArrowRight size={16} style={{ color: '#7A7870', flexShrink: 0 }} />
       </Link>

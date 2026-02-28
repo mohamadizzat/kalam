@@ -2,10 +2,12 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { motion } from 'framer-motion'
-import { Bookmark, Share2 } from 'lucide-react'
+import { Bookmark, Share2, Headphones } from 'lucide-react'
 import type { Surah } from '@/lib/data/surahs'
+import { surahs } from '@/lib/data/surahs'
 import { VerseShareCard } from '@/components/shared/VerseShareCard'
 import { BackButton } from '@/components/shared/BackButton'
+import { AudioPlayer } from '@/components/shared/AudioPlayer'
 
 type Verse = {
   number: number
@@ -61,6 +63,15 @@ export function SurahReader({ surah }: { surah: Surah }) {
 
   // F. Verse share modal
   const [shareVerse, setShareVerse] = useState<Verse | null>(null)
+
+  // G. Audio player
+  const [audioSurah, setAudioSurah] = useState<number | null>(null)
+
+  const handleAudioSurahChange = useCallback((num: number) => {
+    setAudioSurah(num)
+  }, [])
+
+  const currentAudioSurah = audioSurah ? surahs.find(s => s.number === audioSurah) : null
 
   // ── Load persisted preferences ──────────────────────────────────────────────
 
@@ -239,11 +250,34 @@ export function SurahReader({ surah }: { surah: Surah }) {
       <header style={{ borderBottom: '1px solid #272230', padding: '16px 24px' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <BackButton href="/a-palavra" label="A Palavra" />
-          {surahRead && (
-            <span style={{ fontSize: '11px', color: '#C9A84C', opacity: 0.7, letterSpacing: '0.05em' }}>
-              &#10003; Lida
-            </span>
-          )}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            {surahRead && (
+              <span style={{ fontSize: '11px', color: '#C9A84C', opacity: 0.7, letterSpacing: '0.05em' }}>
+                &#10003; Lida
+              </span>
+            )}
+            <button
+              onClick={() => setAudioSurah(audioSurah === surah.number ? null : surah.number)}
+              aria-label="Ouvir recitacao"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                padding: '6px 12px',
+                borderRadius: '999px',
+                fontSize: '12px',
+                fontWeight: 500,
+                background: audioSurah === surah.number ? 'rgba(201, 168, 76, 0.15)' : 'rgba(201, 168, 76, 0.06)',
+                border: audioSurah === surah.number ? '1px solid #C9A84C' : '1px solid rgba(201, 168, 76, 0.2)',
+                color: '#C9A84C',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+              }}
+            >
+              <Headphones size={14} />
+              <span>{audioSurah === surah.number ? 'Ouvindo' : 'Ouvir'}</span>
+            </button>
+          </div>
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '12px' }}>
           <div>
@@ -501,6 +535,17 @@ export function SurahReader({ surah }: { surah: Surah }) {
         isOpen={shareVerse !== null}
         onClose={() => setShareVerse(null)}
       />
+
+      {/* G. Audio Player */}
+      {audioSurah !== null && currentAudioSurah && (
+        <AudioPlayer
+          surahNumber={audioSurah}
+          surahName={currentAudioSurah.name}
+          arabicName={currentAudioSurah.arabicName}
+          onClose={() => setAudioSurah(null)}
+          onSurahChange={handleAudioSurahChange}
+        />
+      )}
     </main>
   )
 }
