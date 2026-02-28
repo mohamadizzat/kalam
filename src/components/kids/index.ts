@@ -1,0 +1,6 @@
+export { KidsCard } from './KidsCard'
+export { KidsQuiz } from './KidsQuiz'
+export { KidsStarBurst } from './KidsStarBurst'
+export { KidsProgressBar } from './KidsProgressBar'
+export { KidsHeader } from './KidsHeader'
+export { KidsArabicWord } from './KidsArabicWord'

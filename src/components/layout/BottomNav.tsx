@@ -2,13 +2,14 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { BookOpen, Sun, Compass, Heart } from 'lucide-react'
+import { BookOpen, Sun, Compass, Heart, Star } from 'lucide-react'
 
 const TABS = [
   { label: 'A Palavra', href: '/a-palavra', Icon: BookOpen },
   { label: 'A Presenca', href: '/a-presenca', Icon: Sun },
   { label: 'A Jornada', href: '/a-jornada', Icon: Compass },
   { label: 'A Alma', href: '/a-alma', Icon: Heart },
+  { label: 'Kids', href: '/kids', Icon: Star },
 ]
 
 export function BottomNav() {
@@ -47,7 +48,7 @@ export function BottomNav() {
                 flexDirection: 'column',
                 alignItems: 'center',
                 gap: 3,
-                padding: '8px 16px',
+                padding: '8px 12px',
                 textDecoration: 'none',
                 color: isActive ? '#C9A84C' : '#7A7870',
                 transition: 'color 0.2s ease',

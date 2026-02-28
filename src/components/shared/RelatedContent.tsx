@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 import { BookOpen, HandHeart, PenLine, Compass, ChevronRight, Sparkles, Star, Heart } from 'lucide-react'
 
 /* ─── Types ─── */
-type ContentCategory = 'palavra' | 'presenca' | 'jornada' | 'alma'
+type ContentCategory = 'palavra' | 'presenca' | 'jornada' | 'alma' | 'kids'
 
 interface Suggestion {
   icon: typeof BookOpen
@@ -106,6 +106,18 @@ const RELATIONSHIP_MAP: Record<string, Suggestion[]> = {
     { icon: Compass, title: 'Rotina Espiritual', href: '/a-alma/rotina', category: 'alma' },
     { icon: Heart, title: 'Duas e Adhkar', href: '/a-presenca/duas', category: 'presenca' },
   ],
+  // Kids: after historias -> suggest quiz and heroes
+  '/kids/historias': [
+    { icon: BookOpen, title: 'Quiz Islâmico', href: '/kids/quiz', category: 'kids' },
+    { icon: Star, title: 'Heróis do Islam', href: '/kids/herois', category: 'kids' },
+    { icon: Compass, title: 'Meu Progresso', href: '/kids/meu-progresso', category: 'kids' },
+  ],
+  // Kids: after quiz -> suggest historias and atividades
+  '/kids/quiz': [
+    { icon: BookOpen, title: 'Histórias dos Profetas', href: '/kids/historias', category: 'kids' },
+    { icon: Star, title: 'Atividades', href: '/kids/atividades', category: 'kids' },
+    { icon: Heart, title: 'Pilares do Islam', href: '/kids/pilares-do-islam', category: 'kids' },
+  ],
 }
 
 /* ─── Category-level fallbacks ─── */
@@ -130,6 +142,11 @@ const CATEGORY_FALLBACKS: Record<ContentCategory, Suggestion[]> = {
     { icon: BookOpen, title: 'Hadiths do Profeta', href: '/a-palavra/hadiths', category: 'palavra' },
     { icon: Compass, title: 'Trilhas de Estudo', href: '/trilhas', category: 'jornada' },
   ],
+  kids: [
+    { icon: BookOpen, title: 'Histórias dos Profetas', href: '/kids/historias', category: 'kids' },
+    { icon: Star, title: 'Quiz Islâmico', href: '/kids/quiz', category: 'kids' },
+    { icon: Heart, title: 'Meu Progresso', href: '/kids/meu-progresso', category: 'kids' },
+  ],
 }
 
 /* ─── Generic fallback ─── */
@@ -145,6 +162,7 @@ function getCategoryLabel(cat: ContentCategory): string {
     case 'presenca': return 'A Presenca'
     case 'jornada': return 'A Jornada'
     case 'alma': return 'A Alma'
+    case 'kids': return 'Kids'
   }
 }
 
@@ -154,6 +172,7 @@ function getCategoryColor(cat: ContentCategory): string {
     case 'presenca': return '#7EB89A'
     case 'jornada': return '#8B9FD4'
     case 'alma': return '#D4A08B'
+    case 'kids': return '#FF8C42'
   }
 }
 

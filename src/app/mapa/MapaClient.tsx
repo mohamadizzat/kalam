@@ -144,6 +144,27 @@ const MAP_SECTIONS: MapSection[] = [
       { label: 'Saude Mental', href: '/a-alma/saude-mental', icon: HeartHandshake },
     ],
   },
+  {
+    id: 'kids',
+    title: 'Kids',
+    titleArabic: 'أطفال',
+    subtitle: 'For Children',
+    icon: Star,
+    color: '#FF8C42',
+    items: [
+      { label: 'Histórias dos Profetas', href: '/kids/historias', count: '15', icon: BookOpen },
+      { label: 'Pilares do Islam', href: '/kids/pilares-do-islam', count: '5', icon: Star },
+      { label: 'Pilares da Fé', href: '/kids/pilares-da-fe', count: '6', icon: Heart },
+      { label: 'Quran Kids', href: '/kids/quran-kids', count: '15', icon: BookOpen },
+      { label: 'Dua do Dia', href: '/kids/dua-do-dia', count: '20', icon: Heart },
+      { label: 'Bons Modos', href: '/kids/bons-modos', count: '12', icon: Star },
+      { label: 'Quiz', href: '/kids/quiz', count: '50', icon: Trophy },
+      { label: 'Atividades', href: '/kids/atividades', count: '7', icon: Sparkles },
+      { label: 'Calendário Islâmico', href: '/kids/calendario', count: '8', icon: Calendar },
+      { label: 'Heróis do Islam', href: '/kids/herois', count: '10', icon: Crown },
+      { label: 'Meu Progresso', href: '/kids/meu-progresso', icon: TrendingUp },
+    ],
+  },
 ]
 
 const OTHER_ITEMS: MapItem[] = [
@@ -426,6 +447,7 @@ export default function MapaClient() {
     'a-presenca': false,
     'a-jornada': false,
     'a-alma': false,
+    'kids': false,
   })
   const [searchQuery, setSearchQuery] = useState('')
 
@@ -557,7 +579,7 @@ export default function MapaClient() {
                 lineHeight: 1.6,
               }}
             >
-              {totalItems} paginas organizadas em 4 espacos. Encontre qualquer conteudo.
+              {totalItems} paginas organizadas em 5 espacos. Encontre qualquer conteudo.
             </p>
           </motion.div>
 
@@ -826,7 +848,7 @@ export default function MapaClient() {
                 letterSpacing: '0.5px',
               }}
             >
-              {totalItems} paginas &middot; 4 espacos &middot; 1 jornada
+              {totalItems} paginas &middot; 5 espacos &middot; 1 jornada
             </p>
           </motion.div>
         )}

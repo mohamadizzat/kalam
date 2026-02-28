@@ -10,6 +10,7 @@ const NAV_LINKS = [
   { label: 'A Presenca', href: '/a-presenca' },
   { label: 'A Jornada', href: '/a-jornada' },
   { label: 'A Alma', href: '/a-alma' },
+  { label: 'Kids', href: '/kids' },
 ]
 
 export function Header() {

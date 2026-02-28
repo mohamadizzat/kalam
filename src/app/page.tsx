@@ -15,6 +15,7 @@ import {
   BookMarked,
   PenLine,
   Sparkles,
+  Star,
   X,
 } from 'lucide-react'
 
@@ -101,6 +102,7 @@ const portals = [
   { icon: Sun, label: 'A Presença', sublabel: 'Contemplação', href: '/a-presenca', stat: '99 Nomes' },
   { icon: Compass, label: 'A Jornada', sublabel: 'Trilhas de estudo', href: '/a-jornada', stat: 'Trilhas guiadas' },
   { icon: Heart, label: 'A Alma', sublabel: 'Seu espaço íntimo', href: '/a-alma', stat: 'Reflexão diária' },
+  { icon: Star, label: 'Kids', sublabel: 'Aprender brincando', href: '/kids', stat: 'Conteúdo infantil' },
 ]
 
 const fadeUp = {
