@@ -72,7 +72,7 @@ const LIBRARY_TOPICS: TopicType[] = [
     label: 'Medo',
     arabicLabel: 'الخَوْف',
     icon: '☁',
-    color: '#8A8A7A',
+    color: '#B3B0A6',
     description: 'Para quando o futuro pesa mais que o presente. Versículos que substituem ansiedade por ancoragem.',
     verseCount: 32,
     entries: [
@@ -189,7 +189,7 @@ const LIBRARY_TOPICS: TopicType[] = [
     label: 'Ansiedade',
     arabicLabel: 'القَلَق',
     icon: '〰',
-    color: '#8A8A7A',
+    color: '#B3B0A6',
     description: 'Para quando a mente não para. Versículos que ancoram quando tudo flutua.',
     verseCount: 19,
     entries: [
@@ -253,7 +253,7 @@ const LIBRARY_TOPICS: TopicType[] = [
     label: 'Morte',
     arabicLabel: 'المَوْت',
     icon: '◇',
-    color: '#5A5A50',
+    color: '#7A7870',
     description: 'A única certeza. O que o Islam diz sobre o que vem depois — sem terror, com esperança.',
     verseCount: 22,
     entries: [
@@ -360,8 +360,8 @@ function EntryCard({ entry, isLast }: { entry: EntryType; isLast: boolean }) {
               fontSize: 9,
               letterSpacing: '2px',
               textTransform: 'uppercase',
-              color: '#5A5A50',
-              border: '1px solid #2A2A2A',
+              color: '#7A7870',
+              border: '1px solid #272230',
               borderRadius: 4,
               padding: '3px 8px',
             }}>
@@ -388,7 +388,7 @@ function EntryCard({ entry, isLast }: { entry: EntryType; isLast: boolean }) {
           fontFamily: 'var(--font-serif)',
           fontSize: 16,
           fontStyle: 'italic',
-          color: '#F5F5F0',
+          color: '#F0EBE2',
           lineHeight: 1.65,
           marginBottom: 6,
         }}>
@@ -399,7 +399,7 @@ function EntryCard({ entry, isLast }: { entry: EntryType; isLast: boolean }) {
         <p style={{
           fontFamily: 'var(--font-sans)',
           fontSize: 11,
-          color: '#5A5A50',
+          color: '#7A7870',
           letterSpacing: '0.5px',
           marginBottom: 14,
         }}>
@@ -410,7 +410,7 @@ function EntryCard({ entry, isLast }: { entry: EntryType; isLast: boolean }) {
         <p style={{
           fontFamily: 'var(--font-sans)',
           fontSize: 14,
-          color: '#8A8A7A',
+          color: '#B3B0A6',
           lineHeight: 1.7,
           borderLeft: '2px solid rgba(201,168,76,0.3)',
           paddingLeft: 16,
@@ -421,7 +421,7 @@ function EntryCard({ entry, isLast }: { entry: EntryType; isLast: boolean }) {
 
       {/* Divider */}
       {!isLast && (
-        <div style={{ height: 1, background: '#2A2A2A' }} />
+        <div style={{ height: 1, background: '#272230' }} />
       )}
     </div>
   )
@@ -442,7 +442,7 @@ function TopicCard({
     <div
       onClick={onToggle}
       style={{
-        background: isSelected ? '#111111' : '#0A0A0A',
+        background: isSelected ? '#161220' : '#0D0B12',
         padding: 32,
         cursor: 'pointer',
         transition: 'background 0.2s ease',
@@ -510,7 +510,7 @@ function TopicCard({
             fontFamily: 'var(--font-serif)',
             fontSize: 20,
             fontWeight: 600,
-            color: '#F5F5F0',
+            color: '#F0EBE2',
             marginBottom: 8,
             lineHeight: 1.2,
           }}>
@@ -521,7 +521,7 @@ function TopicCard({
           <p style={{
             fontFamily: 'var(--font-sans)',
             fontSize: 14,
-            color: '#8A8A7A',
+            color: '#B3B0A6',
             lineHeight: 1.65,
             marginBottom: 14,
           }}>
@@ -537,7 +537,7 @@ function TopicCard({
             <span style={{
               fontFamily: 'var(--font-sans)',
               fontSize: 11,
-              color: '#5A5A50',
+              color: '#7A7870',
             }}>
               {topic.verseCount} versículos
             </span>
@@ -565,7 +565,7 @@ function TopicCard({
           >
             <div style={{
               marginTop: 28,
-              borderTop: '1px solid #2A2A2A',
+              borderTop: '1px solid #272230',
               paddingTop: 4,
             }}>
               {topic.entries.map((entry, i) => (
@@ -604,7 +604,7 @@ export default function BibliotecaPage() {
     <div
       style={{
         minHeight: '100vh',
-        background: '#0A0A0A',
+        background: '#0D0B12',
         paddingTop: 80,
         paddingBottom: 100,
       }}
@@ -646,7 +646,7 @@ export default function BibliotecaPage() {
               fontFamily: 'var(--font-serif)',
               fontSize: 'clamp(36px, 6vw, 52px)',
               fontWeight: 600,
-              color: '#F5F5F0',
+              color: '#F0EBE2',
               lineHeight: 1.15,
               marginBottom: 16,
               maxWidth: 640,
@@ -660,7 +660,7 @@ export default function BibliotecaPage() {
             <p style={{
               fontFamily: 'var(--font-sans)',
               fontSize: 16,
-              color: '#8A8A7A',
+              color: '#B3B0A6',
               lineHeight: 1.7,
               maxWidth: 520,
               marginBottom: 40,
@@ -685,7 +685,7 @@ export default function BibliotecaPage() {
                 display: 'flex',
                 alignItems: 'center',
               }}>
-                <Search size={18} color="#5A5A50" />
+                <Search size={18} color="#7A7870" />
               </div>
               <input
                 type="text"
@@ -696,13 +696,13 @@ export default function BibliotecaPage() {
                 placeholder="Buscar por tema, versículo ou sentimento..."
                 style={{
                   width: '100%',
-                  background: '#111111',
-                  border: `1px solid ${inputFocused ? 'rgba(201,168,76,0.4)' : '#2A2A2A'}`,
+                  background: '#161220',
+                  border: `1px solid ${inputFocused ? 'rgba(201,168,76,0.4)' : '#272230'}`,
                   borderRadius: 12,
                   padding: '14px 20px 14px 46px',
                   fontFamily: 'var(--font-sans)',
                   fontSize: 15,
-                  color: '#F5F5F0',
+                  color: '#F0EBE2',
                   outline: 'none',
                   transition: 'border-color 0.2s ease',
                 }}
@@ -722,7 +722,7 @@ export default function BibliotecaPage() {
               <p style={{
                 fontFamily: 'var(--font-serif)',
                 fontSize: 20,
-                color: '#5A5A50',
+                color: '#7A7870',
                 fontStyle: 'italic',
               }}>
                 Nenhum tema encontrado.
@@ -730,7 +730,7 @@ export default function BibliotecaPage() {
               <p style={{
                 fontFamily: 'var(--font-sans)',
                 fontSize: 14,
-                color: '#5A5A50',
+                color: '#7A7870',
                 marginTop: 8,
               }}>
                 Tente outro sentimento ou palavra.
@@ -741,7 +741,7 @@ export default function BibliotecaPage() {
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
               gap: 1,
-              background: '#2A2A2A',
+              background: '#272230',
             }}>
               {filteredTopics.map((topic) => (
                 <TopicCard
@@ -767,7 +767,7 @@ export default function BibliotecaPage() {
             <p style={{
               fontFamily: 'var(--font-sans)',
               fontSize: 15,
-              color: '#8A8A7A',
+              color: '#B3B0A6',
               marginBottom: 24,
             }}>
               Quer aprofundar um tema?

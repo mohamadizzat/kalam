@@ -26,8 +26,8 @@ export function ScriptureCompare({ left, right }: ScriptureCompareProps) {
           display: 'grid',
           gridTemplateColumns: '1fr 1fr',
           gap: 1,
-          background: '#2A2A2A',
-          border: '1px solid #2A2A2A',
+          background: '#272230',
+          border: '1px solid #272230',
           borderRadius: 4,
           overflow: 'hidden',
         }}
@@ -42,7 +42,7 @@ export function ScriptureCompare({ left, right }: ScriptureCompareProps) {
         {/* Tab row */}
         <div style={{
           display: 'flex',
-          borderBottom: '1px solid #2A2A2A',
+          borderBottom: '1px solid #272230',
           marginBottom: 0,
         }}>
           {(['left', 'right'] as const).map((side) => {
@@ -58,7 +58,7 @@ export function ScriptureCompare({ left, right }: ScriptureCompareProps) {
                   fontSize: 11,
                   letterSpacing: '2px',
                   textTransform: 'uppercase',
-                  color: active ? '#C9A84C' : '#5A5A50',
+                  color: active ? '#C9A84C' : '#7A7870',
                   background: active ? 'rgba(201,168,76,0.04)' : 'transparent',
                   border: 'none',
                   borderBottom: active ? '2px solid #C9A84C' : '2px solid transparent',
@@ -116,9 +116,9 @@ function ScripturePanel({
 
   return (
     <div style={{
-      background: '#111111',
+      background: '#161220',
       padding: mobile ? '28px 20px' : '40px 36px',
-      borderLeft: !mobile && isRight ? '1px solid #2A2A2A' : undefined,
+      borderLeft: !mobile && isRight ? '1px solid #272230' : undefined,
     }}>
       {/* Source label */}
       <p style={{
@@ -155,7 +155,7 @@ function ScripturePanel({
       <p style={{
         fontFamily: 'var(--font-sans)',
         fontSize: 15,
-        color: '#F5F5F0',
+        color: '#F0EBE2',
         lineHeight: 1.85,
         opacity: 0.9,
       }}>

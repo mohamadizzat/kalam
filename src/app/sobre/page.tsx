@@ -18,7 +18,7 @@ function HeroSection() {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        background: "#0A0A0A",
+        background: "#0D0B12",
         overflow: "hidden",
         padding: "100px 24px 80px",
         textAlign: "center",
@@ -59,7 +59,7 @@ function HeroSection() {
               fontFamily: "var(--font-serif)",
               fontSize: "clamp(36px, 6vw, 52px)",
               fontWeight: 700,
-              color: "#F5F5F0",
+              color: "#F0EBE2",
               lineHeight: 1.15,
               marginBottom: 20,
             }}
@@ -93,8 +93,8 @@ function MissionSection() {
     <section
       style={{
         background: "#111111",
-        borderTop: "1px solid #2A2A2A",
-        borderBottom: "1px solid #2A2A2A",
+        borderTop: "1px solid #272230",
+        borderBottom: "1px solid #272230",
         padding: "clamp(72px, 10vw, 112px) 24px",
       }}
     >
@@ -127,16 +127,16 @@ function MissionSection() {
               style={{
                 fontFamily: "var(--font-sans)",
                 fontSize: "clamp(15px, 2vw, 17px)",
-                color: "#8A8A7A",
+                color: "#B3B0A6",
                 lineHeight: 1.85,
               }}
             >
               Kalam (كلام) em árabe significa{" "}
-              <span style={{ color: "#F5F5F0", fontWeight: 500 }}>
+              <span style={{ color: "#F0EBE2", fontWeight: 500 }}>
                 "A Palavra"
               </span>{" "}
               ou{" "}
-              <span style={{ color: "#F5F5F0", fontWeight: 500 }}>
+              <span style={{ color: "#F0EBE2", fontWeight: 500 }}>
                 "O Discurso"
               </span>
               . É o nome de um projeto cultural que acredita que a mensagem
@@ -194,7 +194,7 @@ function IsIsNotSection() {
   return (
     <section
       style={{
-        background: "#0A0A0A",
+        background: "#0D0B12",
         padding: "clamp(72px, 10vw, 112px) 24px",
       }}
     >
@@ -227,7 +227,7 @@ function IsIsNotSection() {
             <div
               style={{
                 background: "#111111",
-                border: "1px solid #2A2A2A",
+                border: "1px solid #272230",
                 borderRadius: 4,
                 padding: "clamp(28px, 4vw, 40px)",
                 height: "100%",
@@ -238,7 +238,7 @@ function IsIsNotSection() {
                   fontFamily: "var(--font-serif)",
                   fontSize: "clamp(18px, 2.5vw, 22px)",
                   fontWeight: 600,
-                  color: "#5A5A50",
+                  color: "#7A7870",
                   marginBottom: 28,
                   textDecoration: "line-through",
                   textDecorationColor: "rgba(90,90,80,0.4)",
@@ -269,13 +269,13 @@ function IsIsNotSection() {
                         marginTop: 2,
                       }}
                     >
-                      <X size={11} color="#5A5A50" />
+                      <X size={11} color="#7A7870" />
                     </span>
                     <span
                       style={{
                         fontFamily: "var(--font-sans)",
                         fontSize: 15,
-                        color: "#5A5A50",
+                        color: "#7A7870",
                         lineHeight: 1.5,
                       }}
                     >
@@ -354,7 +354,7 @@ function IsIsNotSection() {
                       style={{
                         fontFamily: "var(--font-sans)",
                         fontSize: 15,
-                        color: "#8A8A7A",
+                        color: "#B3B0A6",
                         lineHeight: 1.5,
                       }}
                     >
@@ -410,8 +410,8 @@ function NumbersSection() {
             display: "grid",
             gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
             gap: 1,
-            background: "#2A2A2A",
-            border: "1px solid #2A2A2A",
+            background: "#272230",
+            border: "1px solid #272230",
           }}
         >
           {stats.map((stat, i) => (
@@ -429,7 +429,7 @@ function NumbersSection() {
                     fontFamily: "var(--font-sans)",
                     fontSize: 13,
                     fontWeight: 600,
-                    color: "#F5F5F0",
+                    color: "#F0EBE2",
                     marginTop: 16,
                     marginBottom: 6,
                     textTransform: "uppercase",
@@ -442,7 +442,7 @@ function NumbersSection() {
                   style={{
                     fontFamily: "var(--font-sans)",
                     fontSize: 12,
-                    color: "#5A5A50",
+                    color: "#7A7870",
                     lineHeight: 1.5,
                   }}
                 >
@@ -462,7 +462,7 @@ function PhilosophySection() {
   return (
     <section
       style={{
-        background: "#0A0A0A",
+        background: "#0D0B12",
         padding: "clamp(72px, 10vw, 112px) 24px",
       }}
     >
@@ -472,9 +472,9 @@ function PhilosophySection() {
             style={{
               background: "#111111",
               borderLeft: "3px solid #C9A84C",
-              borderTop: "1px solid #2A2A2A",
-              borderRight: "1px solid #2A2A2A",
-              borderBottom: "1px solid #2A2A2A",
+              borderTop: "1px solid #272230",
+              borderRight: "1px solid #272230",
+              borderBottom: "1px solid #272230",
               borderRadius: "0 4px 4px 0",
               padding: "clamp(36px, 5vw, 56px) clamp(28px, 5vw, 56px)",
               position: "relative",
@@ -513,7 +513,7 @@ function PhilosophySection() {
                 fontFamily: "var(--font-serif)",
                 fontSize: "clamp(22px, 3.5vw, 30px)",
                 fontWeight: 700,
-                color: "#F5F5F0",
+                color: "#F0EBE2",
                 marginBottom: 24,
                 lineHeight: 1.3,
               }}
@@ -525,13 +525,13 @@ function PhilosophySection() {
               style={{
                 fontFamily: "var(--font-sans)",
                 fontSize: "clamp(15px, 2vw, 17px)",
-                color: "#8A8A7A",
+                color: "#B3B0A6",
                 lineHeight: 1.9,
                 maxWidth: 720,
               }}
             >
               Porque{" "}
-              <span style={{ color: "#F5F5F0" }}>
+              <span style={{ color: "#F0EBE2" }}>
                 1.8 bilhão de pessoas no mundo
               </span>{" "}
               seguem uma tradição que a maioria dos brasileiros nunca viu de
@@ -542,7 +542,7 @@ function PhilosophySection() {
               </span>{" "}
               — são profetas do Islam também. Porque há perguntas difíceis que
               merecem respostas honestas, não respostas fáceis. Porque{" "}
-              <span style={{ color: "#F5F5F0", fontStyle: "italic" }}>
+              <span style={{ color: "#F0EBE2", fontStyle: "italic" }}>
                 "conhecer" não é "concordar"
               </span>
               . E porque você tem o direito de saber.
@@ -560,7 +560,7 @@ function CommunitySection() {
     <section
       style={{
         background: "#111111",
-        borderTop: "1px solid #2A2A2A",
+        borderTop: "1px solid #272230",
         padding: "clamp(72px, 10vw, 112px) 24px",
         textAlign: "center",
       }}
@@ -585,7 +585,7 @@ function CommunitySection() {
               fontFamily: "var(--font-serif)",
               fontSize: "clamp(28px, 4.5vw, 40px)",
               fontWeight: 700,
-              color: "#F5F5F0",
+              color: "#F0EBE2",
               lineHeight: 1.2,
               marginBottom: 16,
             }}
@@ -597,7 +597,7 @@ function CommunitySection() {
             style={{
               fontFamily: "var(--font-sans)",
               fontSize: "clamp(15px, 2vw, 17px)",
-              color: "#8A8A7A",
+              color: "#B3B0A6",
               lineHeight: 1.75,
               marginBottom: 40,
             }}
@@ -627,7 +627,7 @@ function CommunitySection() {
                 alignItems: "center",
                 gap: 10,
                 background: "linear-gradient(135deg, #C9A84C, #D4B96A)",
-                color: "#0A0A0A",
+                color: "#0D0B12",
                 fontFamily: "var(--font-sans)",
                 fontSize: 12,
                 fontWeight: 700,
@@ -676,7 +676,7 @@ function CommunitySection() {
             style={{
               fontFamily: "var(--font-sans)",
               fontSize: 12,
-              color: "#5A5A50",
+              color: "#7A7870",
               letterSpacing: "0.5px",
             }}
           >
@@ -693,8 +693,8 @@ function FooterQuoteSection() {
   return (
     <section
       style={{
-        background: "#0A0A0A",
-        borderTop: "1px solid #2A2A2A",
+        background: "#0D0B12",
+        borderTop: "1px solid #272230",
         padding: "clamp(80px, 12vw, 140px) 24px",
         textAlign: "center",
       }}
@@ -728,7 +728,7 @@ function FooterQuoteSection() {
               fontSize: "clamp(16px, 2.5vw, 22px)",
               fontStyle: "italic",
               fontWeight: 400,
-              color: "#F5F5F0",
+              color: "#F0EBE2",
               marginBottom: 12,
             }}
           >
@@ -739,7 +739,7 @@ function FooterQuoteSection() {
             style={{
               fontFamily: "var(--font-sans)",
               fontSize: "clamp(13px, 1.5vw, 15px)",
-              color: "#5A5A50",
+              color: "#7A7870",
               letterSpacing: "0.5px",
             }}
           >

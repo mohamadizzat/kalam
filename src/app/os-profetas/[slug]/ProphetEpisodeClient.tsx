@@ -15,7 +15,7 @@ export function ProphetEpisodeClient({ prophet }: Props) {
     return (
       <div style={{
         minHeight: '100vh',
-        background: '#0A0A0A',
+        background: '#0D0B12',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -50,7 +50,7 @@ export function ProphetEpisodeClient({ prophet }: Props) {
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: '#0A0A0A', paddingTop: 64 }}>
+    <div style={{ minHeight: '100vh', background: '#0D0B12', paddingTop: 64 }}>
 
       {/* ── BACK NAVIGATION ── */}
       <div style={{
@@ -140,7 +140,7 @@ export function ProphetEpisodeClient({ prophet }: Props) {
               fontFamily: 'var(--font-serif)',
               fontSize: 'clamp(36px, 6vw, 64px)',
               fontWeight: 600,
-              color: '#F5F5F0',
+              color: '#F0EBE2',
               lineHeight: 1.1,
               marginBottom: 16,
             }}>
@@ -155,7 +155,7 @@ export function ProphetEpisodeClient({ prophet }: Props) {
               fontSize: 'clamp(18px, 2.5vw, 24px)',
               fontWeight: 400,
               fontStyle: 'italic',
-              color: '#8A8A7A',
+              color: '#B3B0A6',
               marginBottom: 32,
             }}>
               {prophet.title}
@@ -167,7 +167,7 @@ export function ProphetEpisodeClient({ prophet }: Props) {
             <p style={{
               fontFamily: 'var(--font-sans)',
               fontSize: 'clamp(15px, 1.8vw, 18px)',
-              color: '#8A8A7A',
+              color: '#B3B0A6',
               lineHeight: 1.8,
               maxWidth: 560,
               margin: '0 auto',
@@ -189,18 +189,18 @@ export function ProphetEpisodeClient({ prophet }: Props) {
               gap: 20,
               marginBottom: 40,
             }}>
-              <div style={{ flex: 1, height: 1, background: '#2A2A2A' }} />
+              <div style={{ flex: 1, height: 1, background: '#272230' }} />
               <p style={{
                 fontFamily: 'var(--font-sans)',
                 fontSize: 11,
                 letterSpacing: '3px',
                 textTransform: 'uppercase',
-                color: '#5A5A50',
+                color: '#7A7870',
                 whiteSpace: 'nowrap',
               }}>
                 O QUE DIZEM AS ESCRITURAS
               </p>
-              <div style={{ flex: 1, height: 1, background: '#2A2A2A' }} />
+              <div style={{ flex: 1, height: 1, background: '#272230' }} />
             </div>
           </BlurFade>
 
@@ -260,7 +260,7 @@ export function ProphetEpisodeClient({ prophet }: Props) {
                 <p style={{
                   fontFamily: 'var(--font-sans)',
                   fontSize: 'clamp(14px, 1.6vw, 16px)',
-                  color: '#8A8A7A',
+                  color: '#B3B0A6',
                   lineHeight: 1.85,
                 }}>
                   {insight}
@@ -276,7 +276,7 @@ export function ProphetEpisodeClient({ prophet }: Props) {
         <div style={{ maxWidth: 760, margin: '0 auto' }}>
           <BlurFade delay={0}>
             <div style={{
-              background: '#111111',
+              background: '#161220',
               border: '1px solid rgba(201,168,76,0.2)',
               borderLeft: '3px solid rgba(201,168,76,0.6)',
               borderRadius: 4,
@@ -308,7 +308,7 @@ export function ProphetEpisodeClient({ prophet }: Props) {
                 fontSize: 'clamp(18px, 2.5vw, 24px)',
                 fontWeight: 400,
                 fontStyle: 'italic',
-                color: '#F5F5F0',
+                color: '#F0EBE2',
                 lineHeight: 1.6,
                 marginBottom: 16,
                 position: 'relative',
@@ -327,12 +327,12 @@ export function ProphetEpisodeClient({ prophet }: Props) {
                 — {prophet.keyMoment.ref}
               </p>
 
-              <div style={{ width: '100%', height: 1, background: '#2A2A2A', marginBottom: 20 }} />
+              <div style={{ width: '100%', height: 1, background: '#272230', marginBottom: 20 }} />
 
               <p style={{
                 fontFamily: 'var(--font-sans)',
                 fontSize: 'clamp(13px, 1.5vw, 15px)',
-                color: '#8A8A7A',
+                color: '#B3B0A6',
                 lineHeight: 1.75,
                 position: 'relative',
               }}>
@@ -353,9 +353,9 @@ export function ProphetEpisodeClient({ prophet }: Props) {
             gap: 16,
             marginBottom: 48,
           }}>
-            <div style={{ flex: 1, height: 1, background: '#2A2A2A' }} />
+            <div style={{ flex: 1, height: 1, background: '#272230' }} />
             <div style={{ width: 4, height: 4, borderRadius: '50%', background: 'rgba(201,168,76,0.3)' }} />
-            <div style={{ flex: 1, height: 1, background: '#2A2A2A' }} />
+            <div style={{ flex: 1, height: 1, background: '#272230' }} />
           </div>
 
           <div style={{
@@ -372,12 +372,12 @@ export function ProphetEpisodeClient({ prophet }: Props) {
                 fontSize: 11,
                 letterSpacing: '2px',
                 textTransform: 'uppercase',
-                color: '#5A5A50',
+                color: '#7A7870',
                 textDecoration: 'none',
                 transition: 'color 0.2s ease',
               }}
-              onMouseEnter={(e) => { e.currentTarget.style.color = '#8A8A7A' }}
-              onMouseLeave={(e) => { e.currentTarget.style.color = '#5A5A50' }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = '#B3B0A6' }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = '#7A7870' }}
             >
               ← Ver todos os episódios
             </Link>
@@ -411,7 +411,7 @@ export function ProphetEpisodeClient({ prophet }: Props) {
                   fontSize: 10,
                   letterSpacing: '2px',
                   textTransform: 'uppercase',
-                  color: '#5A5A50',
+                  color: '#7A7870',
                 }}>
                   Próximo episódio
                 </span>
@@ -426,7 +426,7 @@ export function ProphetEpisodeClient({ prophet }: Props) {
             ) : (
               <div style={{
                 padding: '16px 24px',
-                border: '1px solid #2A2A2A',
+                border: '1px solid #272230',
                 borderRadius: 4,
               }}>
                 <span style={{
@@ -434,7 +434,7 @@ export function ProphetEpisodeClient({ prophet }: Props) {
                   fontSize: 10,
                   letterSpacing: '2px',
                   textTransform: 'uppercase',
-                  color: '#5A5A50',
+                  color: '#7A7870',
                 }}>
                   Próximos em breve →
                 </span>

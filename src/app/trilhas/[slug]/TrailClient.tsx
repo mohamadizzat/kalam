@@ -65,8 +65,8 @@ function DayCard({
         transition={{ duration: 0.55, delay: index * 0.08, ease: [0.25, 0.4, 0.25, 1] }}
         style={{
           flex: 1,
-          background: '#111111',
-          border: '1px solid #2A2A2A',
+          background: '#161220',
+          border: '1px solid #272230',
           borderRadius: 16,
           padding: '24px 28px',
           marginBottom: isLast ? 0 : 20,
@@ -105,7 +105,7 @@ function DayCard({
           fontFamily: 'var(--font-serif)',
           fontSize: 20,
           fontWeight: 600,
-          color: '#F5F5F0',
+          color: '#F0EBE2',
           marginBottom: 20,
           lineHeight: 1.3,
           position: 'relative',
@@ -133,7 +133,7 @@ function DayCard({
           fontFamily: 'var(--font-serif)',
           fontStyle: 'italic',
           fontSize: 15,
-          color: '#F5F5F0',
+          color: '#F0EBE2',
           lineHeight: 1.65,
           marginBottom: 4,
           position: 'relative',
@@ -154,13 +154,13 @@ function DayCard({
         </p>
 
         {/* Divider */}
-        <div style={{ height: 1, background: '#2A2A2A', marginBottom: 20 }} />
+        <div style={{ height: 1, background: '#272230', marginBottom: 20 }} />
 
         {/* Content */}
         <p style={{
           fontFamily: 'var(--font-sans)',
           fontSize: 15,
-          color: '#8A8A7A',
+          color: '#B3B0A6',
           lineHeight: 1.85,
           marginBottom: 20,
           position: 'relative',
@@ -184,12 +184,12 @@ function DayCard({
               fontSize: 11,
               letterSpacing: '2px',
               textTransform: 'uppercase',
-              color: '#5A5A50',
+              color: '#7A7870',
               marginBottom: reflectionOpen ? 12 : 0,
               transition: 'color 0.2s ease',
             }}
-            onMouseEnter={(e) => { e.currentTarget.style.color = '#8A8A7A' }}
-            onMouseLeave={(e) => { e.currentTarget.style.color = '#5A5A50' }}
+            onMouseEnter={(e) => { e.currentTarget.style.color = '#B3B0A6' }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = '#7A7870' }}
           >
             Reflexão do dia
             <ChevronDown
@@ -197,7 +197,7 @@ function DayCard({
               style={{
                 transition: 'transform 0.3s ease',
                 transform: reflectionOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-                color: '#5A5A50',
+                color: '#7A7870',
               }}
             />
           </button>
@@ -213,7 +213,7 @@ function DayCard({
               <p style={{
                 fontFamily: 'var(--font-sans)',
                 fontSize: 14,
-                color: '#8A8A7A',
+                color: '#B3B0A6',
                 lineHeight: 1.8,
                 fontStyle: 'italic',
                 borderLeft: '2px solid rgba(201,168,76,0.25)',
@@ -254,7 +254,7 @@ export function TrailClient({ trail }: Props) {
     return (
       <div style={{
         minHeight: '100vh',
-        background: '#0A0A0A',
+        background: '#0D0B12',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -289,7 +289,7 @@ export function TrailClient({ trail }: Props) {
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: '#0A0A0A', paddingTop: 64 }}>
+    <div style={{ minHeight: '100vh', background: '#0D0B12', paddingTop: 64 }}>
 
       {/* ── BACK NAV ── */}
       <div style={{ padding: '32px 24px 0', maxWidth: 900, margin: '0 auto' }}>
@@ -357,7 +357,7 @@ export function TrailClient({ trail }: Props) {
               fontFamily: 'var(--font-serif)',
               fontSize: 'clamp(32px, 5.5vw, 40px)',
               fontWeight: 600,
-              color: '#F5F5F0',
+              color: '#F0EBE2',
               lineHeight: 1.2,
               marginBottom: 12,
             }}>
@@ -371,7 +371,7 @@ export function TrailClient({ trail }: Props) {
               fontFamily: 'var(--font-serif)',
               fontStyle: 'italic',
               fontSize: 'clamp(16px, 2vw, 20px)',
-              color: '#8A8A7A',
+              color: '#B3B0A6',
               marginBottom: 24,
               lineHeight: 1.6,
             }}>
@@ -407,7 +407,7 @@ export function TrailClient({ trail }: Props) {
                 fontSize: 11,
                 letterSpacing: '2px',
                 textTransform: 'uppercase',
-                color: '#5A5A50',
+                color: '#7A7870',
               }}>
                 {trail.days.length} de {trail.days.length} dias
               </span>
@@ -419,7 +419,7 @@ export function TrailClient({ trail }: Props) {
             <p style={{
               fontFamily: 'var(--font-sans)',
               fontSize: 'clamp(14px, 1.7vw, 16px)',
-              color: '#8A8A7A',
+              color: '#B3B0A6',
               lineHeight: 1.85,
               maxWidth: 560,
               margin: '0 auto 40px',
@@ -456,18 +456,18 @@ export function TrailClient({ trail }: Props) {
               gap: 20,
               marginBottom: 48,
             }}>
-              <div style={{ flex: 1, height: 1, background: '#2A2A2A' }} />
+              <div style={{ flex: 1, height: 1, background: '#272230' }} />
               <p style={{
                 fontFamily: 'var(--font-sans)',
                 fontSize: 11,
                 letterSpacing: '3px',
                 textTransform: 'uppercase',
-                color: '#5A5A50',
+                color: '#7A7870',
                 whiteSpace: 'nowrap',
               }}>
                 A JORNADA
               </p>
-              <div style={{ flex: 1, height: 1, background: '#2A2A2A' }} />
+              <div style={{ flex: 1, height: 1, background: '#272230' }} />
             </div>
           </BlurFade>
 
@@ -496,9 +496,9 @@ export function TrailClient({ trail }: Props) {
             gap: 16,
             marginBottom: 48,
           }}>
-            <div style={{ flex: 1, height: 1, background: '#2A2A2A' }} />
+            <div style={{ flex: 1, height: 1, background: '#272230' }} />
             <div style={{ width: 4, height: 4, borderRadius: '50%', background: 'rgba(201,168,76,0.3)' }} />
-            <div style={{ flex: 1, height: 1, background: '#2A2A2A' }} />
+            <div style={{ flex: 1, height: 1, background: '#272230' }} />
           </div>
 
           <div style={{
@@ -515,12 +515,12 @@ export function TrailClient({ trail }: Props) {
                 fontSize: 11,
                 letterSpacing: '2px',
                 textTransform: 'uppercase',
-                color: '#5A5A50',
+                color: '#7A7870',
                 textDecoration: 'none',
                 transition: 'color 0.2s ease',
               }}
-              onMouseEnter={(e) => { e.currentTarget.style.color = '#8A8A7A' }}
-              onMouseLeave={(e) => { e.currentTarget.style.color = '#5A5A50' }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = '#B3B0A6' }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = '#7A7870' }}
             >
               ← Ver todas as trilhas
             </Link>
@@ -553,7 +553,7 @@ export function TrailClient({ trail }: Props) {
                 fontSize: 10,
                 letterSpacing: '2px',
                 textTransform: 'uppercase',
-                color: '#5A5A50',
+                color: '#7A7870',
               }}>
                 Explorar outras trilhas
               </span>

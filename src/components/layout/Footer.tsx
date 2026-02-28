@@ -3,7 +3,7 @@ import Link from 'next/link'
 export function Footer() {
   return (
     <footer style={{
-      background: '#0A0A0A',
+      background: '#0D0B12',
       borderTop: '1px solid rgba(201,168,76,0.08)',
       padding: '48px 24px',
       textAlign: 'center',
@@ -16,13 +16,13 @@ export function Footer() {
       <p style={{
         fontFamily: "'Inter', sans-serif",
         fontSize: 13,
-        color: '#5A5A50',
+        color: '#7A7870',
         letterSpacing: '0.5px',
         marginBottom: 16,
       }}>
         A mensagem original. Preservada por 1.400 anos.
       </p>
-      <p style={{ fontSize: 11, color: '#2A2A2A', letterSpacing: '1px', textTransform: 'uppercase' }}>
+      <p style={{ fontSize: 11, color: '#272230', letterSpacing: '1px', textTransform: 'uppercase' }}>
         © {new Date().getFullYear()} Kalam Brasil
       </p>
     </footer>

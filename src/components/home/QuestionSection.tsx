@@ -7,7 +7,7 @@ const paragraphs = [
       fontFamily: "'Playfair Display', Georgia, serif",
       fontSize: 'clamp(20px, 3vw, 26px)',
       fontWeight: 400, fontStyle: 'italic',
-      color: '#F5F5F0', lineHeight: 1.7,
+      color: '#F0EBE2', lineHeight: 1.7,
     },
   },
   {
@@ -15,7 +15,7 @@ const paragraphs = [
     style: {
       fontFamily: "'Inter', sans-serif",
       fontSize: 'clamp(16px, 2vw, 18px)',
-      color: '#8A8A7A', lineHeight: 1.85,
+      color: '#B3B0A6', lineHeight: 1.85,
     },
   },
   {
@@ -23,7 +23,7 @@ const paragraphs = [
     style: {
       fontFamily: "'Inter', sans-serif",
       fontSize: 'clamp(16px, 2vw, 18px)',
-      color: '#8A8A7A', lineHeight: 1.85,
+      color: '#B3B0A6', lineHeight: 1.85,
     },
   },
   {
@@ -49,7 +49,7 @@ function GoldDivider() {
 export function QuestionSection() {
   return (
     <section style={{
-      background: '#0A0A0A',
+      background: '#0D0B12',
       padding: 'clamp(80px, 12vw, 140px) 24px',
     }}>
       <div style={{ maxWidth: 640, margin: '0 auto', textAlign: 'center' }}>

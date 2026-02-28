@@ -18,7 +18,7 @@ export function HeroSection() {
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
-      background: '#0A0A0A',
+      background: '#0D0B12',
       overflow: 'hidden',
       padding: '80px 24px 0',
     }}>
@@ -48,7 +48,7 @@ export function HeroSection() {
           fontFamily: "'Playfair Display', Georgia, serif",
           fontSize: 'clamp(36px, 7vw, 72px)',
           fontWeight: 700,
-          color: '#F5F5F0',
+          color: '#F0EBE2',
           lineHeight: 1.1,
           marginBottom: 8,
         }}>
@@ -73,7 +73,7 @@ export function HeroSection() {
           <p style={{
             fontFamily: "'Inter', sans-serif",
             fontSize: 18,
-            color: '#8A8A7A',
+            color: '#B3B0A6',
             maxWidth: 480,
             margin: '0 auto 40px',
             lineHeight: 1.75,
@@ -92,7 +92,7 @@ export function HeroSection() {
               background: 'linear-gradient(90deg, #C9A84C, #D4B96A, #C9A84C)',
               backgroundSize: '200% 100%',
               border: 'none',
-              color: '#0A0A0A',
+              color: '#0D0B12',
               fontFamily: "'Inter', sans-serif",
               fontSize: 12,
               fontWeight: 700,

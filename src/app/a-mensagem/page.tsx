@@ -9,17 +9,17 @@ import { BackgroundBeams } from '@/components/effects/BackgroundBeams'
 
 // ─── Design Tokens ───────────────────────────────────────────────────────────
 const C = {
-  bg: '#0A0A0A',
-  surface: '#111111',
+  bg: '#0D0B12',
+  surface: '#161220',
   elevated: '#1A1A2E',
   gold: '#C9A84C',
   goldLight: '#D4B96A',
   goldMuted: 'rgba(201,168,76,0.15)',
   goldBorder: 'rgba(201,168,76,0.3)',
-  text: '#F5F5F0',
-  secondary: '#8A8A7A',
-  muted: '#5A5A50',
-  border: '#2A2A2A',
+  text: '#F0EBE2',
+  secondary: '#B3B0A6',
+  muted: '#7A7870',
+  border: '#272230',
 }
 
 const SERIF = "'Playfair Display', Georgia, serif"

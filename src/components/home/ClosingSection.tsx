@@ -9,7 +9,7 @@ export function ClosingSection() {
   const router = useRouter()
 
   return (
-    <Spotlight style={{ background: '#0A0A0A' }}>
+    <Spotlight style={{ background: '#0D0B12' }}>
       <section style={{
         padding: 'clamp(100px, 14vw, 160px) 24px',
         textAlign: 'center',
@@ -35,7 +35,7 @@ export function ClosingSection() {
               fontFamily: "'Playfair Display', Georgia, serif",
               fontSize: 'clamp(32px, 5vw, 48px)',
               fontWeight: 400, fontStyle: 'italic',
-              color: '#F5F5F0', lineHeight: 1.2,
+              color: '#F0EBE2', lineHeight: 1.2,
             }}>
               Não é uma religião nova.
             </h2>
@@ -69,7 +69,7 @@ export function ClosingSection() {
                 background: 'linear-gradient(90deg, #C9A84C, #D4B96A, #C9A84C)',
                 backgroundSize: '200% 100%',
                 border: 'none',
-                color: '#0A0A0A',
+                color: '#0D0B12',
                 fontFamily: "'Inter', sans-serif",
                 fontSize: 12, fontWeight: 700,
                 letterSpacing: '3px',
@@ -85,7 +85,7 @@ export function ClosingSection() {
 
             <p style={{
               fontFamily: "'Inter', sans-serif",
-              fontSize: 13, color: '#5A5A50',
+              fontSize: 13, color: '#7A7870',
               marginTop: 20,
             }}>
               Sem cadastro. Sem mensalidade. Só a mensagem.

@@ -312,7 +312,7 @@ export default function AyaDoDiaPage() {
     <div
       style={{
         minHeight: '100vh',
-        background: '#0A0A0A',
+        background: '#0D0B12',
         paddingTop: 80,
         paddingBottom: 100,
       }}
@@ -330,7 +330,7 @@ export default function AyaDoDiaPage() {
             fontSize: 10,
             letterSpacing: '3px',
             textTransform: 'uppercase',
-            color: '#5A5A50',
+            color: '#7A7870',
             marginBottom: 10,
           }}
         >
@@ -340,7 +340,7 @@ export default function AyaDoDiaPage() {
           style={{
             fontFamily: 'var(--font-sans)',
             fontSize: 13,
-            color: '#8A8A7A',
+            color: '#B3B0A6',
             minHeight: 18,
           }}
         >
@@ -400,7 +400,7 @@ export default function AyaDoDiaPage() {
             fontFamily: 'var(--font-serif)',
             fontStyle: 'italic',
             fontSize: 'clamp(20px, 3vw, 28px)',
-            color: '#F5F5F0',
+            color: '#F0EBE2',
             textAlign: 'center',
             lineHeight: 1.6,
             margin: '0 0 16px',
@@ -414,7 +414,7 @@ export default function AyaDoDiaPage() {
           style={{
             fontFamily: 'var(--font-sans)',
             fontSize: 13,
-            color: '#5A5A50',
+            color: '#7A7870',
             textAlign: 'center',
           }}
         >
@@ -449,7 +449,7 @@ export default function AyaDoDiaPage() {
           <div
             style={{
               display: 'inline-flex',
-              background: '#111111',
+              background: '#161220',
               borderRadius: 12,
               padding: 4,
               gap: 4,
@@ -469,7 +469,7 @@ export default function AyaDoDiaPage() {
                     border: 'none',
                     cursor: 'pointer',
                     background: isActive ? '#1A1A2E' : 'transparent',
-                    color: isActive ? '#C9A84C' : '#5A5A50',
+                    color: isActive ? '#C9A84C' : '#7A7870',
                     transition: 'background 0.2s ease, color 0.2s ease',
                     whiteSpace: 'nowrap',
                   }}
@@ -502,7 +502,7 @@ export default function AyaDoDiaPage() {
                   style={{
                     fontFamily: 'var(--font-serif)',
                     fontSize: 17,
-                    color: '#F5F5F0',
+                    color: '#F0EBE2',
                     lineHeight: 1.9,
                   }}
                 >
@@ -530,7 +530,7 @@ export default function AyaDoDiaPage() {
                       fontFamily: 'var(--font-serif)',
                       fontStyle: 'italic',
                       fontSize: 20,
-                      color: '#F5F5F0',
+                      color: '#F0EBE2',
                       lineHeight: 1.7,
                       marginBottom: 24,
                     }}
@@ -541,7 +541,7 @@ export default function AyaDoDiaPage() {
                     style={{
                       fontFamily: 'var(--font-sans)',
                       fontSize: 13,
-                      color: '#5A5A50',
+                      color: '#7A7870',
                       letterSpacing: '0.5px',
                     }}
                   >
@@ -561,7 +561,7 @@ export default function AyaDoDiaPage() {
               >
                 <div
                   style={{
-                    background: 'linear-gradient(135deg, #1A1A2E, #0A0A0A)',
+                    background: 'linear-gradient(135deg, #1A1A2E, #0D0B12)',
                     border: '1px solid rgba(201,168,76,0.2)',
                     borderRadius: 16,
                     padding: 32,
@@ -598,7 +598,7 @@ export default function AyaDoDiaPage() {
                       fontFamily: 'var(--font-serif)',
                       fontStyle: 'italic',
                       fontSize: 18,
-                      color: '#F5F5F0',
+                      color: '#F0EBE2',
                       lineHeight: 1.8,
                       marginBottom: 24,
                     }}
@@ -610,7 +610,7 @@ export default function AyaDoDiaPage() {
                     style={{
                       fontFamily: 'var(--font-sans)',
                       fontSize: 13,
-                      color: '#5A5A50',
+                      color: '#7A7870',
                       marginTop: 24,
                       lineHeight: 1.7,
                     }}
@@ -638,7 +638,7 @@ export default function AyaDoDiaPage() {
           style={{
             fontFamily: 'var(--font-sans)',
             fontSize: 13,
-            color: '#5A5A50',
+            color: '#7A7870',
             opacity: 0.4,
             cursor: 'default',
           }}
@@ -660,7 +660,7 @@ export default function AyaDoDiaPage() {
           style={{
             fontFamily: 'var(--font-sans)',
             fontSize: 13,
-            color: '#5A5A50',
+            color: '#7A7870',
             opacity: 0.4,
             cursor: 'default',
           }}
@@ -685,7 +685,7 @@ export default function AyaDoDiaPage() {
             fontSize: 10,
             letterSpacing: '3px',
             textTransform: 'uppercase',
-            color: '#5A5A50',
+            color: '#7A7870',
             marginBottom: 20,
           }}
         >
@@ -708,24 +708,24 @@ export default function AyaDoDiaPage() {
               key={href}
               href={href}
               style={{
-                background: '#111111',
-                border: '1px solid #2A2A2A',
+                background: '#161220',
+                border: '1px solid #272230',
                 borderRadius: 12,
                 padding: '16px 20px',
                 textDecoration: 'none',
                 fontFamily: 'var(--font-sans)',
                 fontSize: 14,
-                color: '#8A8A7A',
+                color: '#B3B0A6',
                 transition: 'border-color 0.2s ease, color 0.2s ease',
                 flexShrink: 0,
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.borderColor = 'rgba(201,168,76,0.3)'
-                e.currentTarget.style.color = '#F5F5F0'
+                e.currentTarget.style.color = '#F0EBE2'
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = '#2A2A2A'
-                e.currentTarget.style.color = '#8A8A7A'
+                e.currentTarget.style.borderColor = '#272230'
+                e.currentTarget.style.color = '#B3B0A6'
               }}
             >
               {label}

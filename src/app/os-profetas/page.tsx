@@ -94,10 +94,10 @@ function ProphetCard({ prophet, index }: { prophet: typeof prophets[0]; index: n
       onMouseLeave={() => setHovered(false)}
       style={{
         position: 'relative',
-        background: '#111111',
+        background: '#161220',
         border: hovered && isAvailable
           ? '1px solid rgba(201,168,76,0.35)'
-          : '1px solid #2A2A2A',
+          : '1px solid #272230',
         borderRadius: 4,
         padding: '36px 32px',
         cursor: isAvailable ? 'pointer' : 'default',
@@ -134,7 +134,7 @@ function ProphetCard({ prophet, index }: { prophet: typeof prophets[0]; index: n
           fontSize: 11,
           letterSpacing: '3px',
           textTransform: 'uppercase',
-          color: '#5A5A50',
+          color: '#7A7870',
         }}>
           Episódio {String(prophet.episode).padStart(2, '0')}
         </span>
@@ -158,7 +158,7 @@ function ProphetCard({ prophet, index }: { prophet: typeof prophets[0]; index: n
             fontSize: 9,
             letterSpacing: '2px',
             textTransform: 'uppercase',
-            color: '#5A5A50',
+            color: '#7A7870',
             background: 'rgba(90,90,80,0.08)',
             border: '1px solid rgba(90,90,80,0.2)',
             borderRadius: 2,
@@ -173,7 +173,7 @@ function ProphetCard({ prophet, index }: { prophet: typeof prophets[0]; index: n
       <div style={{
         fontFamily: 'var(--font-arabic)',
         fontSize: 36,
-        color: isAvailable ? '#C9A84C' : '#5A5A50',
+        color: isAvailable ? '#C9A84C' : '#7A7870',
         direction: 'rtl',
         textAlign: 'right',
         marginBottom: 8,
@@ -189,7 +189,7 @@ function ProphetCard({ prophet, index }: { prophet: typeof prophets[0]; index: n
         fontFamily: 'var(--font-serif)',
         fontSize: 24,
         fontWeight: 600,
-        color: '#F5F5F0',
+        color: '#F0EBE2',
         marginBottom: 4,
         lineHeight: 1.2,
       }}>
@@ -200,7 +200,7 @@ function ProphetCard({ prophet, index }: { prophet: typeof prophets[0]; index: n
       <p style={{
         fontFamily: 'var(--font-sans)',
         fontSize: 13,
-        color: '#8A8A7A',
+        color: '#B3B0A6',
         marginBottom: 20,
         fontStyle: 'italic',
       }}>
@@ -211,7 +211,7 @@ function ProphetCard({ prophet, index }: { prophet: typeof prophets[0]; index: n
       <p style={{
         fontFamily: 'var(--font-sans)',
         fontSize: 15,
-        color: '#8A8A7A',
+        color: '#B3B0A6',
         lineHeight: 1.75,
         marginBottom: 24,
       }}>
@@ -222,7 +222,7 @@ function ProphetCard({ prophet, index }: { prophet: typeof prophets[0]; index: n
       <div style={{
         width: '100%',
         height: 1,
-        background: '#2A2A2A',
+        background: '#272230',
         marginBottom: 20,
       }} />
 
@@ -233,8 +233,8 @@ function ProphetCard({ prophet, index }: { prophet: typeof prophets[0]; index: n
           fontSize: 10,
           letterSpacing: '1.5px',
           textTransform: 'uppercase',
-          color: '#5A5A50',
-          border: '1px solid #2A2A2A',
+          color: '#7A7870',
+          border: '1px solid #272230',
           borderRadius: 2,
           padding: '4px 8px',
         }}>
@@ -245,8 +245,8 @@ function ProphetCard({ prophet, index }: { prophet: typeof prophets[0]; index: n
           fontSize: 10,
           letterSpacing: '1.5px',
           textTransform: 'uppercase',
-          color: '#5A5A50',
-          border: '1px solid #2A2A2A',
+          color: '#7A7870',
+          border: '1px solid #272230',
           borderRadius: 2,
           padding: '4px 8px',
         }}>
@@ -285,7 +285,7 @@ export default function OsProfetasPage() {
   return (
     <div style={{
       minHeight: '100vh',
-      background: '#0A0A0A',
+      background: '#0D0B12',
       paddingTop: 64,
     }}>
       {/* ── HERO ── */}
@@ -344,7 +344,7 @@ export default function OsProfetasPage() {
               fontFamily: 'var(--font-serif)',
               fontSize: 'clamp(32px, 5.5vw, 56px)',
               fontWeight: 600,
-              color: '#F5F5F0',
+              color: '#F0EBE2',
               lineHeight: 1.15,
               marginBottom: 24,
             }}>
@@ -361,7 +361,7 @@ export default function OsProfetasPage() {
             <p style={{
               fontFamily: 'var(--font-sans)',
               fontSize: 'clamp(15px, 2vw, 18px)',
-              color: '#8A8A7A',
+              color: '#B3B0A6',
               maxWidth: 520,
               margin: '0 auto 40px',
               lineHeight: 1.8,
@@ -395,7 +395,7 @@ export default function OsProfetasPage() {
             <p style={{
               fontFamily: 'var(--font-sans)',
               fontSize: 'clamp(15px, 1.8vw, 17px)',
-              color: '#8A8A7A',
+              color: '#B3B0A6',
               lineHeight: 1.9,
               textAlign: 'center',
             }}>
@@ -407,7 +407,7 @@ export default function OsProfetasPage() {
             <p style={{
               fontFamily: 'var(--font-sans)',
               fontSize: 'clamp(14px, 1.6vw, 16px)',
-              color: '#5A5A50',
+              color: '#7A7870',
               lineHeight: 1.9,
               textAlign: 'center',
               marginTop: 20,
@@ -431,18 +431,18 @@ export default function OsProfetasPage() {
               gap: 20,
               marginBottom: 48,
             }}>
-              <div style={{ flex: 1, height: 1, background: '#2A2A2A' }} />
+              <div style={{ flex: 1, height: 1, background: '#272230' }} />
               <p style={{
                 fontFamily: 'var(--font-sans)',
                 fontSize: 11,
                 letterSpacing: '3px',
                 textTransform: 'uppercase',
-                color: '#5A5A50',
+                color: '#7A7870',
                 whiteSpace: 'nowrap',
               }}>
                 EPISÓDIOS
               </p>
-              <div style={{ flex: 1, height: 1, background: '#2A2A2A' }} />
+              <div style={{ flex: 1, height: 1, background: '#272230' }} />
             </div>
           </BlurFade>
 
@@ -483,7 +483,7 @@ export default function OsProfetasPage() {
             fontSize: 11,
             letterSpacing: '3px',
             textTransform: 'uppercase',
-            color: '#5A5A50',
+            color: '#7A7870',
             marginBottom: 16,
           }}>
             PRÓXIMOS EPISÓDIOS EM CONSTRUÇÃO
@@ -493,7 +493,7 @@ export default function OsProfetasPage() {
             fontSize: 'clamp(22px, 3vw, 32px)',
             fontWeight: 400,
             fontStyle: 'italic',
-            color: '#8A8A7A',
+            color: '#B3B0A6',
             marginBottom: 32,
           }}>
             Moisés, Jesus e Muhammad estão chegando.

@@ -11,8 +11,8 @@ import './globals.css'
 import { ThemeProvider } from '@/providers/theme-provider'
 import { LenisProvider } from '@/providers/lenis-provider'
 import { Header } from '@/components/layout/Header'
-import { Footer } from '@/components/layout/Footer'
 import { BottomNav } from '@/components/layout/BottomNav'
+import { Footer } from '@/components/layout/Footer'
 
 export const metadata: Metadata = {
   title: 'KALAM — Deus. Todo dia.',
@@ -34,7 +34,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ThemeProvider attribute="class" defaultTheme="dark" forcedTheme="dark" disableTransitionOnChange>
           <LenisProvider>
             <Header />
-            <main>{children}</main>
+            <main className="pb-20 md:pb-0">{children}</main>
             <Footer />
             <BottomNav />
           </LenisProvider>

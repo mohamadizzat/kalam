@@ -2,14 +2,14 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Home, BookOpen, Star, Library, Compass } from 'lucide-react'
+import { BookOpen, Sun, Compass, Heart, Sparkles } from 'lucide-react'
 
 const TABS = [
-  { label: 'Início', href: '/', Icon: Home },
-  { label: 'Trilhas', href: '/trilhas', Icon: BookOpen },
-  { label: 'Aya', href: '/aya-do-dia', Icon: Star },
-  { label: 'Biblioteca', href: '/biblioteca', Icon: Library },
-  { label: 'Explorar', href: '/estudos', Icon: Compass },
+  { label: 'A Palavra', href: '/a-palavra', Icon: BookOpen },
+  { label: 'A Presenca', href: '/a-presenca', Icon: Sun },
+  { label: 'A Jornada', href: '/a-jornada', Icon: Compass },
+  { label: 'A Alma', href: '/a-alma', Icon: Heart },
+  { label: 'Kalam AI', href: '#', Icon: Sparkles, disabled: true },
 ]
 
 export function BottomNav() {
@@ -30,19 +30,20 @@ export function BottomNav() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-around',
-          background: 'rgba(10,10,10,0.95)',
-          backdropFilter: 'blur(20px)',
-          WebkitBackdropFilter: 'blur(20px)',
-          borderTop: '1px solid rgba(201,168,76,0.1)',
+          background: '#0D0B12',
+          borderTop: '1px solid #272230',
           paddingBottom: 'env(safe-area-inset-bottom)',
         }}
       >
-        {TABS.map(({ label, href, Icon }) => {
-          const isActive = pathname === href
+        {TABS.map(({ label, href, Icon, disabled }) => {
+          const isActive = !disabled && pathname.startsWith(href) && href !== '#'
           return (
             <Link
-              key={href}
+              key={label}
               href={href}
+              aria-disabled={disabled}
+              tabIndex={disabled ? -1 : undefined}
+              onClick={disabled ? (e) => e.preventDefault() : undefined}
               style={{
                 display: 'flex',
                 flexDirection: 'column',
@@ -50,13 +51,15 @@ export function BottomNav() {
                 gap: 4,
                 padding: '8px 12px',
                 textDecoration: 'none',
-                color: isActive ? '#C9A84C' : '#5A5A50',
+                color: isActive ? '#C9A84C' : '#7A7870',
+                opacity: disabled ? 0.4 : 1,
                 transition: 'color 0.2s ease',
+                pointerEvents: disabled ? 'none' : 'auto',
               }}
             >
               <Icon size={22} />
               <span style={{
-                fontFamily: "'Inter Variable', Inter, system-ui, sans-serif",
+                fontFamily: 'var(--font-sans)',
                 fontSize: 10,
                 letterSpacing: '0.5px',
                 lineHeight: 1,

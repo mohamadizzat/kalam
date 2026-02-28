@@ -34,8 +34,8 @@ export function NumbersSection() {
           display: 'grid',
           gridTemplateColumns: 'repeat(3, 1fr)',
           gap: 1,
-          background: '#2A2A2A',
-          border: '1px solid #2A2A2A',
+          background: '#272230',
+          border: '1px solid #272230',
         }}>
           {stats.map((s, i) => (
             <BlurFade key={i} delay={i * 0.08}>
@@ -53,7 +53,7 @@ export function NumbersSection() {
                 <p style={{
                   fontFamily: "'Inter', sans-serif",
                   fontSize: 14, fontWeight: 500,
-                  color: '#F5F5F0',
+                  color: '#F0EBE2',
                   marginTop: 12, marginBottom: 4,
                   textTransform: 'uppercase',
                   letterSpacing: '1px',
@@ -62,7 +62,7 @@ export function NumbersSection() {
                 </p>
                 <p style={{
                   fontFamily: "'Inter', sans-serif",
-                  fontSize: 12, color: '#5A5A50',
+                  fontSize: 12, color: '#7A7870',
                   lineHeight: 1.5,
                 }}>
                   {s.sublabel}

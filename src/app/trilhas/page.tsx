@@ -87,10 +87,10 @@ function TrailCard({ trail, index }: { trail: typeof TRAILS[0]; index: number })
       onMouseLeave={() => setHovered(false)}
       style={{
         position: 'relative',
-        background: '#111111',
+        background: '#161220',
         border: hovered && trail.available
           ? '1px solid rgba(201,168,76,0.3)'
-          : '1px solid #2A2A2A',
+          : '1px solid #272230',
         borderRadius: 20,
         padding: 32,
         cursor: trail.available ? 'pointer' : 'default',
@@ -120,7 +120,7 @@ function TrailCard({ trail, index }: { trail: typeof TRAILS[0]; index: number })
       <div style={{
         fontFamily: 'var(--font-arabic)',
         fontSize: 36,
-        color: trail.available ? '#C9A84C' : '#5A5A50',
+        color: trail.available ? '#C9A84C' : '#7A7870',
         direction: 'rtl',
         textAlign: 'right',
         marginBottom: 12,
@@ -138,7 +138,7 @@ function TrailCard({ trail, index }: { trail: typeof TRAILS[0]; index: number })
           fontSize: 10,
           letterSpacing: '1.5px',
           textTransform: 'uppercase',
-          color: trail.available ? '#C9A84C' : '#5A5A50',
+          color: trail.available ? '#C9A84C' : '#7A7870',
           background: trail.available ? 'rgba(201,168,76,0.08)' : 'rgba(90,90,80,0.08)',
           border: trail.available ? '1px solid rgba(201,168,76,0.2)' : '1px solid rgba(90,90,80,0.2)',
           borderRadius: 20,
@@ -151,7 +151,7 @@ function TrailCard({ trail, index }: { trail: typeof TRAILS[0]; index: number })
           fontSize: 10,
           letterSpacing: '1.5px',
           textTransform: 'uppercase',
-          color: trail.available ? '#C9A84C' : '#5A5A50',
+          color: trail.available ? '#C9A84C' : '#7A7870',
           background: trail.available ? 'rgba(201,168,76,0.08)' : 'rgba(90,90,80,0.08)',
           border: trail.available ? '1px solid rgba(201,168,76,0.2)' : '1px solid rgba(90,90,80,0.2)',
           borderRadius: 20,
@@ -166,7 +166,7 @@ function TrailCard({ trail, index }: { trail: typeof TRAILS[0]; index: number })
         fontFamily: 'var(--font-serif)',
         fontSize: 24,
         fontWeight: 600,
-        color: '#F5F5F0',
+        color: '#F0EBE2',
         marginBottom: 6,
         lineHeight: 1.25,
       }}>
@@ -177,7 +177,7 @@ function TrailCard({ trail, index }: { trail: typeof TRAILS[0]; index: number })
       <p style={{
         fontFamily: 'var(--font-sans)',
         fontSize: 13,
-        color: '#8A8A7A',
+        color: '#B3B0A6',
         fontStyle: 'italic',
         marginBottom: 12,
         lineHeight: 1.6,
@@ -189,7 +189,7 @@ function TrailCard({ trail, index }: { trail: typeof TRAILS[0]; index: number })
       <p style={{
         fontFamily: 'var(--font-sans)',
         fontSize: 15,
-        color: '#8A8A7A',
+        color: '#B3B0A6',
         lineHeight: 1.75,
         marginBottom: 20,
       }}>
@@ -199,7 +199,7 @@ function TrailCard({ trail, index }: { trail: typeof TRAILS[0]; index: number })
       {/* Day preview */}
       {previewDays.length > 0 && (
         <div style={{
-          borderTop: '1px solid #2A2A2A',
+          borderTop: '1px solid #272230',
           paddingTop: 16,
           marginBottom: 24,
           display: 'flex',
@@ -212,7 +212,7 @@ function TrailCard({ trail, index }: { trail: typeof TRAILS[0]; index: number })
               style={{
                 fontFamily: 'var(--font-sans)',
                 fontSize: 12,
-                color: '#5A5A50',
+                color: '#7A7870',
               }}
             >
               Dia {d.day} — {d.title}
@@ -222,7 +222,7 @@ function TrailCard({ trail, index }: { trail: typeof TRAILS[0]; index: number })
             <span style={{
               fontFamily: 'var(--font-sans)',
               fontSize: 12,
-              color: '#5A5A50',
+              color: '#7A7870',
             }}>
               ...
             </span>
@@ -249,7 +249,7 @@ function TrailCard({ trail, index }: { trail: typeof TRAILS[0]; index: number })
           fontSize: 9,
           letterSpacing: '2px',
           textTransform: 'uppercase',
-          color: '#5A5A50',
+          color: '#7A7870',
           background: 'rgba(90,90,80,0.08)',
           border: '1px solid rgba(90,90,80,0.2)',
           borderRadius: 4,
@@ -274,7 +274,7 @@ function TrailCard({ trail, index }: { trail: typeof TRAILS[0]; index: number })
 
 export default function TrilhasPage() {
   return (
-    <div style={{ minHeight: '100vh', background: '#0A0A0A', paddingTop: 64 }}>
+    <div style={{ minHeight: '100vh', background: '#0D0B12', paddingTop: 64 }}>
 
       {/* ── HERO ── */}
       <section style={{
@@ -315,7 +315,7 @@ export default function TrilhasPage() {
               fontFamily: 'var(--font-serif)',
               fontSize: 'clamp(36px, 6vw, 52px)',
               fontWeight: 600,
-              color: '#F5F5F0',
+              color: '#F0EBE2',
               lineHeight: 1.15,
               marginBottom: 20,
             }}>
@@ -328,7 +328,7 @@ export default function TrilhasPage() {
             <p style={{
               fontFamily: 'var(--font-sans)',
               fontSize: 17,
-              color: '#8A8A7A',
+              color: '#B3B0A6',
               maxWidth: 520,
               margin: '0 auto 40px',
               lineHeight: 1.75,
@@ -365,18 +365,18 @@ export default function TrilhasPage() {
               gap: 20,
               marginBottom: 48,
             }}>
-              <div style={{ flex: 1, height: 1, background: '#2A2A2A' }} />
+              <div style={{ flex: 1, height: 1, background: '#272230' }} />
               <p style={{
                 fontFamily: 'var(--font-sans)',
                 fontSize: 11,
                 letterSpacing: '3px',
                 textTransform: 'uppercase',
-                color: '#5A5A50',
+                color: '#7A7870',
                 whiteSpace: 'nowrap',
               }}>
                 TODAS AS TRILHAS
               </p>
-              <div style={{ flex: 1, height: 1, background: '#2A2A2A' }} />
+              <div style={{ flex: 1, height: 1, background: '#272230' }} />
             </div>
           </BlurFade>
 
@@ -418,7 +418,7 @@ export default function TrilhasPage() {
           <p style={{
             fontFamily: 'var(--font-sans)',
             fontSize: 15,
-            color: '#8A8A7A',
+            color: '#B3B0A6',
             marginBottom: 28,
           }}>
             Quer explorar por tema?

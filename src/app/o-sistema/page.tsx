@@ -100,8 +100,8 @@ function PillarCard({ pillar, index }: { pillar: typeof pillars[0]; index: numbe
         whileHover={{ y: -4, boxShadow: '0 0 0 1px rgba(201,168,76,0.35), 0 24px 48px rgba(0,0,0,0.5)' }}
         transition={{ duration: 0.25 }}
         style={{
-          background: '#111111',
-          border: '1px solid #2A2A2A',
+          background: '#161220',
+          border: '1px solid #272230',
           borderRadius: 4,
           padding: 'clamp(28px, 4vw, 40px)',
           position: 'relative',
@@ -151,7 +151,7 @@ function PillarCard({ pillar, index }: { pillar: typeof pillars[0]; index: numbe
           <h3 style={{
             fontFamily: 'var(--font-serif)',
             fontSize: 24, fontWeight: 600,
-            color: '#F5F5F0',
+            color: '#F0EBE2',
             marginBottom: 4,
           }}>
             {pillar.name}
@@ -167,13 +167,13 @@ function PillarCard({ pillar, index }: { pillar: typeof pillars[0]; index: numbe
         </div>
 
         {/* Divider */}
-        <div style={{ height: 1, background: '#2A2A2A', marginBottom: 20 }} />
+        <div style={{ height: 1, background: '#272230', marginBottom: 20 }} />
 
         {/* System analogy */}
         <p style={{
           fontFamily: 'var(--font-sans)',
           fontSize: 15, lineHeight: 1.75,
-          color: '#8A8A7A',
+          color: '#B3B0A6',
           marginBottom: 16,
         }}>
           {pillar.systemAnalogy}
@@ -183,7 +183,7 @@ function PillarCard({ pillar, index }: { pillar: typeof pillars[0]; index: numbe
         <p style={{
           fontFamily: 'var(--font-sans)',
           fontSize: 13, lineHeight: 1.7,
-          color: '#5A5A50',
+          color: '#7A7870',
           borderLeft: '2px solid rgba(201,168,76,0.25)',
           paddingLeft: 14,
         }}>
@@ -200,7 +200,7 @@ export default function OSistemaPage() {
   const router = useRouter()
 
   return (
-    <div style={{ background: '#0A0A0A', minHeight: '100vh' }}>
+    <div style={{ background: '#0D0B12', minHeight: '100vh' }}>
 
       {/* ── 1. HERO ─────────────────────────────────────────────────────── */}
       <section style={{
@@ -259,7 +259,7 @@ export default function OSistemaPage() {
               fontFamily: 'var(--font-serif)',
               fontSize: 'clamp(40px, 7vw, 72px)',
               fontWeight: 700,
-              color: '#F5F5F0',
+              color: '#F0EBE2',
               lineHeight: 1.1,
               marginBottom: 12,
               letterSpacing: '-0.5px',
@@ -288,7 +288,7 @@ export default function OSistemaPage() {
             <p style={{
               fontFamily: 'var(--font-sans)',
               fontSize: 18,
-              color: '#8A8A7A',
+              color: '#B3B0A6',
               maxWidth: 520,
               margin: '0 auto',
               lineHeight: 1.75,
@@ -331,7 +331,7 @@ export default function OSistemaPage() {
           <p style={{
             fontFamily: 'var(--font-sans)',
             fontSize: 'clamp(18px, 2.5vw, 22px)',
-            color: '#8A8A7A',
+            color: '#B3B0A6',
             lineHeight: 1.85,
             marginBottom: 28,
           }}>
@@ -344,7 +344,7 @@ export default function OSistemaPage() {
             fontFamily: 'var(--font-serif)',
             fontSize: 'clamp(24px, 3.5vw, 32px)',
             fontWeight: 600,
-            color: '#F5F5F0',
+            color: '#F0EBE2',
             lineHeight: 1.4,
             marginBottom: 28,
           }}>
@@ -356,7 +356,7 @@ export default function OSistemaPage() {
           <p style={{
             fontFamily: 'var(--font-sans)',
             fontSize: 'clamp(18px, 2.5vw, 22px)',
-            color: '#8A8A7A',
+            color: '#B3B0A6',
             lineHeight: 1.85,
           }}>
             Islam é um sistema operacional completo. Cobre finanças, relacionamentos, saúde, tempo, mente, comunidade e propósito. Não deixa nenhuma área da vida sem protocolo.
@@ -370,7 +370,7 @@ export default function OSistemaPage() {
           <div style={{
             maxWidth: 900,
             margin: '0 auto',
-            background: '#111111',
+            background: '#161220',
             border: '1px solid rgba(201,168,76,0.2)',
             borderRadius: 4,
             padding: 'clamp(40px, 6vw, 64px)',
@@ -398,7 +398,7 @@ export default function OSistemaPage() {
               fontFamily: 'var(--font-serif)',
               fontSize: 'clamp(26px, 4vw, 40px)',
               fontWeight: 600,
-              color: '#F5F5F0',
+              color: '#F0EBE2',
               marginBottom: 32,
               lineHeight: 1.3,
             }}>
@@ -421,7 +421,7 @@ export default function OSistemaPage() {
             <p style={{
               fontFamily: 'var(--font-sans)',
               fontSize: 'clamp(15px, 2vw, 18px)',
-              color: '#8A8A7A',
+              color: '#B3B0A6',
               lineHeight: 1.8,
               maxWidth: 660,
               margin: '0 auto',
@@ -456,7 +456,7 @@ export default function OSistemaPage() {
               fontFamily: 'var(--font-serif)',
               fontSize: 'clamp(28px, 4vw, 42px)',
               fontWeight: 600,
-              color: '#F5F5F0',
+              color: '#F0EBE2',
               lineHeight: 1.2,
             }}>
               As Cinco Funções que Estruturam Tudo
@@ -508,7 +508,7 @@ export default function OSistemaPage() {
               fontFamily: 'var(--font-serif)',
               fontSize: 'clamp(26px, 4vw, 38px)',
               fontWeight: 600,
-              color: '#F5F5F0',
+              color: '#F0EBE2',
             }}>
               Três Camadas de Documentação
             </h2>
@@ -518,8 +518,8 @@ export default function OSistemaPage() {
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
             gap: 1,
-            background: '#2A2A2A',
-            border: '1px solid #2A2A2A',
+            background: '#272230',
+            border: '1px solid #272230',
           }}>
             {docs.map((doc, i) => (
               <BlurFade key={i} delay={i * 0.12}>
@@ -553,20 +553,20 @@ export default function OSistemaPage() {
                   <h3 style={{
                     fontFamily: 'var(--font-serif)',
                     fontSize: 28, fontWeight: 600,
-                    color: '#F5F5F0',
+                    color: '#F0EBE2',
                     marginBottom: 20,
                   }}>
                     {doc.name}
                   </h3>
 
                   {/* Divider */}
-                  <div style={{ height: 1, background: '#2A2A2A', marginBottom: 20 }} />
+                  <div style={{ height: 1, background: '#272230', marginBottom: 20 }} />
 
                   {/* Description */}
                   <p style={{
                     fontFamily: 'var(--font-sans)',
                     fontSize: 14, lineHeight: 1.8,
-                    color: '#8A8A7A',
+                    color: '#B3B0A6',
                   }}>
                     {doc.description}
                   </p>
@@ -600,8 +600,8 @@ export default function OSistemaPage() {
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 220px), 1fr))',
             gap: 1,
-            background: '#2A2A2A',
-            border: '1px solid #2A2A2A',
+            background: '#272230',
+            border: '1px solid #272230',
           }}>
             {stats.map((s, i) => (
               <BlurFade key={i} delay={i * 0.1}>
@@ -619,7 +619,7 @@ export default function OSistemaPage() {
                   <p style={{
                     fontFamily: 'var(--font-sans)',
                     fontSize: 12, fontWeight: 600,
-                    color: '#F5F5F0',
+                    color: '#F0EBE2',
                     marginTop: 14, marginBottom: 6,
                     textTransform: 'uppercase',
                     letterSpacing: '1.5px',
@@ -628,7 +628,7 @@ export default function OSistemaPage() {
                   </p>
                   <p style={{
                     fontFamily: 'var(--font-sans)',
-                    fontSize: 12, color: '#5A5A50',
+                    fontSize: 12, color: '#7A7870',
                     lineHeight: 1.5,
                   }}>
                     {s.sublabel}
@@ -676,7 +676,7 @@ export default function OSistemaPage() {
               fontSize: 'clamp(26px, 4vw, 40px)',
               fontStyle: 'italic',
               fontWeight: 400,
-              color: '#F5F5F0',
+              color: '#F0EBE2',
               lineHeight: 1.4,
               marginBottom: 16,
             }}>
@@ -688,7 +688,7 @@ export default function OSistemaPage() {
             <p style={{
               fontFamily: 'var(--font-sans)',
               fontSize: 16,
-              color: '#8A8A7A',
+              color: '#B3B0A6',
               marginBottom: 48,
               lineHeight: 1.75,
             }}>
@@ -707,7 +707,7 @@ export default function OSistemaPage() {
                 background: 'linear-gradient(90deg, #C9A84C, #D4B96A, #C9A84C)',
                 backgroundSize: '200% 100%',
                 border: 'none',
-                color: '#0A0A0A',
+                color: '#0D0B12',
                 fontFamily: 'var(--font-sans)',
                 fontSize: 12,
                 fontWeight: 700,

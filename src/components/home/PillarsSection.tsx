@@ -32,7 +32,7 @@ export function PillarsSection() {
 
   return (
     <section style={{
-      background: '#0A0A0A',
+      background: '#0D0B12',
       padding: 'clamp(80px, 10vw, 120px) 24px',
     }}>
       <div style={{ maxWidth: 1100, margin: '0 auto' }}>
@@ -51,7 +51,7 @@ export function PillarsSection() {
             fontFamily: "'Playfair Display', Georgia, serif",
             fontSize: 'clamp(28px, 4vw, 40px)',
             fontWeight: 400,
-            color: '#F5F5F0',
+            color: '#F0EBE2',
           }}>
             Três caminhos. Uma mensagem.
           </h2>
@@ -62,8 +62,8 @@ export function PillarsSection() {
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
           gap: 1,
-          background: '#2A2A2A',
-          border: '1px solid #2A2A2A',
+          background: '#272230',
+          border: '1px solid #272230',
         }}>
           {pillars.map((p, i) => (
             <BlurFade key={i} delay={i * 0.1}>
@@ -72,7 +72,7 @@ export function PillarsSection() {
                 onMouseEnter={() => setHovered(i)}
                 onMouseLeave={() => setHovered(null)}
                 style={{
-                  background: '#111111',
+                  background: '#161220',
                   padding: 'clamp(32px, 5vw, 48px) clamp(24px, 4vw, 40px)',
                   cursor: 'pointer',
                   transition: 'all 0.3s ease',
@@ -107,7 +107,7 @@ export function PillarsSection() {
                 <p style={{
                   fontFamily: "'Inter', sans-serif",
                   fontSize: 15,
-                  color: '#8A8A7A',
+                  color: '#B3B0A6',
                   lineHeight: 1.7,
                   marginBottom: 28,
                 }}>

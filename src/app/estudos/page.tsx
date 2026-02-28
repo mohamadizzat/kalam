@@ -167,8 +167,8 @@ function HardQuestionCard({ q, index }: { q: typeof hardQuestions[0]; index: num
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        background: '#111111',
-        border: hovered ? '1px solid rgba(201,168,76,0.3)' : '1px solid #2A2A2A',
+        background: '#161220',
+        border: hovered ? '1px solid rgba(201,168,76,0.3)' : '1px solid #272230',
         borderRadius: 4,
         padding: '32px',
         transition: 'border-color 0.3s ease',
@@ -206,7 +206,7 @@ function HardQuestionCard({ q, index }: { q: typeof hardQuestions[0]; index: num
           fontFamily: 'var(--font-sans)',
           fontSize: 10,
           letterSpacing: '2px',
-          color: '#5A5A50',
+          color: '#7A7870',
         }}>
           {String(index + 1).padStart(2, '0')} / {String(hardQuestions.length).padStart(2, '0')}
         </span>
@@ -217,7 +217,7 @@ function HardQuestionCard({ q, index }: { q: typeof hardQuestions[0]; index: num
         fontFamily: 'var(--font-serif)',
         fontSize: 'clamp(17px, 2.2vw, 20px)',
         fontWeight: 700,
-        color: '#F5F5F0',
+        color: '#F0EBE2',
         lineHeight: 1.35,
         marginBottom: 20,
       }}>
@@ -240,7 +240,7 @@ function HardQuestionCard({ q, index }: { q: typeof hardQuestions[0]; index: num
       <p style={{
         fontFamily: 'var(--font-sans)',
         fontSize: 15,
-        color: '#8A8A7A',
+        color: '#B3B0A6',
         lineHeight: 1.8,
         marginBottom: expanded ? 24 : 0,
       }}>
@@ -260,13 +260,13 @@ function HardQuestionCard({ q, index }: { q: typeof hardQuestions[0]; index: num
             <div style={{
               width: '100%',
               height: 1,
-              background: '#2A2A2A',
+              background: '#272230',
               marginBottom: 20,
             }} />
             <p style={{
               fontFamily: 'var(--font-sans)',
               fontSize: 14,
-              color: '#5A5A50',
+              color: '#7A7870',
               lineHeight: 1.85,
             }}>
               {q.context}
@@ -322,8 +322,8 @@ function PhenomenonCard({ p, index }: { p: typeof quranPhenomena[0]; index: numb
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        background: '#111111',
-        border: hovered ? '1px solid rgba(201,168,76,0.3)' : '1px solid #2A2A2A',
+        background: '#161220',
+        border: hovered ? '1px solid rgba(201,168,76,0.3)' : '1px solid #272230',
         borderRadius: 4,
         padding: '32px',
         transition: 'border-color 0.3s ease, transform 0.3s ease',
@@ -359,7 +359,7 @@ function PhenomenonCard({ p, index }: { p: typeof quranPhenomena[0]; index: numb
         fontFamily: 'var(--font-serif)',
         fontSize: 'clamp(17px, 2vw, 19px)',
         fontWeight: 700,
-        color: '#F5F5F0',
+        color: '#F0EBE2',
         lineHeight: 1.35,
         marginBottom: 24,
       }}>
@@ -384,7 +384,7 @@ function PhenomenonCard({ p, index }: { p: typeof quranPhenomena[0]; index: numb
             fontFamily: 'var(--font-serif)',
             fontSize: 14,
             fontStyle: 'italic',
-            color: '#8A8A7A',
+            color: '#B3B0A6',
             lineHeight: 1.75,
           }}>
             {p.quranSays}
@@ -410,7 +410,7 @@ function PhenomenonCard({ p, index }: { p: typeof quranPhenomena[0]; index: numb
             fontSize: 9,
             letterSpacing: '2.5px',
             textTransform: 'uppercase',
-            color: '#5A5A50',
+            color: '#7A7870',
             marginBottom: 8,
           }}>
             O QUE A CIÊNCIA DIZ
@@ -418,7 +418,7 @@ function PhenomenonCard({ p, index }: { p: typeof quranPhenomena[0]; index: numb
           <p style={{
             fontFamily: 'var(--font-sans)',
             fontSize: 14,
-            color: '#8A8A7A',
+            color: '#B3B0A6',
             lineHeight: 1.8,
           }}>
             {p.scienceSays}
@@ -443,8 +443,8 @@ function FaqCard({ faq, index }: { faq: typeof faqs[0]; index: number }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        background: hovered ? '#161616' : '#111111',
-        border: '1px solid #2A2A2A',
+        background: hovered ? '#161616' : '#161220',
+        border: '1px solid #272230',
         borderLeft: hovered ? '3px solid rgba(201,168,76,0.55)' : '3px solid transparent',
         borderRadius: 4,
         padding: '24px 28px',
@@ -455,7 +455,7 @@ function FaqCard({ faq, index }: { faq: typeof faqs[0]; index: number }) {
         fontFamily: 'var(--font-sans)',
         fontSize: 14,
         fontWeight: 600,
-        color: '#F5F5F0',
+        color: '#F0EBE2',
         lineHeight: 1.45,
         marginBottom: 10,
       }}>
@@ -464,7 +464,7 @@ function FaqCard({ faq, index }: { faq: typeof faqs[0]; index: number }) {
       <p style={{
         fontFamily: 'var(--font-sans)',
         fontSize: 14,
-        color: '#8A8A7A',
+        color: '#B3B0A6',
         lineHeight: 1.75,
       }}>
         {faq.answer}
@@ -483,18 +483,18 @@ function SectionLabel({ label }: { label: string }) {
       gap: 20,
       marginBottom: 48,
     }}>
-      <div style={{ flex: 1, height: 1, background: '#2A2A2A' }} />
+      <div style={{ flex: 1, height: 1, background: '#272230' }} />
       <p style={{
         fontFamily: 'var(--font-sans)',
         fontSize: 11,
         letterSpacing: '3px',
         textTransform: 'uppercase',
-        color: '#5A5A50',
+        color: '#7A7870',
         whiteSpace: 'nowrap',
       }}>
         {label}
       </p>
-      <div style={{ flex: 1, height: 1, background: '#2A2A2A' }} />
+      <div style={{ flex: 1, height: 1, background: '#272230' }} />
     </div>
   )
 }
@@ -507,7 +507,7 @@ export default function EstudosPage() {
   return (
     <div style={{
       minHeight: '100vh',
-      background: '#0A0A0A',
+      background: '#0D0B12',
       paddingTop: 64,
     }}>
 
@@ -550,7 +550,7 @@ export default function EstudosPage() {
               fontFamily: 'var(--font-serif)',
               fontSize: 'clamp(32px, 5.5vw, 58px)',
               fontWeight: 600,
-              color: '#F5F5F0',
+              color: '#F0EBE2',
               lineHeight: 1.15,
               marginBottom: 24,
             }}>
@@ -567,7 +567,7 @@ export default function EstudosPage() {
             <p style={{
               fontFamily: 'var(--font-sans)',
               fontSize: 'clamp(15px, 1.9vw, 18px)',
-              color: '#8A8A7A',
+              color: '#B3B0A6',
               maxWidth: 500,
               margin: '0 auto 16px',
               lineHeight: 1.8,
@@ -582,7 +582,7 @@ export default function EstudosPage() {
               fontFamily: 'var(--font-sans)',
               fontSize: 12,
               letterSpacing: '1.5px',
-              color: '#5A5A50',
+              color: '#7A7870',
               marginBottom: 48,
             }}>
               Não é proselitismo. É informação.
@@ -618,8 +618,8 @@ export default function EstudosPage() {
             <div style={{
               display: 'flex',
               gap: 4,
-              background: '#111111',
-              border: '1px solid #2A2A2A',
+              background: '#161220',
+              border: '1px solid #272230',
               borderRadius: 6,
               padding: 4,
               flexWrap: 'wrap',
@@ -647,7 +647,7 @@ export default function EstudosPage() {
                       fontSize: 12,
                       letterSpacing: '1.5px',
                       textTransform: 'uppercase',
-                      color: isActive ? '#C9A84C' : '#5A5A50',
+                      color: isActive ? '#C9A84C' : '#7A7870',
                       position: 'relative',
                     }}
                   >
@@ -688,7 +688,7 @@ export default function EstudosPage() {
               <p style={{
                 fontFamily: 'var(--font-sans)',
                 fontSize: 15,
-                color: '#5A5A50',
+                color: '#7A7870',
                 lineHeight: 1.8,
                 maxWidth: 640,
                 marginBottom: 48,
@@ -719,7 +719,7 @@ export default function EstudosPage() {
               <p style={{
                 fontFamily: 'var(--font-sans)',
                 fontSize: 15,
-                color: '#5A5A50',
+                color: '#7A7870',
                 lineHeight: 1.8,
                 maxWidth: 640,
                 marginBottom: 48,
@@ -754,7 +754,7 @@ export default function EstudosPage() {
               <p style={{
                 fontFamily: 'var(--font-sans)',
                 fontSize: 15,
-                color: '#5A5A50',
+                color: '#7A7870',
                 lineHeight: 1.8,
                 maxWidth: 640,
                 marginBottom: 48,
@@ -797,7 +797,7 @@ export default function EstudosPage() {
           <p style={{
             fontFamily: 'var(--font-sans)',
             fontSize: 14,
-            color: '#5A5A50',
+            color: '#7A7870',
             marginBottom: 12,
           }}>
             Tem uma pergunta que não está aqui?
@@ -807,7 +807,7 @@ export default function EstudosPage() {
             fontSize: 'clamp(22px, 3vw, 32px)',
             fontWeight: 400,
             fontStyle: 'italic',
-            color: '#8A8A7A',
+            color: '#B3B0A6',
             marginBottom: 36,
           }}>
             Continue explorando os profetas.
