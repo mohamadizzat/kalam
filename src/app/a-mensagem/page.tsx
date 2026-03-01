@@ -1,8 +1,9 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { ChevronDown, BookOpen } from 'lucide-react'
+import { ChevronDown, BookOpen, GitBranch, ArrowRight } from 'lucide-react'
 import { BlurFade } from '@/components/effects/BlurFade'
 import { Spotlight } from '@/components/effects/Spotlight'
 import { BackgroundBeams } from '@/components/effects/BackgroundBeams'
@@ -903,6 +904,37 @@ export default function AMensagemPage() {
           </div>
         </section>
       </Spotlight>
+
+      {/* ── CTA: A Ponte ─────────────────────────────────────────────── */}
+      <section style={{
+        maxWidth: 640, margin: '0 auto', padding: '48px 24px',
+        borderTop: `1px solid ${C.border}`,
+      }}>
+        <Link href="/a-ponte" className="card-hover" style={{
+          display: 'flex', alignItems: 'center', gap: 16,
+          padding: 24, borderRadius: 16,
+          background: 'rgba(201,168,76,0.06)',
+          border: `1px solid ${C.goldBorder}`,
+          textDecoration: 'none',
+        }}>
+          <div style={{
+            width: 48, height: 48, borderRadius: 12,
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            background: 'rgba(201,168,76,0.1)', flexShrink: 0,
+          }}>
+            <GitBranch size={22} style={{ color: C.gold }} />
+          </div>
+          <div style={{ flex: 1 }}>
+            <p style={{ fontFamily: SERIF, fontSize: 17, color: C.text, fontWeight: 500 }}>
+              Aprofunde na Ponte
+            </p>
+            <p style={{ fontSize: 13, color: C.secondary, marginTop: 4 }}>
+              Estudo comparativo lado a lado — por profeta, por tema, por versículo
+            </p>
+          </div>
+          <ArrowRight size={16} style={{ color: C.gold, flexShrink: 0 }} />
+        </Link>
+      </section>
 
     </div>
   )

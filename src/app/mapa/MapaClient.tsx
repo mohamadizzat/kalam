@@ -38,6 +38,8 @@ import {
   TrendingUp,
   RotateCcw,
   HeartHandshake,
+  GitBranch,
+  BookText,
   type LucideIcon,
 } from 'lucide-react'
 
@@ -127,6 +129,8 @@ const MAP_SECTIONS: MapSection[] = [
       { label: 'Financas Islamicas', href: '/a-jornada/financas', icon: DollarSign },
       { label: 'Calculadora de Zakat', href: '/a-jornada/zakat', icon: Calculator },
       { label: 'Desafios de 7 Dias', href: '/a-jornada/desafios', count: '7', icon: Trophy },
+      { label: 'A Ponte (Biblia × Alcorao)', href: '/a-ponte', icon: GitBranch },
+      { label: 'A Biblia do Kalam', href: '/a-biblia-do-kalam', count: '25', icon: BookText },
     ],
   },
   {

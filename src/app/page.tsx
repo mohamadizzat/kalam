@@ -14,10 +14,11 @@ import {
   Flame,
   BookMarked,
   PenLine,
-  Sparkles,
   Star,
-  X,
+  GitBranch,
+  BookText,
 } from 'lucide-react'
+import { OnboardingHome } from '@/components/home/OnboardingHome'
 
 // ── DATA ────────────────────────────────────────────────────────────────────────
 
@@ -195,15 +196,14 @@ export default function SanctuaryPage() {
   const [surahsReadCount, setSurahsReadCount] = useState(0)
   const [journalCount, setJournalCount] = useState(0)
   const [shareState, setShareState] = useState<'idle' | 'copied'>('idle')
-  const [showNewUserBanner, setShowNewUserBanner] = useState(false)
+  const [showOnboarding, setShowOnboarding] = useState(false)
 
   // Check if user has completed onboarding
   useEffect(() => {
     try {
       const done = localStorage.getItem('kalam-onboarding-done')
-      const dismissed = localStorage.getItem('kalam-banner-dismissed')
-      if (!done && !dismissed) {
-        setShowNewUserBanner(true)
+      if (!done) {
+        setShowOnboarding(true)
       }
     } catch {}
   }, [])
@@ -285,63 +285,16 @@ export default function SanctuaryPage() {
   return (
     <main className="min-h-screen" style={{ background: '#0D0B12' }}>
 
-      {/* ── NEW USER BANNER ────────────────────────────────────────────────── */}
+      {/* ── ONBOARDING (first-time visitors) ────────────────────────────── */}
       <AnimatePresence>
-        {showNewUserBanner && (
+        {showOnboarding && (
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.4, ease: 'easeInOut' }}
-            style={{ overflow: 'hidden' }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4 }}
           >
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '12px',
-              padding: '12px 20px',
-              background: 'rgba(201,168,76,0.06)',
-              borderBottom: '1px solid rgba(201,168,76,0.12)',
-              position: 'relative',
-            }}>
-              <Sparkles size={15} style={{ color: '#C9A84C', flexShrink: 0 }} />
-              <Link
-                href="/comecar"
-                style={{
-                  fontSize: '14px',
-                  color: '#C9A84C',
-                  textDecoration: 'none',
-                  fontFamily: 'var(--font-sans)',
-                }}
-              >
-                Novo aqui? <span style={{ textDecoration: 'underline', textUnderlineOffset: '3px' }}>Veja como começar</span>
-              </Link>
-              <button
-                onClick={() => {
-                  setShowNewUserBanner(false)
-                  try { localStorage.setItem('kalam-banner-dismissed', 'true') } catch {}
-                }}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  background: 'none',
-                  border: 'none',
-                  color: '#7A7870',
-                  cursor: 'pointer',
-                  padding: '4px',
-                  borderRadius: '4px',
-                  position: 'absolute',
-                  right: '12px',
-                  top: '50%',
-                  transform: 'translateY(-50%)',
-                }}
-                aria-label="Fechar banner"
-              >
-                <X size={14} />
-              </button>
-            </div>
+            <OnboardingHome onComplete={() => setShowOnboarding(false)} />
           </motion.div>
         )}
       </AnimatePresence>
@@ -606,6 +559,73 @@ export default function SanctuaryPage() {
               reflexões
             </span>
           </div>
+        </div>
+      </motion.section>
+
+      {/* ── FEATURED: A PONTE + A BÍBLIA DO KALAM ─────────────────────────── */}
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-50px' }}
+        transition={{ duration: 0.8 }}
+        className="px-6 py-12"
+        style={{ borderTop: '1px solid #272230' }}
+      >
+        <p style={{ fontSize: '11px', letterSpacing: '0.2em', color: '#7A7870', marginBottom: '16px', textAlign: 'center' }} className="uppercase">
+          Novidade
+        </p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', maxWidth: '480px', margin: '0 auto' }}>
+          <Link href="/a-ponte" className="card-hover" style={{
+            display: 'flex', alignItems: 'center', gap: '16px',
+            padding: '20px', borderRadius: '16px',
+            background: 'rgba(201,168,76,0.06)',
+            border: '1px solid rgba(201,168,76,0.2)',
+            textDecoration: 'none',
+          }}>
+            <div style={{
+              width: '48px', height: '48px', borderRadius: '12px',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              background: 'rgba(201,168,76,0.1)',
+              flexShrink: 0,
+            }}>
+              <GitBranch size={22} style={{ color: '#C9A84C' }} />
+            </div>
+            <div style={{ flex: 1 }}>
+              <p style={{ fontFamily: 'var(--font-serif)', fontSize: '16px', color: '#F0EBE2', fontWeight: 500 }}>
+                A Ponte
+              </p>
+              <p style={{ fontSize: '13px', color: '#B3B0A6', marginTop: '2px' }}>
+                Bíblia × Alcorão — estudo comparativo
+              </p>
+            </div>
+            <ArrowRight size={16} style={{ color: '#C9A84C', flexShrink: 0 }} />
+          </Link>
+
+          <Link href="/a-biblia-do-kalam" className="card-hover" style={{
+            display: 'flex', alignItems: 'center', gap: '16px',
+            padding: '20px', borderRadius: '16px',
+            background: 'rgba(201,168,76,0.04)',
+            border: '1px solid rgba(201,168,76,0.12)',
+            textDecoration: 'none',
+          }}>
+            <div style={{
+              width: '48px', height: '48px', borderRadius: '12px',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              background: 'rgba(201,168,76,0.08)',
+              flexShrink: 0,
+            }}>
+              <BookText size={22} style={{ color: '#C9A84C' }} />
+            </div>
+            <div style={{ flex: 1 }}>
+              <p style={{ fontFamily: 'var(--font-serif)', fontSize: '16px', color: '#F0EBE2', fontWeight: 500 }}>
+                A Bíblia do Kalam
+              </p>
+              <p style={{ fontSize: '13px', color: '#B3B0A6', marginTop: '2px' }}>
+                25 capítulos entrelaçando as duas escrituras
+              </p>
+            </div>
+            <ArrowRight size={16} style={{ color: '#C9A84C', flexShrink: 0 }} />
+          </Link>
         </div>
       </motion.section>
 

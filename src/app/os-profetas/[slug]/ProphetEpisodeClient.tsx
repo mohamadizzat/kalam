@@ -2,10 +2,20 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
+import { GitBranch } from 'lucide-react'
 import { BlurFade } from '@/components/effects/BlurFade'
 import { ScriptureCompare } from '@/components/shared/ScriptureCompare'
 import { BackButton } from '@/components/shared/BackButton'
 import type { Prophet } from './page'
+
+const ponteMap: Record<string, string> = {
+  'adao': 'adam',
+  'ibrahim': 'ibrahim',
+  'yusuf': 'yusuf',
+  'musa': 'musa',
+  'issa': 'isa',
+  'muhammad': 'muhammad',
+}
 
 interface Props {
   prophet: Prophet | null
@@ -325,6 +335,30 @@ export function ProphetEpisodeClient({ prophet }: Props) {
           </BlurFade>
         </div>
       </section>
+
+      {/* ── CROSS-LINK: A Ponte ── */}
+      {prophet.slug && ponteMap[prophet.slug] && (
+        <section style={{ padding: '0 24px' }}>
+          <div style={{ maxWidth: 760, margin: '0 auto' }}>
+            <div style={{ marginTop: 24 }}>
+              <Link
+                href={`/a-ponte/por-profeta/${ponteMap[prophet.slug]}`}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 8,
+                  fontSize: 13,
+                  color: '#C9A84C',
+                  textDecoration: 'none',
+                }}
+              >
+                <GitBranch size={14} />
+                Veja em A Ponte
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ── NEXT EPISODE NAV ── */}
       <section style={{ padding: '0 24px clamp(80px, 10vw, 120px)' }}>

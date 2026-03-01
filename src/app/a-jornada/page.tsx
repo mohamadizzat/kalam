@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { Compass, Users, BookOpen, Library, Target, Heart, CalendarDays, Star, Coins, Shield, Calculator, Moon, ListChecks } from 'lucide-react'
+import { Compass, Users, BookOpen, Library, Target, Heart, CalendarDays, Star, Coins, Shield, Calculator, Moon, ListChecks, GitBranch, BookText } from 'lucide-react'
 import { DifficultyBadge, type DifficultyLevel } from '@/components/shared/ContentBadges'
 
 const SECTIONS: Array<{ icon: typeof Moon; title: string; subtitle: string; href: string; level?: DifficultyLevel }> = [
@@ -19,6 +19,8 @@ const SECTIONS: Array<{ icon: typeof Moon; title: string; subtitle: string; href
   { icon: Coins, title: 'Financas Islamicas', subtitle: 'Riqueza com proposito: Zakat, Riba, investimento halal', href: '/a-jornada/financas', level: 'avancado' },
   { icon: Calculator, title: 'Calculadora de Zakat', subtitle: 'Calcule o valor do seu Zakat de forma simples', href: '/a-jornada/zakat', level: 'intermediario' },
   { icon: Target, title: 'Desafios de 7 Dias', subtitle: 'Transformacao pratica, uma semana de cada vez', href: '/a-jornada/desafios', level: 'iniciante' },
+  { icon: GitBranch, title: 'A Ponte', subtitle: 'Biblia × Alcorao — estudo comparativo lado a lado', href: '/a-ponte', level: 'intermediario' },
+  { icon: BookText, title: 'A Biblia do Kalam', subtitle: '25 capitulos entrelaçando as duas escrituras', href: '/a-biblia-do-kalam', level: 'iniciante' },
 ]
 
 const fadeUp = {
