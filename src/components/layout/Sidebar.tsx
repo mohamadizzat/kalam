@@ -180,6 +180,26 @@ const BOTTOM_LINKS: NavItem[] = [
   { label: 'Configurações', href: '/configuracoes', icon: Settings },
 ]
 
+// ── CONTENT COUNTERS (hardcoded for premium polish) ──────────────────────────
+
+const CONTENT_COUNTS: Record<string, string> = {
+  '/a-palavra': '114',
+  '/os-profetas': '25',
+  '/trilhas': '12',
+  '/a-biblia-do-kalam': '25',
+  '/perguntas': '10',
+  '/a-presenca/flashcards': '99',
+  '/a-presenca/dhikr': '33',
+}
+
+// ── PREMIUM DIVIDER ──────────────────────────────────────────────────────────
+
+const premiumDividerStyle: React.CSSProperties = {
+  height: 1,
+  background: `linear-gradient(to right, transparent, rgba(201,168,76,0.1), transparent)`,
+  border: 'none',
+}
+
 // ── SIDEBAR COMPONENT ────────────────────────────────────────────────────────
 
 export function Sidebar() {
@@ -252,13 +272,12 @@ export function Sidebar() {
             alignItems: 'center',
             justifyContent: isCollapsed ? 'center' : 'space-between',
             padding: isCollapsed ? '16px 8px' : '16px 16px',
-            borderBottom: `1px solid ${T.border}`,
             minHeight: 56,
           }}
         >
           {!isCollapsed && (
             <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 8 }}>
-              <span style={{ fontFamily: 'var(--font-arabic)', fontSize: 18, color: T.gold }}>كلام</span>
+              <span style={{ fontFamily: 'var(--font-arabic)', fontSize: 18, color: T.gold, textShadow: '0 0 20px rgba(201,168,76,0.3)' }}>كلام</span>
               <span style={{ fontFamily: 'var(--font-serif)', fontSize: 16, color: T.text, fontWeight: 700, letterSpacing: '-0.02em' }}>KALAM</span>
             </Link>
           )}
@@ -279,6 +298,7 @@ export function Sidebar() {
             {isCollapsed ? <PanelLeft size={18} /> : <PanelLeftClose size={18} />}
           </button>
         </div>
+        <div style={premiumDividerStyle} />
 
         {/* Home link */}
         <div style={{ padding: isCollapsed ? '8px 8px' : '8px 12px' }}>
@@ -361,6 +381,7 @@ export function Sidebar() {
                   <div style={{ paddingLeft: 12, marginTop: 2 }}>
                     {cat.items.map((item) => {
                       const active = isActive(item.href)
+                      const count = CONTENT_COUNTS[item.href]
                       return (
                         <Link
                           key={item.href}
@@ -376,11 +397,37 @@ export function Sidebar() {
                             color: active ? T.gold : T.secondary,
                             fontWeight: active ? 500 : 400,
                             background: active ? 'rgba(201,168,76,0.06)' : 'transparent',
-                            borderLeft: active ? `3px solid ${T.gold}` : '3px solid transparent',
+                            position: 'relative',
                             transition: 'all 0.15s ease',
                           }}
                         >
-                          {item.label}
+                          {/* Premium active indicator — gradient bar */}
+                          {active && (
+                            <span
+                              style={{
+                                position: 'absolute',
+                                left: 0,
+                                top: '20%',
+                                bottom: '20%',
+                                width: 3,
+                                borderRadius: 2,
+                                background: 'linear-gradient(to bottom, transparent, rgba(201,168,76,0.6), transparent)',
+                              }}
+                            />
+                          )}
+                          <span style={{ flex: 1 }}>{item.label}</span>
+                          {count && (
+                            <span
+                              style={{
+                                fontSize: 10,
+                                fontWeight: 600,
+                                color: T.muted,
+                                opacity: 0.7,
+                              }}
+                            >
+                              {count}
+                            </span>
+                          )}
                         </Link>
                       )
                     })}
@@ -392,9 +439,9 @@ export function Sidebar() {
         </nav>
 
         {/* Bottom links */}
+        <div style={premiumDividerStyle} />
         <div
           style={{
-            borderTop: `1px solid ${T.border}`,
             padding: isCollapsed ? '8px 8px' : '8px 12px',
           }}
         >
@@ -474,11 +521,10 @@ export function Sidebar() {
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 padding: '16px',
-                borderBottom: `1px solid ${T.border}`,
               }}
             >
               <Link href="/" onClick={close} style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 8 }}>
-                <span style={{ fontFamily: 'var(--font-arabic)', fontSize: 18, color: T.gold }}>كلام</span>
+                <span style={{ fontFamily: 'var(--font-arabic)', fontSize: 18, color: T.gold, textShadow: '0 0 20px rgba(201,168,76,0.3)' }}>كلام</span>
                 <span style={{ fontFamily: 'var(--font-serif)', fontSize: 16, color: T.text, fontWeight: 700 }}>KALAM</span>
               </Link>
               <button
@@ -488,6 +534,7 @@ export function Sidebar() {
                 <X size={20} />
               </button>
             </div>
+            <div style={premiumDividerStyle} />
 
             {/* Home */}
             <div style={{ padding: '8px 12px' }}>
@@ -553,6 +600,7 @@ export function Sidebar() {
                       <div style={{ paddingLeft: 12, marginTop: 2 }}>
                         {cat.items.map((item) => {
                           const active = isActive(item.href)
+                          const count = CONTENT_COUNTS[item.href]
                           return (
                             <Link
                               key={item.href}
@@ -569,10 +617,35 @@ export function Sidebar() {
                                 color: active ? T.gold : T.secondary,
                                 fontWeight: active ? 500 : 400,
                                 background: active ? 'rgba(201,168,76,0.06)' : 'transparent',
-                                borderLeft: active ? `3px solid ${T.gold}` : '3px solid transparent',
+                                position: 'relative',
                               }}
                             >
-                              {item.label}
+                              {active && (
+                                <span
+                                  style={{
+                                    position: 'absolute',
+                                    left: 0,
+                                    top: '20%',
+                                    bottom: '20%',
+                                    width: 3,
+                                    borderRadius: 2,
+                                    background: 'linear-gradient(to bottom, transparent, rgba(201,168,76,0.6), transparent)',
+                                  }}
+                                />
+                              )}
+                              <span style={{ flex: 1 }}>{item.label}</span>
+                              {count && (
+                                <span
+                                  style={{
+                                    fontSize: 10,
+                                    fontWeight: 600,
+                                    color: T.muted,
+                                    opacity: 0.7,
+                                  }}
+                                >
+                                  {count}
+                                </span>
+                              )}
                             </Link>
                           )
                         })}
@@ -584,7 +657,8 @@ export function Sidebar() {
             </nav>
 
             {/* Bottom links */}
-            <div style={{ borderTop: `1px solid ${T.border}`, padding: '8px 12px 16px' }}>
+            <div style={premiumDividerStyle} />
+            <div style={{ padding: '8px 12px 16px' }}>
               {BOTTOM_LINKS.map((link) => (
                 <Link
                   key={link.href}

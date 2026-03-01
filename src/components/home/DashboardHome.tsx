@@ -28,6 +28,7 @@ import {
 } from 'lucide-react'
 import { SANCTUARY_VERSES, NAMES_PREVIEW } from '@/lib/data/daily-content'
 import { surpriseFactsData } from '@/content/surpriseFacts'
+import { PremiumCard } from '@/components/shared/PremiumCard'
 
 // ── DESIGN TOKENS ────────────────────────────────────────────────────────────
 
@@ -290,15 +291,9 @@ export function DashboardHome() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.1 }}
-          style={{
-            background: T.surface,
-            border: `1px solid ${T.border}`,
-            borderRadius: 20,
-            padding: 24,
-            textAlign: 'center',
-            marginBottom: 16,
-          }}
+          style={{ marginBottom: 16 }}
         >
+        <PremiumCard variant="featured" spotlight style={{ borderRadius: 20, padding: 24, textAlign: 'center' as const }}>
           <p
             style={{
               fontFamily: 'var(--font-arabic)',
@@ -389,6 +384,7 @@ export function DashboardHome() {
               {shareState === 'copied' ? 'Copiado!' : 'Compartilhar'}
             </button>
           </div>
+        </PremiumCard>
         </motion.div>
       </section>
 
@@ -472,16 +468,15 @@ export function DashboardHome() {
             }}
           >
             {statsToShow.map((stat) => (
-              <div
+              <PremiumCard
                 key={stat.label}
+                variant="default"
                 style={{
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
                   padding: '16px 8px',
                   borderRadius: 12,
-                  background: T.surface,
-                  border: `1px solid ${T.border}`,
                 }}
               >
                 <stat.icon size={18} style={{ color: T.gold, marginBottom: 8 }} />
@@ -489,23 +484,22 @@ export function DashboardHome() {
                 <span style={{ fontSize: 11, color: T.muted, marginTop: 2 }}>
                   {stat.label}
                 </span>
-              </div>
+              </PremiumCard>
             ))}
           </div>
         ) : (
-          <div
+          <PremiumCard
+            variant="default"
             style={{
               padding: '20px 16px',
               borderRadius: 12,
-              background: T.surface,
-              border: `1px solid ${T.border}`,
-              textAlign: 'center',
+              textAlign: 'center' as const,
             }}
           >
             <p style={{ fontSize: 13, color: T.muted, lineHeight: 1.6 }}>
               Seu progresso aparecerá aqui conforme você explorar
             </p>
-          </div>
+          </PremiumCard>
         )}
       </motion.section>
 
@@ -580,13 +574,12 @@ export function DashboardHome() {
           Você sabia?
         </p>
 
-        <div
+        <PremiumCard
+          variant="gold"
           style={{
-            background: T.surface,
-            border: `1px solid ${T.border}`,
             borderRadius: 16,
             padding: '20px 18px',
-            position: 'relative',
+            position: 'relative' as const,
           }}
         >
           <AnimatePresence mode="wait">
@@ -634,7 +627,7 @@ export function DashboardHome() {
               />
             ))}
           </div>
-        </div>
+        </PremiumCard>
       </motion.section>
 
       {/* ═══════════════════════════════════════════════════════════════════════
@@ -663,17 +656,9 @@ export function DashboardHome() {
         <div style={{ maxWidth: 520, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 12 }}>
           <Link
             href="/a-ponte"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 16,
-              padding: 24,
-              borderRadius: 16,
-              background: 'rgba(201,168,76,0.06)',
-              border: '1px solid rgba(201,168,76,0.2)',
-              textDecoration: 'none',
-            }}
+            style={{ textDecoration: 'none' }}
           >
+          <PremiumCard variant="featured" spotlight style={{ display: 'flex', alignItems: 'center', gap: 16, padding: 24, borderRadius: 16 }}>
             <div style={{ width: 48, height: 48, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(201,168,76,0.1)', flexShrink: 0 }}>
               <GitBranch size={22} style={{ color: T.gold }} />
             </div>
@@ -682,21 +667,14 @@ export function DashboardHome() {
               <p style={{ fontSize: 13, color: T.secondary, marginTop: 2 }}>Bíblia &times; Alcorão &mdash; 17 profetas, 20 temas</p>
             </div>
             <ArrowRight size={16} style={{ color: T.gold, flexShrink: 0 }} />
+          </PremiumCard>
           </Link>
 
           <Link
             href="/a-biblia-do-kalam"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 16,
-              padding: 24,
-              borderRadius: 16,
-              background: 'rgba(201,168,76,0.04)',
-              border: '1px solid rgba(201,168,76,0.12)',
-              textDecoration: 'none',
-            }}
+            style={{ textDecoration: 'none' }}
           >
+          <PremiumCard variant="featured" spotlight style={{ display: 'flex', alignItems: 'center', gap: 16, padding: 24, borderRadius: 16 }}>
             <div style={{ width: 48, height: 48, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(201,168,76,0.08)', flexShrink: 0 }}>
               <BookText size={22} style={{ color: T.gold }} />
             </div>
@@ -705,6 +683,7 @@ export function DashboardHome() {
               <p style={{ fontSize: 13, color: T.secondary, marginTop: 2 }}>25 capítulos entrelaçando as duas escrituras</p>
             </div>
             <ArrowRight size={16} style={{ color: T.gold, flexShrink: 0 }} />
+          </PremiumCard>
           </Link>
         </div>
       </motion.section>
@@ -742,11 +721,11 @@ export function DashboardHome() {
           }}
         >
           {EXPLORE_SECTIONS.map((section) => (
-            <div
+            <PremiumCard
               key={section.category}
+              variant="default"
+              spotlight
               style={{
-                background: T.surface,
-                border: `1px solid ${T.border}`,
                 borderRadius: 14,
                 padding: '16px 14px',
               }}
@@ -782,7 +761,7 @@ export function DashboardHome() {
                   </Link>
                 ))}
               </div>
-            </div>
+            </PremiumCard>
           ))}
         </div>
       </motion.section>

@@ -161,6 +161,34 @@ body {
   animation: fadeUp 0.7s ease forwards;
 }
 
+/* ── Atmospheric Layer ─────────────────────────────────────────────── */
+
+/* Noise texture overlay */
+.atmospheric-noise {
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+}
+
+/* Aurora blobs: desktop only */
+@media (max-width: 768px) {
+  .atmospheric-aurora { display: none; }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .atmospheric-aurora { display: none; }
+}
+
+/* Spotlight: disable on touch devices */
+@media (hover: none) {
+  .premium-spotlight { display: none !important; }
+}
+
 /* ── Sidebar layout offset (desktop) ─────────────────────────────────── */
 @media (min-width: 769px) {
   .main-content-wrapper {
