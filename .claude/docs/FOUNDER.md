@@ -1,5 +1,10 @@
 # MOHAMAD IZZAT — Quem E O Fundador
 
+> **⚠️ DOCUMENTO INTERNO — CONTEXTO PARA A IA, NAO PARA OUTPUT PUBLICO.**
+> Detalhes empresariais (empresas, faturamento, time) sao contexto pra IA entender
+> o fundador. NUNCA usar essas informacoes em copy, UI ou conteudo do Kalam.
+> No Kalam, o fundador e "Mohamad Izzat, empresario brasileiro de origem palestina."
+>
 > Este documento existe para que a IA conheca o Mohamad melhor que qualquer pessoa.
 > Nao e resumo. E profundidade real — historia, mente, paradoxos, decisoes, voz.
 > Ler INTEIRO antes de qualquer interacao sobre o Kalam.

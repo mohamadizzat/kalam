@@ -64,3 +64,47 @@
 ### Proxima sessao
 - Ver BACKLOG.md para features pendentes
 - Companion Player continua prioridade #1
+
+---
+
+## 2026-03-01 | Session 2b — Brechas Tecnicas + Regras de Separacao
+
+### O que foi feito
+- **TECHNICAL.md reescrito COMPLETO** — De 123 linhas superficiais pra 300+ linhas com mapa real do codebase:
+  - Stack completo com versoes
+  - Supabase: project URL, schema com 8 tables, clients, auth flow
+  - Padroes de codigo: cn(), componente padrao, convencoes de nomeacao, nota sobre shadcn minimo
+  - Animacoes: Framer Motion padrao, 6 effects components, CSS keyframes, classes utilitarias
+  - Cores e tipografia detalhadas
+  - Providers com hierarquia completa do root layout
+  - Mapa de rotas COMPLETO (100+ rotas)
+  - Inventario de 50+ componentes organizados por categoria
+  - 100+ data files catalogados
+  - Audio system, persistencia, responsividade, build/deploy
+
+- **Regra de Independencia adicionada** (CLAUDE.md secao ②):
+  - Kalam e genuino e independente — NUNCA referenciar ecossistema empresarial
+  - Fundador = "empresario brasileiro" sem listar empresas
+  - Docs internos (FOUNDER, ECOSYSTEM) = contexto pra IA, nunca pra publico
+  - Novo padrao de monitoramento #6: "vazamento de contexto"
+
+- **NARRATIVE.md atualizado** — Secao "Independencia" adicionada com regras de como apresentar o fundador publicamente
+
+- **FOUNDER.md e ECOSYSTEM.md** — Warning headers adicionados: "DOCUMENTO INTERNO — NAO PARA OUTPUT PUBLICO"
+
+- **Protocolo de sessao fortalecido** (CLAUDE.md secao ④):
+  - Smoke test com 6 checkboxes antes de agir
+  - TECHNICAL.md adicionado como leitura obrigatoria
+  - Deploy checklist adicionado ao git protocol
+
+- **Supabase adicionado ao CLAUDE.md** (secao ⑨): project URL, clients, tables, referencia ao TECHNICAL.md
+
+### Verificacao
+- Regra de independencia presente em 4 docs (CLAUDE.md, NARRATIVE.md, FOUNDER.md header, ECOSYSTEM.md header) ✓
+- TECHNICAL.md cobre 50+ componentes, 100+ data files, schema Supabase ✓
+- Protocolo de sessao tem smoke test + deploy checklist ✓
+- Zero menção a empresas do ecossistema em áreas públicas ✓
+
+### Proxima sessao
+- Ver BACKLOG.md para features pendentes
+- Companion Player continua prioridade #1

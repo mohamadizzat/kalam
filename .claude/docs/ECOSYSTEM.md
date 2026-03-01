@@ -1,6 +1,10 @@
 # O ECOSSISTEMA IZZAT — Mapa Completo
 
-> Este documento explica o ecossistema inteiro do Mohamad Izzat.
+> **⚠️ DOCUMENTO INTERNO — CONTEXTO PARA A IA, NAO PARA OUTPUT PUBLICO.**
+> Nenhuma informacao deste doc deve aparecer em copy, UI, conteudo ou qualquer
+> material voltado ao publico do Kalam. O Kalam e movimento independente.
+> Este doc existe APENAS pra IA entender o contexto completo do fundador.
+
 > Cada empresa, como se conectam, a narrativa "Levantar o Brasil",
 > o DNA do sistema operacional, e como o Kalam se encaixa.
 
