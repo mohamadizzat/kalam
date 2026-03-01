@@ -6,9 +6,11 @@ import { usePathname } from 'next/navigation'
 import { Settings, User, LogOut, Search, Menu } from 'lucide-react'
 import { useAuth } from '@/providers/auth-provider'
 import { useSidebar } from './Sidebar'
+import { SearchDialog } from '@/components/shared/SearchDialog'
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false)
+  const [searchOpen, setSearchOpen] = useState(false)
   const pathname = usePathname()
   const { user, signOut } = useAuth()
   const { toggleOpen } = useSidebar()
@@ -17,6 +19,18 @@ export function Header() {
     const onScroll = () => setScrolled(window.scrollY > 20)
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  // Cmd+K / Ctrl+K shortcut
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault()
+        setSearchOpen(true)
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
   }, [])
 
   return (
@@ -106,28 +120,26 @@ export function Header() {
         {/* Right actions: Search + Auth + Settings */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
           {/* Search */}
-          <Link
-            href="/a-palavra/busca"
-            aria-label="Buscar"
+          <button
+            onClick={() => setSearchOpen(true)}
+            aria-label="Buscar (Cmd+K)"
             style={{
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              textDecoration: 'none',
-              color: pathname === '/a-palavra/busca' ? '#C9A84C' : '#7A7870',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              color: '#7A7870',
               transition: 'color 0.2s ease',
               padding: '6px',
               borderRadius: '8px',
             }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLAnchorElement).style.color = '#C9A84C'
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLAnchorElement).style.color = pathname === '/a-palavra/busca' ? '#C9A84C' : '#7A7870'
-            }}
+            onMouseEnter={(e) => { e.currentTarget.style.color = '#C9A84C' }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = '#7A7870' }}
           >
             <Search size={18} strokeWidth={1.5} />
-          </Link>
+          </button>
 
           {/* Auth */}
           {user ? (
@@ -197,6 +209,8 @@ export function Header() {
           </Link>
         </div>
       </header>
+
+      <SearchDialog open={searchOpen} onClose={() => setSearchOpen(false)} />
     </>
   )
 }

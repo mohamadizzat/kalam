@@ -148,6 +148,7 @@ const NAV_CATEGORIES: NavCategory[] = [
       { label: 'Duas', href: '/a-presenca/duas', icon: Heart },
       { label: 'Salah', href: '/a-presenca/salah', icon: Sun },
       { label: 'Hifz', href: '/a-palavra/hifz', icon: BookMarked },
+      { label: 'Contemplativo', href: '/contemplativo', icon: Sparkles },
     ],
   },
   {
