@@ -13,6 +13,7 @@ import { LenisProvider } from '@/providers/lenis-provider'
 import { Header } from '@/components/layout/Header'
 import { BottomNav } from '@/components/layout/BottomNav'
 import { Footer } from '@/components/layout/Footer'
+import { FloatingContinue } from '@/components/shared/FloatingContinue'
 import { Analytics } from '@vercel/analytics/next'
 import { AuthProvider } from '@/providers/auth-provider'
 
@@ -69,6 +70,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Header />
               <main className="pb-20 md:pb-0">{children}</main>
               <Footer />
+              <FloatingContinue />
               <BottomNav />
             </LenisProvider>
           </ThemeProvider>

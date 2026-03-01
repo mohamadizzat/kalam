@@ -1,10 +1,19 @@
 'use client'
 
+import { useState, useCallback } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { ArrowLeft, ArrowRight, BookOpen, MessageCircleQuestion } from 'lucide-react'
+import { ArrowLeft, ArrowRight, BookOpen, MessageCircleQuestion, Copy, Check, ChevronDown } from 'lucide-react'
 import { type BridgeTheme } from '@/lib/data/bridge-themes'
 import { BridgeScriptureView } from '@/components/shared/BridgeScriptureView'
+
+const NAV_PILLS = [
+  { id: 'biblia', label: 'Bíblia' },
+  { id: 'alcorao', label: 'Alcorão' },
+  { id: 'convergencia', label: 'Convergência' },
+  { id: 'divergencia', label: 'Divergência' },
+  { id: 'discussao', label: 'Discussão' },
+]
 
 interface Props {
   theme: BridgeTheme
@@ -12,9 +21,82 @@ interface Props {
   next: BridgeTheme | null
 }
 
+function CopyRefButton({ reference }: { reference: string }) {
+  const [copied, setCopied] = useState(false)
+  const handleCopy = useCallback(() => {
+    navigator.clipboard.writeText(reference).then(() => {
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    })
+  }, [reference])
+  return (
+    <button
+      onClick={handleCopy}
+      title="Copiar referência"
+      style={{
+        display: 'inline-flex', alignItems: 'center', gap: 4,
+        padding: '4px 10px', borderRadius: 6, fontSize: 11,
+        background: copied ? 'rgba(34,197,94,0.1)' : 'rgba(201,168,76,0.06)',
+        border: `1px solid ${copied ? 'rgba(34,197,94,0.25)' : 'rgba(201,168,76,0.12)'}`,
+        color: copied ? '#22c55e' : '#7A7870',
+        cursor: 'pointer', transition: 'all 0.2s ease',
+        fontFamily: 'var(--font-sans)',
+      }}
+    >
+      {copied ? <Check size={11} /> : <Copy size={11} />}
+      {copied ? 'Copiado' : 'Copiar'}
+    </button>
+  )
+}
+
 export function ThemeDetailClient({ theme, prev, next }: Props) {
+  const [reflectionOpen, setReflectionOpen] = useState(false)
+
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(`section-${id}`)
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+
   return (
     <main className="min-h-screen" style={{ background: '#0D0B12' }}>
+      {/* Floating section nav */}
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.6 }}
+        style={{
+          position: 'fixed', top: 12, left: '50%', transform: 'translateX(-50%)',
+          zIndex: 50, display: 'flex', gap: 4, padding: '6px 8px',
+          borderRadius: 999, background: 'rgba(22,18,32,0.92)',
+          border: '1px solid #272230', backdropFilter: 'blur(12px)',
+          WebkitBackdropFilter: 'blur(12px)',
+        }}
+      >
+        {NAV_PILLS.map((pill) => (
+          <button
+            key={pill.id}
+            onClick={() => scrollToSection(pill.id)}
+            style={{
+              padding: '6px 12px', borderRadius: 999, fontSize: 11,
+              fontFamily: 'var(--font-sans)', border: 'none',
+              background: 'transparent', color: '#B3B0A6',
+              cursor: 'pointer', transition: 'all 0.2s ease',
+              whiteSpace: 'nowrap',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'rgba(201,168,76,0.1)'
+              e.currentTarget.style.color = '#C9A84C'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'transparent'
+              e.currentTarget.style.color = '#B3B0A6'
+            }}
+          >
+            {pill.label}
+          </button>
+        ))}
+      </motion.div>
+
       <div style={{ maxWidth: 640, margin: '0 auto', padding: '48px 24px 100px' }}>
 
         <Link href="/a-ponte/por-tema" style={{
@@ -73,10 +155,11 @@ export function ThemeDetailClient({ theme, prev, next }: Props) {
 
         {/* ── Na Bíblia ── */}
         <motion.section
+          id="section-biblia"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          style={{ marginBottom: 40 }}
+          style={{ marginBottom: 40, scrollMarginTop: 60 }}
         >
           <h2 style={{
             fontFamily: 'var(--font-serif)', fontSize: 22, color: '#F0EBE2',
@@ -87,16 +170,25 @@ export function ThemeDetailClient({ theme, prev, next }: Props) {
           </h2>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             {theme.biblePassages.map((p, i) => (
-              <div key={i} style={{
-                padding: '20px 24px', borderRadius: 12,
-                background: '#161220', border: '1px solid #272230',
-              }}>
-                <p style={{
-                  fontFamily: 'var(--font-serif)', fontSize: 14,
-                  fontStyle: 'italic', color: '#C9A84C', marginBottom: 12,
-                }}>
-                  {p.reference}
-                </p>
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.25 + i * 0.08 }}
+                style={{
+                  padding: '20px 24px', borderRadius: 12,
+                  background: '#161220', border: '1px solid #272230',
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+                  <p style={{
+                    fontFamily: 'var(--font-serif)', fontSize: 14,
+                    fontStyle: 'italic', color: '#C9A84C',
+                  }}>
+                    {p.reference}
+                  </p>
+                  <CopyRefButton reference={p.reference} />
+                </div>
                 <p style={{ fontSize: 15, color: '#F0EBE2', lineHeight: 1.8, opacity: 0.9 }}>
                   {p.text}
                 </p>
@@ -108,17 +200,18 @@ export function ThemeDetailClient({ theme, prev, next }: Props) {
                     {p.context}
                   </p>
                 )}
-              </div>
+              </motion.div>
             ))}
           </div>
         </motion.section>
 
         {/* ── No Alcorão ── */}
         <motion.section
+          id="section-alcorao"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          style={{ marginBottom: 40 }}
+          style={{ marginBottom: 40, scrollMarginTop: 60 }}
         >
           <h2 style={{
             fontFamily: 'var(--font-serif)', fontSize: 22, color: '#F0EBE2',
@@ -129,16 +222,25 @@ export function ThemeDetailClient({ theme, prev, next }: Props) {
           </h2>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             {theme.quranPassages.map((p, i) => (
-              <div key={i} style={{
-                padding: '20px 24px', borderRadius: 12,
-                background: '#161220', border: '1px solid #272230',
-              }}>
-                <p style={{
-                  fontFamily: 'var(--font-serif)', fontSize: 14,
-                  fontStyle: 'italic', color: '#C9A84C', marginBottom: 12,
-                }}>
-                  {p.reference}
-                </p>
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.35 + i * 0.08 }}
+                style={{
+                  padding: '20px 24px', borderRadius: 12,
+                  background: '#161220', border: '1px solid #272230',
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+                  <p style={{
+                    fontFamily: 'var(--font-serif)', fontSize: 14,
+                    fontStyle: 'italic', color: '#C9A84C',
+                  }}>
+                    {p.reference}
+                  </p>
+                  <CopyRefButton reference={p.reference} />
+                </div>
                 <p style={{ fontSize: 15, color: '#F0EBE2', lineHeight: 1.8, opacity: 0.9 }}>
                   {p.text}
                 </p>
@@ -150,17 +252,18 @@ export function ThemeDetailClient({ theme, prev, next }: Props) {
                     {p.context}
                   </p>
                 )}
-              </div>
+              </motion.div>
             ))}
           </div>
         </motion.section>
 
         {/* ── Convergence ── */}
         <motion.section
+          id="section-convergencia"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.35 }}
-          style={{ marginBottom: 24 }}
+          style={{ marginBottom: 24, scrollMarginTop: 60 }}
         >
           <div style={{
             padding: '24px', borderRadius: 12,
@@ -182,10 +285,11 @@ export function ThemeDetailClient({ theme, prev, next }: Props) {
 
         {/* ── Divergence ── */}
         <motion.section
+          id="section-divergencia"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          style={{ marginBottom: 32 }}
+          style={{ marginBottom: 32, scrollMarginTop: 60 }}
         >
           <div style={{
             padding: '24px', borderRadius: 12,
@@ -207,30 +311,59 @@ export function ThemeDetailClient({ theme, prev, next }: Props) {
 
         {/* ── Discussion Question ── */}
         <motion.section
+          id="section-discussao"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.45 }}
-          style={{ marginBottom: 48 }}
+          style={{ marginBottom: 48, scrollMarginTop: 60 }}
         >
           <div style={{
-            padding: '24px', borderRadius: 12,
+            borderRadius: 12,
             background: '#161220', border: '1px solid rgba(201,168,76,0.15)',
+            overflow: 'hidden',
           }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
-              <MessageCircleQuestion size={18} style={{ color: '#C9A84C' }} />
+            <button
+              onClick={() => setReflectionOpen(!reflectionOpen)}
+              style={{
+                width: '100%', padding: '20px 24px',
+                display: 'flex', alignItems: 'center', gap: 10,
+                background: 'none', border: 'none', cursor: 'pointer',
+                textAlign: 'left',
+              }}
+            >
+              <MessageCircleQuestion size={18} style={{ color: '#C9A84C', flexShrink: 0 }} />
               <span style={{
                 fontSize: 11, letterSpacing: '0.15em', textTransform: 'uppercase',
-                color: '#C9A84C', fontFamily: 'var(--font-sans)',
+                color: '#C9A84C', fontFamily: 'var(--font-sans)', flex: 1,
               }}>
-                Para refletir
+                Refletir sobre esta questão
               </span>
-            </div>
-            <p style={{
-              fontFamily: 'var(--font-serif)', fontSize: 17, fontStyle: 'italic',
-              color: '#F0EBE2', lineHeight: 1.7,
-            }}>
-              {theme.discussionQuestion}
-            </p>
+              <motion.span
+                animate={{ rotate: reflectionOpen ? 180 : 0 }}
+                transition={{ duration: 0.25 }}
+                style={{ display: 'flex', flexShrink: 0 }}
+              >
+                <ChevronDown size={16} style={{ color: '#C9A84C' }} />
+              </motion.span>
+            </button>
+            <motion.div
+              initial={false}
+              animate={{
+                height: reflectionOpen ? 'auto' : 0,
+                opacity: reflectionOpen ? 1 : 0,
+              }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+              style={{ overflow: 'hidden' }}
+            >
+              <div style={{ padding: '0 24px 24px' }}>
+                <p style={{
+                  fontFamily: 'var(--font-serif)', fontSize: 17, fontStyle: 'italic',
+                  color: '#F0EBE2', lineHeight: 1.7,
+                }}>
+                  {theme.discussionQuestion}
+                </p>
+              </div>
+            </motion.div>
           </div>
         </motion.section>
 

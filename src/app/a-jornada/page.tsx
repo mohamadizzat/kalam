@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 import { Compass, Users, BookOpen, Library, Target, Heart, CalendarDays, Star, Coins, Shield, Calculator, Moon, ListChecks, GitBranch, BookText } from 'lucide-react'
 import { DifficultyBadge, type DifficultyLevel } from '@/components/shared/ContentBadges'
 
-const SECTIONS: Array<{ icon: typeof Moon; title: string; subtitle: string; href: string; level?: DifficultyLevel }> = [
+const SECTIONS: Array<{ icon: typeof Moon; title: string; subtitle: string; href: string; level?: DifficultyLevel; isNew?: boolean }> = [
   { icon: ListChecks, title: 'Plano Diario', subtitle: '3 micro-tarefas espirituais para hoje', href: '/a-jornada/plano-diario', level: 'iniciante' },
   { icon: Moon, title: 'Ramadan', subtitle: '30 dias de transformacao: misericordia, perdao e libertacao', href: '/a-jornada/ramadan', level: 'iniciante' },
   { icon: Compass, title: 'Trilhas de Estudo', subtitle: 'Jornadas guiadas de aprendizado', href: '/trilhas', level: 'iniciante' },
@@ -19,8 +19,8 @@ const SECTIONS: Array<{ icon: typeof Moon; title: string; subtitle: string; href
   { icon: Coins, title: 'Financas Islamicas', subtitle: 'Riqueza com proposito: Zakat, Riba, investimento halal', href: '/a-jornada/financas', level: 'avancado' },
   { icon: Calculator, title: 'Calculadora de Zakat', subtitle: 'Calcule o valor do seu Zakat de forma simples', href: '/a-jornada/zakat', level: 'intermediario' },
   { icon: Target, title: 'Desafios de 7 Dias', subtitle: 'Transformacao pratica, uma semana de cada vez', href: '/a-jornada/desafios', level: 'iniciante' },
-  { icon: GitBranch, title: 'A Ponte', subtitle: 'Biblia × Alcorao — estudo comparativo lado a lado', href: '/a-ponte', level: 'intermediario' },
-  { icon: BookText, title: 'A Biblia do Kalam', subtitle: '25 capitulos entrelaçando as duas escrituras', href: '/a-biblia-do-kalam', level: 'iniciante' },
+  { icon: GitBranch, title: 'A Ponte', subtitle: 'Biblia × Alcorao — estudo comparativo lado a lado', href: '/a-ponte', level: 'intermediario', isNew: true },
+  { icon: BookText, title: 'A Biblia do Kalam', subtitle: '25 capitulos entrelaçando as duas escrituras', href: '/a-biblia-do-kalam', level: 'iniciante', isNew: true },
 ]
 
 const fadeUp = {
@@ -72,10 +72,23 @@ export default function AJornadaPage() {
                 gap: '16px',
                 padding: '24px 20px',
                 borderRadius: '16px',
-                background: '#161220',
-                border: '1px solid #272230',
+                background: section.isNew ? 'rgba(22,18,32,1)' : '#161220',
+                border: section.isNew ? '1px solid rgba(201,168,76,0.25)' : '1px solid #272230',
                 textDecoration: 'none',
+                position: 'relative',
+                overflow: 'hidden',
               }}>
+                {section.isNew && (
+                  <div style={{
+                    position: 'absolute',
+                    top: 0,
+                    right: 0,
+                    width: 120,
+                    height: 120,
+                    background: 'radial-gradient(circle at top right, rgba(201,168,76,0.06) 0%, transparent 70%)',
+                    pointerEvents: 'none',
+                  }} />
+                )}
                 <div style={{
                   width: '48px',
                   height: '48px',
@@ -88,16 +101,36 @@ export default function AJornadaPage() {
                 }}>
                   <section.icon size={22} style={{ color: '#C9A84C' }} />
                 </div>
-                <div>
-                  <p style={{
-                    fontFamily: 'var(--font-serif)',
-                    fontSize: '16px',
-                    fontWeight: 600,
-                    color: '#F0EBE2',
-                    marginBottom: '4px',
-                  }}>
-                    {section.title}
-                  </p>
+                <div style={{ flex: 1 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+                    <p style={{
+                      fontFamily: 'var(--font-serif)',
+                      fontSize: '16px',
+                      fontWeight: 600,
+                      color: '#F0EBE2',
+                    }}>
+                      {section.title}
+                    </p>
+                    {section.isNew && (
+                      <span style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        padding: '2px 8px',
+                        borderRadius: 100,
+                        background: 'rgba(201,168,76,0.15)',
+                        border: '1px solid rgba(201,168,76,0.3)',
+                        fontFamily: 'var(--font-sans)',
+                        fontSize: '10px',
+                        fontWeight: 700,
+                        letterSpacing: '0.08em',
+                        textTransform: 'uppercase',
+                        color: '#C9A84C',
+                        lineHeight: '16px',
+                      }}>
+                        Novo
+                      </span>
+                    )}
+                  </div>
                   <p style={{
                     fontSize: '13px',
                     color: '#7A7870',

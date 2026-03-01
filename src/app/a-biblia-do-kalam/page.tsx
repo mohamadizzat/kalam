@@ -3,7 +3,8 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { BookText, ArrowRight, CheckCircle, Clock } from 'lucide-react'
+import { BookText, ArrowRight, CheckCircle, Clock, Shuffle, Trophy } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import { chapters } from '@/lib/data/biblia-do-kalam-chapters'
 
 const PROGRESS_KEY = 'kalam-biblia-progress'
@@ -23,15 +24,48 @@ function loadProgress(): ReadingProgress {
   }
 }
 
+// Parse reading time string like "10 min" -> number of minutes
+function parseReadingTime(rt: string): number {
+  const match = rt.match(/(\d+)/)
+  return match ? parseInt(match[1], 10) : 5
+}
+
 export default function ABibliaDoKalamPage() {
   const [progress, setProgress] = useState<ReadingProgress>({
     lastChapter: '', completedChapters: [], scrollPosition: 0,
   })
+  const [showBadge, setShowBadge] = useState(false)
+  const router = useRouter()
 
   useEffect(() => { setProgress(loadProgress()) }, [])
 
   const completedCount = progress.completedChapters.length
   const totalCount = chapters.length
+  const progressPercent = totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0
+  const totalReadingMinutes = chapters.reduce((sum, c) => sum + parseReadingTime(c.readingTime), 0)
+  const allComplete = completedCount === totalCount && totalCount > 0
+
+  // Show badge animation when all chapters are complete
+  useEffect(() => {
+    if (allComplete) {
+      const timer = setTimeout(() => setShowBadge(true), 600)
+      return () => clearTimeout(timer)
+    }
+  }, [allComplete])
+
+  const handleRandomChapter = () => {
+    const unread = chapters.filter(c => !progress.completedChapters.includes(c.slug))
+    const pool = unread.length > 0 ? unread : chapters
+    const random = pool[Math.floor(Math.random() * pool.length)]
+    router.push(`/a-biblia-do-kalam/${random.slug}`)
+  }
+
+  // SVG progress ring constants
+  const ringSize = 80
+  const ringStroke = 5
+  const ringRadius = (ringSize - ringStroke) / 2
+  const ringCircumference = 2 * Math.PI * ringRadius
+  const ringOffset = ringCircumference - (progressPercent / 100) * ringCircumference
 
   return (
     <main className="min-h-screen" style={{ background: '#0D0B12' }}>
@@ -65,6 +99,99 @@ export default function ABibliaDoKalamPage() {
             25 capítulos entrelaçando as duas escrituras.
             De Adão a Muhammad — a mesma história contada por dois livros.
           </p>
+
+          {/* Reading stats row */}
+          <div style={{
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            gap: 24, marginTop: 24, flexWrap: 'wrap',
+          }}>
+            {/* Progress ring */}
+            <div style={{ position: 'relative', width: ringSize, height: ringSize }}>
+              <svg width={ringSize} height={ringSize} style={{ transform: 'rotate(-90deg)' }}>
+                <circle
+                  cx={ringSize / 2} cy={ringSize / 2} r={ringRadius}
+                  fill="none" stroke="#272230" strokeWidth={ringStroke}
+                />
+                <motion.circle
+                  cx={ringSize / 2} cy={ringSize / 2} r={ringRadius}
+                  fill="none" stroke="#C9A84C" strokeWidth={ringStroke}
+                  strokeLinecap="round"
+                  strokeDasharray={ringCircumference}
+                  initial={{ strokeDashoffset: ringCircumference }}
+                  animate={{ strokeDashoffset: ringOffset }}
+                  transition={{ duration: 1.2, ease: 'easeOut', delay: 0.5 }}
+                />
+              </svg>
+              <div style={{
+                position: 'absolute', inset: 0,
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                flexDirection: 'column',
+              }}>
+                <motion.span
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.8 }}
+                  style={{ fontSize: 18, fontWeight: 700, color: '#C9A84C' }}
+                >
+                  {progressPercent}%
+                </motion.span>
+                <span style={{ fontSize: 9, color: '#7A7870', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                  lido
+                </span>
+              </div>
+            </div>
+
+            {/* Total reading time */}
+            <div style={{ textAlign: 'center' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6, justifyContent: 'center' }}>
+                <Clock size={14} style={{ color: '#7A7870' }} />
+                <span style={{ fontSize: 13, color: '#B3B0A6' }}>
+                  ~{totalReadingMinutes} min de leitura total
+                </span>
+              </div>
+              <p style={{ fontSize: 11, color: '#7A7870', marginTop: 4 }}>
+                {completedCount} de {totalCount} capítulos lidos
+              </p>
+            </div>
+          </div>
+
+          {/* Random chapter button */}
+          <motion.button
+            onClick={handleRandomChapter}
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            style={{
+              display: 'inline-flex', alignItems: 'center', gap: 8,
+              margin: '20px auto 0', padding: '10px 20px',
+              borderRadius: 100, cursor: 'pointer',
+              background: 'rgba(201,168,76,0.08)',
+              border: '1px solid rgba(201,168,76,0.2)',
+              color: '#C9A84C', fontSize: 13, fontFamily: 'var(--font-sans)',
+            }}
+          >
+            <Shuffle size={14} /> Sorteie um capítulo
+          </motion.button>
+
+          {/* Completion badge */}
+          {allComplete && showBadge && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, type: 'spring', bounce: 0.4 }}
+              style={{
+                display: 'flex', alignItems: 'center', gap: 10,
+                justifyContent: 'center', marginTop: 20,
+                padding: '12px 20px', borderRadius: 100,
+                background: 'rgba(34,197,94,0.08)',
+                border: '1px solid rgba(34,197,94,0.25)',
+              }}
+            >
+              <Trophy size={18} style={{ color: '#22c55e' }} />
+              <span style={{ fontSize: 14, fontWeight: 600, color: '#22c55e' }}>
+                Leitura completa! Parabéns!
+              </span>
+            </motion.div>
+          )}
         </motion.div>
 
         {/* ── Progress bar ── */}

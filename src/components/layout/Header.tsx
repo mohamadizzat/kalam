@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Settings, Map, User, LogOut } from 'lucide-react'
+import { Settings, Map, User, LogOut, Search } from 'lucide-react'
 import { useAuth } from '@/providers/auth-provider'
 
 const NAV_LINKS = [
@@ -12,10 +12,12 @@ const NAV_LINKS = [
   { label: 'A Jornada', href: '/a-jornada' },
   { label: 'A Alma', href: '/a-alma' },
   { label: 'Kids', href: '/kids' },
+  { label: 'Sobre', href: '/sobre' },
 ]
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false)
+  const [greeting, setGreeting] = useState('')
   const pathname = usePathname()
   const { user, signOut } = useAuth()
 
@@ -25,12 +27,27 @@ export function Header() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  useEffect(() => {
+    const updateGreeting = () => {
+      const hour = new Date().getHours()
+      if (hour >= 5 && hour < 12) setGreeting('Bom dia')
+      else if (hour >= 12 && hour < 18) setGreeting('Boa tarde')
+      else setGreeting('Boa noite')
+    }
+    updateGreeting()
+    const interval = setInterval(updateGreeting, 60000)
+    return () => clearInterval(interval)
+  }, [])
+
   return (
     <>
       <style>{`
         @media (max-width: 768px) {
           .header-desktop-nav { display: none !important; }
           .header-settings-label { display: none !important; }
+        }
+        @media (min-width: 769px) {
+          .header-greeting { display: none !important; }
         }
       `}</style>
 
@@ -82,6 +99,19 @@ export function Header() {
           }}>
             KALAM
           </span>
+          {greeting && (
+            <span
+              className="header-greeting"
+              style={{
+                fontFamily: 'var(--font-sans)',
+                fontSize: 11,
+                color: '#7A7870',
+                marginLeft: 2,
+              }}
+            >
+              {greeting}
+            </span>
+          )}
         </Link>
 
         {/* Desktop Nav */}
@@ -159,6 +189,30 @@ export function Header() {
             }}
           >
             <Map size={18} strokeWidth={1.5} />
+          </Link>
+
+          {/* Search */}
+          <Link
+            href="/a-palavra/busca"
+            aria-label="Buscar"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              textDecoration: 'none',
+              color: pathname === '/a-palavra/busca' ? '#C9A84C' : '#7A7870',
+              transition: 'color 0.2s ease',
+              padding: '6px',
+              borderRadius: '8px',
+            }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLAnchorElement).style.color = '#C9A84C'
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLAnchorElement).style.color = pathname === '/a-palavra/busca' ? '#C9A84C' : '#7A7870'
+            }}
+          >
+            <Search size={18} strokeWidth={1.5} />
           </Link>
 
           {/* Auth */}

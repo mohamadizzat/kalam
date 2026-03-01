@@ -1,9 +1,9 @@
 'use client'
 
-import { useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { ArrowLeft, ArrowRight, BookOpen, BookText, GitBranch, CheckCircle, Lightbulb } from 'lucide-react'
+import { ArrowLeft, ArrowRight, BookOpen, BookText, GitBranch, CheckCircle, Lightbulb, Clock, Check } from 'lucide-react'
 import { type NarrativeChapter } from '@/lib/data/biblia-do-kalam-chapters'
 
 const ponteMap: Record<string, string> = {
@@ -29,15 +29,41 @@ interface Props {
   chapter: NarrativeChapter
 }
 
-export function ChapterReaderClient({ chapter }: Props) {
+const SECTION_PILLS = [
+  { id: 'section-biblia', label: 'Na Bíblia' },
+  { id: 'section-alcorao', label: 'No Alcorão' },
+  { id: 'section-convergencia', label: 'Convergência' },
+  { id: 'section-insight', label: 'Insight' },
+]
 
-  // Track reading progress
+export function ChapterReaderClient({ chapter }: Props) {
+  const [scrollProgress, setScrollProgress] = useState(0)
+  const [isMarkedRead, setIsMarkedRead] = useState(false)
+  const [showPills, setShowPills] = useState(false)
+
+  // Track scroll progress for floating bar
+  useEffect(() => {
+    const onScroll = () => {
+      const scrollTop = window.scrollY
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight
+      const progress = docHeight > 0 ? Math.min(scrollTop / docHeight, 1) : 0
+      setScrollProgress(progress)
+      setShowPills(scrollTop > 200)
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  // Load initial "read" state + set lastChapter
   useEffect(() => {
     try {
       const raw = localStorage.getItem(PROGRESS_KEY)
       const progress = raw ? JSON.parse(raw) : { lastChapter: '', completedChapters: [], scrollPosition: 0 }
       progress.lastChapter = chapter.slug
       localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress))
+      if (progress.completedChapters.includes(chapter.slug)) {
+        setIsMarkedRead(true)
+      }
     } catch {}
   }, [chapter.slug])
 
@@ -49,11 +75,66 @@ export function ChapterReaderClient({ chapter }: Props) {
         progress.completedChapters.push(chapter.slug)
       }
       localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress))
+      setIsMarkedRead(true)
     } catch {}
   }, [chapter.slug])
 
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id)
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+
   return (
     <main className="min-h-screen" style={{ background: '#0D0B12' }}>
+      {/* Floating reading progress bar */}
+      <div style={{
+        position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
+        height: 3, background: 'rgba(39,34,48,0.5)',
+      }}>
+        <motion.div
+          style={{
+            height: '100%',
+            background: 'linear-gradient(90deg, #C9A84C, #e0c76e)',
+            width: `${scrollProgress * 100}%`,
+            boxShadow: '0 0 8px rgba(201,168,76,0.4)',
+          }}
+          transition={{ duration: 0.1 }}
+        />
+      </div>
+
+      {/* Floating section navigation pills */}
+      <motion.div
+        initial={false}
+        animate={{ opacity: showPills ? 1 : 0, y: showPills ? 0 : -20 }}
+        transition={{ duration: 0.3 }}
+        style={{
+          position: 'fixed', top: 10, left: '50%', transform: 'translateX(-50%)',
+          zIndex: 99, display: 'flex', gap: 6,
+          padding: '6px 10px', borderRadius: 100,
+          background: 'rgba(22,18,32,0.95)',
+          border: '1px solid #272230',
+          backdropFilter: 'blur(12px)',
+          WebkitBackdropFilter: 'blur(12px)',
+          pointerEvents: showPills ? 'auto' : 'none',
+        }}
+      >
+        {SECTION_PILLS.map((pill) => (
+          <button
+            key={pill.id}
+            onClick={() => scrollToSection(pill.id)}
+            style={{
+              padding: '5px 12px', borderRadius: 100, cursor: 'pointer',
+              background: 'rgba(201,168,76,0.06)',
+              border: '1px solid rgba(201,168,76,0.15)',
+              color: '#C9A84C', fontSize: 11, fontFamily: 'var(--font-sans)',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {pill.label}
+          </button>
+        ))}
+      </motion.div>
+
       <div style={{ maxWidth: 640, margin: '0 auto', padding: '48px 24px 100px' }}>
 
         {/* Back */}
@@ -71,12 +152,26 @@ export function ChapterReaderClient({ chapter }: Props) {
           transition={{ duration: 0.8, ease: 'easeOut' }}
           style={{ marginBottom: 48 }}
         >
-          <p style={{
-            fontSize: 11, letterSpacing: '0.2em', textTransform: 'uppercase',
-            color: '#7A7870', marginBottom: 8,
+          <div style={{
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            gap: 8, marginBottom: 8, flexWrap: 'wrap',
           }}>
-            Capítulo {chapter.id} · {chapter.era} · {chapter.readingTime}
-          </p>
+            <span style={{
+              fontSize: 11, letterSpacing: '0.2em', textTransform: 'uppercase',
+              color: '#7A7870',
+            }}>
+              Capítulo {chapter.id} · {chapter.era}
+            </span>
+            <span style={{
+              display: 'inline-flex', alignItems: 'center', gap: 4,
+              fontSize: 11, color: '#C9A84C',
+              background: 'rgba(201,168,76,0.08)',
+              border: '1px solid rgba(201,168,76,0.15)',
+              borderRadius: 100, padding: '2px 10px',
+            }}>
+              <Clock size={10} /> {chapter.readingTime}
+            </span>
+          </div>
           <h1 style={{
             fontFamily: 'var(--font-serif)', fontSize: 'clamp(28px, 7vw, 40px)',
             fontWeight: 700, color: '#F0EBE2',
@@ -91,10 +186,11 @@ export function ChapterReaderClient({ chapter }: Props) {
 
         {/* ── Section: Na Bíblia ── */}
         <motion.section
+          id="section-biblia"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          style={{ marginBottom: 48 }}
+          style={{ marginBottom: 48, scrollMarginTop: 60 }}
         >
           <div style={{
             display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20,
@@ -117,10 +213,11 @@ export function ChapterReaderClient({ chapter }: Props) {
 
         {/* ── Section: No Alcorão ── */}
         <motion.section
+          id="section-alcorao"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          style={{ marginBottom: 48 }}
+          style={{ marginBottom: 48, scrollMarginTop: 60 }}
         >
           <div style={{
             display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20,
@@ -143,10 +240,11 @@ export function ChapterReaderClient({ chapter }: Props) {
 
         {/* ── Section: Convergence ── */}
         <motion.section
+          id="section-convergencia"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          style={{ marginBottom: 32 }}
+          style={{ marginBottom: 32, scrollMarginTop: 60 }}
         >
           <div style={{
             padding: 24, borderRadius: 16,
@@ -201,10 +299,11 @@ export function ChapterReaderClient({ chapter }: Props) {
 
         {/* ── Key Insight ── */}
         <motion.section
+          id="section-insight"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.5 }}
-          style={{ marginBottom: 48 }}
+          style={{ marginBottom: 48, scrollMarginTop: 60 }}
         >
           <div style={{
             padding: 24, borderRadius: 16,
@@ -256,20 +355,38 @@ export function ChapterReaderClient({ chapter }: Props) {
 
         {/* ── Mark complete + Navigation ── */}
         <div style={{ borderTop: '1px solid #272230', paddingTop: 24 }}>
-          <button
+          <motion.button
             onClick={markComplete}
+            whileTap={{ scale: 0.97 }}
             style={{
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               gap: 8, width: '100%', padding: '14px',
               borderRadius: 12, marginBottom: 20,
-              background: 'rgba(34,197,94,0.06)',
-              border: '1px solid rgba(34,197,94,0.2)',
-              color: '#22c55e', fontSize: 14, cursor: 'pointer',
+              background: isMarkedRead ? 'rgba(34,197,94,0.12)' : 'rgba(34,197,94,0.06)',
+              border: `1px solid ${isMarkedRead ? 'rgba(34,197,94,0.35)' : 'rgba(34,197,94,0.2)'}`,
+              color: '#22c55e', fontSize: 14,
+              cursor: isMarkedRead ? 'default' : 'pointer',
               fontFamily: 'var(--font-sans)',
+              transition: 'all 0.3s ease',
             }}
           >
-            <CheckCircle size={16} /> Marcar como lido
-          </button>
+            {isMarkedRead ? (
+              <>
+                <motion.div
+                  initial={{ scale: 0, rotate: -90 }}
+                  animate={{ scale: 1, rotate: 0 }}
+                  transition={{ type: 'spring', bounce: 0.5 }}
+                >
+                  <Check size={16} />
+                </motion.div>
+                <span>Lido!</span>
+              </>
+            ) : (
+              <>
+                <CheckCircle size={16} /> Marcar como lido
+              </>
+            )}
+          </motion.button>
 
           <div style={{
             display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16,

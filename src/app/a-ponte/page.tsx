@@ -1,14 +1,70 @@
 'use client'
 
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
-import { motion } from 'framer-motion'
-import { Users, Layers, BookOpen, PenLine } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import { motion, useInView } from 'framer-motion'
+import { Users, Layers, BookOpen, PenLine, Search } from 'lucide-react'
 import { BlurFade } from '@/components/effects/BlurFade'
 import { BridgeScriptureView } from '@/components/shared/BridgeScriptureView'
+import { verseMappings } from '@/lib/data/bridge-verse-map'
+import { bridgeProphets } from '@/lib/data/bridge-prophets'
+import { bridgeThemes } from '@/lib/data/bridge-themes'
 
 const fadeUp = {
   initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },
+}
+
+function AnimatedCounter({ target, label, delay = 0 }: { target: number; label: string; delay?: number }) {
+  const ref = useRef<HTMLDivElement>(null)
+  const isInView = useInView(ref, { once: true, margin: '-50px' })
+  const [count, setCount] = useState(0)
+
+  useEffect(() => {
+    if (!isInView) return
+    const timer = setTimeout(() => {
+      let start = 0
+      const duration = 1200
+      const step = 16
+      const increment = target / (duration / step)
+      const interval = setInterval(() => {
+        start += increment
+        if (start >= target) {
+          setCount(target)
+          clearInterval(interval)
+        } else {
+          setCount(Math.floor(start))
+        }
+      }, step)
+      return () => clearInterval(interval)
+    }, delay)
+    return () => clearTimeout(timer)
+  }, [isInView, target, delay])
+
+  return (
+    <div ref={ref} style={{ textAlign: 'center' }}>
+      <motion.span
+        style={{
+          fontFamily: 'var(--font-serif)',
+          fontSize: 'clamp(28px, 5vw, 40px)',
+          fontWeight: 700,
+          color: '#C9A84C',
+          display: 'block',
+        }}
+      >
+        {count}
+      </motion.span>
+      <span style={{ fontSize: 13, color: '#B3B0A6', letterSpacing: '0.05em' }}>{label}</span>
+    </div>
+  )
+}
+
+// Pick a verse pair based on day of month
+function getDailyVersePair() {
+  const dayOfMonth = new Date().getDate()
+  const index = (dayOfMonth - 1) % verseMappings.length
+  return verseMappings[index]
 }
 
 const MODES = [
@@ -39,6 +95,30 @@ const MODES = [
 ]
 
 export default function APontePage() {
+  const [searchQuery, setSearchQuery] = useState('')
+  const router = useRouter()
+  const dailyVerse = getDailyVersePair()
+
+  const filteredModes = MODES.filter(mode =>
+    searchQuery === '' ||
+    mode.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    mode.subtitle.toLowerCase().includes(searchQuery.toLowerCase())
+  )
+
+  // Search prophets and themes for quick nav
+  const matchedProphets = searchQuery.length >= 2
+    ? bridgeProphets.filter(p =>
+        p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        p.arabicName.includes(searchQuery)
+      ).slice(0, 4)
+    : []
+
+  const matchedThemes = searchQuery.length >= 2
+    ? bridgeThemes.filter(t =>
+        t.title.toLowerCase().includes(searchQuery.toLowerCase())
+      ).slice(0, 4)
+    : []
+
   return (
     <div style={{
       minHeight: '100vh',
@@ -135,6 +215,153 @@ export default function APontePage() {
               <div style={{ width: 40, height: 1, background: 'rgba(201,168,76,0.3)' }} />
             </div>
           </BlurFade>
+        </div>
+      </section>
+
+      {/* ── VERSE OF THE DAY ── */}
+      <section style={{ padding: '0 24px clamp(32px, 4vw, 48px)' }}>
+        <div style={{ maxWidth: 640, margin: '0 auto' }}>
+          <BlurFade delay={0.5}>
+            <div style={{
+              padding: 24, borderRadius: 16,
+              background: 'rgba(201,168,76,0.04)',
+              border: '1px solid rgba(201,168,76,0.12)',
+            }}>
+              <p style={{
+                fontSize: 10, letterSpacing: '3px', textTransform: 'uppercase',
+                color: '#C9A84C', marginBottom: 16, textAlign: 'center',
+              }}>
+                Versículo do dia
+              </p>
+              <div style={{
+                display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20,
+              }}>
+                {/* Bible side */}
+                <div>
+                  <p style={{
+                    fontSize: 10, letterSpacing: '2px', textTransform: 'uppercase',
+                    color: '#7A7870', marginBottom: 8,
+                  }}>
+                    Bíblia
+                  </p>
+                  <p style={{
+                    fontFamily: 'var(--font-serif)', fontSize: 14,
+                    fontStyle: 'italic', color: '#F0EBE2', lineHeight: 1.7,
+                    marginBottom: 6,
+                  }}>
+                    &ldquo;{dailyVerse.bibleVerse.text.slice(0, 120)}...&rdquo;
+                  </p>
+                  <p style={{ fontSize: 11, color: '#C9A84C' }}>
+                    {dailyVerse.bibleVerse.reference}
+                  </p>
+                </div>
+                {/* Quran side */}
+                <div>
+                  <p style={{
+                    fontSize: 10, letterSpacing: '2px', textTransform: 'uppercase',
+                    color: '#7A7870', marginBottom: 8,
+                  }}>
+                    Alcorão
+                  </p>
+                  <p style={{
+                    fontFamily: 'var(--font-serif)', fontSize: 14,
+                    fontStyle: 'italic', color: '#F0EBE2', lineHeight: 1.7,
+                    marginBottom: 6,
+                  }}>
+                    &ldquo;{dailyVerse.relatedQuranVerses[0]?.translation.slice(0, 120)}...&rdquo;
+                  </p>
+                  <p style={{ fontSize: 11, color: '#C9A84C' }}>
+                    {dailyVerse.relatedQuranVerses[0]?.reference}
+                  </p>
+                </div>
+              </div>
+              <p style={{
+                fontSize: 13, color: '#B3B0A6', lineHeight: 1.6,
+                marginTop: 16, paddingTop: 12,
+                borderTop: '1px solid rgba(201,168,76,0.1)',
+                textAlign: 'center', fontStyle: 'italic',
+              }}>
+                {dailyVerse.bridgeInsight}
+              </p>
+            </div>
+          </BlurFade>
+        </div>
+      </section>
+
+      {/* ── ANIMATED COUNTERS ── */}
+      <section style={{ padding: '0 24px clamp(32px, 4vw, 48px)' }}>
+        <div style={{
+          maxWidth: 480, margin: '0 auto',
+          display: 'flex', justifyContent: 'space-around', alignItems: 'center',
+        }}>
+          <AnimatedCounter target={bridgeProphets.length} label="profetas" delay={0} />
+          <div style={{ width: 1, height: 40, background: '#272230' }} />
+          <AnimatedCounter target={bridgeThemes.length} label="temas" delay={200} />
+          <div style={{ width: 1, height: 40, background: '#272230' }} />
+          <AnimatedCounter target={verseMappings.length} label="versículos" delay={400} />
+        </div>
+      </section>
+
+      {/* ── SEARCH / FILTER ── */}
+      <section style={{ padding: '0 24px clamp(24px, 3vw, 40px)' }}>
+        <div style={{ maxWidth: 480, margin: '0 auto' }}>
+          <div style={{
+            display: 'flex', alignItems: 'center', gap: 10,
+            padding: '10px 16px', borderRadius: 12,
+            background: '#161220', border: '1px solid #272230',
+          }}>
+            <Search size={16} style={{ color: '#7A7870', flexShrink: 0 }} />
+            <input
+              type="text"
+              placeholder="Buscar profeta, tema ou versículo..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              style={{
+                flex: 1, background: 'none', border: 'none', outline: 'none',
+                color: '#F0EBE2', fontSize: 14, fontFamily: 'var(--font-sans)',
+              }}
+            />
+          </div>
+          {/* Quick results */}
+          {(matchedProphets.length > 0 || matchedThemes.length > 0) && (
+            <div style={{
+              marginTop: 8, padding: 12, borderRadius: 12,
+              background: '#161220', border: '1px solid #272230',
+              display: 'flex', flexDirection: 'column', gap: 4,
+            }}>
+              {matchedProphets.map(p => (
+                <Link
+                  key={p.id}
+                  href={`/a-ponte/por-profeta/${p.id}`}
+                  style={{
+                    display: 'flex', alignItems: 'center', gap: 8,
+                    padding: '8px 12px', borderRadius: 8,
+                    textDecoration: 'none', color: '#F0EBE2', fontSize: 14,
+                    background: 'rgba(201,168,76,0.04)',
+                  }}
+                >
+                  <Users size={14} style={{ color: '#C9A84C' }} />
+                  <span>{p.name}</span>
+                  <span style={{ fontSize: 11, color: '#7A7870', marginLeft: 'auto' }}>{p.era}</span>
+                </Link>
+              ))}
+              {matchedThemes.map(t => (
+                <Link
+                  key={t.id}
+                  href={`/a-ponte/por-tema/${t.id}`}
+                  style={{
+                    display: 'flex', alignItems: 'center', gap: 8,
+                    padding: '8px 12px', borderRadius: 8,
+                    textDecoration: 'none', color: '#F0EBE2', fontSize: 14,
+                    background: 'rgba(201,168,76,0.04)',
+                  }}
+                >
+                  <Layers size={14} style={{ color: '#C9A84C' }} />
+                  <span>{t.title}</span>
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 

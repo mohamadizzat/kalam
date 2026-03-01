@@ -1,9 +1,10 @@
 'use client'
 
+import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { ChevronDown, BookOpen, GitBranch, ArrowRight } from 'lucide-react'
+import { ChevronDown, BookOpen, GitBranch, ArrowRight, Share2, Check } from 'lucide-react'
 import { BlurFade } from '@/components/effects/BlurFade'
 import { Spotlight } from '@/components/effects/Spotlight'
 import { BackgroundBeams } from '@/components/effects/BackgroundBeams'
@@ -905,35 +906,105 @@ export default function AMensagemPage() {
         </section>
       </Spotlight>
 
-      {/* ── CTA: A Ponte ─────────────────────────────────────────────── */}
+      {/* ── Descubra A Ponte — Prominent Callout ─────────────────────── */}
       <section style={{
-        maxWidth: 640, margin: '0 auto', padding: '48px 24px',
+        padding: 'clamp(60px, 8vw, 100px) 24px',
+        background: C.bg,
         borderTop: `1px solid ${C.border}`,
       }}>
-        <Link href="/a-ponte" className="card-hover" style={{
-          display: 'flex', alignItems: 'center', gap: 16,
-          padding: 24, borderRadius: 16,
-          background: 'rgba(201,168,76,0.06)',
-          border: `1px solid ${C.goldBorder}`,
-          textDecoration: 'none',
-        }}>
-          <div style={{
-            width: 48, height: 48, borderRadius: 12,
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            background: 'rgba(201,168,76,0.1)', flexShrink: 0,
-          }}>
-            <GitBranch size={22} style={{ color: C.gold }} />
-          </div>
-          <div style={{ flex: 1 }}>
-            <p style={{ fontFamily: SERIF, fontSize: 17, color: C.text, fontWeight: 500 }}>
-              Aprofunde na Ponte
-            </p>
-            <p style={{ fontSize: 13, color: C.secondary, marginTop: 4 }}>
-              Estudo comparativo lado a lado — por profeta, por tema, por versículo
-            </p>
-          </div>
-          <ArrowRight size={16} style={{ color: C.gold, flexShrink: 0 }} />
-        </Link>
+        <div style={{ maxWidth: 700, margin: '0 auto' }}>
+          <BlurFade delay={0}>
+            <div style={{
+              padding: 'clamp(32px, 5vw, 48px)',
+              borderRadius: 4,
+              background: C.surface,
+              border: `1px solid ${C.goldBorder}`,
+              position: 'relative',
+              overflow: 'hidden',
+            }}>
+              {/* Gold top line */}
+              <div style={{
+                position: 'absolute', top: 0, left: 0, right: 0, height: 2,
+                background: `linear-gradient(90deg, transparent, ${C.gold}, transparent)`,
+              }} />
+
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
+                <GitBranch size={20} style={{ color: C.gold }} />
+                <span style={{
+                  fontFamily: SANS, fontSize: 11, letterSpacing: '3px',
+                  textTransform: 'uppercase', color: 'rgba(201,168,76,0.6)',
+                }}>
+                  DESCUBRA A PONTE
+                </span>
+              </div>
+
+              <h3 style={{
+                fontFamily: SERIF, fontSize: 'clamp(22px, 3vw, 28px)',
+                fontWeight: 600, color: C.text, marginBottom: 16, lineHeight: 1.3,
+              }}>
+                Bíblia e Alcorão, lado a lado
+              </h3>
+
+              <p style={{
+                fontFamily: SANS, fontSize: 15, color: C.secondary,
+                lineHeight: 1.75, marginBottom: 24,
+              }}>
+                Explore 20 temas teológicos, dezenas de versículos mapeados e comparações
+                detalhadas entre as duas escrituras. O que converge, o que diverge, e por quê.
+              </p>
+
+              {/* Mini preview — side by side */}
+              <div style={{
+                display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 28,
+              }}>
+                <div style={{
+                  padding: '14px 16px', borderRadius: 4,
+                  background: 'rgba(255,255,255,0.02)', border: `1px solid ${C.border}`,
+                }}>
+                  <p style={{ fontFamily: SANS, fontSize: 9, letterSpacing: '2px', textTransform: 'uppercase', color: C.muted, marginBottom: 8 }}>
+                    BÍBLIA
+                  </p>
+                  <p style={{ fontFamily: SERIF, fontSize: 12, fontStyle: 'italic', color: C.secondary, lineHeight: 1.5 }}>
+                    "Ouve, Israel: o Senhor, nosso Deus, é o único Senhor."
+                  </p>
+                  <p style={{ fontFamily: SANS, fontSize: 10, color: C.muted, marginTop: 6 }}>Deuteronômio 6:4</p>
+                </div>
+                <div style={{
+                  padding: '14px 16px', borderRadius: 4,
+                  background: C.goldMuted, border: `1px solid ${C.goldBorder}`,
+                }}>
+                  <p style={{ fontFamily: SANS, fontSize: 9, letterSpacing: '2px', textTransform: 'uppercase', color: 'rgba(201,168,76,0.6)', marginBottom: 8 }}>
+                    ALCORÃO
+                  </p>
+                  <p style={{ fontFamily: SERIF, fontSize: 12, fontStyle: 'italic', color: C.gold, lineHeight: 1.5 }}>
+                    "Dize: Ele é Deus, o Único."
+                  </p>
+                  <p style={{ fontFamily: SANS, fontSize: 10, color: C.muted, marginTop: 6 }}>Surah Al-Ikhlas 112:1</p>
+                </div>
+              </div>
+
+              <Link href="/a-ponte" style={{
+                display: 'inline-flex', alignItems: 'center', gap: 8,
+                fontFamily: SANS, fontSize: 12, fontWeight: 700,
+                letterSpacing: '3px', textTransform: 'uppercase',
+                color: C.gold, textDecoration: 'none',
+                padding: '14px 28px', borderRadius: 2,
+                border: `1px solid ${C.goldBorder}`,
+                transition: 'all 0.3s ease',
+              }}>
+                Explorar A Ponte <ArrowRight size={14} />
+              </Link>
+            </div>
+          </BlurFade>
+        </div>
+      </section>
+
+      {/* ── Share button ─────────────────────────────────────────────── */}
+      <section style={{
+        maxWidth: 640, margin: '0 auto', padding: '0 24px 48px',
+        textAlign: 'center',
+      }}>
+        <ShareButton />
       </section>
 
     </div>
@@ -988,6 +1059,39 @@ interface CtaButtonProps {
   label: string
   onClick: () => void
   primary: boolean
+}
+
+function ShareButton() {
+  const [shared, setShared] = useState(false)
+  const handleShare = () => {
+    const url = typeof window !== 'undefined' ? window.location.href : ''
+    const text = 'Você já ouviu essa história antes. Só não ouviu o capítulo final. — A Mensagem (Kalam)'
+    if (typeof navigator !== 'undefined' && navigator.share) {
+      navigator.share({ title: 'A Mensagem — Kalam', text, url }).catch(() => {})
+    } else {
+      navigator.clipboard.writeText(`${text}\n${url}`).then(() => {
+        setShared(true)
+        setTimeout(() => setShared(false), 2500)
+      })
+    }
+  }
+  return (
+    <button
+      onClick={handleShare}
+      style={{
+        display: 'inline-flex', alignItems: 'center', gap: 8,
+        padding: '12px 24px', borderRadius: 999,
+        background: shared ? 'rgba(34,197,94,0.08)' : 'transparent',
+        border: `1px solid ${shared ? 'rgba(34,197,94,0.3)' : C.border}`,
+        color: shared ? '#22c55e' : C.muted,
+        fontSize: 13, cursor: 'pointer',
+        fontFamily: SANS, transition: 'all 0.2s ease',
+      }}
+    >
+      {shared ? <Check size={14} /> : <Share2 size={14} />}
+      {shared ? 'Link copiado!' : 'Compartilhar esta página'}
+    </button>
+  )
 }
 
 function CtaButton({ label, onClick, primary }: CtaButtonProps) {

@@ -2,14 +2,14 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { BookOpen, Sun, Compass, Heart, Star } from 'lucide-react'
+import { Home, BookOpen, Sun, Compass, Heart } from 'lucide-react'
 
 const TABS = [
+  { label: 'Início', href: '/', Icon: Home },
   { label: 'A Palavra', href: '/a-palavra', Icon: BookOpen },
-  { label: 'A Presenca', href: '/a-presenca', Icon: Sun },
+  { label: 'A Presença', href: '/a-presenca', Icon: Sun },
   { label: 'A Jornada', href: '/a-jornada', Icon: Compass },
   { label: 'A Alma', href: '/a-alma', Icon: Heart },
-  { label: 'Kids', href: '/kids', Icon: Star },
 ]
 
 export function BottomNav() {
@@ -38,7 +38,7 @@ export function BottomNav() {
         }}
       >
         {TABS.map(({ label, href, Icon }) => {
-          const isActive = pathname.startsWith(href)
+          const isActive = href === '/' ? pathname === '/' : pathname.startsWith(href)
           return (
             <Link
               key={label}

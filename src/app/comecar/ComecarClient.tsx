@@ -17,6 +17,7 @@ import {
   ArrowRight,
   ArrowLeft,
   X,
+  GitBranch,
 } from 'lucide-react'
 
 // ── TYPES ──────────────────────────────────────────────────────────────────────
@@ -132,6 +133,12 @@ const PATHS = [
     label: 'Quero praticar',
     desc: 'Dhikr — lembrança de Deus com o coração.',
     href: '/a-presenca/dhikr',
+  },
+  {
+    icon: GitBranch,
+    label: 'Venho da Bíblia',
+    desc: 'Compare as escrituras lado a lado — A Ponte entre Bíblia e Alcorão.',
+    href: '/a-ponte',
   },
 ]
 

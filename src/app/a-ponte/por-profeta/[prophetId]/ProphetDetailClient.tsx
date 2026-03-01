@@ -1,8 +1,9 @@
 'use client'
 
+import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { ArrowLeft, ArrowRight, BookOpen, BookText, CheckCircle, AlertCircle } from 'lucide-react'
+import { ArrowLeft, ArrowRight, BookOpen, BookText, CheckCircle, AlertCircle, Copy, Check, Share2 } from 'lucide-react'
 import { type BridgeProphet } from '@/lib/data/bridge-prophets'
 import { BridgeScriptureView } from '@/components/shared/BridgeScriptureView'
 
@@ -34,9 +35,106 @@ const fadeUp = {
   transition: { duration: 0.8, ease: 'easeOut' as const },
 }
 
+const PROPHET_PILLS = [
+  { id: 'prophet-biblia', label: 'Bíblia' },
+  { id: 'prophet-alcorao', label: 'Alcorão' },
+  { id: 'prophet-convergencias', label: 'Convergências' },
+  { id: 'prophet-divergencias', label: 'Divergências' },
+]
+
+function CopyButton({ text, label }: { text: string; label: string }) {
+  const [copied, setCopied] = useState(false)
+  const handleCopy = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText(text)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch {}
+  }, [text])
+
+  return (
+    <button
+      onClick={handleCopy}
+      title={`Copiar ${label}`}
+      style={{
+        display: 'inline-flex', alignItems: 'center', gap: 4,
+        padding: '4px 10px', borderRadius: 6, cursor: 'pointer',
+        background: copied ? 'rgba(34,197,94,0.1)' : 'rgba(201,168,76,0.06)',
+        border: `1px solid ${copied ? 'rgba(34,197,94,0.25)' : 'rgba(201,168,76,0.12)'}`,
+        color: copied ? '#22c55e' : '#7A7870',
+        fontSize: 11, fontFamily: 'var(--font-sans)',
+        transition: 'all 0.2s ease',
+      }}
+    >
+      {copied ? <Check size={10} /> : <Copy size={10} />}
+      {copied ? 'Copiado!' : 'Copiar'}
+    </button>
+  )
+}
+
 export function ProphetDetailClient({ prophet, prev, next }: Props) {
+  const [showPills, setShowPills] = useState(false)
+  const [shareState, setShareState] = useState<'idle' | 'copied'>('idle')
+
+  useEffect(() => {
+    const onScroll = () => setShowPills(window.scrollY > 200)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id)
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+
+  const handleShare = async () => {
+    const url = typeof window !== 'undefined' ? window.location.href : ''
+    const text = `${prophet.name} (${prophet.arabicName}) — Estudo comparativo entre Bíblia e Alcorão\n${url}`
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: prophet.name, text, url })
+      } else {
+        await navigator.clipboard.writeText(text)
+        setShareState('copied')
+        setTimeout(() => setShareState('idle'), 2500)
+      }
+    } catch {}
+  }
   return (
     <main className="min-h-screen" style={{ background: '#0D0B12' }}>
+      {/* Floating sticky nav pills */}
+      <motion.div
+        initial={false}
+        animate={{ opacity: showPills ? 1 : 0, y: showPills ? 0 : -20 }}
+        transition={{ duration: 0.3 }}
+        style={{
+          position: 'fixed', top: 10, left: '50%', transform: 'translateX(-50%)',
+          zIndex: 99, display: 'flex', gap: 6,
+          padding: '6px 10px', borderRadius: 100,
+          background: 'rgba(22,18,32,0.95)',
+          border: '1px solid #272230',
+          backdropFilter: 'blur(12px)',
+          WebkitBackdropFilter: 'blur(12px)',
+          pointerEvents: showPills ? 'auto' : 'none',
+        }}
+      >
+        {PROPHET_PILLS.map((pill) => (
+          <button
+            key={pill.id}
+            onClick={() => scrollToSection(pill.id)}
+            style={{
+              padding: '5px 12px', borderRadius: 100, cursor: 'pointer',
+              background: 'rgba(201,168,76,0.06)',
+              border: '1px solid rgba(201,168,76,0.15)',
+              color: '#C9A84C', fontSize: 11, fontFamily: 'var(--font-sans)',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {pill.label}
+          </button>
+        ))}
+      </motion.div>
+
       <div style={{ maxWidth: 640, margin: '0 auto', padding: '48px 24px 100px' }}>
 
         {/* Back */}
@@ -72,17 +170,36 @@ export function ProphetDetailClient({ prophet, prev, next }: Props) {
           }}>
             {prophet.name}
           </h1>
-          <p style={{ fontSize: 14, color: '#7A7870' }}>
+          <p style={{ fontSize: 14, color: '#7A7870', marginBottom: 16 }}>
             {prophet.era}
           </p>
+          {/* Share button */}
+          <motion.button
+            onClick={handleShare}
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            style={{
+              display: 'inline-flex', alignItems: 'center', gap: 8,
+              padding: '8px 18px', borderRadius: 100, cursor: 'pointer',
+              background: shareState === 'copied' ? 'rgba(34,197,94,0.1)' : 'rgba(201,168,76,0.08)',
+              border: `1px solid ${shareState === 'copied' ? 'rgba(34,197,94,0.25)' : 'rgba(201,168,76,0.2)'}`,
+              color: shareState === 'copied' ? '#22c55e' : '#C9A84C',
+              fontSize: 12, fontFamily: 'var(--font-sans)',
+              transition: 'all 0.2s ease',
+            }}
+          >
+            {shareState === 'copied' ? <Check size={14} /> : <Share2 size={14} />}
+            {shareState === 'copied' ? 'Link copiado!' : 'Compartilhar este profeta'}
+          </motion.button>
         </motion.div>
 
         {/* ── Na Bíblia ── */}
         <motion.section
+          id="prophet-biblia"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          style={{ marginBottom: 40 }}
+          style={{ marginBottom: 40, scrollMarginTop: 60 }}
         >
           <h2 style={{
             fontFamily: 'var(--font-serif)',
@@ -105,15 +222,20 @@ export function ProphetDetailClient({ prophet, prev, next }: Props) {
                 background: '#161220',
                 border: '1px solid #272230',
               }}>
-                <p style={{
-                  fontFamily: 'var(--font-serif)',
-                  fontSize: 14,
-                  fontStyle: 'italic',
-                  color: '#C9A84C',
-                  marginBottom: 12,
-                }}>
-                  {ref.book} {ref.chapter}:{ref.verses}
-                </p>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+                  <p style={{
+                    fontFamily: 'var(--font-serif)',
+                    fontSize: 14,
+                    fontStyle: 'italic',
+                    color: '#C9A84C',
+                  }}>
+                    {ref.book} {ref.chapter}:{ref.verses}
+                  </p>
+                  <CopyButton
+                    text={`${ref.book} ${ref.chapter}:${ref.verses} — "${ref.text}"`}
+                    label="referência"
+                  />
+                </div>
                 <p style={{
                   fontSize: 15,
                   color: '#F0EBE2',
@@ -141,10 +263,11 @@ export function ProphetDetailClient({ prophet, prev, next }: Props) {
 
         {/* ── No Alcorão ── */}
         <motion.section
+          id="prophet-alcorao"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          style={{ marginBottom: 40 }}
+          style={{ marginBottom: 40, scrollMarginTop: 60 }}
         >
           <h2 style={{
             fontFamily: 'var(--font-serif)',
@@ -167,15 +290,20 @@ export function ProphetDetailClient({ prophet, prev, next }: Props) {
                 background: '#161220',
                 border: '1px solid #272230',
               }}>
-                <p style={{
-                  fontFamily: 'var(--font-serif)',
-                  fontSize: 14,
-                  fontStyle: 'italic',
-                  color: '#C9A84C',
-                  marginBottom: 12,
-                }}>
-                  Surah {ref.surah} {ref.surahNumber}:{ref.verses}
-                </p>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+                  <p style={{
+                    fontFamily: 'var(--font-serif)',
+                    fontSize: 14,
+                    fontStyle: 'italic',
+                    color: '#C9A84C',
+                  }}>
+                    Surah {ref.surah} {ref.surahNumber}:{ref.verses}
+                  </p>
+                  <CopyButton
+                    text={`Surah ${ref.surah} ${ref.surahNumber}:${ref.verses} — "${ref.translation}"`}
+                    label="referência"
+                  />
+                </div>
                 {ref.arabic && (
                   <p style={{
                     fontFamily: 'var(--font-arabic)',
@@ -248,10 +376,11 @@ export function ProphetDetailClient({ prophet, prev, next }: Props) {
 
         {/* ── Convergences ── */}
         <motion.section
+          id="prophet-convergencias"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          style={{ marginBottom: 32 }}
+          style={{ marginBottom: 32, scrollMarginTop: 60 }}
         >
           <h2 style={{
             fontFamily: 'var(--font-serif)',
@@ -284,10 +413,11 @@ export function ProphetDetailClient({ prophet, prev, next }: Props) {
 
         {/* ── Divergences ── */}
         <motion.section
+          id="prophet-divergencias"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.45 }}
-          style={{ marginBottom: 40 }}
+          style={{ marginBottom: 40, scrollMarginTop: 60 }}
         >
           <h2 style={{
             fontFamily: 'var(--font-serif)',

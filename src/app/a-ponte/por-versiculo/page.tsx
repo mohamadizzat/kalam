@@ -1,9 +1,9 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useCallback } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowLeft, Search, ChevronDown, ChevronUp } from 'lucide-react'
+import { ArrowLeft, Search, ChevronDown, ChevronUp, Shuffle } from 'lucide-react'
 import { verseMappings, type VerseMapping } from '@/lib/data/bridge-verse-map'
 
 const FILTERS = [
@@ -33,6 +33,32 @@ export default function PorVersiculoPage() {
   const [activeFilter, setActiveFilter] = useState('all')
   const [expandedId, setExpandedId] = useState<string | null>(null)
 
+  // Stats
+  const stats = useMemo(() => {
+    const all = verseMappings || []
+    const bibleBooks = new Set(all.map((m) => m.bibleVerse.book))
+    const quranSurahs = new Set(all.flatMap((m) => m.relatedQuranVerses.map((v) => v.reference.split(' ').slice(0, -1).join(' '))))
+    const relCounts: Record<string, number> = { confirms: 0, expands: 0, reframes: 0, responds: 0 }
+    all.forEach((m) => m.relatedQuranVerses.forEach((v) => { relCounts[v.relationship] = (relCounts[v.relationship] || 0) + 1 }))
+    return { total: all.length, bibleBooks: bibleBooks.size, quranSurahs: quranSurahs.size, relCounts }
+  }, [])
+
+  const totalRel = Object.values(stats.relCounts).reduce((a, b) => a + b, 0)
+
+  // Random verse
+  const pickRandom = useCallback(() => {
+    const all = verseMappings || []
+    if (all.length === 0) return
+    const rand = all[Math.floor(Math.random() * all.length)]
+    setExpandedId(rand.id)
+    setQuery('')
+    setActiveFilter('all')
+    setTimeout(() => {
+      const el = document.getElementById(`verse-${rand.id}`)
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    }, 100)
+  }, [])
+
   const filtered = useMemo(() => {
     let results = verseMappings || []
 
@@ -48,6 +74,7 @@ export default function PorVersiculoPage() {
         m.bibleVerse.reference.toLowerCase().includes(q) ||
         m.bibleVerse.text.toLowerCase().includes(q) ||
         m.bridgeInsight.toLowerCase().includes(q) ||
+        m.scholarContext?.toLowerCase().includes(q) ||
         m.relatedQuranVerses.some((v) =>
           v.reference.toLowerCase().includes(q) ||
           v.translation.toLowerCase().includes(q)
@@ -84,6 +111,91 @@ export default function PorVersiculoPage() {
           <p style={{ color: '#B3B0A6', fontSize: 15, marginTop: 8, lineHeight: 1.7 }}>
             Encontre conexões entre versículos das duas escrituras
           </p>
+        </motion.div>
+
+        {/* Stats summary */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          style={{
+            display: 'flex', gap: 12, marginBottom: 16, flexWrap: 'wrap',
+          }}
+        >
+          <div style={{
+            flex: 1, minWidth: 100, padding: '14px 16px', borderRadius: 12,
+            background: '#161220', border: '1px solid #272230', textAlign: 'center',
+          }}>
+            <p style={{ fontSize: 22, fontWeight: 700, color: '#C9A84C', fontFamily: 'var(--font-serif)' }}>{stats.total}</p>
+            <p style={{ fontSize: 11, color: '#7A7870', letterSpacing: '0.5px' }}>mapeamentos</p>
+          </div>
+          <div style={{
+            flex: 1, minWidth: 100, padding: '14px 16px', borderRadius: 12,
+            background: '#161220', border: '1px solid #272230', textAlign: 'center',
+          }}>
+            <p style={{ fontSize: 22, fontWeight: 700, color: '#F0EBE2', fontFamily: 'var(--font-serif)' }}>{stats.bibleBooks}</p>
+            <p style={{ fontSize: 11, color: '#7A7870', letterSpacing: '0.5px' }}>livros da Bíblia</p>
+          </div>
+          <div style={{
+            flex: 1, minWidth: 100, padding: '14px 16px', borderRadius: 12,
+            background: '#161220', border: '1px solid #272230', textAlign: 'center',
+          }}>
+            <p style={{ fontSize: 22, fontWeight: 700, color: '#F0EBE2', fontFamily: 'var(--font-serif)' }}>{stats.quranSurahs}</p>
+            <p style={{ fontSize: 11, color: '#7A7870', letterSpacing: '0.5px' }}>suratas do Alcorão</p>
+          </div>
+        </motion.div>
+
+        {/* Relationship distribution */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.15 }}
+          style={{ marginBottom: 16 }}
+        >
+          <div style={{ display: 'flex', borderRadius: 999, overflow: 'hidden', height: 6, background: '#272230' }}>
+            {totalRel > 0 && Object.entries(stats.relCounts).map(([key, count]) => (
+              <div key={key} style={{
+                width: `${(count / totalRel) * 100}%`,
+                background: REL_COLORS[key],
+                transition: 'width 0.5s ease',
+              }} />
+            ))}
+          </div>
+          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginTop: 8, justifyContent: 'center' }}>
+            {Object.entries(stats.relCounts).map(([key, count]) => (
+              <span key={key} style={{
+                display: 'flex', alignItems: 'center', gap: 4, fontSize: 11, color: '#B3B0A6',
+              }}>
+                <span style={{ width: 8, height: 8, borderRadius: '50%', background: REL_COLORS[key], display: 'inline-block' }} />
+                {REL_LABELS[key]} ({count})
+              </span>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Random verse button */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          style={{ marginBottom: 20 }}
+        >
+          <button
+            onClick={pickRandom}
+            style={{
+              display: 'flex', alignItems: 'center', gap: 8,
+              padding: '10px 18px', borderRadius: 999, width: '100%',
+              justifyContent: 'center',
+              background: 'rgba(201,168,76,0.06)',
+              border: '1px solid rgba(201,168,76,0.2)',
+              color: '#C9A84C', fontSize: 13, cursor: 'pointer',
+              fontFamily: 'var(--font-sans)',
+              transition: 'all 0.2s ease',
+            }}
+          >
+            <Shuffle size={14} />
+            Versículo aleatório
+          </button>
         </motion.div>
 
         {/* Search */}
@@ -201,6 +313,7 @@ function VerseCard({
 }) {
   return (
     <motion.div
+      id={`verse-${mapping.id}`}
       layout
       style={{
         borderRadius: 12,

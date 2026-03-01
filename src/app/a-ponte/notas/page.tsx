@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowLeft, PenLine, Trash2, Tag, Plus, X } from 'lucide-react'
+import { ArrowLeft, PenLine, Trash2, Tag, Plus, X, Download, ArrowDownUp, Check } from 'lucide-react'
 
 interface BridgeNote {
   id: string
@@ -35,6 +35,8 @@ export default function NotasPage() {
   const [editTags, setEditTags] = useState<string[]>([])
   const [editRef, setEditRef] = useState('')
   const [filterTag, setFilterTag] = useState<string | null>(null)
+  const [sortOrder, setSortOrder] = useState<'newest' | 'oldest'>('newest')
+  const [exportCopied, setExportCopied] = useState(false)
 
   useEffect(() => { setNotes(loadNotes()) }, [])
 
@@ -68,11 +70,33 @@ export default function NotasPage() {
     )
   }
 
+  const handleExport = useCallback(() => {
+    if (notes.length === 0) return
+    const text = notes.map((n) => {
+      const date = new Date(n.createdAt).toLocaleDateString('pt-BR')
+      const tags = n.tags.length > 0 ? `[${n.tags.join(', ')}]` : ''
+      const ref = n.sourceRef ? `Ref: ${n.sourceRef}` : ''
+      return `${date} ${tags}\n${n.text}\n${ref}\n---`
+    }).join('\n\n')
+    navigator.clipboard.writeText(`Minhas Notas — A Ponte (Kalam)\n\n${text}`).then(() => {
+      setExportCopied(true)
+      setTimeout(() => setExportCopied(false), 2500)
+    })
+  }, [notes])
+
+  const sortedNotes = [...notes].sort((a, b) => {
+    const da = new Date(a.createdAt).getTime()
+    const db = new Date(b.createdAt).getTime()
+    return sortOrder === 'newest' ? db - da : da - db
+  })
+
   const filtered = filterTag
-    ? notes.filter((n) => n.tags.includes(filterTag))
-    : notes
+    ? sortedNotes.filter((n) => n.tags.includes(filterTag))
+    : sortedNotes
 
   const allTags = [...new Set(notes.flatMap((n) => n.tags))]
+  const tagCounts: Record<string, number> = {}
+  notes.forEach((n) => n.tags.forEach((t) => { tagCounts[t] = (tagCounts[t] || 0) + 1 }))
 
   return (
     <main className="min-h-screen" style={{ background: '#0D0B12' }}>
@@ -103,19 +127,38 @@ export default function NotasPage() {
                 {notes.length} {notes.length === 1 ? 'reflexão' : 'reflexões'} salvas
               </p>
             </div>
-            <button
-              onClick={() => setShowEditor(!showEditor)}
-              style={{
-                display: 'flex', alignItems: 'center', gap: 6,
-                padding: '10px 16px', borderRadius: 999,
-                background: 'rgba(201,168,76,0.1)',
-                border: '1px solid rgba(201,168,76,0.25)',
-                color: '#C9A84C', fontSize: 13, cursor: 'pointer',
-                fontFamily: 'var(--font-sans)',
-              }}
-            >
-              <Plus size={14} /> Nova nota
-            </button>
+            <div style={{ display: 'flex', gap: 8 }}>
+              {notes.length > 0 && (
+                <button
+                  onClick={handleExport}
+                  title="Exportar notas"
+                  style={{
+                    display: 'flex', alignItems: 'center', gap: 6,
+                    padding: '10px 14px', borderRadius: 999,
+                    background: exportCopied ? 'rgba(34,197,94,0.1)' : 'transparent',
+                    border: `1px solid ${exportCopied ? 'rgba(34,197,94,0.3)' : '#272230'}`,
+                    color: exportCopied ? '#22c55e' : '#7A7870', fontSize: 13, cursor: 'pointer',
+                    fontFamily: 'var(--font-sans)', transition: 'all 0.2s ease',
+                  }}
+                >
+                  {exportCopied ? <Check size={14} /> : <Download size={14} />}
+                  {exportCopied ? 'Copiado!' : 'Exportar'}
+                </button>
+              )}
+              <button
+                onClick={() => setShowEditor(!showEditor)}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: 6,
+                  padding: '10px 16px', borderRadius: 999,
+                  background: 'rgba(201,168,76,0.1)',
+                  border: '1px solid rgba(201,168,76,0.25)',
+                  color: '#C9A84C', fontSize: 13, cursor: 'pointer',
+                  fontFamily: 'var(--font-sans)',
+                }}
+              >
+                <Plus size={14} /> Nova nota
+              </button>
+            </div>
           </div>
         </motion.div>
 
@@ -145,6 +188,13 @@ export default function NotasPage() {
                     lineHeight: 1.7, resize: 'vertical', outline: 'none',
                   }}
                 />
+
+                <p style={{
+                  textAlign: 'right', fontSize: 11, color: '#7A7870',
+                  marginTop: 4, fontFamily: 'var(--font-sans)',
+                }}>
+                  {editText.length} caracteres
+                </p>
 
                 <input
                   type="text"
@@ -207,36 +257,66 @@ export default function NotasPage() {
           )}
         </AnimatePresence>
 
-        {/* Filter tags */}
+        {/* Filter tags + sort */}
         {allTags.length > 0 && (
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 20 }}>
-            <button
-              onClick={() => setFilterTag(null)}
-              style={{
-                padding: '4px 12px', borderRadius: 999, fontSize: 12,
-                border: `1px solid ${!filterTag ? 'rgba(201,168,76,0.4)' : '#272230'}`,
-                background: !filterTag ? 'rgba(201,168,76,0.08)' : 'transparent',
-                color: !filterTag ? '#C9A84C' : '#7A7870',
-                cursor: 'pointer',
-              }}
-            >
-              Todas
-            </button>
-            {allTags.map((tag) => (
+          <div style={{ marginBottom: 20 }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 10 }}>
               <button
-                key={tag}
-                onClick={() => setFilterTag(filterTag === tag ? null : tag)}
+                onClick={() => setFilterTag(null)}
                 style={{
                   padding: '4px 12px', borderRadius: 999, fontSize: 12,
-                  border: `1px solid ${filterTag === tag ? 'rgba(201,168,76,0.4)' : '#272230'}`,
-                  background: filterTag === tag ? 'rgba(201,168,76,0.08)' : 'transparent',
-                  color: filterTag === tag ? '#C9A84C' : '#7A7870',
-                  cursor: 'pointer',
+                  border: `1px solid ${!filterTag ? 'rgba(201,168,76,0.4)' : '#272230'}`,
+                  background: !filterTag ? 'rgba(201,168,76,0.08)' : 'transparent',
+                  color: !filterTag ? '#C9A84C' : '#7A7870',
+                  cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 4,
                 }}
               >
-                {tag}
+                Todas <span style={{ fontSize: 10, opacity: 0.6 }}>{notes.length}</span>
               </button>
-            ))}
+              {allTags.map((tag) => (
+                <button
+                  key={tag}
+                  onClick={() => setFilterTag(filterTag === tag ? null : tag)}
+                  style={{
+                    padding: '4px 12px', borderRadius: 999, fontSize: 12,
+                    border: `1px solid ${filterTag === tag ? 'rgba(201,168,76,0.4)' : '#272230'}`,
+                    background: filterTag === tag ? 'rgba(201,168,76,0.08)' : 'transparent',
+                    color: filterTag === tag ? '#C9A84C' : '#7A7870',
+                    cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 4,
+                  }}
+                >
+                  {tag} <span style={{ fontSize: 10, opacity: 0.6 }}>{tagCounts[tag] || 0}</span>
+                </button>
+              ))}
+            </div>
+            <div style={{ display: 'flex', gap: 6 }}>
+              <button
+                onClick={() => setSortOrder('newest')}
+                style={{
+                  padding: '4px 12px', borderRadius: 999, fontSize: 11,
+                  border: `1px solid ${sortOrder === 'newest' ? 'rgba(201,168,76,0.3)' : '#272230'}`,
+                  background: sortOrder === 'newest' ? 'rgba(201,168,76,0.06)' : 'transparent',
+                  color: sortOrder === 'newest' ? '#C9A84C' : '#7A7870',
+                  cursor: 'pointer', fontFamily: 'var(--font-sans)',
+                  display: 'flex', alignItems: 'center', gap: 4,
+                }}
+              >
+                <ArrowDownUp size={11} /> Mais recente
+              </button>
+              <button
+                onClick={() => setSortOrder('oldest')}
+                style={{
+                  padding: '4px 12px', borderRadius: 999, fontSize: 11,
+                  border: `1px solid ${sortOrder === 'oldest' ? 'rgba(201,168,76,0.3)' : '#272230'}`,
+                  background: sortOrder === 'oldest' ? 'rgba(201,168,76,0.06)' : 'transparent',
+                  color: sortOrder === 'oldest' ? '#C9A84C' : '#7A7870',
+                  cursor: 'pointer', fontFamily: 'var(--font-sans)',
+                  display: 'flex', alignItems: 'center', gap: 4,
+                }}
+              >
+                <ArrowDownUp size={11} /> Mais antiga
+              </button>
+            </div>
           </div>
         )}
 

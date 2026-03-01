@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { X, Check, MessageCircle, Mail, ArrowLeft, Heart, BookOpen, Users, Globe, Code } from "lucide-react";
+import { X, Check, MessageCircle, Mail, ArrowLeft, Heart, BookOpen, Users, Globe, Code, ArrowRight, GitBranch } from "lucide-react";
 import { SectionReveal } from "@/components/shared/SectionReveal";
 import { GoldDivider } from "@/components/shared/GoldDivider";
 import { NumberTicker } from "@/components/effects/NumberTicker";
@@ -605,18 +605,22 @@ function ParaQuemSection() {
     {
       title: "O curioso",
       description: "Voce ja ouviu falar do Islam mas nunca teve acesso a informacao sem filtro. Aqui voce encontra.",
+      link: null,
     },
     {
       title: "O cristao com perguntas",
       description: "Voce reverencia Abraao, Moises e Jesus. Sabia que eles sao profetas do Islam tambem? Descubra o que une as duas tradicoes.",
+      link: { href: "/a-ponte", label: "Conheca A Ponte" },
     },
     {
       title: "O muçulmano brasileiro",
       description: "Voce pratica mas quer aprofundar. Quran em portugues, hadiths, 99 Nomes, dhikr digital — tudo num so lugar.",
+      link: { href: "/a-palavra", label: "Ir para A Palavra" },
     },
     {
       title: "O buscador",
       description: "Voce nao segue nenhuma religiao mas sente que existe algo maior. O Kalam nao pede fe — pede honestidade intelectual.",
+      link: { href: "/a-biblia-do-kalam", label: "Ler A Biblia do Kalam" },
     },
   ];
 
@@ -704,11 +708,93 @@ function ParaQuemSection() {
                   }}>
                     {item.description}
                   </p>
+                  {item.link && (
+                    <Link
+                      href={item.link.href}
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: "6px",
+                        marginTop: "10px",
+                        fontFamily: "var(--font-sans)",
+                        fontSize: "13px",
+                        fontWeight: 500,
+                        color: "#C9A84C",
+                        textDecoration: "none",
+                        transition: "opacity 0.2s ease",
+                      }}
+                      onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.opacity = '0.8' }}
+                      onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.opacity = '1' }}
+                    >
+                      {item.link.label}
+                      <ArrowRight size={12} />
+                    </Link>
+                  )}
                 </div>
               </div>
             </SectionReveal>
           ))}
         </div>
+
+        {/* Conheca A Ponte card */}
+        <SectionReveal delay={0.6}>
+          <Link
+            href="/a-ponte"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "20px",
+              padding: "24px",
+              marginTop: "24px",
+              background: "rgba(201,168,76,0.06)",
+              border: "1px solid rgba(201,168,76,0.2)",
+              borderRadius: 4,
+              textDecoration: "none",
+              transition: "border-color 0.3s ease, background 0.3s ease",
+            }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLAnchorElement).style.borderColor = 'rgba(201,168,76,0.4)'
+              ;(e.currentTarget as HTMLAnchorElement).style.background = 'rgba(201,168,76,0.1)'
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLAnchorElement).style.borderColor = 'rgba(201,168,76,0.2)'
+              ;(e.currentTarget as HTMLAnchorElement).style.background = 'rgba(201,168,76,0.06)'
+            }}
+          >
+            <div style={{
+              width: "48px",
+              height: "48px",
+              borderRadius: "50%",
+              background: "rgba(201,168,76,0.12)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexShrink: 0,
+            }}>
+              <GitBranch size={22} style={{ color: "#C9A84C" }} />
+            </div>
+            <div style={{ flex: 1 }}>
+              <p style={{
+                fontFamily: "var(--font-serif)",
+                fontSize: "17px",
+                fontWeight: 600,
+                color: "#F0EBE2",
+                marginBottom: "4px",
+              }}>
+                Conheca A Ponte
+              </p>
+              <p style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: "13px",
+                color: "#B3B0A6",
+                lineHeight: 1.6,
+              }}>
+                Biblia e Alcorao lado a lado — para quem vem da tradicao crista e quer entender as conexoes.
+              </p>
+            </div>
+            <ArrowRight size={18} style={{ color: "#C9A84C", flexShrink: 0 }} />
+          </Link>
+        </SectionReveal>
       </div>
     </section>
   );

@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
+import { ArrowRight, GitBranch } from 'lucide-react'
 import { BlurFade } from '@/components/effects/BlurFade'
 
 const prophets = [
@@ -414,6 +415,46 @@ export default function OsProfetasPage() {
             }}>
               Esta não é uma série de conversão. É uma série de comparação — para quem quer entender de onde essas histórias vieram, o que cada tradição preservou, e por que as diferenças importam.
             </p>
+          </BlurFade>
+        </div>
+      </section>
+
+      {/* ── A PONTE BANNER ── */}
+      <section style={{ padding: '0 24px 48px' }}>
+        <div style={{ maxWidth: 1100, margin: '0 auto' }}>
+          <BlurFade delay={0}>
+            <Link
+              href="/a-ponte"
+              className="card-hover"
+              style={{
+                display: 'flex', alignItems: 'center', gap: 16,
+                padding: '20px 24px', borderRadius: 4,
+                background: 'rgba(201,168,76,0.04)',
+                border: '1px solid rgba(201,168,76,0.15)',
+                textDecoration: 'none',
+                transition: 'all 0.3s ease',
+              }}
+            >
+              <div style={{
+                width: 40, height: 40, borderRadius: 8,
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                background: 'rgba(201,168,76,0.1)', flexShrink: 0,
+              }}>
+                <GitBranch size={20} style={{ color: '#C9A84C' }} />
+              </div>
+              <div style={{ flex: 1 }}>
+                <p style={{
+                  fontFamily: 'var(--font-serif)', fontSize: 15, color: '#F0EBE2',
+                  fontWeight: 500, marginBottom: 2,
+                }}>
+                  Veja comparações Bíblia x Alcorão em A Ponte
+                </p>
+                <p style={{ fontSize: 12, color: '#B3B0A6' }}>
+                  Estudo comparativo lado a lado — por profeta, por tema, por versículo
+                </p>
+              </div>
+              <ArrowRight size={16} style={{ color: '#C9A84C', flexShrink: 0 }} />
+            </Link>
           </BlurFade>
         </div>
       </section>

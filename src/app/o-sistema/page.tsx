@@ -2,6 +2,8 @@
 
 import { motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
+import { GitBranch, BookText, ArrowRight } from 'lucide-react'
 import { BlurFade } from '@/components/effects/BlurFade'
 import { NumberTicker } from '@/components/effects/NumberTicker'
 
@@ -97,6 +99,7 @@ function PillarCard({ pillar, index }: { pillar: typeof pillars[0]; index: numbe
   return (
     <BlurFade delay={index * 0.1}>
       <motion.div
+        id={`pilar-${pillar.number}`}
         whileHover={{ y: -4, boxShadow: '0 0 0 1px rgba(201,168,76,0.35), 0 24px 48px rgba(0,0,0,0.5)' }}
         transition={{ duration: 0.25 }}
         style={{
@@ -434,15 +437,16 @@ export default function OSistemaPage() {
       </section>
 
       {/* ── 4. FIVE PILLARS ──────────────────────────────────────────────── */}
-      <section style={{
+      <section id="pilares" style={{
         background: '#0D0D0D',
         padding: 'clamp(80px, 10vw, 120px) 24px',
         borderTop: '1px solid rgba(201,168,76,0.06)',
         borderBottom: '1px solid rgba(201,168,76,0.06)',
+        scrollMarginTop: '60px',
       }}>
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>
           {/* Section header */}
-          <BlurFade style={{ textAlign: 'center', marginBottom: 64 }}>
+          <BlurFade style={{ textAlign: 'center', marginBottom: 40 }}>
             <p style={{
               fontFamily: 'monospace',
               fontSize: 10, letterSpacing: '4px',
@@ -461,6 +465,47 @@ export default function OSistemaPage() {
             }}>
               As Cinco Funções que Estruturam Tudo
             </h2>
+          </BlurFade>
+
+          {/* Pillar quick-nav */}
+          <BlurFade delay={0.1}>
+            <div style={{
+              display: 'flex',
+              justifyContent: 'center',
+              gap: 8,
+              flexWrap: 'wrap',
+              marginBottom: 48,
+            }}>
+              {pillars.map((p) => (
+                <a
+                  key={p.number}
+                  href={`#pilar-${p.number}`}
+                  style={{
+                    fontFamily: 'var(--font-sans)',
+                    fontSize: 12,
+                    fontWeight: 500,
+                    color: '#B3B0A6',
+                    textDecoration: 'none',
+                    padding: '6px 14px',
+                    borderRadius: 999,
+                    border: '1px solid #272230',
+                    background: '#161220',
+                    transition: 'all 0.2s ease',
+                    whiteSpace: 'nowrap',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = 'rgba(201,168,76,0.4)'
+                    e.currentTarget.style.color = '#C9A84C'
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = '#272230'
+                    e.currentTarget.style.color = '#B3B0A6'
+                  }}
+                >
+                  {p.name}
+                </a>
+              ))}
+            </div>
           </BlurFade>
 
           {/* Grid: 2 columns top, then 3 columns, adapted for 5 items */}
@@ -574,6 +619,105 @@ export default function OSistemaPage() {
               </BlurFade>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ── 5b. EXPLORE LINKS ───────────────────────────────────────────── */}
+      <section style={{ padding: '0 24px clamp(40px, 6vw, 64px)' }}>
+        <div style={{
+          maxWidth: 1100,
+          margin: '0 auto',
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))',
+          gap: 16,
+        }}>
+          <BlurFade delay={0}>
+            <Link
+              href="/a-ponte"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 16,
+                padding: 'clamp(20px, 3vw, 28px)',
+                background: '#161220',
+                border: '1px solid rgba(201,168,76,0.2)',
+                borderRadius: 4,
+                textDecoration: 'none',
+                transition: 'border-color 0.3s ease',
+              }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.borderColor = 'rgba(201,168,76,0.5)' }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.borderColor = 'rgba(201,168,76,0.2)' }}
+            >
+              <div style={{
+                width: 44, height: 44, borderRadius: 10,
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                background: 'rgba(201,168,76,0.08)', flexShrink: 0,
+              }}>
+                <GitBranch size={22} style={{ color: '#C9A84C' }} />
+              </div>
+              <div style={{ flex: 1 }}>
+                <p style={{
+                  fontFamily: 'var(--font-serif)',
+                  fontSize: 16, fontWeight: 600,
+                  color: '#F0EBE2',
+                  marginBottom: 2,
+                }}>
+                  Compare as escrituras lado a lado
+                </p>
+                <p style={{
+                  fontFamily: 'var(--font-sans)',
+                  fontSize: 12, color: '#7A7870',
+                }}>
+                  A Ponte — Biblia e Alcorao
+                </p>
+              </div>
+              <ArrowRight size={16} style={{ color: '#C9A84C', flexShrink: 0 }} />
+            </Link>
+          </BlurFade>
+
+          <BlurFade delay={0.1}>
+            <Link
+              href="/a-biblia-do-kalam"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 16,
+                padding: 'clamp(20px, 3vw, 28px)',
+                background: '#161220',
+                border: '1px solid rgba(201,168,76,0.2)',
+                borderRadius: 4,
+                textDecoration: 'none',
+                transition: 'border-color 0.3s ease',
+              }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.borderColor = 'rgba(201,168,76,0.5)' }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.borderColor = 'rgba(201,168,76,0.2)' }}
+            >
+              <div style={{
+                width: 44, height: 44, borderRadius: 10,
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                background: 'rgba(201,168,76,0.08)', flexShrink: 0,
+              }}>
+                <BookText size={22} style={{ color: '#C9A84C' }} />
+              </div>
+              <div style={{ flex: 1 }}>
+                <p style={{
+                  fontFamily: 'var(--font-serif)',
+                  fontSize: 16, fontWeight: 600,
+                  color: '#F0EBE2',
+                  marginBottom: 2,
+                }}>
+                  Leia a narrativa completa
+                </p>
+                <p style={{
+                  fontFamily: 'var(--font-sans)',
+                  fontSize: 12, color: '#7A7870',
+                }}>
+                  A Biblia do Kalam — 25 capitulos
+                </p>
+              </div>
+              <ArrowRight size={16} style={{ color: '#C9A84C', flexShrink: 0 }} />
+            </Link>
+          </BlurFade>
         </div>
       </section>
 

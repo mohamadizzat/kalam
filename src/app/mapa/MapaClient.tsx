@@ -40,8 +40,11 @@ import {
   HeartHandshake,
   GitBranch,
   BookText,
+  ChevronRight,
   type LucideIcon,
 } from 'lucide-react'
+
+const NOVIDADE_HREFS = new Set(['/a-ponte', '/a-biblia-do-kalam'])
 
 /* ─────────────── Colors ─────────────── */
 const C = {
@@ -300,16 +303,32 @@ function SectionBlock({
               {section.titleArabic}
             </span>
           </div>
-          <span
-            style={{
-              fontFamily: 'var(--font-sans)',
-              fontSize: 12,
-              color: C.muted,
-              letterSpacing: '0.5px',
-            }}
-          >
-            {section.subtitle} &middot; {section.items.length} itens
-          </span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <span
+              style={{
+                fontFamily: 'var(--font-sans)',
+                fontSize: 12,
+                color: C.muted,
+                letterSpacing: '0.5px',
+              }}
+            >
+              {section.subtitle}
+            </span>
+            <span
+              style={{
+                fontFamily: 'var(--font-sans)',
+                fontSize: 10,
+                fontWeight: 600,
+                color: section.color,
+                background: `${section.color}12`,
+                padding: '2px 8px',
+                borderRadius: 10,
+                letterSpacing: '0.3px',
+              }}
+            >
+              {section.items.length}
+            </span>
+          </div>
         </div>
 
         {/* Chevron */}
@@ -379,6 +398,27 @@ function SectionBlock({
                     >
                       {item.label}
                     </span>
+
+                    {/* Novidade badge */}
+                    {NOVIDADE_HREFS.has(item.href) && (
+                      <span
+                        style={{
+                          fontFamily: 'var(--font-sans)',
+                          fontSize: 9,
+                          fontWeight: 700,
+                          letterSpacing: '1px',
+                          textTransform: 'uppercase',
+                          color: '#C9A84C',
+                          background: 'rgba(201,168,76,0.1)',
+                          border: '1px solid rgba(201,168,76,0.25)',
+                          padding: '2px 7px',
+                          borderRadius: 4,
+                          flexShrink: 0,
+                        }}
+                      >
+                        Novidade
+                      </span>
+                    )}
 
                     {/* Count badge */}
                     {item.count && (
@@ -857,6 +897,50 @@ export default function MapaClient() {
           </motion.div>
         )}
       </div>
+
+      {/* Floating "Explorar tudo" CTA */}
+      {!searchQuery && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 1 }}
+          style={{
+            position: 'fixed',
+            bottom: 24,
+            left: '50%',
+            transform: 'translateX(-50%)',
+            zIndex: 50,
+          }}
+        >
+          <button
+            onClick={() => {
+              setExpandedSections({
+                'a-palavra': true, 'a-presenca': true, 'a-jornada': true,
+                'a-alma': true, 'kids': true,
+              })
+              window.scrollTo({ top: 0, behavior: 'smooth' })
+            }}
+            style={{
+              display: 'flex', alignItems: 'center', gap: 8,
+              padding: '12px 24px', borderRadius: 999,
+              background: 'rgba(22,18,32,0.92)',
+              border: `1px solid ${C.border}`,
+              backdropFilter: 'blur(12px)',
+              WebkitBackdropFilter: 'blur(12px)',
+              color: C.gold,
+              fontSize: 13,
+              fontFamily: 'var(--font-sans)',
+              fontWeight: 600,
+              cursor: 'pointer',
+              boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
+              transition: 'all 0.2s ease',
+            }}
+          >
+            Explorar tudo
+            <ChevronRight size={14} />
+          </button>
+        </motion.div>
+      )}
     </div>
   )
 }
