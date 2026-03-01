@@ -75,13 +75,14 @@ Brazilian men, 20-35, follow Pablo Marcal-type figures, believe in God, never re
 4. After work: update SESSION_LOG.md with what was done
 
 ## Docs Directory (.claude/docs/)
-- `MANIFESTO.md` — The Law of the Original (philosophical foundation)
-- `NARRATIVE.md` — Complete brand narrative, voice, tone, psychology
-- `THEOLOGY.md` — Core theology (God is Love, 99 Names, anti-fear approach)
-- `TECHNICAL.md` — Full technical spec, components, animation details
-- `COMPETITOR_ANALYSIS.md` — Market research, app competitors, opportunities
-- `SESSION_LOG.md` — Running log of development sessions
-- `BACKLOG.md` — Pending features and tasks
+- `FOUNDER.md` — **READ FIRST** — Who is Mohamad Izzat, his story, ecosystem, vision, thinking frameworks, how he decides
+- `MANIFESTO.md` — The Law of the Original (philosophical foundation, 3 layers)
+- `NARRATIVE.md` — Brand narrative, avatar, 5 psychological triggers, voice, tone, consciousness ladder
+- `THEOLOGY.md` — Core theology (God is Love, 99 Names, anti-fear approach, key verses)
+- `TECHNICAL.md` — Full technical spec, components, colors, typography, animations
+- `COMPETITOR_ANALYSIS.md` — Market research, app competitors, Contemplative Companion opportunity
+- `SESSION_LOG.md` — Running log of development sessions (update every session)
+- `BACKLOG.md` — Prioritized feature backlog (P0-P3)
 
 ## Git Protocol
 - Deploy from `main` branch ONLY
