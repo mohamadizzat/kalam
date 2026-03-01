@@ -1,17 +1,19 @@
 'use client'
 
-import { useState } from 'react'
+import { Fragment, useState } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { ArrowRight, GitBranch } from 'lucide-react'
 import { BlurFade } from '@/components/effects/BlurFade'
 
 const prophets = [
+  // ── ERA 1: PATRIARCAS ──
   {
     slug: 'adao',
     name: 'Adão',
     arabicName: 'آدم',
     episode: 1,
+    era: 'Patriarcas',
     title: 'A Criação e a Queda',
     status: 'available',
     hook: 'Um homem feito do barro da terra. A primeira desobediência. E um Deus que ainda assim ensinou.',
@@ -20,10 +22,24 @@ const prophets = [
     insight: 'No Alcorão, Adão e Eva são igualmente responsáveis. Não existe pecado original.',
   },
   {
+    slug: 'nuh',
+    name: 'Noé',
+    arabicName: 'نوح',
+    episode: 2,
+    era: 'Patriarcas',
+    title: 'O Construtor da Arca',
+    status: 'available',
+    hook: 'Pregou 950 anos. Quase ninguém ouviu. Construiu um navio no deserto enquanto o povo ria. Depois veio a água.',
+    bibleRef: 'Gênesis 6–9',
+    quranRef: 'Nuh 71 / Hud 11:25–49',
+    insight: 'No Alcorão, o próprio filho de Noé se recusa a entrar na arca e morre afogado. A linhagem de sangue não garante salvação — a escolha pessoal sim.',
+  },
+  {
     slug: 'ibrahim',
     name: 'Abraão',
     arabicName: 'إبراهيم',
-    episode: 2,
+    episode: 3,
+    era: 'Patriarcas',
     title: 'O Pai das Nações',
     status: 'available',
     hook: 'Jogado no fogo por questionar os ídolos do pai. Saiu andando. Ergueu a Kaaba com o filho que a Bíblia esqueceu.',
@@ -32,10 +48,50 @@ const prophets = [
     insight: 'Ibrahim é o homem que encontrou Deus através da razão pura — testando estrelas, lua e sol.',
   },
   {
+    slug: 'lut',
+    name: 'Ló',
+    arabicName: 'لوط',
+    episode: 4,
+    era: 'Patriarcas',
+    title: 'O Estrangeiro entre Sodoma',
+    status: 'available',
+    hook: 'Morava numa cidade que desprezava tudo que ele representava. Ofereceu hospitalidade a anjos que vieram destruir o lugar.',
+    bibleRef: 'Gênesis 19:1–29',
+    quranRef: 'Hud 11:77–83 / Al-Hijr 15:58–77',
+    insight: 'No Alcorão, Ló é um profeta pleno com missão divina. Na Bíblia, é sobrinho de Abraão sem status profético. A mesma pessoa, dois papéis completamente diferentes.',
+  },
+  {
+    slug: 'ishaq',
+    name: 'Isaque',
+    arabicName: 'إسحاق',
+    episode: 5,
+    era: 'Patriarcas',
+    title: 'A Promessa Cumprida',
+    status: 'available',
+    hook: 'Nasceu de uma mãe de noventa anos que riu quando ouviu a notícia. O próprio nome dele significa "ele ri."',
+    bibleRef: 'Gênesis 21–28',
+    quranRef: 'As-Saffat 37:112–113 / Hud 11:71',
+    insight: 'A Bíblia diz que Isaque foi o sacrifício de Abraão. O Alcorão não nomeia — e a maioria dos estudiosos islâmicos acredita que foi Ismael. A disputa muda quem herdou a aliança.',
+  },
+  {
+    slug: 'yaqub',
+    name: 'Jacó',
+    arabicName: 'يعقوب',
+    episode: 6,
+    era: 'Patriarcas',
+    title: 'O Pai de Israel',
+    status: 'available',
+    hook: 'Lutou com um anjo a noite inteira. Acordou com um nome novo: Israel. Gerou doze filhos — doze tribos.',
+    bibleRef: 'Gênesis 28–35',
+    quranRef: 'Yusuf 12 / Al-Baqarah 2:132–133',
+    insight: 'Na Bíblia, Jacó engana o pai para roubar a bênção do irmão. No Alcorão, essa história não existe. Um profeta não engana.',
+  },
+  {
     slug: 'yusuf',
     name: 'José',
     arabicName: 'يوسف',
-    episode: 3,
+    episode: 7,
+    era: 'Patriarcas',
     title: 'O Traído que Perdoou',
     status: 'available',
     hook: 'Vendido pelos próprios irmãos por algumas moedas. Trinta anos depois, era o segundo mais poderoso do Egito.',
@@ -43,11 +99,26 @@ const prophets = [
     quranRef: 'Yusuf 12:1–111',
     insight: 'A história de Yusuf é a única surata do Alcorão que conta uma única história do começo ao fim.',
   },
+  // ── ERA 2: PROVAÇÕES E LIBERTAÇÃO ──
+  {
+    slug: 'ayyub',
+    name: 'Jó',
+    arabicName: 'أيوب',
+    episode: 8,
+    era: 'Provações e Libertação',
+    title: 'A Paciência Absoluta',
+    status: 'available',
+    hook: 'Perdeu filhos, riqueza, saúde — tudo num dia. Todo mundo disse: "Deus te abandonou." Ele disse: "Não."',
+    bibleRef: 'Jó 1–42',
+    quranRef: 'Al-Anbiya 21:83–84 / Sad 38:41–44',
+    insight: 'Na Bíblia, Deus e Satanás fazem uma aposta sobre Jó. No Alcorão, não há aposta. Jó sofre, clama a Deus, e Deus responde. Sem intermediário.',
+  },
   {
     slug: 'musa',
     name: 'Moisés',
     arabicName: 'موسى',
-    episode: 4,
+    episode: 9,
+    era: 'Provações e Libertação',
     title: 'O Libertador',
     status: 'available',
     hook: 'Um bebê num cesto no Nilo. Criado pelo homem que escravizava seu povo. Depois, enfrentou-o.',
@@ -55,11 +126,92 @@ const prophets = [
     quranRef: 'Al-Qasas 28 / Ta-Ha 20',
     insight: 'Musa é o profeta mais mencionado no Alcorão — 136 vezes. Mais do que Muhammad. Mais do que qualquer outro.',
   },
+  // ── ERA 3: REIS E PROFETAS ──
+  {
+    slug: 'dawud',
+    name: 'Davi',
+    arabicName: 'داوود',
+    episode: 10,
+    era: 'Reis e Profetas',
+    title: 'O Rei que Cantava',
+    status: 'available',
+    hook: 'Um pastor de ovelhas que matou um gigante com uma pedra. Virou rei. Escreveu salmos que o mundo ainda canta 3.000 anos depois.',
+    bibleRef: '1 Samuel 17 / 2 Samuel 11–12',
+    quranRef: 'Al-Baqarah 2:251 / Sad 38:17–26',
+    insight: 'Na Bíblia, Davi comete adultério com Bate-Seba e manda matar o marido dela. No Alcorão, essa história não existe. O pecado do rei é julgado de forma completamente diferente.',
+  },
+  {
+    slug: 'suleiman',
+    name: 'Salomão',
+    arabicName: 'سليمان',
+    episode: 11,
+    era: 'Reis e Profetas',
+    title: 'O Sábio dos Sábios',
+    status: 'available',
+    hook: 'Deus ofereceu qualquer coisa. Ele pediu sabedoria. Recebeu sabedoria, riqueza e poder sobre o vento e os jinns.',
+    bibleRef: '1 Reis 3–11',
+    quranRef: 'An-Naml 27:15–44 / Sad 38:30–40',
+    insight: 'Na Bíblia, Salomão cai na idolatria por causa das esposas. No Alcorão, ele nunca desvia. E conversa com formigas.',
+  },
+  {
+    slug: 'ilyas',
+    name: 'Elias',
+    arabicName: 'إلياس',
+    episode: 12,
+    era: 'Reis e Profetas',
+    title: 'O Fogo do Céu',
+    status: 'available',
+    hook: 'Sozinho contra 450 profetas de Baal. Pediu fogo do céu. O fogo veio. Depois, fugiu com medo de uma rainha.',
+    bibleRef: '1 Reis 18–19',
+    quranRef: 'As-Saffat 37:123–132 / Al-An\'am 6:85',
+    insight: 'Na Bíblia, Elias sobe ao céu num carro de fogo — não morre. No Alcorão, é mencionado brevemente como profeta fiel. Duas tradições, dois pesos completamente diferentes.',
+  },
+  {
+    slug: 'alyasa',
+    name: 'Eliseu',
+    arabicName: 'اليسع',
+    episode: 13,
+    era: 'Reis e Profetas',
+    title: 'O Herdeiro do Manto',
+    status: 'available',
+    hook: 'Pediu porção dobrada do espírito do mestre. Recebeu. Abriu o rio Jordão como primeiro milagre. O discípulo superou o profeta.',
+    bibleRef: '2 Reis 2–13',
+    quranRef: 'Sad 38:48 / Al-An\'am 6:86',
+    insight: 'Na Bíblia, Eliseu tem milagres detalhados — cura leprosos, multiplica azeite, ressuscita mortos. No Alcorão, recebe apenas duas menções. O profeta mais extenso de um livro é quase invisível no outro.',
+  },
+  {
+    slug: 'yunus',
+    name: 'Jonas',
+    arabicName: 'يونس',
+    episode: 14,
+    era: 'Reis e Profetas',
+    title: 'O Profeta que Fugiu',
+    status: 'available',
+    hook: 'O único profeta que tentou escapar da missão. Acabou dentro de um peixe. No escuro do ventre, finalmente orou.',
+    bibleRef: 'Jonas 1–4',
+    quranRef: 'Yunus 10:98 / As-Saffat 37:139–148',
+    insight: 'Na Bíblia, Jonas fica com raiva quando Deus perdoa Nínive. No Alcorão, a cidade inteira se arrepende e é salva — sem a amargura do profeta. Jonas aprende a lição.',
+  },
+  // ── ERA 4: OS ÚLTIMOS ──
+  {
+    slug: 'yahya',
+    name: 'João Batista',
+    arabicName: 'يحيى',
+    episode: 15,
+    era: 'Os Últimos',
+    title: 'A Voz no Deserto',
+    status: 'available',
+    hook: 'Filho de um sacerdote idoso e uma mulher estéril. Viveu no deserto. Batizou o Messias. Morreu decapitado por um pedido de dança.',
+    bibleRef: 'Lucas 1:13–17 / Mateus 14:1–12',
+    quranRef: 'Maryam 19:7–15 / Al-Imran 3:38–41',
+    insight: 'No Alcorão, Deus diz que "nunca criou alguém com esse nome antes" de Yahya. Um nome único para uma missão única: preparar o caminho para Issa.',
+  },
   {
     slug: 'issa',
     name: 'Jesus',
     arabicName: 'عيسى',
-    episode: 5,
+    episode: 16,
+    era: 'Os Últimos',
     title: 'A Palavra de Deus',
     status: 'available',
     hook: 'Nasceu sem pai. Falou no berço. Curou cegos. O Alcorão o chama de "Palavra de Deus" e "Espírito de Deus."',
@@ -71,7 +223,8 @@ const prophets = [
     slug: 'muhammad',
     name: 'Muhammad ﷺ',
     arabicName: 'محمد',
-    episode: 6,
+    episode: 17,
+    era: 'Os Últimos',
     title: 'O Selo',
     status: 'available',
     hook: 'Órfão aos 6 anos. Analfabeto. Aos 40, recebeu as primeiras palavras de um livro que 1.8 bilhão de pessoas memorizam.',
@@ -367,7 +520,7 @@ export default function OsProfetasPage() {
               margin: '0 auto 40px',
               lineHeight: 1.8,
             }}>
-              Seis profetas. Dois textos sagrados. Uma linhagem que nunca foi quebrada.
+              Dezessete profetas. Dois textos sagrados. Uma linhagem que nunca foi quebrada.
             </p>
           </BlurFade>
 
@@ -493,9 +646,40 @@ export default function OsProfetasPage() {
             gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 480px), 1fr))',
             gap: 16,
           }}>
-            {prophets.map((prophet, i) => (
-              <ProphetCard key={prophet.slug} prophet={prophet} index={i} />
-            ))}
+            {prophets.map((prophet, i) => {
+              const prevEra = i > 0 ? prophets[i - 1].era : null
+              const showEraDivider = prophet.era !== prevEra
+              return (
+                <Fragment key={prophet.slug}>
+                  {showEraDivider && (
+                    <div
+                      style={{
+                        gridColumn: '1 / -1',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 16,
+                        marginTop: i > 0 ? 32 : 0,
+                        marginBottom: 8,
+                      }}
+                    >
+                      <div style={{ flex: 1, height: 1, background: '#272230' }} />
+                      <span style={{
+                        fontFamily: 'var(--font-sans)',
+                        fontSize: 10,
+                        letterSpacing: '3px',
+                        textTransform: 'uppercase',
+                        color: '#7A7870',
+                        whiteSpace: 'nowrap',
+                      }}>
+                        Era {prophet.era}
+                      </span>
+                      <div style={{ flex: 1, height: 1, background: '#272230' }} />
+                    </div>
+                  )}
+                  <ProphetCard prophet={prophet} index={i} />
+                </Fragment>
+              )
+            })}
           </div>
         </div>
       </section>
@@ -527,7 +711,7 @@ export default function OsProfetasPage() {
             color: '#7A7870',
             marginBottom: 16,
           }}>
-            TODOS OS 6 EPISÓDIOS DISPONÍVEIS
+            TODOS OS 17 EPISÓDIOS DISPONÍVEIS
           </p>
           <p style={{
             fontFamily: 'var(--font-serif)',

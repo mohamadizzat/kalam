@@ -124,8 +124,10 @@ const EXPLORE_SECTIONS = [
     icon: Compass,
     items: [
       { label: 'A Mensagem', href: '/a-mensagem', count: 'Fundamentos' },
-      { label: 'A Ponte', href: '/a-ponte', count: '17 profetas' },
-      { label: 'Os Profetas', href: '/os-profetas', count: '25 profetas' },
+      { label: 'A Ponte', href: '/a-ponte', count: 'Bíblia × Quran' },
+      { label: 'Os Profetas', href: '/os-profetas', count: '17 profetas' },
+      { label: 'Comprovações', href: '/comprovacoes', count: '30 paralelos' },
+      { label: 'Perguntas Difíceis', href: '/perguntas', count: '10 respostas' },
       { label: 'O Sistema', href: '/o-sistema', count: '5 pilares' },
       { label: 'Biblioteca', href: '/biblioteca', count: 'Acervo completo' },
     ],

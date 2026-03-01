@@ -69,6 +69,7 @@ const SEARCH_INDEX: SearchEntry[] = [
   { title: 'Biblioteca', href: '/biblioteca', keywords: ['biblioteca', 'livros', 'referências', 'recursos'], category: 'Descobrir', icon: Library, description: 'Acervo de referências' },
   { title: 'Perguntas Difíceis', href: '/perguntas', keywords: ['perguntas', 'dúvidas', 'violência', 'mulheres', 'poligamia', 'jihad', 'difíceis', 'objeções'], category: 'Descobrir', icon: HelpCircle, description: 'Respostas honestas a perguntas difíceis' },
   { title: 'Manifesto', href: '/manifesto', keywords: ['manifesto', 'missão', 'visão', 'sobre', 'propósito'], category: 'Descobrir', icon: FileText, description: 'O que o Kalam é e por que existe' },
+  { title: 'Comprovações Escriturais', href: '/comprovacoes', keywords: ['comprovações', 'provas', 'escrituras', 'bíblia', 'torah', 'evangelhos', 'paralelos', 'convergência'], category: 'Descobrir', icon: BookOpen, description: '30 paralelos reais entre Quran, Torah, Salmos e Evangelhos' },
 
   // Aprender
   { title: 'A Palavra (Quran)', href: '/a-palavra', keywords: ['quran', 'alcorão', 'suratas', 'suras', 'versículos', 'palavra'], category: 'Aprender', icon: BookOpen, description: 'Explore o Sagrado Alcorão' },

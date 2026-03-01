@@ -31,6 +31,7 @@ import {
   Languages,
   Layers,
   BookMarked,
+  Scale,
 } from 'lucide-react'
 
 // ── SIDEBAR CONTEXT ─────────────────────────────────────────────────────────
@@ -122,6 +123,7 @@ const NAV_CATEGORIES: NavCategory[] = [
       { label: 'O Sistema', href: '/o-sistema', icon: Sparkles },
       { label: 'Biblioteca', href: '/biblioteca', icon: Library },
       { label: 'Perguntas Difíceis', href: '/perguntas', icon: MessageCircle },
+      { label: 'Comprovações', href: '/comprovacoes', icon: Scale },
     ],
   },
   {
@@ -184,10 +186,11 @@ const BOTTOM_LINKS: NavItem[] = [
 
 const CONTENT_COUNTS: Record<string, string> = {
   '/a-palavra': '114',
-  '/os-profetas': '25',
+  '/os-profetas': '17',
   '/trilhas': '12',
   '/a-biblia-do-kalam': '25',
   '/perguntas': '10',
+  '/comprovacoes': '30',
   '/a-presenca/flashcards': '99',
   '/a-presenca/dhikr': '33',
 }

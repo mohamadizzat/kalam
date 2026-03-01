@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronDown, ArrowLeft, AlertTriangle, HelpCircle, BookOpen } from 'lucide-react'
+import { ChevronDown, ArrowLeft, AlertTriangle, HelpCircle, BookOpen, Scale, MessageCircle } from 'lucide-react'
 import { hardQuestionsData } from '@/content/hardQuestions'
 import { SectionReveal } from '@/components/shared/SectionReveal'
 import { BlurFade } from '@/components/effects/BlurFade'
@@ -34,6 +34,14 @@ const DIFFICULTY = {
 type DifficultyLevel = keyof typeof DIFFICULTY
 type FilterType = 'all' | DifficultyLevel
 
+// ── SOURCE BADGE CONFIG ──────────────────────────────────────────────────────
+
+const SOURCE_TYPES = {
+  quran: { label: 'Quran', emoji: '📖', color: '#6ECB8A', bg: 'rgba(110,203,138,0.12)' },
+  hadith: { label: 'Hadith', emoji: '📜', color: '#C9A84C', bg: 'rgba(201,168,76,0.12)' },
+  scholarly: { label: 'Acadêmico', emoji: '🔬', color: '#7BA3E2', bg: 'rgba(123,163,226,0.12)' },
+} as const
+
 // ── ACCORDION ITEM ───────────────────────────────────────────────────────────
 
 function QuestionItem({
@@ -43,6 +51,9 @@ function QuestionItem({
   islamicScholarship,
   honestConclusion,
   difficulty,
+  sources,
+  quranPosition,
+  internalDebate,
   index,
   isOpen,
   onToggle,
@@ -53,6 +64,9 @@ function QuestionItem({
   islamicScholarship: string
   honestConclusion: string
   difficulty: string
+  sources?: { type: string; reference: string; text: string; arabic?: string; context: string }[]
+  quranPosition?: string
+  internalDebate?: string
   index: number
   isOpen: boolean
   onToggle: () => void
@@ -126,21 +140,43 @@ function QuestionItem({
             >
               {question}
             </p>
-            <span
-              style={{
-                display: 'inline-block',
-                marginTop: 8,
-                padding: '3px 10px',
-                borderRadius: 20,
-                fontSize: 11,
-                fontWeight: 600,
-                letterSpacing: '0.04em',
-                color: diff.color,
-                background: diff.bg,
-              }}
-            >
-              Dificuldade: {diff.label}
-            </span>
+            <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginTop: 8 }}>
+              <span
+                style={{
+                  display: 'inline-block',
+                  padding: '3px 10px',
+                  borderRadius: 20,
+                  fontSize: 11,
+                  fontWeight: 600,
+                  letterSpacing: '0.04em',
+                  color: diff.color,
+                  background: diff.bg,
+                }}
+              >
+                Dificuldade: {diff.label}
+              </span>
+              {sources && [...new Set(sources.map(s => s.type))].map(type => {
+                const cfg = SOURCE_TYPES[type as keyof typeof SOURCE_TYPES]
+                if (!cfg) return null
+                return (
+                  <span
+                    key={type}
+                    style={{
+                      display: 'inline-block',
+                      padding: '3px 10px',
+                      borderRadius: 20,
+                      fontSize: 11,
+                      fontWeight: 600,
+                      letterSpacing: '0.04em',
+                      color: cfg.color,
+                      background: cfg.bg,
+                    }}
+                  >
+                    {cfg.emoji} {cfg.label}
+                  </span>
+                )
+              })}
+            </div>
           </div>
 
           <motion.span
@@ -197,6 +233,115 @@ function QuestionItem({
                   </p>
                 </div>
 
+                {/* Quran Position */}
+                {quranPosition && (
+                  <div
+                    style={{
+                      marginBottom: 16,
+                      padding: '14px 16px',
+                      borderRadius: 10,
+                      borderLeft: '3px solid #6ECB8A',
+                      background: 'rgba(110,203,138,0.04)',
+                    }}
+                  >
+                    <h4
+                      style={{
+                        fontFamily: 'var(--font-serif)',
+                        fontSize: 13,
+                        fontWeight: 600,
+                        color: '#6ECB8A',
+                        marginBottom: 6,
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 6,
+                      }}
+                    >
+                      <Scale size={13} />
+                      O que o Quran diz
+                    </h4>
+                    <p style={{ fontSize: 13, lineHeight: 1.7, color: T.secondary, margin: 0 }}>
+                      {quranPosition}
+                    </p>
+                  </div>
+                )}
+
+                {/* Source References */}
+                {sources && sources.length > 0 && (
+                  <div style={{ marginBottom: 12 }}>
+                    <button
+                      onClick={() => toggleSection('sources')}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 6,
+                        background: 'none',
+                        border: 'none',
+                        cursor: 'pointer',
+                        color: expandedSections.has('sources') ? T.secondary : T.muted,
+                        fontSize: 13,
+                        fontWeight: 500,
+                        padding: '6px 0',
+                        transition: 'color 0.2s ease',
+                      }}
+                    >
+                      <BookOpen size={14} />
+                      <span>Referências escriturais ({sources.length})</span>
+                      <motion.span
+                        animate={{ rotate: expandedSections.has('sources') ? 180 : 0 }}
+                        transition={{ duration: 0.15 }}
+                      >
+                        <ChevronDown size={12} />
+                      </motion.span>
+                    </button>
+                    <AnimatePresence>
+                      {expandedSections.has('sources') && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.2, ease: [0.25, 0.4, 0.25, 1] }}
+                          style={{ overflow: 'hidden' }}
+                        >
+                          <div style={{ paddingLeft: 20, display: 'flex', flexDirection: 'column', gap: 10, paddingTop: 4, paddingBottom: 8 }}>
+                            {sources.map((src, si) => {
+                              const cfg = SOURCE_TYPES[src.type as keyof typeof SOURCE_TYPES] || SOURCE_TYPES.scholarly
+                              return (
+                                <div
+                                  key={si}
+                                  style={{
+                                    padding: '10px 14px',
+                                    borderRadius: 8,
+                                    borderLeft: `2px solid ${cfg.color}`,
+                                    background: 'rgba(22,18,32,0.4)',
+                                  }}
+                                >
+                                  <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 4 }}>
+                                    <span style={{ fontSize: 10, fontWeight: 600, color: cfg.color, letterSpacing: '0.05em', textTransform: 'uppercase' as const }}>
+                                      {cfg.emoji} {cfg.label}
+                                    </span>
+                                    <span style={{ fontSize: 11, color: T.muted }}>{src.reference}</span>
+                                  </div>
+                                  {src.arabic && (
+                                    <p style={{ fontFamily: 'var(--font-arabic)', fontSize: 15, lineHeight: 2, color: T.gold, margin: '4px 0', direction: 'rtl' as const, textAlign: 'right' as const }}>
+                                      {src.arabic}
+                                    </p>
+                                  )}
+                                  <p style={{ fontSize: 12, lineHeight: 1.6, color: T.secondary, margin: '4px 0 0', fontStyle: 'italic' }}>
+                                    &ldquo;{src.text}&rdquo;
+                                  </p>
+                                  <p style={{ fontSize: 11, lineHeight: 1.5, color: T.muted, margin: '4px 0 0' }}>
+                                    {src.context}
+                                  </p>
+                                </div>
+                              )
+                            })}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                )}
+
                 {/* Collapsible: Context */}
                 <CollapsibleSection
                   title="Contexto histórico"
@@ -214,6 +359,17 @@ function QuestionItem({
                   isOpen={expandedSections.has('scholarship')}
                   onToggle={() => toggleSection('scholarship')}
                 />
+
+                {/* Collapsible: Internal Debate */}
+                {internalDebate && (
+                  <CollapsibleSection
+                    title="Debate interno islâmico"
+                    icon={<MessageCircle size={14} />}
+                    content={internalDebate}
+                    isOpen={expandedSections.has('debate')}
+                    onToggle={() => toggleSection('debate')}
+                  />
+                )}
 
                 {/* Honest Conclusion — always visible, highlighted */}
                 <div
@@ -419,6 +575,70 @@ export default function PerguntasPage() {
       </section>
 
       <GoldDivider />
+
+      {/* ── POSIÇÃO DO KALAM ────────────────────────────────── */}
+      <section style={{ maxWidth: 720, margin: '0 auto', padding: '0 24px' }}>
+        <SectionReveal>
+          <div
+            style={{
+              margin: '32px 0',
+              padding: '24px',
+              borderRadius: 12,
+              borderLeft: `3px solid ${T.gold}`,
+              background: 'rgba(201,168,76,0.04)',
+              border: `1px solid rgba(201,168,76,0.15)`,
+              borderLeftWidth: 3,
+              borderLeftColor: T.gold,
+            }}
+          >
+            <h3
+              style={{
+                fontFamily: 'var(--font-serif)',
+                fontSize: 16,
+                fontWeight: 600,
+                color: T.gold,
+                marginBottom: 16,
+                display: 'flex',
+                alignItems: 'center',
+                gap: 8,
+              }}
+            >
+              <Scale size={16} />
+              A Posição do Kalam
+            </h3>
+            <p style={{ fontSize: 14, lineHeight: 1.7, color: T.secondary, marginBottom: 12, fontStyle: 'italic' }}>
+              O Kalam segue a tradição islâmica clássica com consciência crítica:
+            </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
+                <span style={{ fontSize: 16, flexShrink: 0, marginTop: 1 }}>📖</span>
+                <div>
+                  <p style={{ fontSize: 13, fontWeight: 600, color: '#6ECB8A', margin: 0 }}>O Quran é a fonte primária e inegociável.</p>
+                  <p style={{ fontSize: 12, color: T.muted, margin: '2px 0 0' }}>Palavra de Deus, preservada, sem contradição.</p>
+                </div>
+              </div>
+              <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
+                <span style={{ fontSize: 16, flexShrink: 0, marginTop: 1 }}>📜</span>
+                <div>
+                  <p style={{ fontSize: 13, fontWeight: 600, color: T.gold, margin: 0 }}>Os Hadiths são fonte secundária e humana.</p>
+                  <p style={{ fontSize: 12, color: T.muted, margin: '2px 0 0' }}>Importantes, mas sujeitos a análise de autenticidade (ilm al-hadith).</p>
+                </div>
+              </div>
+              <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
+                <span style={{ fontSize: 16, flexShrink: 0, marginTop: 1 }}>🔬</span>
+                <div>
+                  <p style={{ fontSize: 13, fontWeight: 600, color: '#7BA3E2', margin: 0 }}>Autocrítica é parte da tradição.</p>
+                  <p style={{ fontSize: 12, color: T.muted, margin: '2px 0 0' }}>Os maiores estudiosos islâmicos SEMPRE questionaram, debateram e refinaram.</p>
+                </div>
+              </div>
+            </div>
+            <p style={{ fontSize: 13, lineHeight: 1.6, color: T.text, marginTop: 16, fontWeight: 500 }}>
+              O Kalam não simplifica. Não esconde. Não foge.{' '}
+              <span style={{ color: T.muted }}>Mostramos o que o Quran diz, o que os hadiths acrescentam, e onde existe debate.</span>
+            </p>
+          </div>
+        </SectionReveal>
+      </section>
 
       {/* ── FILTER TABS ──────────────────────────────────────── */}
       <section style={{ maxWidth: 720, margin: '0 auto', padding: '0 24px' }}>

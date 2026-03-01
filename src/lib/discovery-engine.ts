@@ -85,6 +85,31 @@ const DISCOVERY_ITEMS: DiscoveryItem[] = [
   { id: 'df-is01', type: 'system', title: 'Islam como Sistema Operacional', preview: 'Tawhid é o kernel. Alcorão é a documentação. Sunnah é o changelog.', href: '/o-sistema', source: 'O Sistema' },
   { id: 'df-is02', type: 'system', title: 'Os 5 Protocolos (Pilares)', preview: 'Shahada, Salah, Zakat, Sawm, Hajj — o núcleo operacional do Islam.', href: '/o-sistema', source: 'O Sistema' },
   { id: 'df-is03', type: 'system', title: 'Fiqh — o manual de adaptação', preview: 'Como o Islam se atualiza para cada época sem perder o kernel.', href: '/o-sistema', source: 'O Sistema' },
+
+  // ── SCRIPTURE PROOFS (10 selected) ──
+  { id: 'df-sp01', type: 'bridge', title: 'A Unicidade de Deus', preview: 'Deuteronômio 6:4 e Quran 112:1 dizem a mesma coisa: Deus é Um. Jesus confirmou em Marcos 12:29.', href: '/comprovacoes', source: 'Comprovação Escritural' },
+  { id: 'df-sp02', type: 'bridge', title: 'Nascimento Virginal', preview: 'Lucas 1:34 e Surah Maryam 19:20 narram a mesma cena: Maria pergunta "como terei um filho?"', href: '/comprovacoes', source: 'Comprovação Escritural' },
+  { id: 'df-sp03', type: 'bridge', title: 'Jesus Orou Prostrado', preview: 'Mateus 26:39 — Jesus "prostrou-se sobre o rosto, orando". A mesma postura de 1.8 bilhão de muçulmanos.', href: '/comprovacoes', source: 'Comprovação Escritural' },
+  { id: 'df-sp04', type: 'bridge', title: 'Matar Um = Matar Toda a Humanidade', preview: 'Quran 5:32 — quem matar uma pessoa é como se matasse toda a humanidade. Sem paralelo em brutalidade moral.', href: '/comprovacoes', source: 'Comprovação Escritural' },
+  { id: 'df-sp05', type: 'bridge', title: 'Jejum nas Duas Tradições', preview: 'O Quran 2:183 diz: "o jejum vos foi prescrito assim como aos que vieram antes de vós". Jesus jejuou 40 dias.', href: '/comprovacoes', source: 'Comprovação Escritural' },
+  { id: 'df-sp06', type: 'bridge', title: 'Adão do Barro', preview: 'Gênesis 2:7 e Quran 15:26 — o ser humano criado do pó da terra. A mesma origem humilde.', href: '/comprovacoes', source: 'Comprovação Escritural' },
+  { id: 'df-sp07', type: 'bridge', title: 'O Consolador Prometido', preview: 'Jesus prometeu enviar o "Consolador" (João 14:16). Quran diz que Jesus anunciou "Ahmad" (61:6). Mesmo evento?', href: '/comprovacoes', source: 'Comprovação Escritural' },
+  { id: 'df-sp08', type: 'bridge', title: 'Honrar os Pais', preview: 'Êxodo 20:12 e Quran 17:23 — honrar pai e mãe é mandamento divino. Logo após adorar somente a Deus.', href: '/comprovacoes', source: 'Comprovação Escritural' },
+  { id: 'df-sp09', type: 'bridge', title: 'Justiça Mesmo Contra Si', preview: 'Quran 4:135 — "sede firmes na justiça, mesmo contra vós mesmos". Levítico 19:15 diz o mesmo.', href: '/comprovacoes', source: 'Comprovação Escritural' },
+  { id: 'df-sp10', type: 'bridge', title: 'Maria Escolhida Acima de Todas', preview: 'Lucas 1:28: "bendita entre as mulheres". Quran 3:42: "escolhida acima de todas as mulheres do mundo".', href: '/comprovacoes', source: 'Comprovação Escritural' },
+
+  // ── PROPHETS EXPANDED (11 new) ──
+  { id: 'df-pr07', type: 'prophet', title: 'Nuh (Noé)', preview: 'Pregou por 950 anos. Seu próprio filho recusou entrar na arca e morreu nas águas.', href: '/os-profetas/nuh', source: 'Profeta' },
+  { id: 'df-pr08', type: 'prophet', title: 'Dawud (Davi)', preview: 'Um pastor de ovelhas matou um gigante. Depois, as montanhas cantavam com ele.', href: '/os-profetas/dawud', source: 'Profeta' },
+  { id: 'df-pr09', type: 'prophet', title: 'Suleiman (Salomão)', preview: 'Entendeu a língua das formigas. Comandou ventos. A rainha de Sabá se rendeu — não a ele, mas a Deus.', href: '/os-profetas/suleiman', source: 'Profeta' },
+  { id: 'df-pr10', type: 'prophet', title: 'Yunus (Jonas)', preview: 'Fugiu da missão. Engolido pela baleia. No fundo do oceano, fez a oração mais poderosa do Quran.', href: '/os-profetas/yunus', source: 'Profeta' },
+  { id: 'df-pr11', type: 'prophet', title: 'Ayyub (Jó)', preview: 'Perdeu saúde, riqueza, família. Nunca reclamou. Sua dua tem 11 palavras que mudaram tudo.', href: '/os-profetas/ayyub', source: 'Profeta' },
+  { id: 'df-pr12', type: 'prophet', title: 'Yahya (João Batista)', preview: 'Deus deu um nome que ninguém antes havia recebido. Aos seus pais idosos. Contra toda lógica.', href: '/os-profetas/yahya', source: 'Profeta' },
+  { id: 'df-pr13', type: 'prophet', title: 'Ilyas (Elias)', preview: 'Sozinho contra 450 sacerdotes de Baal. Pediu fogo do céu. E o fogo veio.', href: '/os-profetas/ilyas', source: 'Profeta' },
+  { id: 'df-pr14', type: 'prophet', title: 'Lut (Ló)', preview: 'Sua cidade foi destruída. Sua própria esposa olhou para trás. A solidão do profeta em terra hostil.', href: '/os-profetas/lut', source: 'Profeta' },
+  { id: 'df-pr15', type: 'prophet', title: 'Ishaq (Isaque)', preview: 'O filho da promessa impossível. Sarah riu quando ouviu. Deus cumpriu mesmo assim.', href: '/os-profetas/ishaq', source: 'Profeta' },
+  { id: 'df-pr16', type: 'prophet', title: 'Yaqub (Jacó)', preview: 'Perdeu seu filho mais amado. Chorou tanto que ficou cego. E esperou. E Deus devolveu.', href: '/os-profetas/yaqub', source: 'Profeta' },
+  { id: 'df-pr17', type: 'prophet', title: 'Alyasa (Eliseu)', preview: 'Recebeu o manto de Elias. Continuou a missão. Mencionado entre "os escolhidos, os excelentes".', href: '/os-profetas/alyasa', source: 'Profeta' },
 ]
 
 // ── STORAGE KEY ──────────────────────────────────────────────────────────────
