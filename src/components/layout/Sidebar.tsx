@@ -32,6 +32,7 @@ import {
   Layers,
   BookMarked,
   Scale,
+  Crown,
 } from 'lucide-react'
 
 // ── SIDEBAR CONTEXT ─────────────────────────────────────────────────────────
@@ -178,6 +179,7 @@ const NAV_CATEGORIES: NavCategory[] = [
 ]
 
 const BOTTOM_LINKS: NavItem[] = [
+  { label: 'Área de Membros', href: '/area-de-membros', icon: Crown },
   { label: 'Sobre', href: '/sobre', icon: Info },
   { label: 'Configurações', href: '/configuracoes', icon: Settings },
 ]
