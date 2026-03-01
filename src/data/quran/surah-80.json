@@ -1,0 +1,254 @@
+[
+  {
+    "key": "80:1",
+    "number": 1,
+    "arabic": " عَبَسَ وَتَوَلَّىٰٓ",
+    "portuguese": "Ele carranqueou e voltou as costas,"
+  },
+  {
+    "key": "80:2",
+    "number": 2,
+    "arabic": "أَن جَآءَهُ ٱلْأَعْمَىٰ",
+    "portuguese": "Por que o cego lhe chegou."
+  },
+  {
+    "key": "80:3",
+    "number": 3,
+    "arabic": "وَمَا يُدْرِيكَ لَعَلَّهُۥ يَزَّكَّىٰٓ",
+    "portuguese": "E o que te faz inteirar-te que ele, talvez se dignifique?"
+  },
+  {
+    "key": "80:4",
+    "number": 4,
+    "arabic": "أَوْ يَذَّكَّرُ فَتَنفَعَهُ ٱلذِّكْرَىٰٓ",
+    "portuguese": "Ou se lembre da Mensagem, e a lembrança o beneficie?"
+  },
+  {
+    "key": "80:5",
+    "number": 5,
+    "arabic": "أَمَّا مَنِ ٱسْتَغْنَىٰ",
+    "portuguese": "Quanto ao que prescinde de ajuda,"
+  },
+  {
+    "key": "80:6",
+    "number": 6,
+    "arabic": "فَأَنتَ لَهُۥ تَصَدَّىٰ",
+    "portuguese": "Tu o ouves, atentamente."
+  },
+  {
+    "key": "80:7",
+    "number": 7,
+    "arabic": "وَمَا عَلَيْكَ أَلَّا يَزَّكَّىٰ",
+    "portuguese": "E nada te impende se ele não dignifica."
+  },
+  {
+    "key": "80:8",
+    "number": 8,
+    "arabic": "وَأَمَّا مَن جَآءَكَ يَسْعَىٰ",
+    "portuguese": "E, quanto ao que te chega correndo,"
+  },
+  {
+    "key": "80:9",
+    "number": 9,
+    "arabic": "وَهُوَ يَخْشَىٰ",
+    "portuguese": "Enquanto receia a Allah,"
+  },
+  {
+    "key": "80:10",
+    "number": 10,
+    "arabic": "فَأَنتَ عَنْهُ تَلَهَّىٰ",
+    "portuguese": "Dele te desinteressas."
+  },
+  {
+    "key": "80:11",
+    "number": 11,
+    "arabic": "كَلَّآ إِنَّهَا تَذْكِرَةٌ",
+    "portuguese": "Em absoluto, não o faças mais! Por certo, esses são uma lembrança."
+  },
+  {
+    "key": "80:12",
+    "number": 12,
+    "arabic": "فَمَن شَآءَ ذَكَرَهُۥ",
+    "portuguese": "- Então, quem quiser, disso se lembrará -"
+  },
+  {
+    "key": "80:13",
+    "number": 13,
+    "arabic": "فِى صُحُفٍ مُّكَرَّمَةٍ",
+    "portuguese": "Registada em páginas honradas,"
+  },
+  {
+    "key": "80:14",
+    "number": 14,
+    "arabic": "مَّرْفُوعَةٍ مُّطَهَّرَةٍۭ",
+    "portuguese": "Elevadas, puras,"
+  },
+  {
+    "key": "80:15",
+    "number": 15,
+    "arabic": "بِأَيْدِى سَفَرَةٍ",
+    "portuguese": "Em mãos de escribas."
+  },
+  {
+    "key": "80:16",
+    "number": 16,
+    "arabic": "كِرَامٍۭ بَرَرَةٍ",
+    "portuguese": "Honoráveis, virtuosos."
+  },
+  {
+    "key": "80:17",
+    "number": 17,
+    "arabic": "قُتِلَ ٱلْإِنسَـٰنُ مَآ أَكْفَرَهُۥ",
+    "portuguese": "Que morra o ser humano! Como é ingrato!"
+  },
+  {
+    "key": "80:18",
+    "number": 18,
+    "arabic": "مِنْ أَىِّ شَىْءٍ خَلَقَهُۥ",
+    "portuguese": "De que cousa Ele o criou?"
+  },
+  {
+    "key": "80:19",
+    "number": 19,
+    "arabic": "مِن نُّطْفَةٍ خَلَقَهُۥ فَقَدَّرَهُۥ",
+    "portuguese": "De gota seminal, Ele o criou; então, determinou-o;"
+  },
+  {
+    "key": "80:20",
+    "number": 20,
+    "arabic": "ثُمَّ ٱلسَّبِيلَ يَسَّرَهُۥ",
+    "portuguese": "Em seguida, facilitou-lhe o caminho;"
+  },
+  {
+    "key": "80:21",
+    "number": 21,
+    "arabic": "ثُمَّ أَمَاتَهُۥ فَأَقْبَرَهُۥ",
+    "portuguese": "Em seguida, fê-lo morrer e fê-lo sepulto;"
+  },
+  {
+    "key": "80:22",
+    "number": 22,
+    "arabic": "ثُمَّ إِذَا شَآءَ أَنشَرَهُۥ",
+    "portuguese": "Depois, quando Ele quiser, ressuscitá-lo-á."
+  },
+  {
+    "key": "80:23",
+    "number": 23,
+    "arabic": "كَلَّا لَمَّا يَقْضِ مَآ أَمَرَهُۥ",
+    "portuguese": "Mas, em absoluto, ele ainda não realizou o que Ele lhe ordenou."
+  },
+  {
+    "key": "80:24",
+    "number": 24,
+    "arabic": "فَلْيَنظُرِ ٱلْإِنسَـٰنُ إِلَىٰ طَعَامِهِۦٓ",
+    "portuguese": "Então, que o ser humano olhe para seu alimento:"
+  },
+  {
+    "key": "80:25",
+    "number": 25,
+    "arabic": "أَنَّا صَبَبْنَا ٱلْمَآءَ صَبًّا",
+    "portuguese": "Nós fizemos entornar a água abundantemente,"
+  },
+  {
+    "key": "80:26",
+    "number": 26,
+    "arabic": "ثُمَّ شَقَقْنَا ٱلْأَرْضَ شَقًّا",
+    "portuguese": "Em seguida, fendemos a terra, suficientemente,"
+  },
+  {
+    "key": "80:27",
+    "number": 27,
+    "arabic": "فَأَنۢبَتْنَا فِيهَا حَبًّا",
+    "portuguese": "E, nela fizemos brotar grãos,"
+  },
+  {
+    "key": "80:28",
+    "number": 28,
+    "arabic": "وَعِنَبًا وَقَضْبًا",
+    "portuguese": "E videiras e hortaliças,"
+  },
+  {
+    "key": "80:29",
+    "number": 29,
+    "arabic": "وَزَيْتُونًا وَنَخْلًا",
+    "portuguese": "E oliveiras e tamareiras,"
+  },
+  {
+    "key": "80:30",
+    "number": 30,
+    "arabic": "وَحَدَآئِقَ غُلْبًا",
+    "portuguese": "E pomares entrelaçados,"
+  },
+  {
+    "key": "80:31",
+    "number": 31,
+    "arabic": "وَفَـٰكِهَةً وَأَبًّا",
+    "portuguese": "E frutas e pastagens,"
+  },
+  {
+    "key": "80:32",
+    "number": 32,
+    "arabic": "مَّتَـٰعًا لَّكُمْ وَلِأَنْعَـٰمِكُمْ",
+    "portuguese": "Tudo, para o gozo de vós e de vossos rebanhos."
+  },
+  {
+    "key": "80:33",
+    "number": 33,
+    "arabic": "فَإِذَا جَآءَتِ ٱلصَّآخَّةُ",
+    "portuguese": "Então, quando chegar o soar ensurdecedor,"
+  },
+  {
+    "key": "80:34",
+    "number": 34,
+    "arabic": "يَوْمَ يَفِرُّ ٱلْمَرْءُ مِنْ أَخِيهِ",
+    "portuguese": "Um dia, quando a pessoa fugir de seu irmão,"
+  },
+  {
+    "key": "80:35",
+    "number": 35,
+    "arabic": "وَأُمِّهِۦ وَأَبِيهِ",
+    "portuguese": "E de sua mãe e de seu pai,"
+  },
+  {
+    "key": "80:36",
+    "number": 36,
+    "arabic": "وَصَـٰحِبَتِهِۦ وَبَنِيهِ",
+    "portuguese": "E de sua companheira e de seus filhos,"
+  },
+  {
+    "key": "80:37",
+    "number": 37,
+    "arabic": "لِكُلِّ ٱمْرِئٍ مِّنْهُمْ يَوْمَئِذٍ شَأْنٌ يُغْنِيهِ",
+    "portuguese": "Nesse dia, para cada um destes, haverá uma situação que o preocupará."
+  },
+  {
+    "key": "80:38",
+    "number": 38,
+    "arabic": "وُجُوهٌ يَوْمَئِذٍ مُّسْفِرَةٌ",
+    "portuguese": "Haverá, nesse dia, faces radiantes,"
+  },
+  {
+    "key": "80:39",
+    "number": 39,
+    "arabic": "ضَاحِكَةٌ مُّسْتَبْشِرَةٌ",
+    "portuguese": "Sorridentes, exultantes."
+  },
+  {
+    "key": "80:40",
+    "number": 40,
+    "arabic": "وَوُجُوهٌ يَوْمَئِذٍ عَلَيْهَا غَبَرَةٌ",
+    "portuguese": "E, nesse dia, haverá faces cobertas de poeira."
+  },
+  {
+    "key": "80:41",
+    "number": 41,
+    "arabic": "تَرْهَقُهَا قَتَرَةٌ",
+    "portuguese": "Cobri-las-á um negrume."
+  },
+  {
+    "key": "80:42",
+    "number": 42,
+    "arabic": "أُو۟لَـٰٓئِكَ هُمُ ٱلْكَفَرَةُ ٱلْفَجَرَةُ",
+    "portuguese": "Esses serão os renegadores da Fé, os ímpios."
+  }
+]

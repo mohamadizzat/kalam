@@ -1,0 +1,134 @@
+[
+  {
+    "key": "85:1",
+    "number": 1,
+    "arabic": " وَٱلسَّمَآءِ ذَاتِ ٱلْبُرُوجِ",
+    "portuguese": "Pelo céu das constelações!"
+  },
+  {
+    "key": "85:2",
+    "number": 2,
+    "arabic": "وَٱلْيَوْمِ ٱلْمَوْعُودِ",
+    "portuguese": "E pelo dia prometido!"
+  },
+  {
+    "key": "85:3",
+    "number": 3,
+    "arabic": "وَشَاهِدٍ وَمَشْهُودٍ",
+    "portuguese": "E por uma testemunha e um testemunhado!"
+  },
+  {
+    "key": "85:4",
+    "number": 4,
+    "arabic": "قُتِلَ أَصْحَـٰبُ ٱلْأُخْدُودِ",
+    "portuguese": "Que morram os companheiros do fosso,"
+  },
+  {
+    "key": "85:5",
+    "number": 5,
+    "arabic": "ٱلنَّارِ ذَاتِ ٱلْوَقُودِ",
+    "portuguese": "Do fogo, cheio de combustível."
+  },
+  {
+    "key": "85:6",
+    "number": 6,
+    "arabic": "إِذْ هُمْ عَلَيْهَا قُعُودٌ",
+    "portuguese": "Quando estavam sentados a seu redor,"
+  },
+  {
+    "key": "85:7",
+    "number": 7,
+    "arabic": "وَهُمْ عَلَىٰ مَا يَفْعَلُونَ بِٱلْمُؤْمِنِينَ شُهُودٌ",
+    "portuguese": "E eram testemunhas do que faziam com os crentes,"
+  },
+  {
+    "key": "85:8",
+    "number": 8,
+    "arabic": "وَمَا نَقَمُوا۟ مِنْهُمْ إِلَّآ أَن يُؤْمِنُوا۟ بِٱللَّهِ ٱلْعَزِيزِ ٱلْحَمِيدِ",
+    "portuguese": "E não os censuravam senão por crerem em Allah, O Todo-Poderoso, O Louvável,"
+  },
+  {
+    "key": "85:9",
+    "number": 9,
+    "arabic": "ٱلَّذِى لَهُۥ مُلْكُ ٱلسَّمَـٰوَٰتِ وَٱلْأَرْضِ ۚ وَٱللَّهُ عَلَىٰ كُلِّ شَىْءٍ شَهِيدٌ",
+    "portuguese": "De Quem é a soberania dos céus e da terra. E Allah, sobre todas as cousas, é Testemunha."
+  },
+  {
+    "key": "85:10",
+    "number": 10,
+    "arabic": "إِنَّ ٱلَّذِينَ فَتَنُوا۟ ٱلْمُؤْمِنِينَ وَٱلْمُؤْمِنَـٰتِ ثُمَّ لَمْ يَتُوبُوا۟ فَلَهُمْ عَذَابُ جَهَنَّمَ وَلَهُمْ عَذَابُ ٱلْحَرِيقِ",
+    "portuguese": "Por certo, os que provaram os crentes e as crentes, em seguida, não se voltaram arrependidos, terão o castigo da Geena, e terão o castigo da Queima."
+  },
+  {
+    "key": "85:11",
+    "number": 11,
+    "arabic": "إِنَّ ٱلَّذِينَ ءَامَنُوا۟ وَعَمِلُوا۟ ٱلصَّـٰلِحَـٰتِ لَهُمْ جَنَّـٰتٌ تَجْرِى مِن تَحْتِهَا ٱلْأَنْهَـٰرُ ۚ ذَٰلِكَ ٱلْفَوْزُ ٱلْكَبِيرُ",
+    "portuguese": "Por certo, os que crêem e fazem as boas obras terão Jardins, abaixo dos quais correm os rios. Esse é o grande triunfo."
+  },
+  {
+    "key": "85:12",
+    "number": 12,
+    "arabic": "إِنَّ بَطْشَ رَبِّكَ لَشَدِيدٌ",
+    "portuguese": "Por certo, o desferir golpes de teu Senhor é veemente."
+  },
+  {
+    "key": "85:13",
+    "number": 13,
+    "arabic": "إِنَّهُۥ هُوَ يُبْدِئُ وَيُعِيدُ",
+    "portuguese": "Por certo, Ele inicia a criação e a repete."
+  },
+  {
+    "key": "85:14",
+    "number": 14,
+    "arabic": "وَهُوَ ٱلْغَفُورُ ٱلْوَدُودُ",
+    "portuguese": "E Ele é O Perdoador, O Afetuoso,"
+  },
+  {
+    "key": "85:15",
+    "number": 15,
+    "arabic": "ذُو ٱلْعَرْشِ ٱلْمَجِيدُ",
+    "portuguese": "O Possuidor do Trono, O Glorioso,"
+  },
+  {
+    "key": "85:16",
+    "number": 16,
+    "arabic": "فَعَّالٌ لِّمَا يُرِيدُ",
+    "portuguese": "Fazedor do que Ele quer."
+  },
+  {
+    "key": "85:17",
+    "number": 17,
+    "arabic": "هَلْ أَتَىٰكَ حَدِيثُ ٱلْجُنُودِ",
+    "portuguese": "Chegou-te o relato dos exércitos?"
+  },
+  {
+    "key": "85:18",
+    "number": 18,
+    "arabic": "فِرْعَوْنَ وَثَمُودَ",
+    "portuguese": "De Faraó e do povo de Thamud?"
+  },
+  {
+    "key": "85:19",
+    "number": 19,
+    "arabic": "بَلِ ٱلَّذِينَ كَفَرُوا۟ فِى تَكْذِيبٍ",
+    "portuguese": "Mas os que renegam a Fé estão mergulhados no desmentir."
+  },
+  {
+    "key": "85:20",
+    "number": 20,
+    "arabic": "وَٱللَّهُ مِن وَرَآئِهِم مُّحِيطٌۢ",
+    "portuguese": "E Allah os está abarcando, por todos os lados."
+  },
+  {
+    "key": "85:21",
+    "number": 21,
+    "arabic": "بَلْ هُوَ قُرْءَانٌ مَّجِيدٌ",
+    "portuguese": "Mas este é um Alcorão glorioso,"
+  },
+  {
+    "key": "85:22",
+    "number": 22,
+    "arabic": "فِى لَوْحٍ مَّحْفُوظٍۭ",
+    "portuguese": "Registado em tábua custódia."
+  }
+]
