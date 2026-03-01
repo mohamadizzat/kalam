@@ -2,18 +2,20 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Home, BookOpen, Sun, Compass, Heart } from 'lucide-react'
+import { Home, Compass, BookOpen, Sun, MoreHorizontal } from 'lucide-react'
+import { useSidebar } from './Sidebar'
 
 const TABS = [
   { label: 'Início', href: '/', Icon: Home },
-  { label: 'A Palavra', href: '/a-palavra', Icon: BookOpen },
-  { label: 'A Presença', href: '/a-presenca', Icon: Sun },
-  { label: 'A Jornada', href: '/a-jornada', Icon: Compass },
-  { label: 'A Alma', href: '/a-alma', Icon: Heart },
+  { label: 'Descobrir', href: '/a-mensagem', Icon: Compass, matchPaths: ['/a-mensagem', '/a-ponte', '/os-profetas', '/o-sistema', '/biblioteca', '/perguntas'] },
+  { label: 'Aprender', href: '/a-palavra', Icon: BookOpen, matchPaths: ['/a-palavra', '/trilhas', '/a-biblia-do-kalam'] },
+  { label: 'Praticar', href: '/a-presenca', Icon: Sun, matchPaths: ['/a-presenca', '/aya-do-dia'] },
+  { label: 'Mais', href: '#more', Icon: MoreHorizontal },
 ]
 
 export function BottomNav() {
   const pathname = usePathname()
+  const { toggleOpen } = useSidebar()
 
   return (
     <>
@@ -37,8 +39,48 @@ export function BottomNav() {
           paddingBottom: 'env(safe-area-inset-bottom)',
         }}
       >
-        {TABS.map(({ label, href, Icon }) => {
-          const isActive = href === '/' ? pathname === '/' : pathname.startsWith(href)
+        {TABS.map(({ label, href, Icon, matchPaths }) => {
+          const isMore = href === '#more'
+          const isActive = isMore
+            ? false
+            : href === '/'
+              ? pathname === '/'
+              : matchPaths
+                ? matchPaths.some(p => pathname.startsWith(p))
+                : pathname.startsWith(href)
+
+          if (isMore) {
+            return (
+              <button
+                key={label}
+                onClick={toggleOpen}
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  gap: 3,
+                  padding: '8px 12px',
+                  color: '#7A7870',
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  position: 'relative',
+                }}
+              >
+                <Icon size={22} strokeWidth={1.5} />
+                <span style={{
+                  fontFamily: 'var(--font-sans)',
+                  fontSize: 10,
+                  letterSpacing: '0.5px',
+                  lineHeight: 1,
+                  fontWeight: 400,
+                }}>
+                  {label}
+                </span>
+              </button>
+            )
+          }
+
           return (
             <Link
               key={label}

@@ -13,6 +13,9 @@ import { LenisProvider } from '@/providers/lenis-provider'
 import { Header } from '@/components/layout/Header'
 import { BottomNav } from '@/components/layout/BottomNav'
 import { Footer } from '@/components/layout/Footer'
+import { Sidebar, SidebarProvider } from '@/components/layout/Sidebar'
+import { ContentWrapper } from '@/components/layout/ContentWrapper'
+import { Breadcrumbs } from '@/components/layout/Breadcrumbs'
 import { FloatingContinue } from '@/components/shared/FloatingContinue'
 import { Analytics } from '@vercel/analytics/next'
 import { AuthProvider } from '@/providers/auth-provider'
@@ -66,13 +69,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <AuthProvider>
           <ThemeProvider attribute="class" defaultTheme="dark" forcedTheme="dark" disableTransitionOnChange>
-            <LenisProvider>
-              <Header />
-              <main className="pb-20 md:pb-0">{children}</main>
-              <Footer />
-              <FloatingContinue />
-              <BottomNav />
-            </LenisProvider>
+            <SidebarProvider>
+              <LenisProvider>
+                <Sidebar />
+                <ContentWrapper>
+                  <Header />
+                  <Breadcrumbs />
+                  <main className="pb-20 md:pb-0">{children}</main>
+                  <Footer />
+                </ContentWrapper>
+                <FloatingContinue />
+                <BottomNav />
+              </LenisProvider>
+            </SidebarProvider>
           </ThemeProvider>
         </AuthProvider>
         <Analytics />

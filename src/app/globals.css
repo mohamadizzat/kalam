@@ -160,3 +160,14 @@ body {
 .fade-up {
   animation: fadeUp 0.7s ease forwards;
 }
+
+/* ── Sidebar layout offset (desktop) ─────────────────────────────────── */
+@media (min-width: 769px) {
+  .main-content-wrapper {
+    margin-left: 260px;
+    transition: margin-left 0.25s ease;
+  }
+  .main-content-wrapper.sidebar-collapsed {
+    margin-left: 60px;
+  }
+}

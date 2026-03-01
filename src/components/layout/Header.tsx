@@ -3,23 +3,15 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Settings, Map, User, LogOut, Search } from 'lucide-react'
+import { Settings, User, LogOut, Search, Menu } from 'lucide-react'
 import { useAuth } from '@/providers/auth-provider'
-
-const NAV_LINKS = [
-  { label: 'A Palavra', href: '/a-palavra' },
-  { label: 'A Presenca', href: '/a-presenca' },
-  { label: 'A Jornada', href: '/a-jornada' },
-  { label: 'A Alma', href: '/a-alma' },
-  { label: 'Kids', href: '/kids' },
-  { label: 'Sobre', href: '/sobre' },
-]
+import { useSidebar } from './Sidebar'
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false)
-  const [greeting, setGreeting] = useState('')
   const pathname = usePathname()
   const { user, signOut } = useAuth()
+  const { toggleOpen } = useSidebar()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
@@ -27,27 +19,16 @@ export function Header() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  useEffect(() => {
-    const updateGreeting = () => {
-      const hour = new Date().getHours()
-      if (hour >= 5 && hour < 12) setGreeting('Bom dia')
-      else if (hour >= 12 && hour < 18) setGreeting('Boa tarde')
-      else setGreeting('Boa noite')
-    }
-    updateGreeting()
-    const interval = setInterval(updateGreeting, 60000)
-    return () => clearInterval(interval)
-  }, [])
-
   return (
     <>
       <style>{`
         @media (max-width: 768px) {
-          .header-desktop-nav { display: none !important; }
-          .header-settings-label { display: none !important; }
+          .header-desktop-logo { display: none !important; }
+          .header-hamburger { display: flex !important; }
         }
         @media (min-width: 769px) {
-          .header-greeting { display: none !important; }
+          .header-hamburger { display: none !important; }
+          .header-mobile-logo { display: none !important; }
         }
       `}</style>
 
@@ -71,126 +52,59 @@ export function Header() {
           transition: 'all 0.3s ease',
         }}
       >
-        {/* Logo */}
-        <Link
-          href="/"
-          style={{
-            textDecoration: 'none',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '10px',
-          }}
-        >
-          {/* Arabic mark */}
-          <span style={{
-            fontFamily: 'var(--font-arabic)',
-            fontSize: '20px',
-            color: '#C9A84C',
-            lineHeight: 1,
-          }}>
-            كلام
-          </span>
-          <span style={{
-            fontFamily: 'var(--font-serif)',
-            fontWeight: 700,
-            fontSize: '20px',
-            letterSpacing: '-0.02em',
-            color: '#F0EBE2',
-          }}>
-            KALAM
-          </span>
-          {greeting && (
-            <span
-              className="header-greeting"
-              style={{
-                fontFamily: 'var(--font-sans)',
-                fontSize: 11,
-                color: '#7A7870',
-                marginLeft: 2,
-              }}
-            >
-              {greeting}
-            </span>
-          )}
-        </Link>
-
-        {/* Desktop Nav */}
-        <nav
-          className="header-desktop-nav"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 32,
-          }}
-        >
-          {NAV_LINKS.map((link) => {
-            const isActive = pathname.startsWith(link.href)
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                style={{
-                  fontFamily: 'var(--font-sans)',
-                  fontSize: '13px',
-                  letterSpacing: '0.08em',
-                  textTransform: 'uppercase',
-                  color: isActive ? '#C9A84C' : '#7A7870',
-                  textDecoration: 'none',
-                  transition: 'color 0.2s ease',
-                  position: 'relative',
-                  paddingBottom: '2px',
-                }}
-                onMouseEnter={(e) => {
-                  if (!isActive) (e.currentTarget as HTMLAnchorElement).style.color = '#B3B0A6'
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLAnchorElement).style.color = isActive ? '#C9A84C' : '#7A7870'
-                }}
-              >
-                {link.label}
-                {isActive && (
-                  <span style={{
-                    position: 'absolute',
-                    bottom: '-6px',
-                    left: '50%',
-                    transform: 'translateX(-50%)',
-                    width: '16px',
-                    height: '2px',
-                    borderRadius: '1px',
-                    background: '#C9A84C',
-                  }} />
-                )}
-              </Link>
-            )
-          })}
-        </nav>
-
-        {/* Right actions */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-          {/* Mapa */}
-          <Link
-            href="/mapa"
-            aria-label="Mapa do conteudo"
+        {/* Left: Hamburger (mobile) + Logo */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          {/* Hamburger — mobile only */}
+          <button
+            className="header-hamburger"
+            onClick={toggleOpen}
+            aria-label="Abrir menu"
             style={{
-              display: 'flex',
+              display: 'none',
               alignItems: 'center',
               justifyContent: 'center',
-              textDecoration: 'none',
-              color: pathname === '/mapa' ? '#C9A84C' : '#7A7870',
-              transition: 'color 0.2s ease',
-              padding: '6px',
-              borderRadius: '8px',
-            }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLAnchorElement).style.color = '#C9A84C'
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLAnchorElement).style.color = pathname === '/mapa' ? '#C9A84C' : '#7A7870'
+              background: 'none',
+              border: 'none',
+              color: '#F0EBE2',
+              cursor: 'pointer',
+              padding: 4,
             }}
           >
-            <Map size={18} strokeWidth={1.5} />
-          </Link>
+            <Menu size={22} strokeWidth={1.5} />
+          </button>
 
+          {/* Logo */}
+          <Link
+            href="/"
+            style={{
+              textDecoration: 'none',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8,
+            }}
+          >
+            <span style={{
+              fontFamily: 'var(--font-arabic)',
+              fontSize: '20px',
+              color: '#C9A84C',
+              lineHeight: 1,
+            }}>
+              كلام
+            </span>
+            <span style={{
+              fontFamily: 'var(--font-serif)',
+              fontWeight: 700,
+              fontSize: '20px',
+              letterSpacing: '-0.02em',
+              color: '#F0EBE2',
+            }}>
+              KALAM
+            </span>
+          </Link>
+        </div>
+
+        {/* Right actions: Search + Auth + Settings */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
           {/* Search */}
           <Link
             href="/a-palavra/busca"
@@ -258,9 +172,10 @@ export function Header() {
             </Link>
           )}
 
-          {/* Settings */}
+          {/* Settings — desktop only */}
           <Link
             href="/configuracoes"
+            className="header-desktop-logo"
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -279,17 +194,6 @@ export function Header() {
             }}
           >
             <Settings size={18} strokeWidth={1.5} />
-            <span
-              className="header-settings-label"
-              style={{
-                fontFamily: 'var(--font-sans)',
-                fontSize: '12px',
-                letterSpacing: '0.06em',
-                textTransform: 'uppercase',
-              }}
-            >
-              Config
-            </span>
           </Link>
         </div>
       </header>

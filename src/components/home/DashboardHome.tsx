@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react'
 import Link from 'next/link'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import {
   ArrowRight,
   BookOpen,
@@ -16,9 +16,18 @@ import {
   PenLine,
   GitBranch,
   BookText,
-  RotateCcw,
+  ChevronLeft,
+  ChevronRight,
+  Wrench,
+  Library,
+  Route,
+  Calendar,
+  Sparkles,
+  Mic,
+  Clock,
 } from 'lucide-react'
 import { SANCTUARY_VERSES, NAMES_PREVIEW } from '@/lib/data/daily-content'
+import { surpriseFactsData } from '@/content/surpriseFacts'
 
 // ── DESIGN TOKENS ────────────────────────────────────────────────────────────
 
@@ -56,7 +65,6 @@ function AnimatedCounter({ value, color }: { value: number; color: string }) {
     const step = (now: number) => {
       const elapsed = now - startTime
       const progress = Math.min(elapsed / duration, 1)
-      // ease-out cubic
       const eased = 1 - Math.pow(1 - progress, 3)
       setDisplay(Math.round(eased * value))
       if (progress < 1) requestAnimationFrame(step)
@@ -79,26 +87,72 @@ function AnimatedCounter({ value, color }: { value: number; color: string }) {
   )
 }
 
-// ── EXPLORE PORTALS DATA ─────────────────────────────────────────────────────
+// ── CURATED FACTS FOR CAROUSEL ──────────────────────────────────────────────
 
-const PORTALS = [
-  { icon: BookOpen, label: 'A Palavra', hint: 'Para quem quer ler e estudar', stat: '114 Suratas', href: '/a-palavra' },
-  { icon: Sun, label: 'A Presença', hint: 'Para quem quer praticar', stat: '99 Nomes', href: '/a-presenca' },
-  { icon: Compass, label: 'A Jornada', hint: 'Para quem quer aprender', stat: 'Trilhas guiadas', href: '/a-jornada' },
-  { icon: Heart, label: 'A Alma', hint: 'Seu espaço de reflexão', stat: 'Diário pessoal', href: '/a-alma' },
-  { icon: Star, label: 'Kids', hint: 'Para crianças', stat: 'Conteúdo infantil', href: '/kids' },
-] as const
+const DASHBOARD_FACTS = [
+  surpriseFactsData.find(f => f.id === 'sf01')!,
+  surpriseFactsData.find(f => f.id === 'sf06')!,
+  surpriseFactsData.find(f => f.id === 'sf14')!,
+  surpriseFactsData.find(f => f.id === 'sf18')!,
+  surpriseFactsData.find(f => f.id === 'sf21')!,
+].filter(Boolean)
 
-// ── QUICK ACTION PILLS ──────────────────────────────────────────────────────
+// ── QUICK ACTIONS BY INTENTION ──────────────────────────────────────────────
 
 const QUICK_ACTIONS = [
-  { label: 'Ler o Alcorão', href: '/a-palavra' },
-  { label: '99 Nomes', href: '/a-presenca/99-nomes' },
-  { label: 'Trilhas', href: '/trilhas' },
-  { label: 'Profetas', href: '/os-profetas' },
-  { label: 'A Ponte', href: '/a-ponte' },
-  { label: 'O Sistema', href: '/o-sistema' },
-  { label: 'Mapa', href: '/mapa' },
+  { label: 'Ler o Alcorão', href: '/a-palavra', icon: BookOpen },
+  { label: 'Recitação', href: '/a-palavra/recitacao', icon: Mic },
+  { label: '99 Nomes', href: '/a-presenca/99-nomes', icon: Sparkles },
+  { label: 'Dhikr', href: '/a-presenca/dhikr', icon: Clock },
+  { label: 'Journal', href: '/a-alma/journal', icon: PenLine },
+  { label: 'Trilhas', href: '/trilhas', icon: Route },
+  { label: 'A Ponte', href: '/a-ponte', icon: GitBranch },
+  { label: 'Profetas', href: '/os-profetas', icon: Star },
+] as const
+
+// ── EXPLORE GRID ────────────────────────────────────────────────────────────
+
+const EXPLORE_SECTIONS = [
+  {
+    category: 'Descobrir',
+    icon: Compass,
+    items: [
+      { label: 'A Mensagem', href: '/a-mensagem' },
+      { label: 'A Ponte', href: '/a-ponte' },
+      { label: 'Os Profetas', href: '/os-profetas' },
+      { label: 'O Sistema', href: '/o-sistema' },
+      { label: 'Biblioteca', href: '/biblioteca' },
+    ],
+  },
+  {
+    category: 'Aprender',
+    icon: BookOpen,
+    items: [
+      { label: 'A Palavra', href: '/a-palavra' },
+      { label: 'Trilhas', href: '/trilhas' },
+      { label: 'A Bíblia do Kalam', href: '/a-biblia-do-kalam' },
+    ],
+  },
+  {
+    category: 'Praticar',
+    icon: Sun,
+    items: [
+      { label: 'A Presença', href: '/a-presenca' },
+      { label: 'Aya do Dia', href: '/aya-do-dia' },
+      { label: 'Recitação', href: '/a-palavra/recitacao' },
+      { label: 'Flashcards', href: '/a-presenca/flashcards' },
+      { label: 'Dhikr', href: '/a-presenca/dhikr' },
+    ],
+  },
+  {
+    category: 'Refletir',
+    icon: Heart,
+    items: [
+      { label: 'A Alma', href: '/a-alma' },
+      { label: 'Journal', href: '/a-alma/journal' },
+      { label: 'Rotina', href: '/a-alma/rotina' },
+    ],
+  },
 ] as const
 
 // ── COMPONENT ────────────────────────────────────────────────────────────────
@@ -113,6 +167,7 @@ export function DashboardHome() {
   const [surahsReadCount, setSurahsReadCount] = useState(0)
   const [journalCount, setJournalCount] = useState(0)
   const [shareState, setShareState] = useState<'idle' | 'copied'>('idle')
+  const [factIndex, setFactIndex] = useState(0)
 
   // ── Init date, greeting, verse ──
   useEffect(() => {
@@ -151,9 +206,7 @@ export function DashboardHome() {
       } else {
         setStreak(currentStreak)
       }
-    } catch {
-      // ignore
-    }
+    } catch {}
   }, [])
 
   // ── Last read + stats ──
@@ -161,9 +214,7 @@ export function DashboardHome() {
     try {
       const saved = localStorage.getItem('kalam-last-read')
       if (saved) setLastRead(JSON.parse(saved))
-    } catch {
-      // ignore
-    }
+    } catch {}
 
     try {
       const surahs = localStorage.getItem('kalam-surahs-read')
@@ -171,9 +222,7 @@ export function DashboardHome() {
         const parsed = JSON.parse(surahs)
         setSurahsReadCount(Array.isArray(parsed) ? parsed.length : 0)
       }
-    } catch {
-      // ignore
-    }
+    } catch {}
 
     try {
       const journal = localStorage.getItem('kalam-journal')
@@ -181,9 +230,7 @@ export function DashboardHome() {
         const parsed = JSON.parse(journal)
         setJournalCount(Array.isArray(parsed) ? parsed.length : 0)
       }
-    } catch {
-      // ignore
-    }
+    } catch {}
   }, [])
 
   const verse = SANCTUARY_VERSES[verseIndex]
@@ -195,28 +242,15 @@ export function DashboardHome() {
       try {
         await navigator.share({ title: 'KALAM — Versículo do Dia', text })
         return
-      } catch {
-        // fall through
-      }
+      } catch {}
     }
 
     try {
       await navigator.clipboard.writeText(text)
       setShareState('copied')
       setTimeout(() => setShareState('idle'), 2000)
-    } catch {
-      // clipboard failed
-    }
+    } catch {}
   }, [verse])
-
-  const handleReset = () => {
-    try {
-      localStorage.removeItem('kalam-onboarding-done')
-      window.location.reload()
-    } catch {
-      // ignore
-    }
-  }
 
   const allStatsZero = streak === 0 && surahsReadCount === 0 && journalCount === 0
   const hasAnyStats = !allStatsZero
@@ -296,7 +330,7 @@ export function DashboardHome() {
             &mdash; {verse.surahRef}
           </p>
 
-          {/* Name of God (smaller, below verse) */}
+          {/* Name of God */}
           <div
             style={{
               borderTop: `1px solid ${T.border}`,
@@ -359,7 +393,7 @@ export function DashboardHome() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════════════════════
-          SECTION 2 — Continue Reading (conditional)
+          SECTION 2 — Continue Reading
       ═══════════════════════════════════════════════════════════════════════ */}
       <motion.section
         initial={{ opacity: 0, y: 10 }}
@@ -421,7 +455,7 @@ export function DashboardHome() {
       </motion.section>
 
       {/* ═══════════════════════════════════════════════════════════════════════
-          SECTION 3 — Stats (conditional)
+          SECTION 3 — Stats
       ═══════════════════════════════════════════════════════════════════════ */}
       <motion.section
         initial={{ opacity: 0, y: 10 }}
@@ -476,7 +510,7 @@ export function DashboardHome() {
       </motion.section>
 
       {/* ═══════════════════════════════════════════════════════════════════════
-          SECTION 4 — Quick Actions (horizontal scroll)
+          SECTION 4 — Quick Actions (horizontal scroll with icons)
       ═══════════════════════════════════════════════════════════════════════ */}
       <motion.section
         initial={{ opacity: 0 }}
@@ -494,7 +528,6 @@ export function DashboardHome() {
             msOverflowStyle: 'none',
             scrollbarWidth: 'none',
           }}
-          // Hide scrollbar with inline CSS (WebKit)
           className="hide-scrollbar"
         >
           <style>{`.hide-scrollbar::-webkit-scrollbar { display: none; }`}</style>
@@ -503,7 +536,10 @@ export function DashboardHome() {
               key={action.href}
               href={action.href}
               style={{
-                padding: '10px 18px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 6,
+                padding: '10px 16px',
                 borderRadius: 999,
                 border: '1px solid rgba(201,168,76,0.15)',
                 background: 'transparent',
@@ -515,6 +551,7 @@ export function DashboardHome() {
                 transition: 'all 0.2s ease',
               }}
             >
+              <action.icon size={14} style={{ color: T.gold }} />
               {action.label}
             </Link>
           ))}
@@ -522,7 +559,86 @@ export function DashboardHome() {
       </motion.section>
 
       {/* ═══════════════════════════════════════════════════════════════════════
-          SECTION 5 — Featured Content
+          SECTION 5 — Fatos que surpreendem (compact carousel)
+      ═══════════════════════════════════════════════════════════════════════ */}
+      <motion.section
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-40px' }}
+        transition={{ duration: 0.7 }}
+        style={{ padding: '28px 24px 0' }}
+      >
+        <p
+          style={{
+            fontSize: 11,
+            letterSpacing: '0.2em',
+            color: T.muted,
+            textTransform: 'uppercase',
+            marginBottom: 12,
+          }}
+        >
+          Você sabia?
+        </p>
+
+        <div
+          style={{
+            background: T.surface,
+            border: `1px solid ${T.border}`,
+            borderRadius: 16,
+            padding: '20px 18px',
+            position: 'relative',
+          }}
+        >
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={factIndex}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.3 }}
+            >
+              <p style={{ fontSize: 18, marginBottom: 8 }}>
+                {DASHBOARD_FACTS[factIndex].reaction}
+              </p>
+              <p
+                style={{
+                  fontFamily: 'var(--font-serif)',
+                  fontSize: 15,
+                  color: T.text,
+                  lineHeight: 1.6,
+                  fontWeight: 500,
+                }}
+              >
+                {DASHBOARD_FACTS[factIndex].hook}
+              </p>
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Navigation dots */}
+          <div style={{ display: 'flex', gap: 4, marginTop: 14 }}>
+            {DASHBOARD_FACTS.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setFactIndex(i)}
+                aria-label={`Fato ${i + 1}`}
+                style={{
+                  width: i === factIndex ? 16 : 5,
+                  height: 5,
+                  borderRadius: 3,
+                  background: i === factIndex ? T.gold : 'rgba(201,168,76,0.2)',
+                  border: 'none',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  padding: 0,
+                }}
+              />
+            ))}
+          </div>
+        </div>
+      </motion.section>
+
+      {/* ═══════════════════════════════════════════════════════════════════════
+          SECTION 6 — Featured Content
       ═══════════════════════════════════════════════════════════════════════ */}
       <motion.section
         initial={{ opacity: 0, y: 20 }}
@@ -558,27 +674,12 @@ export function DashboardHome() {
               textDecoration: 'none',
             }}
           >
-            <div
-              style={{
-                width: 48,
-                height: 48,
-                borderRadius: 12,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                background: 'rgba(201,168,76,0.1)',
-                flexShrink: 0,
-              }}
-            >
+            <div style={{ width: 48, height: 48, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(201,168,76,0.1)', flexShrink: 0 }}>
               <GitBranch size={22} style={{ color: T.gold }} />
             </div>
             <div style={{ flex: 1 }}>
-              <p style={{ fontFamily: 'var(--font-serif)', fontSize: 16, color: T.text, fontWeight: 500 }}>
-                A Ponte
-              </p>
-              <p style={{ fontSize: 13, color: T.secondary, marginTop: 2 }}>
-                Bíblia &times; Alcorão &mdash; 17 profetas, 20 temas, estudo comparativo
-              </p>
+              <p style={{ fontFamily: 'var(--font-serif)', fontSize: 16, color: T.text, fontWeight: 500 }}>A Ponte</p>
+              <p style={{ fontSize: 13, color: T.secondary, marginTop: 2 }}>Bíblia &times; Alcorão &mdash; 17 profetas, 20 temas</p>
             </div>
             <ArrowRight size={16} style={{ color: T.gold, flexShrink: 0 }} />
           </Link>
@@ -596,27 +697,12 @@ export function DashboardHome() {
               textDecoration: 'none',
             }}
           >
-            <div
-              style={{
-                width: 48,
-                height: 48,
-                borderRadius: 12,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                background: 'rgba(201,168,76,0.08)',
-                flexShrink: 0,
-              }}
-            >
+            <div style={{ width: 48, height: 48, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(201,168,76,0.08)', flexShrink: 0 }}>
               <BookText size={22} style={{ color: T.gold }} />
             </div>
             <div style={{ flex: 1 }}>
-              <p style={{ fontFamily: 'var(--font-serif)', fontSize: 16, color: T.text, fontWeight: 500 }}>
-                A Bíblia do Kalam
-              </p>
-              <p style={{ fontSize: 13, color: T.secondary, marginTop: 2 }}>
-                25 capítulos entrelaçando as duas escrituras
-              </p>
+              <p style={{ fontFamily: 'var(--font-serif)', fontSize: 16, color: T.text, fontWeight: 500 }}>A Bíblia do Kalam</p>
+              <p style={{ fontSize: 13, color: T.secondary, marginTop: 2 }}>25 capítulos entrelaçando as duas escrituras</p>
             </div>
             <ArrowRight size={16} style={{ color: T.gold, flexShrink: 0 }} />
           </Link>
@@ -624,7 +710,7 @@ export function DashboardHome() {
       </motion.section>
 
       {/* ═══════════════════════════════════════════════════════════════════════
-          SECTION 6 — Portal Grid with hints
+          SECTION 7 — Explore Grid (by intention)
       ═══════════════════════════════════════════════════════════════════════ */}
       <motion.section
         initial={{ opacity: 0, y: 20 }}
@@ -649,68 +735,60 @@ export function DashboardHome() {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            gap: 12,
-            maxWidth: 520,
+            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+            gap: 14,
+            maxWidth: 720,
             margin: '0 auto',
           }}
         >
-          {PORTALS.map((portal, i) => (
-            <motion.div
-              key={portal.href}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.08 }}
-              style={i === PORTALS.length - 1 ? { gridColumn: 'span 2' } : undefined}
+          {EXPLORE_SECTIONS.map((section) => (
+            <div
+              key={section.category}
+              style={{
+                background: T.surface,
+                border: `1px solid ${T.border}`,
+                borderRadius: 14,
+                padding: '16px 14px',
+              }}
             >
-              <Link
-                href={portal.href}
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  padding: '28px 16px',
-                  borderRadius: 16,
-                  background: T.surface,
-                  border: `1px solid ${T.border}`,
-                  textDecoration: 'none',
-                  textAlign: 'center',
-                  gap: 8,
-                }}
-              >
-                <div
-                  style={{
-                    width: 44,
-                    height: 44,
-                    borderRadius: 12,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    background: 'rgba(201,168,76,0.08)',
-                    marginBottom: 4,
-                  }}
-                >
-                  <portal.icon size={22} style={{ color: T.gold }} />
-                </div>
-                <span style={{ fontFamily: 'var(--font-serif)', fontSize: 15, color: T.text, fontWeight: 500 }}>
-                  {portal.label}
-                </span>
-                <span style={{ fontSize: 12, color: T.secondary, lineHeight: 1.4 }}>
-                  {portal.hint}
-                </span>
-                <span style={{ fontSize: 11, color: T.muted, letterSpacing: '0.05em' }}>
-                  {portal.stat}
-                </span>
-              </Link>
-            </motion.div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 10 }}>
+                <section.icon size={14} style={{ color: T.gold }} />
+                <p style={{ fontSize: 11, letterSpacing: '0.1em', color: T.gold, textTransform: 'uppercase', fontWeight: 600 }}>
+                  {section.category}
+                </p>
+              </div>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                {section.items.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      padding: '8px 10px',
+                      borderRadius: 6,
+                      fontSize: 13,
+                      textDecoration: 'none',
+                      color: T.text,
+                      transition: 'background 0.2s ease',
+                    }}
+                    onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(201,168,76,0.06)' }}
+                    onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent' }}
+                  >
+                    {item.label}
+                    <ArrowRight size={12} style={{ color: T.muted }} />
+                  </Link>
+                ))}
+              </div>
+            </div>
           ))}
         </div>
       </motion.section>
 
       {/* ═══════════════════════════════════════════════════════════════════════
-          SECTION 7 — Footer
+          SECTION 8 — Footer
       ═══════════════════════════════════════════════════════════════════════ */}
       <section
         style={{
@@ -724,24 +802,6 @@ export function DashboardHome() {
           gap: 14,
         }}
       >
-        <button
-          onClick={handleReset}
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: 6,
-            fontSize: 13,
-            color: T.muted,
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer',
-            padding: 0,
-          }}
-        >
-          <RotateCcw size={13} />
-          Redescobrir o Kalam
-        </button>
-
         <Link
           href="/sobre"
           style={{
