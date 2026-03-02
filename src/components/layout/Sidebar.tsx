@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, createContext, useContext } from 'react'
+import { useState, useEffect, useRef, createContext, useContext } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import {
@@ -10,10 +10,6 @@ import {
   Sun,
   Heart,
   Star,
-  ChevronDown,
-  ChevronRight,
-  PanelLeftClose,
-  PanelLeft,
   X,
   Search,
   Wrench,
@@ -28,22 +24,22 @@ import {
   Clock,
   Settings,
   Info,
-  Mic,
   Languages,
   Layers,
   BookMarked,
   Scale,
   Crown,
   CheckSquare,
-  TrendingUp,
   Moon,
   Type,
   Zap,
   Flame,
+  ChevronDown,
+  ChevronRight,
 } from 'lucide-react'
 import { useNavIndicators } from '@/lib/hooks/useNavIndicators'
 
-// ── SIDEBAR CONTEXT ─────────────────────────────────────────────────────────
+// ── SIDEBAR CONTEXT ──────────────────────────────────────────────────────────
 
 type SidebarContextType = {
   isOpen: boolean
@@ -55,7 +51,7 @@ type SidebarContextType = {
 
 const SidebarContext = createContext<SidebarContextType>({
   isOpen: false,
-  isCollapsed: false,
+  isCollapsed: true,
   toggleOpen: () => {},
   toggleCollapsed: () => {},
   close: () => {},
@@ -67,27 +63,14 @@ export function useSidebar() {
 
 export function SidebarProvider({ children }: { children: React.ReactNode }) {
   const [isOpen, setIsOpen] = useState(false)
-  const [isCollapsed, setIsCollapsed] = useState(false)
-
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem('kalam-sidebar-state')
-      if (saved === 'collapsed') setIsCollapsed(true)
-    } catch {}
-  }, [])
 
   const toggleOpen = () => setIsOpen(prev => !prev)
-  const toggleCollapsed = () => {
-    setIsCollapsed(prev => {
-      const next = !prev
-      try { localStorage.setItem('kalam-sidebar-state', next ? 'collapsed' : 'expanded') } catch {}
-      return next
-    })
-  }
   const close = () => setIsOpen(false)
 
   return (
-    <SidebarContext.Provider value={{ isOpen, isCollapsed, toggleOpen, toggleCollapsed, close }}>
+    <SidebarContext.Provider
+      value={{ isOpen, isCollapsed: true, toggleOpen, toggleCollapsed: () => {}, close }}
+    >
       {children}
     </SidebarContext.Provider>
   )
@@ -153,8 +136,8 @@ const NAV_CATEGORIES: NavCategory[] = [
       { label: 'A Bíblia do Kalam', href: '/a-biblia-do-kalam', icon: BookText },
       { label: 'Trilhas', href: '/trilhas', icon: Route },
       { label: 'Estudos', href: '/a-palavra/estudo', icon: BookMarked },
-      { label: 'Santuario', href: '/a-palavra/santuario', icon: Sparkles },
-      { label: 'Arabe do Quran', href: '/a-presenca/arabe-quran', icon: Languages },
+      { label: 'Santuário', href: '/a-palavra/santuario', icon: Sparkles },
+      { label: 'Árabe do Quran', href: '/a-presenca/arabe-quran', icon: Languages },
     ],
   },
   {
@@ -221,8 +204,6 @@ const BOTTOM_LINKS: NavItem[] = [
   { label: 'Configurações', href: '/configuracoes', icon: Settings },
 ]
 
-// ── CONTENT COUNTERS (hardcoded for premium polish) ──────────────────────────
-
 const CONTENT_COUNTS: Record<string, string> = {
   '/a-palavra': '114',
   '/os-profetas': '17',
@@ -234,51 +215,177 @@ const CONTENT_COUNTS: Record<string, string> = {
   '/a-presenca/dhikr': '33',
 }
 
-// ── PREMIUM DIVIDER ──────────────────────────────────────────────────────────
+// ── DIMENSIONS ───────────────────────────────────────────────────────────────
 
-const premiumDividerStyle: React.CSSProperties = {
-  height: 1,
-  background: `linear-gradient(to right, transparent, rgba(201,168,76,0.1), transparent)`,
-  border: 'none',
+const RAIL_W = 56
+const PANEL_W = 224
+
+// ── RAIL BUTTON ──────────────────────────────────────────────────────────────
+
+function RailBtn({
+  icon: Icon,
+  label,
+  active,
+  panelOpen,
+  href,
+  onClick,
+}: {
+  icon: typeof Home
+  label: string
+  active?: boolean
+  panelOpen?: boolean
+  href?: string
+  onClick?: () => void
+}) {
+  const highlighted = active || panelOpen
+
+  const inner = (
+    <>
+      {/* Left bar for active page */}
+      {active && !panelOpen && (
+        <span
+          style={{
+            position: 'absolute',
+            left: 0,
+            top: '28%',
+            bottom: '28%',
+            width: 2,
+            borderRadius: '0 2px 2px 0',
+            background: T.gold,
+          }}
+        />
+      )}
+      <Icon size={18} strokeWidth={highlighted ? 2.2 : 1.8} />
+    </>
+  )
+
+  const base: React.CSSProperties = {
+    position: 'relative',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    height: 40,
+    border: 'none',
+    borderRadius: 0,
+    background: panelOpen ? 'rgba(201,168,76,0.07)' : 'transparent',
+    color: highlighted ? T.gold : T.muted,
+    cursor: 'pointer',
+    transition: 'color 0.15s ease, background 0.15s ease',
+    textDecoration: 'none',
+  }
+
+  if (href) {
+    return (
+      <Link href={href} title={label} style={base}>
+        {inner}
+      </Link>
+    )
+  }
+
+  return (
+    <button title={label} onClick={onClick} style={base}>
+      {inner}
+    </button>
+  )
 }
 
 // ── SIDEBAR COMPONENT ────────────────────────────────────────────────────────
 
 export function Sidebar() {
-  const { isOpen, isCollapsed, toggleCollapsed, close } = useSidebar()
+  const { isOpen, close } = useSidebar()
   const pathname = usePathname()
-  const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set(['comece-aqui', 'explore', 'estude', 'pratique', 'reflita', 'lideranca', 'premium', 'kids']))
+  const [activePanel, setActivePanel] = useState<string | null>(null)
   const indicators = useNavIndicators()
 
-  // Auto-expand category of active item
+  // Close panel on route change
   useEffect(() => {
-    for (const cat of NAV_CATEGORIES) {
-      if (cat.items.some(item => pathname.startsWith(item.href))) {
-        setExpandedCategories(prev => new Set([...prev, cat.id]))
-        break
-      }
-    }
+    setActivePanel(null)
   }, [pathname])
 
-  const toggleCategory = (id: string) => {
-    setExpandedCategories(prev => {
-      const next = new Set(prev)
-      if (next.has(id)) next.delete(id)
-      else next.add(id)
-      return next
-    })
-  }
+  const togglePanel = (catId: string) =>
+    setActivePanel(prev => (prev === catId ? null : catId))
 
   const isActive = (href: string) => {
     if (href === '/') return pathname === '/'
     return pathname === href || pathname.startsWith(href + '/')
   }
 
-  const sidebarWidth = isCollapsed ? 60 : 260
+  const openCat = activePanel ? NAV_CATEGORIES.find(c => c.id === activePanel) ?? null : null
+
+  // ── Nav item renderer (used in both panel and mobile drawer) ────────────────
+  const NavLink = ({
+    item,
+    onNavigate,
+  }: {
+    item: NavItem
+    onNavigate?: () => void
+  }) => {
+    const active = isActive(item.href)
+    const count = CONTENT_COUNTS[item.href]
+    const hasNovo = indicators.novoBadges.has(item.href)
+    const progressColor = indicators.progressDots.get(item.href)
+    const hasFlame = indicators.streakFlames.has(item.href)
+    return (
+      <Link
+        href={item.href}
+        onClick={onNavigate}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 10,
+          padding: '8px 12px',
+          borderRadius: 8,
+          fontSize: 13,
+          textDecoration: 'none',
+          color: active ? T.gold : T.secondary,
+          fontWeight: active ? 500 : 400,
+          background: active ? 'rgba(201,168,76,0.08)' : 'transparent',
+          position: 'relative',
+          transition: 'all 0.15s ease',
+          marginBottom: 2,
+        }}
+      >
+        {active && (
+          <span
+            style={{
+              position: 'absolute',
+              left: 0,
+              top: '20%',
+              bottom: '20%',
+              width: 3,
+              borderRadius: 2,
+              background: 'linear-gradient(to bottom, transparent, rgba(201,168,76,0.7), transparent)',
+            }}
+          />
+        )}
+        <item.icon size={15} style={{ flexShrink: 0, opacity: active ? 1 : 0.55 }} />
+        <span style={{ flex: 1 }}>{item.label}</span>
+        {hasNovo && (
+          <span style={{ fontSize: 9, fontWeight: 700, color: T.gold, background: 'rgba(201,168,76,0.12)', padding: '2px 5px', borderRadius: 4, letterSpacing: '0.05em' }}>
+            NOVO
+          </span>
+        )}
+        {progressColor && !hasNovo && (
+          <span style={{ width: 6, height: 6, borderRadius: '50%', background: progressColor === 'green' ? '#4ade80' : T.gold, flexShrink: 0 }} />
+        )}
+        {hasFlame && (
+          <Flame size={12} style={{ color: '#f97316', flexShrink: 0 }} />
+        )}
+        {item.href === '/meus-sahabas' && (
+          <span style={{ fontSize: 9, fontWeight: 700, color: T.gold, background: 'rgba(201,168,76,0.12)', padding: '2px 5px', borderRadius: 4 }}>
+            PRO
+          </span>
+        )}
+        {count && !hasNovo && !progressColor && !hasFlame && item.href !== '/meus-sahabas' && (
+          <span style={{ fontSize: 10, fontWeight: 600, color: T.muted, opacity: 0.7 }}>{count}</span>
+        )}
+      </Link>
+    )
+  }
 
   return (
     <>
-      {/* ── Inline responsive styles ── */}
       <style>{`
         @media (max-width: 768px) {
           .sidebar-desktop { display: none !important; }
@@ -286,299 +393,238 @@ export function Sidebar() {
         @media (min-width: 769px) {
           .sidebar-mobile-overlay { display: none !important; }
         }
+        @keyframes slideInLeft {
+          from { transform: translateX(-100%); }
+          to { transform: translateX(0); }
+        }
+        @keyframes panelSlideIn {
+          from { opacity: 0; transform: translateX(-6px); }
+          to { opacity: 1; transform: translateX(0); }
+        }
+        .rail-btn-hover:hover {
+          color: var(--rail-hover, #B3B0A6) !important;
+          background: rgba(255,255,255,0.04) !important;
+        }
       `}</style>
 
-      {/* ═══════════════════════════════════════════════════════════════════════
-          DESKTOP SIDEBAR — lateral esquerda
-      ═══════════════════════════════════════════════════════════════════════ */}
+      {/* ════════════════════════════════════════════════════════════════════════
+          DESKTOP — 56px icon rail
+      ════════════════════════════════════════════════════════════════════════ */}
       <aside
+        id="kalam-rail"
         className="sidebar-desktop"
         style={{
           position: 'fixed',
           top: 0,
           left: 0,
           bottom: 0,
-          width: sidebarWidth,
+          width: RAIL_W,
           background: T.bg,
           borderRight: `1px solid ${T.border}`,
           zIndex: 100,
           display: 'flex',
           flexDirection: 'column',
-          transition: 'width 0.25s ease',
-          overflow: 'hidden',
+          alignItems: 'center',
         }}
       >
-        {/* Header: Logo + Collapse toggle */}
-        <div
+        {/* Logo — كلام glyph as home link */}
+        <Link
+          href="/"
+          title="Kalam — Início"
           style={{
             display: 'flex',
             alignItems: 'center',
-            justifyContent: isCollapsed ? 'center' : 'space-between',
-            padding: isCollapsed ? '16px 8px' : '16px 16px',
-            minHeight: 56,
+            justifyContent: 'center',
+            width: '100%',
+            height: RAIL_W,
+            flexShrink: 0,
+            textDecoration: 'none',
+            borderBottom: `1px solid ${T.border}`,
           }}
         >
-          {!isCollapsed && (
-            <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 8 }}>
-              <span style={{ fontFamily: 'var(--font-arabic)', fontSize: 18, color: T.gold, textShadow: '0 0 20px rgba(201,168,76,0.3)' }}>كلام</span>
-              <span style={{ fontFamily: 'var(--font-serif)', fontSize: 16, color: T.text, fontWeight: 700, letterSpacing: '-0.02em' }}>KALAM</span>
-            </Link>
-          )}
-          <button
-            onClick={toggleCollapsed}
-            title={isCollapsed ? 'Expandir sidebar' : 'Recolher sidebar'}
+          <span
             style={{
-              background: 'none',
-              border: 'none',
-              color: T.muted,
-              cursor: 'pointer',
-              padding: 4,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
+              fontFamily: 'var(--font-arabic)',
+              fontSize: 22,
+              color: T.gold,
+              textShadow: '0 0 16px rgba(201,168,76,0.5)',
+              lineHeight: 1,
             }}
           >
-            {isCollapsed ? <PanelLeft size={18} /> : <PanelLeftClose size={18} />}
-          </button>
-        </div>
-        <div style={premiumDividerStyle} />
+            ك
+          </span>
+        </Link>
 
-        {/* Home link */}
-        <div style={{ padding: isCollapsed ? '8px 8px' : '8px 12px' }}>
-          <Link
+        {/* Home + Search */}
+        <div style={{ width: '100%', padding: '6px 0 0' }}>
+          <RailBtn
+            icon={Home}
+            label="Início"
+            active={pathname === '/'}
             href="/"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 10,
-              padding: isCollapsed ? '10px 0' : '10px 12px',
-              borderRadius: 8,
-              textDecoration: 'none',
-              justifyContent: isCollapsed ? 'center' : 'flex-start',
-              background: pathname === '/' ? 'rgba(201,168,76,0.08)' : 'transparent',
-              color: pathname === '/' ? T.gold : T.secondary,
-              transition: 'all 0.2s ease',
-            }}
-          >
-            <Home size={18} />
-            {!isCollapsed && (
-              <span style={{ fontSize: 14, fontWeight: pathname === '/' ? 600 : 400 }}>
-                Início
-              </span>
-            )}
-          </Link>
+          />
+          <RailBtn
+            icon={Search}
+            label="Buscar (⌘K)"
+            onClick={() =>
+              document.dispatchEvent(
+                new KeyboardEvent('keydown', { key: 'k', metaKey: true, bubbles: true })
+              )
+            }
+          />
         </div>
 
-        {/* Search trigger */}
-        <div style={{ padding: isCollapsed ? '0 8px 8px' : '0 12px 8px' }}>
-          <button
-            onClick={() => document.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', metaKey: true, bubbles: true }))}
-            title="Buscar (⌘K)"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 10,
-              width: '100%',
-              padding: isCollapsed ? '10px 0' : '10px 12px',
-              borderRadius: 8,
-              justifyContent: isCollapsed ? 'center' : 'flex-start',
-              background: 'rgba(201,168,76,0.04)',
-              border: `1px solid ${T.border}`,
-              color: T.muted,
-              cursor: 'pointer',
-              fontSize: 13,
-              fontFamily: 'var(--font-sans)',
-              transition: 'all 0.2s ease',
-            }}
-          >
-            <Search size={16} />
-            {!isCollapsed && (
-              <>
-                <span style={{ flex: 1, textAlign: 'left' }}>Buscar...</span>
-                <span style={{ fontSize: 11, opacity: 0.6 }}>⌘K</span>
-              </>
-            )}
-          </button>
-        </div>
+        {/* Thin divider */}
+        <div style={{ width: 28, height: 1, background: T.border, flexShrink: 0, margin: '4px 0' }} />
 
-        {/* Nav categories — scrollable (data-lenis-prevent stops Lenis from hijacking scroll here) */}
+        {/* Category icons — scrollable area */}
         <nav
           data-lenis-prevent
-          onWheel={(e) => e.stopPropagation()}
+          onWheel={e => e.stopPropagation()}
           style={{
             flex: 1,
+            width: '100%',
             overflowY: 'auto',
             overflowX: 'hidden',
-            overscrollBehavior: 'contain' as const,
-            WebkitOverflowScrolling: 'touch',
-            padding: isCollapsed ? '4px 8px' : '4px 12px',
-            scrollbarWidth: 'thin',
-            scrollbarColor: `${T.border} transparent`,
+            display: 'flex',
+            flexDirection: 'column',
+            padding: '2px 0',
+            scrollbarWidth: 'none',
           }}
         >
-          {NAV_CATEGORIES.map((cat) => {
-            const isExpanded = expandedCategories.has(cat.id)
+          {NAV_CATEGORIES.map(cat => {
             const hasCatActive = cat.items.some(item => isActive(item.href))
-
             return (
-              <div key={cat.id} style={{ marginBottom: 4 }}>
-                {/* Category header */}
-                <button
-                  onClick={() => !isCollapsed && toggleCategory(cat.id)}
-                  title={isCollapsed ? cat.label : undefined}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 10,
-                    width: '100%',
-                    padding: isCollapsed ? '10px 0' : '8px 12px',
-                    justifyContent: isCollapsed ? 'center' : 'flex-start',
-                    borderRadius: 8,
-                    border: 'none',
-                    background: hasCatActive && isCollapsed ? 'rgba(201,168,76,0.08)' : 'transparent',
-                    color: hasCatActive ? T.gold : T.muted,
-                    cursor: 'pointer',
-                    fontSize: 12,
-                    letterSpacing: '0.08em',
-                    textTransform: 'uppercase',
-                    fontWeight: 600,
-                    fontFamily: 'var(--font-sans)',
-                    transition: 'color 0.2s ease',
-                  }}
-                >
-                  <cat.icon size={16} />
-                  {!isCollapsed && (
-                    <>
-                      <span style={{ flex: 1, textAlign: 'left' }}>{cat.label}</span>
-                      {isExpanded ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
-                    </>
-                  )}
-                </button>
-
-                {/* Category items */}
-                {!isCollapsed && isExpanded && (
-                  <div style={{ paddingLeft: 12, marginTop: 2 }}>
-                    {cat.items.map((item) => {
-                      const active = isActive(item.href)
-                      const count = CONTENT_COUNTS[item.href]
-                      const hasNovo = indicators.novoBadges.has(item.href)
-                      const progressColor = indicators.progressDots.get(item.href)
-                      const hasFlame = indicators.streakFlames.has(item.href)
-                      return (
-                        <Link
-                          key={item.href}
-                          href={item.href}
-                          style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: 8,
-                            padding: '7px 12px',
-                            borderRadius: 6,
-                            fontSize: 13,
-                            textDecoration: 'none',
-                            color: active ? T.gold : T.secondary,
-                            fontWeight: active ? 500 : 400,
-                            background: active ? 'rgba(201,168,76,0.06)' : 'transparent',
-                            position: 'relative',
-                            transition: 'all 0.15s ease',
-                          }}
-                        >
-                          {/* Premium active indicator — gradient bar */}
-                          {active && (
-                            <span
-                              style={{
-                                position: 'absolute',
-                                left: 0,
-                                top: '20%',
-                                bottom: '20%',
-                                width: 3,
-                                borderRadius: 2,
-                                background: 'linear-gradient(to bottom, transparent, rgba(201,168,76,0.6), transparent)',
-                              }}
-                            />
-                          )}
-                          <span style={{ flex: 1 }}>{item.label}</span>
-                          {/* Visual indicators */}
-                          {hasNovo && (
-                            <span style={{ fontSize: 9, fontWeight: 700, color: T.gold, background: 'rgba(201,168,76,0.12)', padding: '2px 6px', borderRadius: 4, letterSpacing: '0.05em' }}>
-                              NOVO
-                            </span>
-                          )}
-                          {progressColor && (
-                            <span style={{ width: 6, height: 6, borderRadius: '50%', background: progressColor === 'green' ? '#4ade80' : T.gold, flexShrink: 0 }} />
-                          )}
-                          {hasFlame && (
-                            <Flame size={12} style={{ color: '#f97316', flexShrink: 0 }} />
-                          )}
-                          {item.href === '/meus-sahabas' && (
-                            <span style={{ fontSize: 9, fontWeight: 700, color: T.gold, background: 'rgba(201,168,76,0.12)', padding: '2px 6px', borderRadius: 4, letterSpacing: '0.05em' }}>
-                              PRO
-                            </span>
-                          )}
-                          {count && !hasNovo && !progressColor && !hasFlame && item.href !== '/meus-sahabas' && (
-                            <span
-                              style={{
-                                fontSize: 10,
-                                fontWeight: 600,
-                                color: T.muted,
-                                opacity: 0.7,
-                              }}
-                            >
-                              {count}
-                            </span>
-                          )}
-                        </Link>
-                      )
-                    })}
-                  </div>
-                )}
-              </div>
+              <RailBtn
+                key={cat.id}
+                icon={cat.icon}
+                label={cat.label}
+                active={hasCatActive}
+                panelOpen={activePanel === cat.id}
+                onClick={() => togglePanel(cat.id)}
+              />
             )
           })}
         </nav>
 
+        {/* Thin divider */}
+        <div style={{ width: 28, height: 1, background: T.border, flexShrink: 0, margin: '4px 0' }} />
+
         {/* Bottom links */}
-        <div style={premiumDividerStyle} />
-        <div
-          style={{
-            padding: isCollapsed ? '8px 8px' : '8px 12px',
-          }}
-        >
-          {BOTTOM_LINKS.map((link) => (
-            <Link
+        <div style={{ width: '100%', paddingBottom: 8 }}>
+          {BOTTOM_LINKS.map(link => (
+            <RailBtn
               key={link.href}
+              icon={link.icon}
+              label={link.label}
+              active={isActive(link.href)}
               href={link.href}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 10,
-                padding: isCollapsed ? '8px 0' : '8px 12px',
-                borderRadius: 6,
-                justifyContent: isCollapsed ? 'center' : 'flex-start',
-                fontSize: 13,
-                textDecoration: 'none',
-                color: isActive(link.href) ? T.gold : T.muted,
-                transition: 'color 0.2s ease',
-              }}
-            >
-              <link.icon size={16} />
-              {!isCollapsed && <span>{link.label}</span>}
-            </Link>
+            />
           ))}
         </div>
       </aside>
 
-      {/* ═══════════════════════════════════════════════════════════════════════
-          MOBILE SIDEBAR — drawer overlay
-      ═══════════════════════════════════════════════════════════════════════ */}
+      {/* ════════════════════════════════════════════════════════════════════════
+          DESKTOP — Floating category panel
+      ════════════════════════════════════════════════════════════════════════ */}
+      {openCat && (
+        <div className="sidebar-desktop">
+          {/* Invisible backdrop — click closes panel */}
+          <div
+            style={{ position: 'fixed', inset: 0, zIndex: 99 }}
+            onClick={() => setActivePanel(null)}
+          />
+
+          {/* Panel */}
+          <div
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: RAIL_W,
+              bottom: 0,
+              width: PANEL_W,
+              background: T.surface,
+              borderRight: `1px solid ${T.border}`,
+              zIndex: 100,
+              display: 'flex',
+              flexDirection: 'column',
+              animation: 'panelSlideIn 0.16s ease',
+              boxShadow: '6px 0 32px rgba(0,0,0,0.45)',
+            }}
+          >
+            {/* Panel header */}
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: '0 12px 0 16px',
+                height: RAIL_W,
+                borderBottom: `1px solid ${T.border}`,
+                flexShrink: 0,
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <openCat.icon size={15} color={T.gold} />
+                <span
+                  style={{
+                    fontSize: 11,
+                    fontWeight: 700,
+                    color: T.text,
+                    letterSpacing: '0.1em',
+                    textTransform: 'uppercase',
+                    fontFamily: 'var(--font-sans)',
+                  }}
+                >
+                  {openCat.label}
+                </span>
+              </div>
+              <button
+                onClick={() => setActivePanel(null)}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: T.muted,
+                  cursor: 'pointer',
+                  padding: 4,
+                  display: 'flex',
+                  alignItems: 'center',
+                  borderRadius: 4,
+                }}
+              >
+                <X size={14} />
+              </button>
+            </div>
+
+            {/* Panel nav items */}
+            <nav
+              data-lenis-prevent
+              onWheel={e => e.stopPropagation()}
+              style={{
+                flex: 1,
+                overflowY: 'auto',
+                overscrollBehavior: 'contain' as const,
+                WebkitOverflowScrolling: 'touch',
+                padding: '8px',
+                scrollbarWidth: 'thin',
+                scrollbarColor: `${T.border} transparent`,
+              }}
+            >
+              {openCat.items.map(item => (
+                <NavLink key={item.href} item={item} onNavigate={() => setActivePanel(null)} />
+              ))}
+            </nav>
+          </div>
+        </div>
+      )}
+
+      {/* ════════════════════════════════════════════════════════════════════════
+          MOBILE — Full drawer overlay (triggered via header hamburger)
+      ════════════════════════════════════════════════════════════════════════ */}
       {isOpen && (
         <div
           className="sidebar-mobile-overlay"
-          style={{
-            position: 'fixed',
-            inset: 0,
-            zIndex: 300,
-          }}
+          style={{ position: 'fixed', inset: 0, zIndex: 300 }}
         >
           {/* Backdrop */}
           <div
@@ -586,7 +632,7 @@ export function Sidebar() {
             style={{
               position: 'absolute',
               inset: 0,
-              background: 'rgba(0,0,0,0.6)',
+              background: 'rgba(0,0,0,0.65)',
               backdropFilter: 'blur(4px)',
             }}
           />
@@ -598,7 +644,7 @@ export function Sidebar() {
               top: 0,
               left: 0,
               bottom: 0,
-              width: 280,
+              width: 288,
               background: T.bg,
               borderRight: `1px solid ${T.border}`,
               display: 'flex',
@@ -606,37 +652,36 @@ export function Sidebar() {
               animation: 'slideInLeft 0.25s ease',
             }}
           >
-            <style>{`
-              @keyframes slideInLeft {
-                from { transform: translateX(-100%); }
-                to { transform: translateX(0); }
-              }
-            `}</style>
-
-            {/* Header with close */}
+            {/* Header */}
             <div
               style={{
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                padding: '16px',
+                padding: '0 12px 0 20px',
+                height: 56,
+                borderBottom: `1px solid ${T.border}`,
+                flexShrink: 0,
               }}
             >
-              <Link href="/" onClick={close} style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 8 }}>
+              <Link
+                href="/"
+                onClick={close}
+                style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 8 }}
+              >
                 <span style={{ fontFamily: 'var(--font-arabic)', fontSize: 18, color: T.gold, textShadow: '0 0 20px rgba(201,168,76,0.3)' }}>كلام</span>
-                <span style={{ fontFamily: 'var(--font-serif)', fontSize: 16, color: T.text, fontWeight: 700 }}>KALAM</span>
+                <span style={{ fontFamily: 'var(--font-serif)', fontSize: 16, color: T.text, fontWeight: 700, letterSpacing: '-0.02em' }}>KALAM</span>
               </Link>
               <button
                 onClick={close}
-                style={{ background: 'none', border: 'none', color: T.muted, cursor: 'pointer', padding: 4 }}
+                style={{ background: 'none', border: 'none', color: T.muted, cursor: 'pointer', padding: 6, display: 'flex', alignItems: 'center' }}
               >
                 <X size={20} />
               </button>
             </div>
-            <div style={premiumDividerStyle} />
 
-            {/* Home */}
-            <div style={{ padding: '8px 12px' }}>
+            {/* Home + Search */}
+            <div style={{ padding: '8px 12px 4px' }}>
               <Link
                 href="/"
                 onClick={close}
@@ -644,28 +689,34 @@ export function Sidebar() {
                   display: 'flex',
                   alignItems: 'center',
                   gap: 10,
-                  padding: '10px 12px',
+                  padding: '9px 12px',
                   borderRadius: 8,
                   textDecoration: 'none',
                   background: pathname === '/' ? 'rgba(201,168,76,0.08)' : 'transparent',
                   color: pathname === '/' ? T.gold : T.secondary,
+                  marginBottom: 4,
                 }}
               >
                 <Home size={18} />
                 <span style={{ fontSize: 14, fontWeight: pathname === '/' ? 600 : 400 }}>Início</span>
               </Link>
-            </div>
-
-            {/* Search trigger (mobile) */}
-            <div style={{ padding: '0 12px 8px' }}>
               <button
-                onClick={() => { close(); setTimeout(() => document.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', metaKey: true, bubbles: true })), 300) }}
+                onClick={() => {
+                  close()
+                  setTimeout(
+                    () =>
+                      document.dispatchEvent(
+                        new KeyboardEvent('keydown', { key: 'k', metaKey: true, bubbles: true })
+                      ),
+                    280
+                  )
+                }}
                 style={{
                   display: 'flex',
                   alignItems: 'center',
                   gap: 10,
                   width: '100%',
-                  padding: '10px 12px',
+                  padding: '9px 12px',
                   borderRadius: 8,
                   background: 'rgba(201,168,76,0.04)',
                   border: `1px solid ${T.border}`,
@@ -680,132 +731,23 @@ export function Sidebar() {
               </button>
             </div>
 
-            {/* Nav — scrollable */}
-            <nav
-              data-lenis-prevent
-              onWheel={(e) => e.stopPropagation()}
-              style={{
-                flex: 1,
-                overflowY: 'auto',
-                overscrollBehavior: 'contain' as const,
-                WebkitOverflowScrolling: 'touch',
-                padding: '4px 12px',
-              }}
-            >
-              {NAV_CATEGORIES.map((cat) => {
-                const isExpanded = expandedCategories.has(cat.id)
-                const hasCatActive = cat.items.some(item => isActive(item.href))
-
-                return (
-                  <div key={cat.id} style={{ marginBottom: 4 }}>
-                    <button
-                      onClick={() => toggleCategory(cat.id)}
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: 10,
-                        width: '100%',
-                        padding: '8px 12px',
-                        borderRadius: 8,
-                        border: 'none',
-                        background: 'transparent',
-                        color: hasCatActive ? T.gold : T.muted,
-                        cursor: 'pointer',
-                        fontSize: 12,
-                        letterSpacing: '0.08em',
-                        textTransform: 'uppercase',
-                        fontWeight: 600,
-                        fontFamily: 'var(--font-sans)',
-                      }}
-                    >
-                      <cat.icon size={16} />
-                      <span style={{ flex: 1, textAlign: 'left' }}>{cat.label}</span>
-                      {isExpanded ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
-                    </button>
-
-                    {isExpanded && (
-                      <div style={{ paddingLeft: 12, marginTop: 2 }}>
-                        {cat.items.map((item) => {
-                          const active = isActive(item.href)
-                          const count = CONTENT_COUNTS[item.href]
-                          const hasNovo = indicators.novoBadges.has(item.href)
-                          const progressColor = indicators.progressDots.get(item.href)
-                          const hasFlame = indicators.streakFlames.has(item.href)
-                          return (
-                            <Link
-                              key={item.href}
-                              href={item.href}
-                              onClick={close}
-                              style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: 8,
-                                padding: '8px 12px',
-                                borderRadius: 6,
-                                fontSize: 14,
-                                textDecoration: 'none',
-                                color: active ? T.gold : T.secondary,
-                                fontWeight: active ? 500 : 400,
-                                background: active ? 'rgba(201,168,76,0.06)' : 'transparent',
-                                position: 'relative',
-                              }}
-                            >
-                              {active && (
-                                <span
-                                  style={{
-                                    position: 'absolute',
-                                    left: 0,
-                                    top: '20%',
-                                    bottom: '20%',
-                                    width: 3,
-                                    borderRadius: 2,
-                                    background: 'linear-gradient(to bottom, transparent, rgba(201,168,76,0.6), transparent)',
-                                  }}
-                                />
-                              )}
-                              <span style={{ flex: 1 }}>{item.label}</span>
-                              {hasNovo && (
-                                <span style={{ fontSize: 9, fontWeight: 700, color: T.gold, background: 'rgba(201,168,76,0.12)', padding: '2px 6px', borderRadius: 4, letterSpacing: '0.05em' }}>
-                                  NOVO
-                                </span>
-                              )}
-                              {progressColor && (
-                                <span style={{ width: 6, height: 6, borderRadius: '50%', background: progressColor === 'green' ? '#4ade80' : T.gold, flexShrink: 0 }} />
-                              )}
-                              {hasFlame && (
-                                <Flame size={12} style={{ color: '#f97316', flexShrink: 0 }} />
-                              )}
-                              {item.href === '/meus-sahabas' && (
-                                <span style={{ fontSize: 9, fontWeight: 700, color: T.gold, background: 'rgba(201,168,76,0.12)', padding: '2px 6px', borderRadius: 4, letterSpacing: '0.05em' }}>
-                                  PRO
-                                </span>
-                              )}
-                              {count && !hasNovo && !progressColor && !hasFlame && item.href !== '/meus-sahabas' && (
-                                <span
-                                  style={{
-                                    fontSize: 10,
-                                    fontWeight: 600,
-                                    color: T.muted,
-                                    opacity: 0.7,
-                                  }}
-                                >
-                                  {count}
-                                </span>
-                              )}
-                            </Link>
-                          )
-                        })}
-                      </div>
-                    )}
-                  </div>
-                )
-              })}
-            </nav>
+            {/* Mobile nav — scrollable */}
+            <MobileNav
+              pathname={pathname}
+              indicators={indicators}
+              isActive={isActive}
+              onNavigate={close}
+            />
 
             {/* Bottom links */}
-            <div style={premiumDividerStyle} />
-            <div style={{ padding: '8px 12px 16px' }}>
-              {BOTTOM_LINKS.map((link) => (
+            <div
+              style={{
+                borderTop: `1px solid ${T.border}`,
+                padding: '8px 12px 16px',
+                flexShrink: 0,
+              }}
+            >
+              {BOTTOM_LINKS.map(link => (
                 <Link
                   key={link.href}
                   href={link.href}
@@ -830,5 +772,152 @@ export function Sidebar() {
         </div>
       )}
     </>
+  )
+}
+
+// ── MOBILE NAV (accordion categories) ────────────────────────────────────────
+
+function MobileNav({
+  pathname,
+  indicators,
+  isActive,
+  onNavigate,
+}: {
+  pathname: string
+  indicators: ReturnType<typeof useNavIndicators>
+  isActive: (href: string) => boolean
+  onNavigate: () => void
+}) {
+  const [expanded, setExpanded] = useState<Set<string>>(
+    () => {
+      // pre-expand the category of the active route
+      const active = NAV_CATEGORIES.find(c => c.items.some(i => isActive(i.href)))
+      return new Set(active ? [active.id] : ['comece-aqui'])
+    }
+  )
+
+  const toggle = (id: string) =>
+    setExpanded(prev => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+
+  return (
+    <nav
+      data-lenis-prevent
+      onWheel={e => e.stopPropagation()}
+      style={{
+        flex: 1,
+        overflowY: 'auto',
+        overscrollBehavior: 'contain' as const,
+        WebkitOverflowScrolling: 'touch',
+        padding: '4px 12px',
+        scrollbarWidth: 'thin',
+        scrollbarColor: '#272230 transparent',
+      }}
+    >
+      {NAV_CATEGORIES.map(cat => {
+        const isExp = expanded.has(cat.id)
+        const hasCatActive = cat.items.some(i => isActive(i.href))
+        return (
+          <div key={cat.id} style={{ marginBottom: 2 }}>
+            <button
+              onClick={() => toggle(cat.id)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 10,
+                width: '100%',
+                padding: '8px 12px',
+                borderRadius: 8,
+                border: 'none',
+                background: 'transparent',
+                color: hasCatActive ? T.gold : T.muted,
+                cursor: 'pointer',
+                fontSize: 11,
+                letterSpacing: '0.1em',
+                textTransform: 'uppercase',
+                fontWeight: 700,
+                fontFamily: 'var(--font-sans)',
+              }}
+            >
+              <cat.icon size={15} />
+              <span style={{ flex: 1, textAlign: 'left' }}>{cat.label}</span>
+              {isExp ? <ChevronDown size={13} /> : <ChevronRight size={13} />}
+            </button>
+
+            {isExp && (
+              <div style={{ paddingLeft: 8, marginBottom: 4 }}>
+                {cat.items.map(item => {
+                  const active = isActive(item.href)
+                  const count = CONTENT_COUNTS[item.href]
+                  const hasNovo = indicators.novoBadges.has(item.href)
+                  const progressColor = indicators.progressDots.get(item.href)
+                  const hasFlame = indicators.streakFlames.has(item.href)
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      onClick={onNavigate}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 10,
+                        padding: '8px 12px',
+                        borderRadius: 8,
+                        fontSize: 14,
+                        textDecoration: 'none',
+                        color: active ? T.gold : T.secondary,
+                        fontWeight: active ? 500 : 400,
+                        background: active ? 'rgba(201,168,76,0.07)' : 'transparent',
+                        position: 'relative',
+                        marginBottom: 1,
+                      }}
+                    >
+                      {active && (
+                        <span
+                          style={{
+                            position: 'absolute',
+                            left: 0,
+                            top: '20%',
+                            bottom: '20%',
+                            width: 3,
+                            borderRadius: 2,
+                            background: 'linear-gradient(to bottom, transparent, rgba(201,168,76,0.6), transparent)',
+                          }}
+                        />
+                      )}
+                      <item.icon size={15} style={{ flexShrink: 0, opacity: active ? 1 : 0.55 }} />
+                      <span style={{ flex: 1 }}>{item.label}</span>
+                      {hasNovo && (
+                        <span style={{ fontSize: 9, fontWeight: 700, color: T.gold, background: 'rgba(201,168,76,0.12)', padding: '2px 5px', borderRadius: 4, letterSpacing: '0.05em' }}>
+                          NOVO
+                        </span>
+                      )}
+                      {progressColor && !hasNovo && (
+                        <span style={{ width: 6, height: 6, borderRadius: '50%', background: progressColor === 'green' ? '#4ade80' : T.gold, flexShrink: 0 }} />
+                      )}
+                      {hasFlame && (
+                        <Flame size={12} style={{ color: '#f97316', flexShrink: 0 }} />
+                      )}
+                      {item.href === '/meus-sahabas' && (
+                        <span style={{ fontSize: 9, fontWeight: 700, color: T.gold, background: 'rgba(201,168,76,0.12)', padding: '2px 5px', borderRadius: 4 }}>
+                          PRO
+                        </span>
+                      )}
+                      {count && !hasNovo && !progressColor && !hasFlame && item.href !== '/meus-sahabas' && (
+                        <span style={{ fontSize: 10, fontWeight: 600, color: '#7A7870', opacity: 0.7 }}>{count}</span>
+                      )}
+                    </Link>
+                  )
+                })}
+              </div>
+            )}
+          </div>
+        )
+      })}
+    </nav>
   )
 }
