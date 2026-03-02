@@ -1,8 +1,17 @@
 import { MetadataRoute } from 'next'
+import { SEO_PAGES } from '@/lib/data/seo-pages'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://kalambrasil.com'
   const now = new Date()
+
+  // SEO pages (dynamic)
+  const seoPages: MetadataRoute.Sitemap = SEO_PAGES.map((page) => ({
+    url: `${baseUrl}/aprender/${page.slug}`,
+    lastModified: now,
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }))
 
   return [
     // Home
@@ -350,5 +359,40 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'daily',
       priority: 0.6,
     },
+
+    // Ferramentas
+    {
+      url: `${baseUrl}/ferramentas`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+
+    // Perguntas
+    {
+      url: `${baseUrl}/perguntas`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+
+    // Comprovacoes
+    {
+      url: `${baseUrl}/comprovacoes`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+
+    // Aprender index
+    {
+      url: `${baseUrl}/aprender`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+
+    // Aprender SEO pages (15 pages)
+    ...seoPages,
   ]
 }

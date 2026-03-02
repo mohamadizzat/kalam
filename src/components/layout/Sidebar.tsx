@@ -143,6 +143,7 @@ const NAV_CATEGORIES: NavCategory[] = [
     label: 'Praticar',
     icon: Sun,
     items: [
+      { label: 'Ferramentas', href: '/ferramentas', icon: Wrench },
       { label: 'A Presença', href: '/a-presenca', icon: Sun },
       { label: 'Aya do Dia', href: '/aya-do-dia', icon: Calendar },
       { label: 'Recitação', href: '/a-palavra/recitacao', icon: Mic },
