@@ -36,6 +36,8 @@ import {
   CheckSquare,
   TrendingUp,
   Moon,
+  Type,
+  Zap,
 } from 'lucide-react'
 
 // ── SIDEBAR CONTEXT ─────────────────────────────────────────────────────────
@@ -128,6 +130,8 @@ const NAV_CATEGORIES: NavCategory[] = [
       { label: 'Biblioteca', href: '/biblioteca', icon: Library },
       { label: 'Perguntas Difíceis', href: '/perguntas', icon: MessageCircle },
       { label: 'Comprovações', href: '/comprovacoes', icon: Scale },
+      { label: 'Seu Nome em Árabe', href: '/descobrir/seu-nome-em-arabe', icon: Type },
+      { label: 'Qual Profeta Você É?', href: '/descobrir/qual-profeta-voce-e', icon: Zap },
     ],
   },
   {

@@ -435,6 +435,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.6,
     },
 
+    // Descobrir — viral apps
+    {
+      url: `${baseUrl}/descobrir/seu-nome-em-arabe`,
+      lastModified: now,
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/descobrir/qual-profeta-voce-e`,
+      lastModified: now,
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    },
+
     // Aprender SEO pages (15 pages)
     ...seoPages,
   ]
