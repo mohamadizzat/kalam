@@ -63,7 +63,6 @@
 
 ### Proxima sessao
 - Ver BACKLOG.md para features pendentes
-- Companion Player continua prioridade #1
 
 ---
 
@@ -107,4 +106,44 @@
 
 ### Proxima sessao
 - Ver BACKLOG.md para features pendentes
-- Companion Player continua prioridade #1
+
+---
+
+## 2026-03-01 | Session 3 — Sanctuary Home + Persona Personalization
+
+### O que foi feito
+- **SanctuaryHero** (NOVO) — Componente imersivo de entrada sagrada com Bismillah, aurora blobs, verso do dia com audio 1-tap, sacred gold dividers, modo compact/full
+- **PersonaBanner** (NOVO) — Banner de recomendacao contextual por persona (5 tipos), responsivo, com CTA e "trocar"
+- **usePersona hook** (NOVO) — Supabase + localStorage dual persistence
+- **user_preferences table** — Migration Supabase com RLS
+- **StoryHome**: Hero substituido por SanctuaryHero, persona persiste via Supabase
+- **DashboardHome**: SanctuaryHero compact + PersonaBanner, Quick Actions e Explore Grid reordenados por persona
+
+### Build + Deploy
+- `pnpm build` limpo, commit 90d9505, push main, Vercel auto-deploy
+
+### Proxima sessao
+- P0: Service Worker / PWA
+- P2: Kalam AI Chat, Arabic 300
+
+---
+
+## 2026-03-01 | Session 4 — Qibla Real + Ramadan Home + Aisha Quran-First
+
+### O que foi feito
+- **Qibla Perfeita** — SalahClient.tsx reescrito com DeviceOrientationEvent: bussola real que gira com o celular, permissao iOS, 72 tick marks, badge "Voce esta voltado para a Qibla" quando alinhado (10deg), botao "Ativar Bussola", SVG 240px
+- **Ramadan nas Homes** — Banner contextual em StoryHome e DashboardHome mostrando dia atual, tema, acao do dia, fase (Misericordia/Perdao/Libertacao), badge Lailat al-Qadr. getRamadanDay() + getTodayRamadan() helpers em ramadan.ts
+- **Aisha Quran-First** — hardQuestions.js entry `aisha-age` reescrita completamente. Agora lidera com Alcorao (4:6 maturidade), explica o que sao hadiths, debate academico sobre idades (14-19), sem "Sim." como abertura. Primeira source agora e Alcorao 4:6 (era Sahih Bukhari)
+- **Ramadan dates** — Helper com datas Ramadan 1447 AH (28/02 - 29/03/2026)
+
+### Decisoes tomadas
+- Aisha: Quran-first approach — nao negar o hadith, mas priorizar o que o Alcorao diz (maturidade, nao idade)
+- Ramadan: banner aparece automaticamente durante o mes, some fora do periodo
+- Qibla: compass real via DeviceOrientation com fallback estatico pra desktop
+
+### Build + Deploy
+- `pnpm build` limpo, push main, Vercel auto-deploy
+
+### Proxima sessao
+- P0: Service Worker / PWA
+- P2: Kalam AI Chat, Arabic 300

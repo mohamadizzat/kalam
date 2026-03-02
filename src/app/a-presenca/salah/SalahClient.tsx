@@ -93,6 +93,8 @@ export function SalahClient() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [coords, setCoords] = useState<{ lat: number; lng: number } | null>(null)
+  const [deviceHeading, setDeviceHeading] = useState<number | null>(null)
+  const [compassActive, setCompassActive] = useState(false)
 
   /* ---------- Fetch prayer times ---------- */
 
@@ -208,6 +210,48 @@ export function SalahClient() {
       fetchPrayerTimes(SAO_PAULO_LAT, SAO_PAULO_LNG)
     }
   }
+
+  /* ---------- Activate real compass ---------- */
+
+  const activateCompass = useCallback(async () => {
+    // iOS requires explicit permission
+    if (typeof DeviceOrientationEvent !== 'undefined' &&
+        typeof (DeviceOrientationEvent as any).requestPermission === 'function') {
+      try {
+        const permission = await (DeviceOrientationEvent as any).requestPermission()
+        if (permission === 'granted') {
+          setCompassActive(true)
+        }
+      } catch {
+        // Permission denied — stay in static mode
+      }
+    } else {
+      // Android and desktop — just activate
+      setCompassActive(true)
+    }
+  }, [])
+
+  /* ---------- Device orientation listener ---------- */
+
+  useEffect(() => {
+    if (!compassActive) return
+
+    const handleOrientation = (e: DeviceOrientationEvent) => {
+      // iOS provides webkitCompassHeading (degrees from North)
+      let heading = (e as any).webkitCompassHeading as number | undefined
+      if (heading === undefined && e.alpha !== null) {
+        // Android: alpha is the rotation around z-axis
+        // When absolute is true, alpha = degrees from North
+        heading = e.absolute ? (360 - (e.alpha ?? 0)) % 360 : undefined
+      }
+      if (heading !== undefined && !isNaN(heading)) {
+        setDeviceHeading(heading)
+      }
+    }
+
+    window.addEventListener('deviceorientation', handleOrientation, true)
+    return () => window.removeEventListener('deviceorientation', handleOrientation, true)
+  }, [compassActive])
 
   /* ================================================================ */
   /*  Render                                                           */
@@ -430,136 +474,179 @@ export function SalahClient() {
               fontFamily: 'var(--font-serif)',
               fontSize: '20px',
               color: '#F0EBE2',
-              marginBottom: '24px',
+              marginBottom: '8px',
             }}
           >
             Direcao da Qibla
           </p>
 
+          {deviceHeading !== null && (
+            <p style={{ fontSize: '13px', color: '#7A7870', marginBottom: '16px' }}>
+              Bussola ativa — gire o celular ate a seta apontar pra cima
+            </p>
+          )}
+
+          {/* Activate compass button (shown when compass is not active) */}
+          {!compassActive && (
+            <button
+              onClick={activateCompass}
+              style={{
+                padding: '10px 24px',
+                borderRadius: '999px',
+                background: 'rgba(201,168,76,0.1)',
+                border: '1px solid rgba(201,168,76,0.3)',
+                color: '#C9A84C',
+                fontSize: '14px',
+                cursor: 'pointer',
+                marginBottom: '24px',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+              }}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
+              </svg>
+              Ativar Bussola
+            </button>
+          )}
+
           {/* SVG Compass */}
           <div
             style={{
               position: 'relative',
-              width: '200px',
-              height: '200px',
+              width: '240px',
+              height: '240px',
               margin: '0 auto',
             }}
           >
             <svg
-              width="200"
-              height="200"
-              viewBox="0 0 200 200"
+              width="240"
+              height="240"
+              viewBox="0 0 240 240"
               fill="none"
             >
-              {/* Outer circle */}
-              <circle
-                cx="100"
-                cy="100"
-                r="95"
-                stroke="#272230"
-                strokeWidth="1"
-              />
-              {/* Inner circle */}
-              <circle
-                cx="100"
-                cy="100"
-                r="85"
-                stroke="#272230"
-                strokeWidth="0.5"
-              />
-              {/* Tick marks */}
-              {Array.from({ length: 36 }).map((_, i) => {
-                const angle = i * 10
-                const rad = (angle * Math.PI) / 180
-                const r1 = i % 9 === 0 ? 80 : 83
-                const r2 = 88
-                return (
+              {/* Rotating compass dial */}
+              <g
+                style={{
+                  transform: `rotate(${deviceHeading !== null ? -deviceHeading : 0}deg)`,
+                  transformOrigin: '120px 120px',
+                  transition: deviceHeading !== null ? 'transform 0.3s ease-out' : 'none',
+                }}
+              >
+                {/* Outer circle */}
+                <circle
+                  cx="120"
+                  cy="120"
+                  r="115"
+                  stroke="#272230"
+                  strokeWidth="1"
+                />
+                {/* Inner circle */}
+                <circle
+                  cx="120"
+                  cy="120"
+                  r="105"
+                  stroke="#272230"
+                  strokeWidth="0.5"
+                />
+                {/* Tick marks */}
+                {Array.from({ length: 72 }).map((_, i) => {
+                  const angle = i * 5
+                  const rad = (angle * Math.PI) / 180
+                  const isMajor = i % 18 === 0
+                  const isMedium = i % 6 === 0
+                  const r1 = isMajor ? 96 : isMedium ? 99 : 101
+                  const r2 = 107
+                  return (
+                    <line
+                      key={i}
+                      x1={120 + r1 * Math.sin(rad)}
+                      y1={120 - r1 * Math.cos(rad)}
+                      x2={120 + r2 * Math.sin(rad)}
+                      y2={120 - r2 * Math.cos(rad)}
+                      stroke={isMajor ? '#7A7870' : isMedium ? '#4a4555' : '#3a3545'}
+                      strokeWidth={isMajor ? 2 : isMedium ? 1 : 0.5}
+                    />
+                  )
+                })}
+                {/* Cardinal labels */}
+                <text x="120" y="26" textAnchor="middle" fill="#C9A84C" fontSize="14" fontWeight="700">N</text>
+                <text x="120" y="226" textAnchor="middle" fill="#7A7870" fontSize="12">S</text>
+                <text x="224" y="125" textAnchor="middle" fill="#7A7870" fontSize="12">E</text>
+                <text x="16" y="125" textAnchor="middle" fill="#7A7870" fontSize="12">O</text>
+
+                {/* Qibla arrow — rotates with compass dial so it always points to Qibla */}
+                <g transform={`rotate(${qiblaDirection} 120 120)`}>
+                  {/* Arrow shaft */}
                   <line
-                    key={i}
-                    x1={100 + r1 * Math.sin(rad)}
-                    y1={100 - r1 * Math.cos(rad)}
-                    x2={100 + r2 * Math.sin(rad)}
-                    y2={100 - r2 * Math.cos(rad)}
-                    stroke={i % 9 === 0 ? '#7A7870' : '#3a3545'}
-                    strokeWidth={i % 9 === 0 ? 1.5 : 0.5}
+                    x1="120"
+                    y1="120"
+                    x2="120"
+                    y2="32"
+                    stroke="#C9A84C"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
                   />
-                )
-              })}
-              {/* Cardinal labels */}
-              <text
-                x="100"
-                y="22"
-                textAnchor="middle"
-                fill="#7A7870"
-                fontSize="12"
-                fontWeight="600"
-              >
-                N
-              </text>
-              <text
-                x="100"
-                y="190"
-                textAnchor="middle"
-                fill="#7A7870"
-                fontSize="12"
-              >
-                S
-              </text>
-              <text
-                x="186"
-                y="105"
-                textAnchor="middle"
-                fill="#7A7870"
-                fontSize="12"
-              >
-                E
-              </text>
-              <text
-                x="14"
-                y="105"
-                textAnchor="middle"
-                fill="#7A7870"
-                fontSize="12"
-              >
-                O
-              </text>
-              {/* Qibla arrow */}
-              <g transform={`rotate(${qiblaDirection} 100 100)`}>
-                <line
-                  x1="100"
-                  y1="100"
-                  x2="100"
-                  y2="28"
-                  stroke="#C9A84C"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
-                {/* Arrowhead */}
-                <polygon
-                  points="100,20 95,32 105,32"
-                  fill="#C9A84C"
-                />
+                  {/* Arrowhead */}
+                  <polygon
+                    points="120,22 114,36 126,36"
+                    fill="#C9A84C"
+                  />
+                  {/* Kaaba icon circle at tip */}
+                  <circle cx="120" cy="22" r="8" fill="rgba(201,168,76,0.15)" stroke="#C9A84C" strokeWidth="1" />
+                  <text x="120" y="26" textAnchor="middle" fill="#C9A84C" fontSize="8" fontFamily="var(--font-arabic)" direction="rtl">
+                    {'\u0643\u0639\u0628\u0629'}
+                  </text>
+                </g>
               </g>
-              {/* Center dot */}
-              <circle cx="100" cy="100" r="4" fill="#C9A84C" />
+
+              {/* Center point (doesn't rotate) */}
+              <circle cx="120" cy="120" r="5" fill="#C9A84C" />
+              <circle cx="120" cy="120" r="2" fill="#0D0B12" />
+
+              {/* Phone direction indicator (top, doesn't rotate) */}
+              <polygon
+                points="120,6 116,14 124,14"
+                fill={deviceHeading !== null ? '#F0EBE2' : '#3a3545'}
+              />
             </svg>
 
-            <p
-              style={{
-                fontFamily: 'var(--font-arabic)',
-                fontSize: '14px',
-                color: '#C9A84C',
-                marginTop: '8px',
-                direction: 'rtl',
-              }}
-            >
-              {'\u0627\u0644\u0643\u0639\u0628\u0629'}
-            </p>
+            {/* "Facing Qibla" indicator */}
+            {deviceHeading !== null && (() => {
+              const diff = Math.abs(((qiblaDirection - deviceHeading) % 360 + 360) % 360)
+              const isFacing = diff < 10 || diff > 350
+              return isFacing ? (
+                <div
+                  style={{
+                    position: 'absolute',
+                    bottom: '-40px',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    padding: '6px 16px',
+                    borderRadius: '999px',
+                    background: 'rgba(201,168,76,0.15)',
+                    border: '1px solid rgba(201,168,76,0.4)',
+                  }}
+                >
+                  <p style={{ fontSize: '13px', color: '#C9A84C', fontWeight: 600, whiteSpace: 'nowrap' }}>
+                    Voce esta voltado para a Qibla
+                  </p>
+                </div>
+              ) : null
+            })()}
           </div>
 
-          <p style={{ fontSize: '13px', color: '#7A7870', marginTop: '16px' }}>
+          <p style={{ fontSize: '13px', color: '#7A7870', marginTop: deviceHeading !== null ? '48px' : '16px' }}>
             {qiblaDirection}&deg; do Norte
           </p>
+
+          {compassActive && deviceHeading === null && (
+            <p style={{ fontSize: '12px', color: '#7A7870', marginTop: '8px', fontStyle: 'italic' }}>
+              Mova o celular para calibrar a bussola
+            </p>
+          )}
         </motion.div>
 
       </div>

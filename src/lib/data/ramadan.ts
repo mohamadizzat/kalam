@@ -459,3 +459,36 @@ export const RAMADAN_PHASES = [
   { key: 'forgiveness' as const, label: 'Perdao', arabic: 'مغفرة', days: '11-20', color: '#C9A84C' },
   { key: 'freedom' as const, label: 'Libertacao do Fogo', arabic: 'عتق من النار', days: '21-30', color: '#D94A4A' },
 ]
+
+// ═══════════════════════════════════════════════════════
+// RAMADAN DATE HELPER
+// Ramadan 1447 AH ≈ Feb 28 – Mar 29, 2026
+// Update these dates annually based on moon sighting
+// ═══════════════════════════════════════════════════════
+
+const RAMADAN_2026_START = new Date(2026, 1, 28) // Feb 28, 2026
+const RAMADAN_2026_END = new Date(2026, 2, 29)   // Mar 29, 2026
+
+/** Returns the current Ramadan day (1-30) or null if not Ramadan */
+export function getRamadanDay(): number | null {
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+
+  const start = new Date(RAMADAN_2026_START)
+  start.setHours(0, 0, 0, 0)
+
+  const end = new Date(RAMADAN_2026_END)
+  end.setHours(0, 0, 0, 0)
+
+  if (today < start || today > end) return null
+
+  const diff = Math.floor((today.getTime() - start.getTime()) / (1000 * 60 * 60 * 24))
+  return Math.min(diff + 1, 30)
+}
+
+/** Returns today's Ramadan data or null */
+export function getTodayRamadan(): RamadanDay | null {
+  const day = getRamadanDay()
+  if (day === null) return null
+  return ramadanDays[day - 1] ?? null
+}

@@ -2,13 +2,9 @@
 
 ## P0 — Prioridade Maxima
 
-### [COMPANION] Contemplative Player — pending
-- O que: Player de audio com camadas mixaveis (Quran + ambient + binaural + nasheeds)
-- Arquivos: criar CompanionProvider, CompanionPlayer, MixerEngine (Web Audio API)
-- Modos: Foco, Energia, Calma, Contemplacao, Sleep, Kids
-- Base existente: AudioPlayer.tsx (reutilizar logica de player)
-- SQL: tabela companion_preferences (user settings)
-- Estimativa: 2-3 semanas
+### [COMPANION] Contemplative Player — DONE (01/03)
+- Player completo com 5 modos, Web Audio API, persistencia Supabase
+- Ver global BACKLOG para detalhes das 3 waves
 
 ### [SERVICE-WORKER] Offline/PWA Real — pending
 - O que: Service Worker com cache de suratas para leitura offline
@@ -18,23 +14,23 @@
 
 ## P1 — Alta Prioridade
 
-### [QA-SECTION] Perguntas e Respostas — pending
-- O que: Secao dedicada para perguntas dificeis
-- Conteudo: JA EXISTE em src/content/hardQuestions.js
-- Falta: pagina UI dedicada (/perguntas ou /a-ponte/perguntas)
-- Estimativa: 2-3 dias
+### [QA-SECTION] Perguntas e Respostas — DONE (pre-existente)
+- Pagina completa em /perguntas/page.tsx (780L), 12 perguntas, filtros, accordion
 
-### [ONBOARDING] Personalizacao por Avatar — partial
-- O que: Flow que identifica tipo de usuario (curioso, cristao, muculmano novo, muculmano profundo)
-- Existente: OnboardingHome.tsx, StoryHome.tsx, /comecar
-- Falta: personalizacao real do conteudo baseado no perfil
-- Estimativa: 1 semana
+### [ONBOARDING] Personalizacao por Avatar — DONE (01/03, commit 90d9505)
+- usePersona hook com Supabase + localStorage dual persistence
+- user_preferences table com RLS
+- PersonaBanner: recomendacao contextual por persona
+- DashboardHome: Quick Actions + Explore Grid reordenados por persona
+- StoryHome: persona salva via Supabase no click
+- Arquivos: usePersona.ts, PersonaBanner.tsx, DashboardHome.tsx, StoryHome.tsx
 
-### [SANCTUARY] Home como Experiencia — partial
-- O que: Impacto emocional na abertura (caligrafia grande, audio 1 toque, espaco sagrado)
-- Existente: Home com versiculo do dia + Nome de Deus
-- Falta: animacao de entrada, audio instantaneo, sensacao de "sanctuary"
-- Estimativa: 3-5 dias
+### [SANCTUARY] Home como Experiencia — DONE (01/03, commit 90d9505)
+- SanctuaryHero: Bismillah com animacao de escala, aurora blobs, verso do dia com audio 1-tap
+- Audio lazy-loaded do CDN islamic.network (Mishary Alafasy)
+- Sacred gold dividers, share/copy, breathing glow
+- Integrado em StoryHome (full) e DashboardHome (compact)
+- Arquivos: SanctuaryHero.tsx, StoryHome.tsx, DashboardHome.tsx
 
 ## P2 — Media Prioridade
 

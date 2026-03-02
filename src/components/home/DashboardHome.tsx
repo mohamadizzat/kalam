@@ -26,6 +26,8 @@ import {
   Clock,
 } from 'lucide-react'
 import { SANCTUARY_VERSES, NAMES_PREVIEW } from '@/lib/data/daily-content'
+import { getTodayRamadan, RAMADAN_PHASES } from '@/lib/data/ramadan'
+import type { RamadanDay } from '@/lib/data/ramadan'
 import { surpriseFactsData } from '@/content/surpriseFacts'
 import { PremiumCard } from '@/components/shared/PremiumCard'
 import { SanctuaryHero } from '@/components/home/SanctuaryHero'
@@ -208,6 +210,11 @@ export function DashboardHome() {
   const [surahsReadCount, setSurahsReadCount] = useState(0)
   const [journalCount, setJournalCount] = useState(0)
   const [factIndex, setFactIndex] = useState(0)
+  const [ramadanToday, setRamadanToday] = useState<RamadanDay | null>(null)
+
+  useEffect(() => {
+    setRamadanToday(getTodayRamadan())
+  }, [])
 
   // ── Init date, greeting, verse ──
   useEffect(() => {
@@ -331,6 +338,71 @@ export function DashboardHome() {
           <PersonaBanner persona={persona as PersonaId | null} />
         </motion.div>
       </section>
+
+      {/* Ramadan Banner (shown only during Ramadan) */}
+      {ramadanToday && (() => {
+        const phase = RAMADAN_PHASES.find(p => p.key === ramadanToday.phase)
+        return (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.15 }}
+            style={{ padding: '0 24px 12px' }}
+          >
+            <Link
+              href="/a-jornada/ramadan"
+              style={{ textDecoration: 'none', display: 'block' }}
+            >
+              <div
+                style={{
+                  background: `linear-gradient(135deg, rgba(${phase?.key === 'mercy' ? '74,144,217' : phase?.key === 'forgiveness' ? '201,168,76' : '217,74,74'},0.06) 0%, ${T.surface} 100%)`,
+                  border: `1px solid ${phase?.color || T.gold}33`,
+                  borderRadius: 14,
+                  padding: '18px 18px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 14,
+                  position: 'relative',
+                }}
+              >
+                <div
+                  style={{
+                    width: 44,
+                    height: 44,
+                    borderRadius: 12,
+                    background: `${phase?.color || T.gold}15`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexShrink: 0,
+                  }}
+                >
+                  <Calendar size={20} style={{ color: phase?.color || T.gold }} />
+                </div>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 2 }}>
+                    <p style={{ fontSize: 11, color: phase?.color || T.gold, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase' }}>
+                      Ramadan · Dia {ramadanToday.day}
+                    </p>
+                    {ramadanToday.isLailatAlQadr && (
+                      <span style={{ fontSize: 9, color: T.gold, background: 'rgba(201,168,76,0.15)', padding: '2px 6px', borderRadius: 4, fontWeight: 600 }}>
+                        Noite do Decreto
+                      </span>
+                    )}
+                  </div>
+                  <p style={{ fontSize: 14, color: T.text, fontWeight: 500 }}>
+                    {ramadanToday.theme}
+                  </p>
+                  <p style={{ fontSize: 12, color: T.muted, marginTop: 2, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                    {ramadanToday.deed}
+                  </p>
+                </div>
+                <ArrowRight size={15} style={{ color: phase?.color || T.gold, flexShrink: 0 }} />
+              </div>
+            </Link>
+          </motion.div>
+        )
+      })()}
 
       {/* Sanctuary Hero — compact mode for dashboard */}
       <SanctuaryHero verse={verse} nameOfDay={nameOfDay} compact />
