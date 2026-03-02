@@ -38,6 +38,9 @@ import { RamadanDailyCard } from '@/components/ramadan/RamadanDailyCard'
 import { RamadanPhaseProgress } from '@/components/ramadan/RamadanPhaseProgress'
 import { usePersona } from '@/lib/hooks/usePersona'
 import type { PersonaId } from '@/lib/hooks/usePersona'
+import { ProximoPassoCard } from '@/components/home/ProximoPassoCard'
+import { DescobertaDoDiaCard } from '@/components/home/DescobertaDoDiaCard'
+import { ProgressoSection } from '@/components/home/ProgressoSection'
 
 // ── DESIGN TOKENS ────────────────────────────────────────────────────────────
 
@@ -446,7 +449,7 @@ export function DashboardHome() {
       </motion.section>
 
       {/* ═══════════════════════════════════════════════════════════════════════
-          SECTION 3 — Stats
+          SECTION 3 — Progresso (Agent-powered)
       ═══════════════════════════════════════════════════════════════════════ */}
       <motion.section
         initial={{ opacity: 0, y: 10 }}
@@ -454,48 +457,31 @@ export function DashboardHome() {
         transition={{ duration: 0.6, delay: 0.3 }}
         style={{ padding: '16px 24px 0' }}
       >
-        {hasAnyStats ? (
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: `repeat(${statsToShow.length}, 1fr)`,
-              gap: 12,
-            }}
-          >
-            {statsToShow.map((stat) => (
-              <PremiumCard
-                key={stat.label}
-                variant="default"
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  padding: '16px 8px',
-                  borderRadius: 12,
-                }}
-              >
-                <stat.icon size={18} style={{ color: T.gold, marginBottom: 8 }} />
-                <AnimatedCounter value={stat.value} color={T.gold} />
-                <span style={{ fontSize: 11, color: T.muted, marginTop: 2 }}>
-                  {stat.label}
-                </span>
-              </PremiumCard>
-            ))}
-          </div>
-        ) : (
-          <PremiumCard
-            variant="default"
-            style={{
-              padding: '20px 16px',
-              borderRadius: 12,
-              textAlign: 'center' as const,
-            }}
-          >
-            <p style={{ fontSize: 13, color: T.muted, lineHeight: 1.6 }}>
-              Seu progresso aparecerá aqui conforme você explorar
-            </p>
-          </PremiumCard>
-        )}
+        <ProgressoSection />
+      </motion.section>
+
+      {/* ═══════════════════════════════════════════════════════════════════════
+          SECTION 3.5 — Proximo Passo (Guia Agent)
+      ═══════════════════════════════════════════════════════════════════════ */}
+      <motion.section
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.35 }}
+        style={{ padding: '16px 24px 0' }}
+      >
+        <ProximoPassoCard />
+      </motion.section>
+
+      {/* ═══════════════════════════════════════════════════════════════════════
+          SECTION 3.7 — Descoberta do Dia (Curador Agent)
+      ═══════════════════════════════════════════════════════════════════════ */}
+      <motion.section
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.4 }}
+        style={{ padding: '16px 24px 0' }}
+      >
+        <DescobertaDoDiaCard />
       </motion.section>
 
       {/* ═══════════════════════════════════════════════════════════════════════

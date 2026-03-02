@@ -15,6 +15,7 @@ import {
   PanelLeftClose,
   PanelLeft,
   X,
+  Search,
   Wrench,
   MessageCircle,
   Users as UsersIcon,
@@ -38,7 +39,9 @@ import {
   Moon,
   Type,
   Zap,
+  Flame,
 } from 'lucide-react'
+import { useNavIndicators } from '@/lib/hooks/useNavIndicators'
 
 // ── SIDEBAR CONTEXT ─────────────────────────────────────────────────────────
 
@@ -119,65 +122,76 @@ type NavCategory = {
 
 const NAV_CATEGORIES: NavCategory[] = [
   {
-    id: 'descobrir',
-    label: 'Descobrir',
+    id: 'comece-aqui',
+    label: 'Comece Aqui',
     icon: Compass,
     items: [
       { label: 'A Mensagem', href: '/a-mensagem', icon: MessageCircle },
-      { label: 'A Ponte', href: '/a-ponte', icon: Layers },
       { label: 'Os Profetas', href: '/os-profetas', icon: UsersIcon },
-      { label: 'O Sistema', href: '/o-sistema', icon: Sparkles },
-      { label: 'Biblioteca', href: '/biblioteca', icon: Library },
+      { label: 'A Ponte', href: '/a-ponte', icon: Layers },
       { label: 'Perguntas Difíceis', href: '/perguntas', icon: MessageCircle },
-      { label: 'Comprovações', href: '/comprovacoes', icon: Scale },
-      { label: 'Seu Nome em Árabe', href: '/descobrir/seu-nome-em-arabe', icon: Type },
-      { label: 'Qual Profeta Te Inspira?', href: '/descobrir/qual-profeta-voce-e', icon: Zap },
     ],
   },
   {
-    id: 'aprender',
-    label: 'Aprender',
+    id: 'explore',
+    label: 'Explore',
+    icon: Sparkles,
+    items: [
+      { label: 'Seu Nome em Árabe', href: '/descobrir/seu-nome-em-arabe', icon: Type },
+      { label: 'Qual Profeta Te Inspira?', href: '/descobrir/qual-profeta-voce-e', icon: Zap },
+      { label: 'Comprovações', href: '/comprovacoes', icon: Scale },
+      { label: 'O Sistema', href: '/o-sistema', icon: Sparkles },
+      { label: 'Biblioteca', href: '/biblioteca', icon: Library },
+    ],
+  },
+  {
+    id: 'estude',
+    label: 'Estude',
     icon: BookOpen,
     items: [
       { label: 'A Palavra (Quran)', href: '/a-palavra', icon: BookOpen },
-      { label: 'Trilhas', href: '/trilhas', icon: Route },
       { label: 'A Bíblia do Kalam', href: '/a-biblia-do-kalam', icon: BookText },
+      { label: 'Trilhas', href: '/trilhas', icon: Route },
       { label: 'Estudos', href: '/a-palavra/estudo', icon: BookMarked },
       { label: 'Santuario', href: '/a-palavra/santuario', icon: Sparkles },
-      { label: 'Progresso', href: '/a-palavra/progresso', icon: TrendingUp },
       { label: 'Arabe do Quran', href: '/a-presenca/arabe-quran', icon: Languages },
     ],
   },
   {
-    id: 'praticar',
-    label: 'Praticar',
+    id: 'pratique',
+    label: 'Pratique',
     icon: Sun,
     items: [
       { label: 'Ferramentas', href: '/ferramentas', icon: Wrench },
       { label: 'A Presença', href: '/a-presenca', icon: Sun },
       { label: 'Aya do Dia', href: '/aya-do-dia', icon: Calendar },
-      { label: 'Recitação', href: '/a-palavra/recitacao', icon: Mic },
-      { label: 'Flashcards', href: '/a-presenca/flashcards', icon: Languages },
       { label: 'Dhikr', href: '/a-presenca/dhikr', icon: Clock },
       { label: 'Duas', href: '/a-presenca/duas', icon: Heart },
       { label: 'Salah', href: '/a-presenca/salah', icon: Sun },
       { label: 'Hifz', href: '/a-palavra/hifz', icon: BookMarked },
       { label: 'Contemplativo', href: '/contemplativo', icon: Sparkles },
       { label: 'Sleep Stories', href: '/contemplativo/sleep', icon: Moon },
-      { label: 'Stories', href: '/conteudo', icon: Layers },
     ],
   },
   {
-    id: 'refletir',
-    label: 'Refletir',
+    id: 'reflita',
+    label: 'Reflita',
     icon: Heart,
     items: [
       { label: 'A Alma', href: '/a-alma', icon: Heart },
       { label: 'Journal', href: '/a-alma/journal', icon: PenLine },
-      { label: 'Rotina', href: '/a-alma/rotina', icon: Clock },
+      { label: 'Hábitos', href: '/a-alma/habitos', icon: CheckSquare },
       { label: 'Plano Diário', href: '/a-jornada/plano-diario', icon: Calendar },
-      { label: 'Habitos', href: '/a-alma/habitos', icon: CheckSquare },
-      { label: 'Como Voce Esta', href: '/a-alma/como-voce-esta', icon: Heart },
+      { label: 'Rotina', href: '/a-alma/rotina', icon: Clock },
+      { label: 'Como Você Está', href: '/a-alma/como-voce-esta', icon: Heart },
+    ],
+  },
+  {
+    id: 'lideranca',
+    label: 'Liderança',
+    icon: Crown,
+    items: [
+      { label: 'Liderança Profética', href: '/lideranca-profetica', icon: Crown },
     ],
   },
   {
@@ -225,7 +239,8 @@ const premiumDividerStyle: React.CSSProperties = {
 export function Sidebar() {
   const { isOpen, isCollapsed, toggleCollapsed, close } = useSidebar()
   const pathname = usePathname()
-  const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set(['descobrir', 'aprender', 'praticar', 'refletir', 'kids']))
+  const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set(['comece-aqui', 'explore', 'estude', 'pratique', 'reflita', 'lideranca', 'kids']))
+  const indicators = useNavIndicators()
 
   // Auto-expand category of active item
   useEffect(() => {
@@ -346,6 +361,38 @@ export function Sidebar() {
           </Link>
         </div>
 
+        {/* Search trigger */}
+        <div style={{ padding: isCollapsed ? '0 8px 8px' : '0 12px 8px' }}>
+          <button
+            onClick={() => document.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', metaKey: true, bubbles: true }))}
+            title="Buscar (⌘K)"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 10,
+              width: '100%',
+              padding: isCollapsed ? '10px 0' : '10px 12px',
+              borderRadius: 8,
+              justifyContent: isCollapsed ? 'center' : 'flex-start',
+              background: 'rgba(201,168,76,0.04)',
+              border: `1px solid ${T.border}`,
+              color: T.muted,
+              cursor: 'pointer',
+              fontSize: 13,
+              fontFamily: 'var(--font-sans)',
+              transition: 'all 0.2s ease',
+            }}
+          >
+            <Search size={16} />
+            {!isCollapsed && (
+              <>
+                <span style={{ flex: 1, textAlign: 'left' }}>Buscar...</span>
+                <span style={{ fontSize: 11, opacity: 0.6 }}>⌘K</span>
+              </>
+            )}
+          </button>
+        </div>
+
         {/* Nav categories — scrollable (data-lenis-prevent stops Lenis from hijacking scroll here) */}
         <nav
           data-lenis-prevent
@@ -406,6 +453,9 @@ export function Sidebar() {
                     {cat.items.map((item) => {
                       const active = isActive(item.href)
                       const count = CONTENT_COUNTS[item.href]
+                      const hasNovo = indicators.novoBadges.has(item.href)
+                      const progressColor = indicators.progressDots.get(item.href)
+                      const hasFlame = indicators.streakFlames.has(item.href)
                       return (
                         <Link
                           key={item.href}
@@ -440,7 +490,19 @@ export function Sidebar() {
                             />
                           )}
                           <span style={{ flex: 1 }}>{item.label}</span>
-                          {count && (
+                          {/* Visual indicators */}
+                          {hasNovo && (
+                            <span style={{ fontSize: 9, fontWeight: 700, color: T.gold, background: 'rgba(201,168,76,0.12)', padding: '2px 6px', borderRadius: 4, letterSpacing: '0.05em' }}>
+                              NOVO
+                            </span>
+                          )}
+                          {progressColor && (
+                            <span style={{ width: 6, height: 6, borderRadius: '50%', background: progressColor === 'green' ? '#4ade80' : T.gold, flexShrink: 0 }} />
+                          )}
+                          {hasFlame && (
+                            <Flame size={12} style={{ color: '#f97316', flexShrink: 0 }} />
+                          )}
+                          {count && !hasNovo && !progressColor && !hasFlame && (
                             <span
                               style={{
                                 fontSize: 10,
@@ -581,6 +643,30 @@ export function Sidebar() {
               </Link>
             </div>
 
+            {/* Search trigger (mobile) */}
+            <div style={{ padding: '0 12px 8px' }}>
+              <button
+                onClick={() => { close(); setTimeout(() => document.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', metaKey: true, bubbles: true })), 300) }}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 10,
+                  width: '100%',
+                  padding: '10px 12px',
+                  borderRadius: 8,
+                  background: 'rgba(201,168,76,0.04)',
+                  border: `1px solid ${T.border}`,
+                  color: T.muted,
+                  cursor: 'pointer',
+                  fontSize: 14,
+                  fontFamily: 'var(--font-sans)',
+                }}
+              >
+                <Search size={16} />
+                <span style={{ flex: 1, textAlign: 'left' }}>Buscar...</span>
+              </button>
+            </div>
+
             {/* Nav — scrollable */}
             <nav
               data-lenis-prevent
@@ -629,6 +715,9 @@ export function Sidebar() {
                         {cat.items.map((item) => {
                           const active = isActive(item.href)
                           const count = CONTENT_COUNTS[item.href]
+                          const hasNovo = indicators.novoBadges.has(item.href)
+                          const progressColor = indicators.progressDots.get(item.href)
+                          const hasFlame = indicators.streakFlames.has(item.href)
                           return (
                             <Link
                               key={item.href}
@@ -662,7 +751,18 @@ export function Sidebar() {
                                 />
                               )}
                               <span style={{ flex: 1 }}>{item.label}</span>
-                              {count && (
+                              {hasNovo && (
+                                <span style={{ fontSize: 9, fontWeight: 700, color: T.gold, background: 'rgba(201,168,76,0.12)', padding: '2px 6px', borderRadius: 4, letterSpacing: '0.05em' }}>
+                                  NOVO
+                                </span>
+                              )}
+                              {progressColor && (
+                                <span style={{ width: 6, height: 6, borderRadius: '50%', background: progressColor === 'green' ? '#4ade80' : T.gold, flexShrink: 0 }} />
+                              )}
+                              {hasFlame && (
+                                <Flame size={12} style={{ color: '#f97316', flexShrink: 0 }} />
+                              )}
+                              {count && !hasNovo && !progressColor && !hasFlame && (
                                 <span
                                   style={{
                                     fontSize: 10,

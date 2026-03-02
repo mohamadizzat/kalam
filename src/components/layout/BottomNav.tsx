@@ -2,14 +2,14 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Home, Compass, BookOpen, Sun, MoreHorizontal } from 'lucide-react'
+import { Home, Compass, BookOpen, Heart, MoreHorizontal } from 'lucide-react'
 import { useSidebar } from './Sidebar'
 
 const TABS = [
   { label: 'Início', href: '/', Icon: Home },
-  { label: 'Descobrir', href: '/a-mensagem', Icon: Compass, matchPaths: ['/a-mensagem', '/a-ponte', '/os-profetas', '/o-sistema', '/biblioteca', '/perguntas'] },
-  { label: 'Aprender', href: '/a-palavra', Icon: BookOpen, matchPaths: ['/a-palavra', '/trilhas', '/a-biblia-do-kalam'] },
-  { label: 'Praticar', href: '/a-presenca', Icon: Sun, matchPaths: ['/a-presenca', '/aya-do-dia'] },
+  { label: 'Explorar', href: '/a-mensagem', Icon: Compass, matchPaths: ['/a-mensagem', '/a-ponte', '/os-profetas', '/o-sistema', '/biblioteca', '/perguntas', '/comprovacoes', '/descobrir'] },
+  { label: 'Estudar', href: '/a-palavra', Icon: BookOpen, matchPaths: ['/a-palavra', '/trilhas', '/a-biblia-do-kalam', '/a-presenca'] },
+  { label: 'Refletir', href: '/a-alma', Icon: Heart, matchPaths: ['/a-alma', '/a-jornada'] },
   { label: 'Mais', href: '#more', Icon: MoreHorizontal },
 ]
 

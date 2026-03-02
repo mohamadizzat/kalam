@@ -17,6 +17,7 @@ import { Sidebar, SidebarProvider } from '@/components/layout/Sidebar'
 import { ContentWrapper } from '@/components/layout/ContentWrapper'
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs'
 import { FloatingContinue } from '@/components/shared/FloatingContinue'
+import { NudgeBanner } from '@/components/shared/NudgeBanner'
 import { AtmosphericLayer } from '@/components/effects/AtmosphericLayer'
 import { QuickAccessOrb } from '@/components/shared/QuickAccessOrb'
 import { Analytics } from '@vercel/analytics/next'
@@ -101,6 +102,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <Footer />
                 </ContentWrapper>
                 <FloatingContinue />
+                <NudgeBanner />
                 <QuickAccessOrb />
                 <BottomNav />
               </LenisProvider>
