@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Share2, Copy, Check, X, BookOpen, ArrowRight, Sparkles } from 'lucide-react'
+import { Share2, Copy, Check, X, BookOpen, ArrowRight, Sparkles, Type } from 'lucide-react'
 import Link from 'next/link'
 import { QUIZ_QUESTIONS, PROPHET_PROFILES, type ProphetProfile } from '@/lib/data/prophet-quiz'
 
@@ -60,7 +60,7 @@ function ShareCardModal({
     return () => window.removeEventListener('keydown', h)
   }, [isOpen, onClose])
 
-  const shareText = `Eu sou ${profile.name}!\n${profile.title}\n\nTraços: ${profile.traits.join(' · ')}\n\nDescubra qual profeta você é → kalambrasil.com/descobrir/qual-profeta-voce-e`
+  const shareText = `O profeta que mais me inspira é ${profile.name} — ${profile.title}\n\nDescubra o seu → kalambrasil.com/descobrir/qual-profeta-voce-e`
 
   const handleCopy = useCallback(async () => {
     try {
@@ -82,7 +82,7 @@ function ShareCardModal({
   const handleShare = useCallback(async () => {
     if (navigator.share) {
       try {
-        await navigator.share({ title: `Eu sou ${profile.name}! | KALAM`, text: shareText })
+        await navigator.share({ title: `${profile.name} — Minha Inspiração | KALAM`, text: shareText })
         setShared(true)
         setTimeout(() => setShared(false), 2000)
       } catch (err) {
@@ -159,7 +159,7 @@ function ShareCardModal({
               <div style={{ padding: '36px 28px 28px' }}>
                 {/* Ornament */}
                 <div style={{ textAlign: 'center', marginBottom: 12, color: profile.color, opacity: 0.4, fontSize: 12, letterSpacing: '0.2em', textTransform: 'uppercase', fontFamily: 'var(--font-sans)' }}>
-                  Eu sou
+                  Minha inspiração
                 </div>
 
                 {/* Arabic name */}
@@ -212,7 +212,7 @@ function ShareCardModal({
                   paddingTop: 16,
                   borderTop: '1px solid rgba(39,34,48,0.6)',
                 }}>
-                  <span style={{ fontSize: 12, color: T.muted }}>Qual Profeta Você É?</span>
+                  <span style={{ fontSize: 12, color: T.muted }}>Qual Profeta Te Inspira?</span>
                   <span style={{ fontSize: 10, fontWeight: 600, letterSpacing: '0.2em', textTransform: 'uppercase', color: T.gold, opacity: 0.4, fontFamily: 'var(--font-sans)' }}>
                     KALAM
                   </span>
@@ -381,7 +381,7 @@ export default function ProphetQuizClient() {
                   display: 'block',
                   marginBottom: 8,
                 }}>
-                  أي نبي أنت؟
+                  من يلهمك؟
                 </span>
               </div>
 
@@ -393,7 +393,7 @@ export default function ProphetQuizClient() {
                 lineHeight: 1.2,
                 marginBottom: 12,
               }}>
-                Qual Profeta Você É?
+                Qual Profeta Te Inspira?
               </h1>
 
               <p style={{
@@ -405,7 +405,7 @@ export default function ProphetQuizClient() {
                 marginLeft: 'auto',
                 marginRight: 'auto',
               }}>
-                Responda 7 perguntas e descubra qual profeta tem a personalidade mais parecida com a sua.
+                7 perguntas. 8 profetas. Descubra qual deles pensa como você.
               </p>
 
               <p style={{
@@ -434,7 +434,7 @@ export default function ProphetQuizClient() {
                   fontFamily: 'var(--font-sans)',
                 }}
               >
-                Começar
+                Descobrir
                 <ArrowRight size={20} />
               </button>
             </motion.div>
@@ -583,7 +583,7 @@ export default function ProphetQuizClient() {
                 transition={{ delay: 0.8 }}
                 style={{ fontSize: 14, color: T.muted }}
               >
-                Descobrindo qual profeta combina com você
+                Cruzando seu perfil com 8 personalidades proféticas
               </motion.p>
             </motion.div>
           )}
@@ -612,7 +612,7 @@ export default function ProphetQuizClient() {
                   marginBottom: 16,
                 }}
               >
-                Você é
+                O profeta que mais te inspira
               </motion.p>
 
               {/* Arabic name */}
@@ -781,11 +781,11 @@ export default function ProphetQuizClient() {
                       fontFamily: 'var(--font-sans)',
                     }}
                   >
-                    Refazer quiz
+                    Tentar de novo
                   </button>
 
                   <Link
-                    href={`/os-profetas`}
+                    href={`/os-profetas/${result.slug}`}
                     style={{
                       flex: 1,
                       display: 'flex',
@@ -803,9 +803,37 @@ export default function ProphetQuizClient() {
                     }}
                   >
                     <BookOpen size={14} />
-                    Ver história
+                    Conheça {result.name.split(' (')[0]}
                   </Link>
                 </div>
+              </motion.div>
+
+              {/* Cross-sell: name app */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1.2 }}
+              >
+                <Link
+                  href="/descobrir/seu-nome-em-arabe"
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 8,
+                    padding: '12px 24px',
+                    marginTop: 4,
+                    borderRadius: 14,
+                    background: 'transparent',
+                    color: T.muted,
+                    fontSize: 13,
+                    textDecoration: 'none',
+                    transition: 'color 0.2s ease',
+                  }}
+                >
+                  <Type size={14} />
+                  Descubra também seu nome em árabe
+                </Link>
               </motion.div>
 
               {/* Share modal */}

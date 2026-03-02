@@ -2,19 +2,19 @@ import type { Metadata } from 'next'
 import ProphetQuizClient from './ProphetQuizClient'
 
 export const metadata: Metadata = {
-  title: 'Qual Profeta Você É? — Descubra Seu Perfil | KALAM',
-  description: 'Responda 7 perguntas e descubra qual profeta tem a personalidade mais parecida com a sua. Compartilhe seu resultado!',
+  title: 'Qual Profeta Te Inspira? — Descubra Seu Perfil | KALAM',
+  description: '7 perguntas. 8 profetas. Descubra qual deles pensa como você e compartilhe seu resultado!',
   openGraph: {
-    title: 'Qual Profeta Você É? — Descubra Seu Perfil | KALAM',
-    description: 'Responda 7 perguntas e descubra qual profeta tem a personalidade mais parecida com a sua.',
+    title: 'Qual Profeta Te Inspira? — Descubra Seu Perfil | KALAM',
+    description: '7 perguntas. 8 profetas. Descubra qual deles pensa como você.',
     type: 'website',
     locale: 'pt_BR',
     siteName: 'Kalam',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Qual Profeta Você É? | KALAM',
-    description: 'Descubra qual profeta tem a personalidade mais parecida com a sua.',
+    title: 'Qual Profeta Te Inspira? | KALAM',
+    description: '7 perguntas. 8 profetas. Descubra qual deles pensa como você.',
   },
 }
 

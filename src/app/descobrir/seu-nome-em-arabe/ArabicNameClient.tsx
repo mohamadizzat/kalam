@@ -41,8 +41,8 @@ function findName(input: string): { name: ArabicName; isExact: boolean } {
       latin: input.trim().charAt(0).toUpperCase() + input.trim().slice(1).toLowerCase(),
       arabic,
       transliteration: input.trim().charAt(0).toUpperCase() + input.trim().slice(1).toLowerCase(),
-      meaning: 'Transliteração fonética',
-      origin: 'Transliteração',
+      meaning: 'Sonoridade única em árabe',
+      origin: 'Adaptação fonética',
       gender: 'U' as const,
     },
     isExact: false,
@@ -79,7 +79,7 @@ function ShareCardModal({
     return () => window.removeEventListener('keydown', h)
   }, [isOpen, onClose])
 
-  const shareText = `${name.latin} em árabe: ${name.arabic}\nTransliteração: ${name.transliteration}\nSignificado: ${name.meaning}\n\nDescubra o seu → kalambrasil.com/descobrir/seu-nome-em-arabe`
+  const shareText = `Meu nome em árabe é ${name.arabic} (${name.transliteration})\n\nDescubra o seu → kalambrasil.com/descobrir/seu-nome-em-arabe`
 
   const handleCopy = useCallback(async () => {
     try {
@@ -416,7 +416,7 @@ export default function ArabicNameClient() {
                 marginLeft: 'auto',
                 marginRight: 'auto',
               }}>
-                Descubra como seu nome é escrito em árabe, sua transliteração e significado.
+                Descubra como seu nome é escrito em árabe e o que ele significa.
               </p>
 
               {/* Input form */}
@@ -478,10 +478,10 @@ export default function ArabicNameClient() {
               {/* Popular names */}
               <div style={{ marginTop: 24 }}>
                 <p style={{ fontSize: 12, color: T.muted, marginBottom: 12, letterSpacing: '0.05em', textTransform: 'uppercase' }}>
-                  Populares
+                  Mais buscados
                 </p>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, justifyContent: 'center' }}>
-                  {['Maria', 'João', 'Ana', 'Pedro', 'Lucas', 'Julia', 'Gabriel', 'Beatriz'].map((n) => (
+                  {['Gabriel', 'Lucas', 'Pedro', 'Maria', 'João', 'Beatriz', 'Rafael', 'Julia'].map((n) => (
                     <button
                       key={n}
                       onClick={() => { setInput(n); setTimeout(() => { const found = findName(n); setResult(found); setPhase('revealing'); setTimeout(() => setPhase('revealed'), 1800) }, 50) }}
@@ -660,7 +660,7 @@ export default function ArabicNameClient() {
                     display: 'inline-block',
                   }}
                 >
-                  Transliteração fonética — este nome não está em nosso banco de dados
+                  Resultado aproximado — seu nome tem uma sonoridade única em árabe
                 </motion.p>
               )}
 
@@ -711,7 +711,7 @@ export default function ArabicNameClient() {
                     fontFamily: 'var(--font-sans)',
                   }}
                 >
-                  Tentar outro nome
+                  Descobrir outro nome
                 </button>
 
                 {/* CTA to prophet content */}
@@ -726,16 +726,38 @@ export default function ArabicNameClient() {
                       padding: '12px 24px',
                       borderRadius: 14,
                       background: 'transparent',
-                      color: T.muted,
+                      color: T.gold,
                       fontSize: 13,
                       textDecoration: 'none',
-                      transition: 'color 0.2s ease',
+                      transition: 'opacity 0.2s ease',
+                      opacity: 0.7,
                     }}
                   >
                     <BookOpen size={14} />
-                    Conheça a história dos profetas
+                    {result.name.latin} aparece no Alcorão — descubra por quê
                   </Link>
                 )}
+
+                {/* Cross-sell: quiz */}
+                <Link
+                  href="/descobrir/qual-profeta-voce-e"
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 8,
+                    padding: '12px 24px',
+                    borderRadius: 14,
+                    background: 'transparent',
+                    color: T.muted,
+                    fontSize: 13,
+                    textDecoration: 'none',
+                    transition: 'color 0.2s ease',
+                  }}
+                >
+                  <Sparkles size={14} />
+                  Descubra também qual profeta te inspira
+                </Link>
               </motion.div>
 
               {/* Share card modal */}

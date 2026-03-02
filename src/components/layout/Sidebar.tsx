@@ -131,7 +131,7 @@ const NAV_CATEGORIES: NavCategory[] = [
       { label: 'Perguntas Difíceis', href: '/perguntas', icon: MessageCircle },
       { label: 'Comprovações', href: '/comprovacoes', icon: Scale },
       { label: 'Seu Nome em Árabe', href: '/descobrir/seu-nome-em-arabe', icon: Type },
-      { label: 'Qual Profeta Você É?', href: '/descobrir/qual-profeta-voce-e', icon: Zap },
+      { label: 'Qual Profeta Te Inspira?', href: '/descobrir/qual-profeta-voce-e', icon: Zap },
     ],
   },
   {
