@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { motion, useInView } from 'framer-motion'
-import { Users, Layers, BookOpen, PenLine, Search } from 'lucide-react'
+import { Users, Layers, BookOpen, PenLine, Search, Scroll } from 'lucide-react'
 import { BlurFade } from '@/components/effects/BlurFade'
 import { BridgeScriptureView } from '@/components/shared/BridgeScriptureView'
 import { verseMappings } from '@/lib/data/bridge-verse-map'
@@ -493,6 +493,70 @@ export default function APontePage() {
               </motion.div>
             ))}
           </div>
+
+          {/* Featured: Escrituras Reveladas — full-width card */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, ease: [0.25, 0.4, 0.25, 1], delay: 0.5 }}
+            style={{ marginTop: 12 }}
+          >
+            <Link
+              href="/a-ponte/escrituras-reveladas"
+              className="card-hover"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 20,
+                padding: '24px 28px',
+                borderRadius: 16,
+                background: 'linear-gradient(135deg, rgba(201,168,76,0.06) 0%, rgba(201,168,76,0.02) 100%)',
+                border: '1px solid rgba(201,168,76,0.18)',
+                textDecoration: 'none',
+              }}
+            >
+              <div style={{
+                width: 52,
+                height: 52,
+                borderRadius: 14,
+                background: 'rgba(201,168,76,0.1)',
+                border: '1px solid rgba(201,168,76,0.2)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexShrink: 0,
+              }}>
+                <Scroll size={24} style={{ color: '#C9A84C' }} />
+              </div>
+              <div style={{ flex: 1 }}>
+                <p style={{
+                  fontFamily: 'var(--font-serif)',
+                  fontSize: 17,
+                  fontWeight: 600,
+                  color: '#F0EBE2',
+                  marginBottom: 4,
+                }}>
+                  O Islã Crê nas Escrituras
+                </p>
+                <p style={{
+                  fontSize: 13,
+                  color: '#B3B0A6',
+                  lineHeight: 1.5,
+                }}>
+                  Torah, Salmos e Evangelho — versículos reais que o muçulmano crê e pode ler
+                </p>
+              </div>
+              <div style={{
+                fontFamily: 'var(--font-arabic)',
+                fontSize: 22,
+                color: 'rgba(201,168,76,0.4)',
+                direction: 'rtl',
+                flexShrink: 0,
+              }}>
+                التوراة
+              </div>
+            </Link>
+          </motion.div>
         </div>
       </section>
 
