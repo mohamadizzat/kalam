@@ -1,41 +1,42 @@
 'use client'
 
-import { useState, useEffect, useRef, createContext, useContext } from 'react'
+import { useState, useEffect, createContext, useContext } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import {
   Home,
-  Compass,
   BookOpen,
-  Sun,
-  Heart,
-  Star,
-  X,
-  Search,
-  Wrench,
   MessageCircle,
   Users as UsersIcon,
-  BookText,
-  Route,
-  Library,
-  Sparkles,
-  Calendar,
-  PenLine,
-  Clock,
-  Settings,
-  Info,
-  Languages,
   Layers,
-  BookMarked,
-  Scale,
-  Crown,
-  CheckSquare,
-  Moon,
-  Type,
-  Zap,
-  Flame,
+  Search,
   ChevronDown,
   ChevronRight,
+  PanelLeft,
+  PanelLeftClose,
+  X,
+  Wrench,
+  Sun,
+  Calendar,
+  Clock,
+  Heart,
+  CheckSquare,
+  Moon,
+  Crown,
+  Sparkles,
+  Library,
+  Scale,
+  Type,
+  Zap,
+  BookText,
+  Route,
+  BookMarked,
+  Languages,
+  PenLine,
+  Star,
+  Info,
+  Settings,
+  Flame,
 } from 'lucide-react'
 import { useNavIndicators } from '@/lib/hooks/useNavIndicators'
 
@@ -51,7 +52,7 @@ type SidebarContextType = {
 
 const SidebarContext = createContext<SidebarContextType>({
   isOpen: false,
-  isCollapsed: true,
+  isCollapsed: false,
   toggleOpen: () => {},
   toggleCollapsed: () => {},
   close: () => {},
@@ -63,14 +64,29 @@ export function useSidebar() {
 
 export function SidebarProvider({ children }: { children: React.ReactNode }) {
   const [isOpen, setIsOpen] = useState(false)
+  const [isCollapsed, setIsCollapsed] = useState(false)
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('kalam-sidebar-state')
+      if (saved === 'collapsed') setIsCollapsed(true)
+    } catch {}
+  }, [])
 
   const toggleOpen = () => setIsOpen(prev => !prev)
+  const toggleCollapsed = () => {
+    setIsCollapsed(prev => {
+      const next = !prev
+      try {
+        localStorage.setItem('kalam-sidebar-state', next ? 'collapsed' : 'expanded')
+      } catch {}
+      return next
+    })
+  }
   const close = () => setIsOpen(false)
 
   return (
-    <SidebarContext.Provider
-      value={{ isOpen, isCollapsed: true, toggleOpen, toggleCollapsed: () => {}, close }}
-    >
+    <SidebarContext.Provider value={{ isOpen, isCollapsed, toggleOpen, toggleCollapsed, close }}>
       {children}
     </SidebarContext.Provider>
   )
@@ -88,37 +104,51 @@ const T = {
   border: '#272230',
 } as const
 
-// ── NAV STRUCTURE ────────────────────────────────────────────────────────────
+const SIDEBAR_W = 264
 
-type NavItem = {
+// ── PRIMARY NAV — 4 curated journeys ────────────────────────────────────────
+
+type PrimaryItem = {
   label: string
+  subtitle: string
   href: string
   icon: typeof Home
 }
 
-type NavCategory = {
-  id: string
-  label: string
-  icon: typeof Home
-  items: NavItem[]
-}
-
-const NAV_CATEGORIES: NavCategory[] = [
+const PRIMARY_NAV: PrimaryItem[] = [
   {
-    id: 'comece-aqui',
-    label: 'Comece Aqui',
-    icon: Compass,
-    items: [
-      { label: 'A Mensagem', href: '/a-mensagem', icon: MessageCircle },
-      { label: 'Os Profetas', href: '/os-profetas', icon: UsersIcon },
-      { label: 'A Ponte', href: '/a-ponte', icon: Layers },
-      { label: 'Perguntas Difíceis', href: '/perguntas', icon: MessageCircle },
-    ],
+    label: 'A Mensagem',
+    subtitle: 'O capítulo final',
+    href: '/a-mensagem',
+    icon: MessageCircle,
   },
   {
-    id: 'explore',
+    label: 'Os Profetas',
+    subtitle: 'Histórias que você já conhece',
+    href: '/os-profetas',
+    icon: UsersIcon,
+  },
+  {
+    label: 'A Ponte',
+    subtitle: 'Do que você crê ao Alcorão',
+    href: '/a-ponte',
+    icon: Layers,
+  },
+  {
+    label: 'A Palavra',
+    subtitle: 'O Alcorão em português',
+    href: '/a-palavra',
+    icon: BookOpen,
+  },
+]
+
+// ── SECONDARY NAV — everything else ─────────────────────────────────────────
+
+type NavItem = { label: string; href: string; icon: typeof Home }
+
+const MORE_GROUPS: Array<{ label: string; items: NavItem[] }> = [
+  {
     label: 'Explore',
-    icon: Sparkles,
     items: [
       { label: 'Seu Nome em Árabe', href: '/descobrir/seu-nome-em-arabe', icon: Type },
       { label: 'Qual Profeta Te Inspira?', href: '/descobrir/qual-profeta-voce-e', icon: Zap },
@@ -128,79 +158,48 @@ const NAV_CATEGORIES: NavCategory[] = [
     ],
   },
   {
-    id: 'estude',
     label: 'Estude',
-    icon: BookOpen,
     items: [
-      { label: 'A Palavra (Quran)', href: '/a-palavra', icon: BookOpen },
       { label: 'A Bíblia do Kalam', href: '/a-biblia-do-kalam', icon: BookText },
       { label: 'Trilhas', href: '/trilhas', icon: Route },
-      { label: 'Estudos', href: '/a-palavra/estudo', icon: BookMarked },
-      { label: 'Santuário', href: '/a-palavra/santuario', icon: Sparkles },
+      { label: 'Escrituras Reveladas', href: '/a-ponte/escrituras-reveladas', icon: BookMarked },
       { label: 'Árabe do Quran', href: '/a-presenca/arabe-quran', icon: Languages },
     ],
   },
   {
-    id: 'pratique',
     label: 'Pratique',
-    icon: Sun,
     items: [
       { label: 'Ferramentas', href: '/ferramentas', icon: Wrench },
       { label: 'A Presença', href: '/a-presenca', icon: Sun },
       { label: 'Aya do Dia', href: '/aya-do-dia', icon: Calendar },
       { label: 'Dhikr', href: '/a-presenca/dhikr', icon: Clock },
       { label: 'Duas', href: '/a-presenca/duas', icon: Heart },
-      { label: 'Salah', href: '/a-presenca/salah', icon: Sun },
       { label: 'Hifz', href: '/a-palavra/hifz', icon: BookMarked },
       { label: 'Contemplativo', href: '/contemplativo', icon: Sparkles },
       { label: 'Sleep Stories', href: '/contemplativo/sleep', icon: Moon },
     ],
   },
   {
-    id: 'reflita',
     label: 'Reflita',
-    icon: Heart,
     items: [
       { label: 'A Alma', href: '/a-alma', icon: Heart },
       { label: 'Journal', href: '/a-alma/journal', icon: PenLine },
       { label: 'Hábitos', href: '/a-alma/habitos', icon: CheckSquare },
-      { label: 'Plano Diário', href: '/a-jornada/plano-diario', icon: Calendar },
-      { label: 'Rotina', href: '/a-alma/rotina', icon: Clock },
-      { label: 'Como Você Está', href: '/a-alma/como-voce-esta', icon: Heart },
-    ],
-  },
-  {
-    id: 'lideranca',
-    label: 'Liderança',
-    icon: Crown,
-    items: [
       { label: 'Liderança Profética', href: '/lideranca-profetica', icon: Crown },
     ],
   },
   {
-    id: 'premium',
-    label: 'Premium',
-    icon: Sparkles,
+    label: 'Premium & Kids',
     items: [
       { label: 'Meus Sahabas', href: '/meus-sahabas', icon: Crown },
-    ],
-  },
-  {
-    id: 'kids',
-    label: 'Kids',
-    icon: Star,
-    items: [
       { label: 'Hub Kids', href: '/kids', icon: Star },
-      { label: 'Quiz', href: '/kids/quiz', icon: Sparkles },
-      { label: 'Histórias', href: '/kids/historias', icon: BookOpen },
-      { label: 'Atividades', href: '/kids/atividades', icon: PenLine },
     ],
   },
 ]
 
 const BOTTOM_LINKS: NavItem[] = [
+  { label: 'Perguntas Difíceis', href: '/perguntas', icon: MessageCircle },
   { label: 'Área de Membros', href: '/area-de-membros', icon: Crown },
-  { label: 'Sobre', href: '/sobre', icon: Info },
   { label: 'Configurações', href: '/configuracoes', icon: Settings },
 ]
 
@@ -211,178 +210,179 @@ const CONTENT_COUNTS: Record<string, string> = {
   '/a-biblia-do-kalam': '25',
   '/perguntas': '10',
   '/comprovacoes': '30',
-  '/a-presenca/flashcards': '99',
   '/a-presenca/dhikr': '33',
 }
 
-// ── DIMENSIONS ───────────────────────────────────────────────────────────────
+// ── HELPERS ──────────────────────────────────────────────────────────────────
 
-const RAIL_W = 56
-const PANEL_W = 224
+function isHrefActive(href: string, pathname: string) {
+  if (href === '/') return pathname === '/'
+  return pathname === href || pathname.startsWith(href + '/')
+}
 
-// ── RAIL BUTTON ──────────────────────────────────────────────────────────────
+// ── PRIMARY NAV ITEM — large format with subtitle ────────────────────────────
 
-function RailBtn({
-  icon: Icon,
-  label,
+function PrimaryNavItem({
+  item,
   active,
-  panelOpen,
-  href,
-  onClick,
 }: {
-  icon: typeof Home
-  label: string
-  active?: boolean
-  panelOpen?: boolean
-  href?: string
-  onClick?: () => void
+  item: PrimaryItem
+  active: boolean
 }) {
-  const highlighted = active || panelOpen
-
-  const inner = (
-    <>
-      {/* Left bar for active page */}
-      {active && !panelOpen && (
+  return (
+    <Link
+      href={item.href}
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: 12,
+        padding: '10px 10px',
+        borderRadius: 10,
+        textDecoration: 'none',
+        background: active ? 'rgba(201,168,76,0.08)' : 'transparent',
+        border: `1px solid ${active ? 'rgba(201,168,76,0.18)' : 'transparent'}`,
+        transition: 'all 0.15s ease',
+        position: 'relative',
+        marginBottom: 2,
+      }}
+    >
+      {active && (
         <span
           style={{
             position: 'absolute',
             left: 0,
-            top: '28%',
-            bottom: '28%',
-            width: 2,
+            top: '24%',
+            bottom: '24%',
+            width: 3,
             borderRadius: '0 2px 2px 0',
-            background: T.gold,
+            background: 'linear-gradient(to bottom, transparent, rgba(201,168,76,0.8), transparent)',
           }}
         />
       )}
-      <Icon size={18} strokeWidth={highlighted ? 2.2 : 1.8} />
-    </>
+
+      {/* Icon box */}
+      <div
+        style={{
+          width: 36,
+          height: 36,
+          borderRadius: 9,
+          background: active ? 'rgba(201,168,76,0.12)' : 'rgba(255,255,255,0.04)',
+          border: `1px solid ${active ? 'rgba(201,168,76,0.22)' : 'rgba(255,255,255,0.06)'}`,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexShrink: 0,
+        }}
+      >
+        <item.icon
+          size={16}
+          color={active ? T.gold : T.secondary}
+          strokeWidth={active ? 2.2 : 1.8}
+        />
+      </div>
+
+      {/* Text */}
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <div
+          style={{
+            fontSize: 13,
+            fontWeight: 600,
+            color: active ? T.gold : T.text,
+            lineHeight: 1.2,
+          }}
+        >
+          {item.label}
+        </div>
+        <div
+          style={{
+            fontSize: 11,
+            color: T.muted,
+            marginTop: 2,
+            lineHeight: 1.2,
+          }}
+        >
+          {item.subtitle}
+        </div>
+      </div>
+    </Link>
   )
+}
 
-  const base: React.CSSProperties = {
-    position: 'relative',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-    height: 40,
-    border: 'none',
-    borderRadius: 0,
-    background: panelOpen ? 'rgba(201,168,76,0.07)' : 'transparent',
-    color: highlighted ? T.gold : T.muted,
-    cursor: 'pointer',
-    transition: 'color 0.15s ease, background 0.15s ease',
-    textDecoration: 'none',
-  }
+// ── SECONDARY NAV ITEM — compact ─────────────────────────────────────────────
 
-  if (href) {
-    return (
-      <Link href={href} title={label} style={base}>
-        {inner}
-      </Link>
-    )
-  }
+function SecondaryNavItem({
+  item,
+  active,
+  indicators,
+}: {
+  item: NavItem
+  active: boolean
+  indicators: ReturnType<typeof useNavIndicators>
+}) {
+  const count = CONTENT_COUNTS[item.href]
+  const hasNovo = indicators.novoBadges.has(item.href)
+  const progressColor = indicators.progressDots.get(item.href)
+  const hasFlame = indicators.streakFlames.has(item.href)
 
   return (
-    <button title={label} onClick={onClick} style={base}>
-      {inner}
-    </button>
+    <Link
+      href={item.href}
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: 8,
+        padding: '6px 10px',
+        borderRadius: 7,
+        fontSize: 13,
+        textDecoration: 'none',
+        color: active ? T.gold : T.secondary,
+        fontWeight: active ? 500 : 400,
+        background: active ? 'rgba(201,168,76,0.07)' : 'transparent',
+        transition: 'all 0.15s ease',
+        marginBottom: 1,
+      }}
+    >
+      <item.icon size={14} style={{ flexShrink: 0, opacity: active ? 1 : 0.5 }} />
+      <span style={{ flex: 1 }}>{item.label}</span>
+
+      {item.href === '/meus-sahabas' && (
+        <span style={{ fontSize: 9, fontWeight: 700, color: T.gold, background: 'rgba(201,168,76,0.12)', padding: '2px 5px', borderRadius: 4 }}>
+          PRO
+        </span>
+      )}
+      {hasNovo && (
+        <span style={{ fontSize: 9, fontWeight: 700, color: T.gold, background: 'rgba(201,168,76,0.12)', padding: '2px 5px', borderRadius: 4, letterSpacing: '0.05em' }}>
+          NOVO
+        </span>
+      )}
+      {progressColor && !hasNovo && (
+        <span style={{ width: 5, height: 5, borderRadius: '50%', background: progressColor === 'green' ? '#4ade80' : T.gold, flexShrink: 0 }} />
+      )}
+      {hasFlame && <Flame size={11} style={{ color: '#f97316', flexShrink: 0 }} />}
+      {count && !hasNovo && !progressColor && !hasFlame && item.href !== '/meus-sahabas' && (
+        <span style={{ fontSize: 10, color: T.muted, opacity: 0.65 }}>{count}</span>
+      )}
+    </Link>
   )
 }
 
 // ── SIDEBAR COMPONENT ────────────────────────────────────────────────────────
 
 export function Sidebar() {
-  const { isOpen, close } = useSidebar()
+  const { isOpen, isCollapsed, toggleCollapsed, close } = useSidebar()
   const pathname = usePathname()
-  const [activePanel, setActivePanel] = useState<string | null>(null)
+  const [maisOpen, setMaisOpen] = useState(false)
   const indicators = useNavIndicators()
 
-  // Close panel on route change
+  const isActive = (href: string) => isHrefActive(href, pathname)
+
+  // Auto-open Mais if current page is in secondary nav
   useEffect(() => {
-    setActivePanel(null)
-  }, [pathname])
-
-  const togglePanel = (catId: string) =>
-    setActivePanel(prev => (prev === catId ? null : catId))
-
-  const isActive = (href: string) => {
-    if (href === '/') return pathname === '/'
-    return pathname === href || pathname.startsWith(href + '/')
-  }
-
-  const openCat = activePanel ? NAV_CATEGORIES.find(c => c.id === activePanel) ?? null : null
-
-  // ── Nav item renderer (used in both panel and mobile drawer) ────────────────
-  const NavLink = ({
-    item,
-    onNavigate,
-  }: {
-    item: NavItem
-    onNavigate?: () => void
-  }) => {
-    const active = isActive(item.href)
-    const count = CONTENT_COUNTS[item.href]
-    const hasNovo = indicators.novoBadges.has(item.href)
-    const progressColor = indicators.progressDots.get(item.href)
-    const hasFlame = indicators.streakFlames.has(item.href)
-    return (
-      <Link
-        href={item.href}
-        onClick={onNavigate}
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 10,
-          padding: '8px 12px',
-          borderRadius: 8,
-          fontSize: 13,
-          textDecoration: 'none',
-          color: active ? T.gold : T.secondary,
-          fontWeight: active ? 500 : 400,
-          background: active ? 'rgba(201,168,76,0.08)' : 'transparent',
-          position: 'relative',
-          transition: 'all 0.15s ease',
-          marginBottom: 2,
-        }}
-      >
-        {active && (
-          <span
-            style={{
-              position: 'absolute',
-              left: 0,
-              top: '20%',
-              bottom: '20%',
-              width: 3,
-              borderRadius: 2,
-              background: 'linear-gradient(to bottom, transparent, rgba(201,168,76,0.7), transparent)',
-            }}
-          />
-        )}
-        <item.icon size={15} style={{ flexShrink: 0, opacity: active ? 1 : 0.55 }} />
-        <span style={{ flex: 1 }}>{item.label}</span>
-        {hasNovo && (
-          <span style={{ fontSize: 9, fontWeight: 700, color: T.gold, background: 'rgba(201,168,76,0.12)', padding: '2px 5px', borderRadius: 4, letterSpacing: '0.05em' }}>
-            NOVO
-          </span>
-        )}
-        {progressColor && !hasNovo && (
-          <span style={{ width: 6, height: 6, borderRadius: '50%', background: progressColor === 'green' ? '#4ade80' : T.gold, flexShrink: 0 }} />
-        )}
-        {hasFlame && (
-          <Flame size={12} style={{ color: '#f97316', flexShrink: 0 }} />
-        )}
-        {item.href === '/meus-sahabas' && (
-          <span style={{ fontSize: 9, fontWeight: 700, color: T.gold, background: 'rgba(201,168,76,0.12)', padding: '2px 5px', borderRadius: 4 }}>
-            PRO
-          </span>
-        )}
-        {count && !hasNovo && !progressColor && !hasFlame && item.href !== '/meus-sahabas' && (
-          <span style={{ fontSize: 10, fontWeight: 600, color: T.muted, opacity: 0.7 }}>{count}</span>
-        )}
-      </Link>
+    const inMore = MORE_GROUPS.some(g =>
+      g.items.some(i => isHrefActive(i.href, pathname))
     )
-  }
+    if (inMore) setMaisOpen(true)
+  }, [pathname])
 
   return (
     <>
@@ -397,230 +397,292 @@ export function Sidebar() {
           from { transform: translateX(-100%); }
           to { transform: translateX(0); }
         }
-        @keyframes panelSlideIn {
-          from { opacity: 0; transform: translateX(-6px); }
-          to { opacity: 1; transform: translateX(0); }
-        }
-        .rail-btn-hover:hover {
-          color: var(--rail-hover, #B3B0A6) !important;
-          background: rgba(255,255,255,0.04) !important;
-        }
       `}</style>
 
-      {/* ════════════════════════════════════════════════════════════════════════
-          DESKTOP — 56px icon rail
-      ════════════════════════════════════════════════════════════════════════ */}
-      <aside
-        id="kalam-rail"
-        className="sidebar-desktop"
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          bottom: 0,
-          width: RAIL_W,
-          background: T.bg,
-          borderRight: `1px solid ${T.border}`,
-          zIndex: 100,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
-        {/* Logo — كلام glyph as home link */}
-        <Link
-          href="/"
-          title="Kalam — Início"
+      {/* ══ When hidden — floating show button ════════════════════════════════ */}
+      {isCollapsed && (
+        <button
+          className="sidebar-desktop"
+          onClick={toggleCollapsed}
+          title="Mostrar menu"
           style={{
+            position: 'fixed',
+            top: 14,
+            left: 14,
+            zIndex: 101,
+            background: T.surface,
+            border: `1px solid ${T.border}`,
+            borderRadius: 8,
+            width: 34,
+            height: 34,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            width: '100%',
-            height: RAIL_W,
-            flexShrink: 0,
-            textDecoration: 'none',
-            borderBottom: `1px solid ${T.border}`,
+            color: T.muted,
+            cursor: 'pointer',
+            transition: 'all 0.15s ease',
           }}
         >
-          <span
-            style={{
-              fontFamily: 'var(--font-arabic)',
-              fontSize: 22,
-              color: T.gold,
-              textShadow: '0 0 16px rgba(201,168,76,0.5)',
-              lineHeight: 1,
-            }}
-          >
-            ك
-          </span>
-        </Link>
+          <PanelLeft size={16} />
+        </button>
+      )}
 
-        {/* Home + Search */}
-        <div style={{ width: '100%', padding: '6px 0 0' }}>
-          <RailBtn
-            icon={Home}
-            label="Início"
-            active={pathname === '/'}
-            href="/"
-          />
-          <RailBtn
-            icon={Search}
-            label="Buscar (⌘K)"
-            onClick={() =>
-              document.dispatchEvent(
-                new KeyboardEvent('keydown', { key: 'k', metaKey: true, bubbles: true })
-              )
-            }
-          />
-        </div>
-
-        {/* Thin divider */}
-        <div style={{ width: 28, height: 1, background: T.border, flexShrink: 0, margin: '4px 0' }} />
-
-        {/* Category icons — scrollable area */}
-        <nav
-          data-lenis-prevent
-          onWheel={e => e.stopPropagation()}
+      {/* ══ DESKTOP SIDEBAR ═══════════════════════════════════════════════════ */}
+      {!isCollapsed && (
+        <aside
+          className="sidebar-desktop"
           style={{
-            flex: 1,
-            width: '100%',
-            overflowY: 'auto',
-            overflowX: 'hidden',
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            bottom: 0,
+            width: SIDEBAR_W,
+            background: T.bg,
+            borderRight: `1px solid ${T.border}`,
+            zIndex: 100,
             display: 'flex',
             flexDirection: 'column',
-            padding: '2px 0',
-            scrollbarWidth: 'none',
           }}
         >
-          {NAV_CATEGORIES.map(cat => {
-            const hasCatActive = cat.items.some(item => isActive(item.href))
-            return (
-              <RailBtn
-                key={cat.id}
-                icon={cat.icon}
-                label={cat.label}
-                active={hasCatActive}
-                panelOpen={activePanel === cat.id}
-                onClick={() => togglePanel(cat.id)}
-              />
-            )
-          })}
-        </nav>
-
-        {/* Thin divider */}
-        <div style={{ width: 28, height: 1, background: T.border, flexShrink: 0, margin: '4px 0' }} />
-
-        {/* Bottom links */}
-        <div style={{ width: '100%', paddingBottom: 8 }}>
-          {BOTTOM_LINKS.map(link => (
-            <RailBtn
-              key={link.href}
-              icon={link.icon}
-              label={link.label}
-              active={isActive(link.href)}
-              href={link.href}
-            />
-          ))}
-        </div>
-      </aside>
-
-      {/* ════════════════════════════════════════════════════════════════════════
-          DESKTOP — Floating category panel
-      ════════════════════════════════════════════════════════════════════════ */}
-      {openCat && (
-        <div className="sidebar-desktop">
-          {/* Invisible backdrop — click closes panel */}
-          <div
-            style={{ position: 'fixed', inset: 0, zIndex: 99 }}
-            onClick={() => setActivePanel(null)}
-          />
-
-          {/* Panel */}
+          {/* Header: logo + hide button */}
           <div
             style={{
-              position: 'fixed',
-              top: 0,
-              left: RAIL_W,
-              bottom: 0,
-              width: PANEL_W,
-              background: T.surface,
-              borderRight: `1px solid ${T.border}`,
-              zIndex: 100,
               display: 'flex',
-              flexDirection: 'column',
-              animation: 'panelSlideIn 0.16s ease',
-              boxShadow: '6px 0 32px rgba(0,0,0,0.45)',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '0 10px 0 18px',
+              height: 52,
+              borderBottom: `1px solid ${T.border}`,
+              flexShrink: 0,
             }}
           >
-            {/* Panel header */}
-            <div
+            <Link
+              href="/"
+              style={{
+                textDecoration: 'none',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 8,
+              }}
+            >
+              <span
+                style={{
+                  fontFamily: 'var(--font-arabic)',
+                  fontSize: 19,
+                  color: T.gold,
+                  textShadow: '0 0 18px rgba(201,168,76,0.4)',
+                  lineHeight: 1,
+                }}
+              >
+                كلام
+              </span>
+              <span
+                style={{
+                  fontFamily: 'var(--font-serif)',
+                  fontSize: 14,
+                  color: T.text,
+                  fontWeight: 700,
+                  letterSpacing: '-0.02em',
+                }}
+              >
+                KALAM
+              </span>
+            </Link>
+            <button
+              onClick={toggleCollapsed}
+              title="Ocultar menu"
+              style={{
+                background: 'none',
+                border: 'none',
+                color: T.muted,
+                cursor: 'pointer',
+                padding: 6,
+                display: 'flex',
+                alignItems: 'center',
+                borderRadius: 6,
+              }}
+            >
+              <PanelLeftClose size={16} />
+            </button>
+          </div>
+
+          {/* Search */}
+          <div style={{ padding: '10px 12px 6px' }}>
+            <button
+              onClick={() =>
+                document.dispatchEvent(
+                  new KeyboardEvent('keydown', { key: 'k', metaKey: true, bubbles: true })
+                )
+              }
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'space-between',
-                padding: '0 12px 0 16px',
-                height: RAIL_W,
-                borderBottom: `1px solid ${T.border}`,
-                flexShrink: 0,
+                gap: 8,
+                width: '100%',
+                padding: '8px 12px',
+                borderRadius: 8,
+                background: 'rgba(255,255,255,0.04)',
+                border: `1px solid ${T.border}`,
+                color: T.muted,
+                cursor: 'pointer',
+                fontSize: 13,
+                fontFamily: 'var(--font-sans)',
+                transition: 'border-color 0.15s ease',
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <openCat.icon size={15} color={T.gold} />
-                <span
-                  style={{
-                    fontSize: 11,
-                    fontWeight: 700,
-                    color: T.text,
-                    letterSpacing: '0.1em',
-                    textTransform: 'uppercase',
-                    fontFamily: 'var(--font-sans)',
-                  }}
-                >
-                  {openCat.label}
-                </span>
-              </div>
-              <button
-                onClick={() => setActivePanel(null)}
+              <Search size={13} />
+              <span style={{ flex: 1, textAlign: 'left' }}>Buscar...</span>
+              <span style={{ fontSize: 11, opacity: 0.45 }}>⌘K</span>
+            </button>
+          </div>
+
+          {/* Home link */}
+          <div style={{ padding: '0 12px 6px' }}>
+            <Link
+              href="/"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 8,
+                padding: '6px 10px',
+                borderRadius: 7,
+                fontSize: 13,
+                textDecoration: 'none',
+                color: pathname === '/' ? T.gold : T.secondary,
+                background: pathname === '/' ? 'rgba(201,168,76,0.07)' : 'transparent',
+                transition: 'all 0.15s ease',
+              }}
+            >
+              <Home size={14} style={{ flexShrink: 0 }} />
+              <span>Início</span>
+            </Link>
+          </div>
+
+          {/* Divider */}
+          <div style={{ height: 1, background: T.border, margin: '0 12px 8px' }} />
+
+          {/* 4 primary journeys */}
+          <nav style={{ padding: '0 12px', flexShrink: 0 }}>
+            {PRIMARY_NAV.map(item => (
+              <PrimaryNavItem
+                key={item.href}
+                item={item}
+                active={isActive(item.href)}
+              />
+            ))}
+          </nav>
+
+          {/* Divider */}
+          <div style={{ height: 1, background: T.border, margin: '8px 12px 0' }} />
+
+          {/* Mais → accordion */}
+          <div
+            style={{
+              flex: 1,
+              display: 'flex',
+              flexDirection: 'column',
+              minHeight: 0,
+            }}
+          >
+            <button
+              onClick={() => setMaisOpen(!maisOpen)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 8,
+                padding: '9px 22px',
+                background: 'none',
+                border: 'none',
+                color: T.muted,
+                cursor: 'pointer',
+                fontSize: 11,
+                fontWeight: 700,
+                letterSpacing: '0.08em',
+                textTransform: 'uppercase',
+                fontFamily: 'var(--font-sans)',
+                width: '100%',
+                flexShrink: 0,
+                transition: 'color 0.15s ease',
+              }}
+            >
+              {maisOpen ? <ChevronDown size={12} /> : <ChevronRight size={12} />}
+              <span>Mais</span>
+            </button>
+
+            {maisOpen && (
+              <div
+                data-lenis-prevent
+                onWheel={e => e.stopPropagation()}
                 style={{
-                  background: 'none',
-                  border: 'none',
-                  color: T.muted,
-                  cursor: 'pointer',
-                  padding: 4,
-                  display: 'flex',
-                  alignItems: 'center',
-                  borderRadius: 4,
+                  flex: 1,
+                  overflowY: 'auto',
+                  padding: '0 12px 8px',
+                  scrollbarWidth: 'thin',
+                  scrollbarColor: `${T.border} transparent`,
                 }}
               >
-                <X size={14} />
-              </button>
-            </div>
-
-            {/* Panel nav items */}
-            <nav
-              data-lenis-prevent
-              onWheel={e => e.stopPropagation()}
-              style={{
-                flex: 1,
-                overflowY: 'auto',
-                overscrollBehavior: 'contain' as const,
-                WebkitOverflowScrolling: 'touch',
-                padding: '8px',
-                scrollbarWidth: 'thin',
-                scrollbarColor: `${T.border} transparent`,
-              }}
-            >
-              {openCat.items.map(item => (
-                <NavLink key={item.href} item={item} onNavigate={() => setActivePanel(null)} />
-              ))}
-            </nav>
+                {MORE_GROUPS.map(group => (
+                  <div key={group.label} style={{ marginBottom: 10 }}>
+                    <div
+                      style={{
+                        fontSize: 9,
+                        fontWeight: 700,
+                        letterSpacing: '0.12em',
+                        textTransform: 'uppercase',
+                        color: T.muted,
+                        padding: '4px 10px 2px',
+                        opacity: 0.6,
+                      }}
+                    >
+                      {group.label}
+                    </div>
+                    {group.items.map(item => (
+                      <SecondaryNavItem
+                        key={item.href}
+                        item={item}
+                        active={isActive(item.href)}
+                        indicators={indicators}
+                      />
+                    ))}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
-        </div>
+
+          {/* Bottom links */}
+          <div
+            style={{
+              borderTop: `1px solid ${T.border}`,
+              padding: '8px 12px 12px',
+              flexShrink: 0,
+            }}
+          >
+            {BOTTOM_LINKS.map(link => (
+              <Link
+                key={link.href}
+                href={link.href}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 8,
+                  padding: '6px 10px',
+                  borderRadius: 7,
+                  fontSize: 12,
+                  textDecoration: 'none',
+                  color: isActive(link.href) ? T.gold : T.muted,
+                  transition: 'color 0.15s ease',
+                }}
+              >
+                <link.icon size={13} />
+                <span>{link.label}</span>
+              </Link>
+            ))}
+          </div>
+        </aside>
       )}
 
-      {/* ════════════════════════════════════════════════════════════════════════
-          MOBILE — Full drawer overlay (triggered via header hamburger)
-      ════════════════════════════════════════════════════════════════════════ */}
+      {/* ══ MOBILE DRAWER ═════════════════════════════════════════════════════ */}
       {isOpen && (
         <div
           className="sidebar-mobile-overlay"
@@ -658,8 +720,8 @@ export function Sidebar() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                padding: '0 12px 0 20px',
-                height: 56,
+                padding: '0 10px 0 18px',
+                height: 52,
                 borderBottom: `1px solid ${T.border}`,
                 flexShrink: 0,
               }}
@@ -667,39 +729,38 @@ export function Sidebar() {
               <Link
                 href="/"
                 onClick={close}
-                style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 8 }}
+                style={{
+                  textDecoration: 'none',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 8,
+                }}
               >
-                <span style={{ fontFamily: 'var(--font-arabic)', fontSize: 18, color: T.gold, textShadow: '0 0 20px rgba(201,168,76,0.3)' }}>كلام</span>
-                <span style={{ fontFamily: 'var(--font-serif)', fontSize: 16, color: T.text, fontWeight: 700, letterSpacing: '-0.02em' }}>KALAM</span>
+                <span style={{ fontFamily: 'var(--font-arabic)', fontSize: 19, color: T.gold, lineHeight: 1 }}>
+                  كلام
+                </span>
+                <span style={{ fontFamily: 'var(--font-serif)', fontSize: 14, color: T.text, fontWeight: 700 }}>
+                  KALAM
+                </span>
               </Link>
               <button
                 onClick={close}
-                style={{ background: 'none', border: 'none', color: T.muted, cursor: 'pointer', padding: 6, display: 'flex', alignItems: 'center' }}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: T.muted,
+                  cursor: 'pointer',
+                  padding: 6,
+                  display: 'flex',
+                  alignItems: 'center',
+                }}
               >
                 <X size={20} />
               </button>
             </div>
 
-            {/* Home + Search */}
-            <div style={{ padding: '8px 12px 4px' }}>
-              <Link
-                href="/"
-                onClick={close}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 10,
-                  padding: '9px 12px',
-                  borderRadius: 8,
-                  textDecoration: 'none',
-                  background: pathname === '/' ? 'rgba(201,168,76,0.08)' : 'transparent',
-                  color: pathname === '/' ? T.gold : T.secondary,
-                  marginBottom: 4,
-                }}
-              >
-                <Home size={18} />
-                <span style={{ fontSize: 14, fontWeight: pathname === '/' ? 600 : 400 }}>Início</span>
-              </Link>
+            {/* Search */}
+            <div style={{ padding: '10px 14px 6px' }}>
               <button
                 onClick={() => {
                   close()
@@ -714,11 +775,11 @@ export function Sidebar() {
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: 10,
+                  gap: 8,
                   width: '100%',
                   padding: '9px 12px',
                   borderRadius: 8,
-                  background: 'rgba(201,168,76,0.04)',
+                  background: 'rgba(255,255,255,0.04)',
                   border: `1px solid ${T.border}`,
                   color: T.muted,
                   cursor: 'pointer',
@@ -726,24 +787,97 @@ export function Sidebar() {
                   fontFamily: 'var(--font-sans)',
                 }}
               >
-                <Search size={16} />
+                <Search size={15} />
                 <span style={{ flex: 1, textAlign: 'left' }}>Buscar...</span>
               </button>
             </div>
 
-            {/* Mobile nav — scrollable */}
-            <MobileNav
-              pathname={pathname}
-              indicators={indicators}
-              isActive={isActive}
-              onNavigate={close}
-            />
+            {/* Home */}
+            <div style={{ padding: '0 14px 6px' }}>
+              <Link
+                href="/"
+                onClick={close}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 10,
+                  padding: '8px 10px',
+                  borderRadius: 8,
+                  textDecoration: 'none',
+                  background: pathname === '/' ? 'rgba(201,168,76,0.08)' : 'transparent',
+                  color: pathname === '/' ? T.gold : T.secondary,
+                }}
+              >
+                <Home size={16} />
+                <span style={{ fontSize: 14, fontWeight: pathname === '/' ? 600 : 400 }}>
+                  Início
+                </span>
+              </Link>
+            </div>
+
+            {/* Divider */}
+            <div style={{ height: 1, background: T.border, margin: '0 14px 8px' }} />
+
+            {/* Primary nav */}
+            <div style={{ padding: '0 14px 8px' }}>
+              {PRIMARY_NAV.map(item => {
+                const active = isActive(item.href)
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={close}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 12,
+                      padding: '10px 10px',
+                      borderRadius: 10,
+                      textDecoration: 'none',
+                      background: active ? 'rgba(201,168,76,0.08)' : 'transparent',
+                      border: `1px solid ${active ? 'rgba(201,168,76,0.18)' : 'transparent'}`,
+                      marginBottom: 2,
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: 36,
+                        height: 36,
+                        borderRadius: 9,
+                        flexShrink: 0,
+                        background: active ? 'rgba(201,168,76,0.12)' : 'rgba(255,255,255,0.04)',
+                        border: `1px solid ${active ? 'rgba(201,168,76,0.22)' : 'rgba(255,255,255,0.06)'}`,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      <item.icon size={16} color={active ? T.gold : T.secondary} strokeWidth={active ? 2.2 : 1.8} />
+                    </div>
+                    <div>
+                      <div style={{ fontSize: 13, fontWeight: 600, color: active ? T.gold : T.text }}>
+                        {item.label}
+                      </div>
+                      <div style={{ fontSize: 11, color: T.muted, marginTop: 2 }}>
+                        {item.subtitle}
+                      </div>
+                    </div>
+                  </Link>
+                )
+              })}
+            </div>
+
+            {/* Divider */}
+            <div style={{ height: 1, background: T.border, margin: '0 14px 4px' }} />
+
+            {/* Mais → mobile (scrollable) */}
+            <MobileMaisNav isActive={isActive} indicators={indicators} onNavigate={close} />
 
             {/* Bottom links */}
             <div
               style={{
                 borderTop: `1px solid ${T.border}`,
-                padding: '8px 12px 16px',
+                padding: '8px 14px 16px',
                 flexShrink: 0,
               }}
             >
@@ -755,15 +889,15 @@ export function Sidebar() {
                   style={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: 10,
-                    padding: '8px 12px',
-                    borderRadius: 6,
+                    gap: 8,
+                    padding: '6px 10px',
+                    borderRadius: 7,
                     fontSize: 13,
                     textDecoration: 'none',
                     color: isActive(link.href) ? T.gold : T.muted,
                   }}
                 >
-                  <link.icon size={16} />
+                  <link.icon size={13} />
                   <span>{link.label}</span>
                 </Link>
               ))}
@@ -775,149 +909,106 @@ export function Sidebar() {
   )
 }
 
-// ── MOBILE NAV (accordion categories) ────────────────────────────────────────
+// ── MOBILE MAIS SECTION ──────────────────────────────────────────────────────
 
-function MobileNav({
-  pathname,
-  indicators,
+function MobileMaisNav({
   isActive,
+  indicators,
   onNavigate,
 }: {
-  pathname: string
-  indicators: ReturnType<typeof useNavIndicators>
   isActive: (href: string) => boolean
+  indicators: ReturnType<typeof useNavIndicators>
   onNavigate: () => void
 }) {
-  const [expanded, setExpanded] = useState<Set<string>>(
-    () => {
-      // pre-expand the category of the active route
-      const active = NAV_CATEGORIES.find(c => c.items.some(i => isActive(i.href)))
-      return new Set(active ? [active.id] : ['comece-aqui'])
-    }
-  )
-
-  const toggle = (id: string) =>
-    setExpanded(prev => {
-      const next = new Set(prev)
-      if (next.has(id)) next.delete(id)
-      else next.add(id)
-      return next
-    })
+  const [open, setOpen] = useState(false)
 
   return (
-    <nav
-      data-lenis-prevent
-      onWheel={e => e.stopPropagation()}
-      style={{
-        flex: 1,
-        overflowY: 'auto',
-        overscrollBehavior: 'contain' as const,
-        WebkitOverflowScrolling: 'touch',
-        padding: '4px 12px',
-        scrollbarWidth: 'thin',
-        scrollbarColor: '#272230 transparent',
-      }}
-    >
-      {NAV_CATEGORIES.map(cat => {
-        const isExp = expanded.has(cat.id)
-        const hasCatActive = cat.items.some(i => isActive(i.href))
-        return (
-          <div key={cat.id} style={{ marginBottom: 2 }}>
-            <button
-              onClick={() => toggle(cat.id)}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 10,
-                width: '100%',
-                padding: '8px 12px',
-                borderRadius: 8,
-                border: 'none',
-                background: 'transparent',
-                color: hasCatActive ? T.gold : T.muted,
-                cursor: 'pointer',
-                fontSize: 11,
-                letterSpacing: '0.1em',
-                textTransform: 'uppercase',
-                fontWeight: 700,
-                fontFamily: 'var(--font-sans)',
-              }}
-            >
-              <cat.icon size={15} />
-              <span style={{ flex: 1, textAlign: 'left' }}>{cat.label}</span>
-              {isExp ? <ChevronDown size={13} /> : <ChevronRight size={13} />}
-            </button>
+    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0 }}>
+      <button
+        onClick={() => setOpen(!open)}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8,
+          padding: '9px 24px',
+          background: 'none',
+          border: 'none',
+          color: T.muted,
+          cursor: 'pointer',
+          fontSize: 11,
+          fontWeight: 700,
+          letterSpacing: '0.08em',
+          textTransform: 'uppercase',
+          fontFamily: 'var(--font-sans)',
+          width: '100%',
+          flexShrink: 0,
+        }}
+      >
+        {open ? <ChevronDown size={12} /> : <ChevronRight size={12} />}
+        <span>Mais</span>
+      </button>
 
-            {isExp && (
-              <div style={{ paddingLeft: 8, marginBottom: 4 }}>
-                {cat.items.map(item => {
-                  const active = isActive(item.href)
-                  const count = CONTENT_COUNTS[item.href]
-                  const hasNovo = indicators.novoBadges.has(item.href)
-                  const progressColor = indicators.progressDots.get(item.href)
-                  const hasFlame = indicators.streakFlames.has(item.href)
-                  return (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      onClick={onNavigate}
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: 10,
-                        padding: '8px 12px',
-                        borderRadius: 8,
-                        fontSize: 14,
-                        textDecoration: 'none',
-                        color: active ? T.gold : T.secondary,
-                        fontWeight: active ? 500 : 400,
-                        background: active ? 'rgba(201,168,76,0.07)' : 'transparent',
-                        position: 'relative',
-                        marginBottom: 1,
-                      }}
-                    >
-                      {active && (
-                        <span
-                          style={{
-                            position: 'absolute',
-                            left: 0,
-                            top: '20%',
-                            bottom: '20%',
-                            width: 3,
-                            borderRadius: 2,
-                            background: 'linear-gradient(to bottom, transparent, rgba(201,168,76,0.6), transparent)',
-                          }}
-                        />
-                      )}
-                      <item.icon size={15} style={{ flexShrink: 0, opacity: active ? 1 : 0.55 }} />
-                      <span style={{ flex: 1 }}>{item.label}</span>
-                      {hasNovo && (
-                        <span style={{ fontSize: 9, fontWeight: 700, color: T.gold, background: 'rgba(201,168,76,0.12)', padding: '2px 5px', borderRadius: 4, letterSpacing: '0.05em' }}>
-                          NOVO
-                        </span>
-                      )}
-                      {progressColor && !hasNovo && (
-                        <span style={{ width: 6, height: 6, borderRadius: '50%', background: progressColor === 'green' ? '#4ade80' : T.gold, flexShrink: 0 }} />
-                      )}
-                      {hasFlame && (
-                        <Flame size={12} style={{ color: '#f97316', flexShrink: 0 }} />
-                      )}
-                      {item.href === '/meus-sahabas' && (
-                        <span style={{ fontSize: 9, fontWeight: 700, color: T.gold, background: 'rgba(201,168,76,0.12)', padding: '2px 5px', borderRadius: 4 }}>
-                          PRO
-                        </span>
-                      )}
-                      {count && !hasNovo && !progressColor && !hasFlame && item.href !== '/meus-sahabas' && (
-                        <span style={{ fontSize: 10, fontWeight: 600, color: '#7A7870', opacity: 0.7 }}>{count}</span>
-                      )}
-                    </Link>
-                  )
-                })}
+      {open && (
+        <div
+          data-lenis-prevent
+          onWheel={e => e.stopPropagation()}
+          style={{
+            flex: 1,
+            overflowY: 'auto',
+            padding: '0 14px',
+            scrollbarWidth: 'thin',
+            scrollbarColor: '#272230 transparent',
+          }}
+        >
+          {MORE_GROUPS.map(group => (
+            <div key={group.label} style={{ marginBottom: 10 }}>
+              <div
+                style={{
+                  fontSize: 9,
+                  fontWeight: 700,
+                  letterSpacing: '0.12em',
+                  textTransform: 'uppercase',
+                  color: '#7A7870',
+                  padding: '4px 10px 2px',
+                  opacity: 0.6,
+                }}
+              >
+                {group.label}
               </div>
-            )}
-          </div>
-        )
-      })}
-    </nav>
+              {group.items.map(item => {
+                const active = isActive(item.href)
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={onNavigate}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 8,
+                      padding: '7px 10px',
+                      borderRadius: 7,
+                      fontSize: 14,
+                      textDecoration: 'none',
+                      color: active ? '#C9A84C' : '#B3B0A6',
+                      background: active ? 'rgba(201,168,76,0.07)' : 'transparent',
+                      marginBottom: 1,
+                    }}
+                  >
+                    <item.icon size={14} style={{ flexShrink: 0, opacity: active ? 1 : 0.5 }} />
+                    <span style={{ flex: 1 }}>{item.label}</span>
+                    {item.href === '/meus-sahabas' && (
+                      <span style={{ fontSize: 9, fontWeight: 700, color: '#C9A84C', background: 'rgba(201,168,76,0.12)', padding: '2px 5px', borderRadius: 4 }}>
+                        PRO
+                      </span>
+                    )}
+                  </Link>
+                )
+              })}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
   )
 }

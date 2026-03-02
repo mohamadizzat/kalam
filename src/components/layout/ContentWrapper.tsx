@@ -1,5 +1,13 @@
 'use client'
 
+import { useSidebar } from './Sidebar'
+
 export function ContentWrapper({ children }: { children: React.ReactNode }) {
-  return <div className="main-content-wrapper">{children}</div>
+  const { isCollapsed } = useSidebar()
+
+  return (
+    <div className={`main-content-wrapper${isCollapsed ? ' sidebar-hidden' : ''}`}>
+      {children}
+    </div>
+  )
 }

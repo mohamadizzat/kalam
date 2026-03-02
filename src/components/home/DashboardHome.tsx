@@ -25,6 +25,11 @@ import {
   Mic,
   Clock,
   Layers,
+  MessageCircle,
+  Users as UsersIcon,
+  Type,
+  Zap,
+  Scale,
 } from 'lucide-react'
 import { SANCTUARY_VERSES } from '@/lib/data/daily-content'
 import { getRamadanDay, getTodayRamadan } from '@/lib/data/ramadan'
@@ -612,7 +617,7 @@ export function DashboardHome() {
       </motion.section>
 
       {/* ═══════════════════════════════════════════════════════════════════════
-          SECTION 6 — Featured Content
+          SECTION 6 — Destaque: as features mais atraentes
       ═══════════════════════════════════════════════════════════════════════ */}
       <motion.section
         initial={{ opacity: 0, y: 20 }}
@@ -627,46 +632,241 @@ export function DashboardHome() {
             letterSpacing: '0.2em',
             color: T.muted,
             textTransform: 'uppercase',
-            textAlign: 'center',
-            marginBottom: 16,
+            marginBottom: 14,
           }}
         >
-          Destaque
+          Explorar
         </p>
 
-        <div style={{ maxWidth: 520, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 12 }}>
-          <Link
-            href="/a-ponte"
-            style={{ textDecoration: 'none' }}
+        {/* Hero card — A Mensagem (most important entry point) */}
+        <Link href="/a-mensagem" style={{ textDecoration: 'none', display: 'block', marginBottom: 10 }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 16,
+              padding: '18px 20px',
+              borderRadius: 14,
+              background: 'linear-gradient(135deg, rgba(201,168,76,0.1) 0%, rgba(201,168,76,0.04) 100%)',
+              border: '1px solid rgba(201,168,76,0.22)',
+              transition: 'border-color 0.2s ease',
+            }}
           >
-          <PremiumCard variant="featured" spotlight style={{ display: 'flex', alignItems: 'center', gap: 16, padding: 24, borderRadius: 16 }}>
-            <div style={{ width: 48, height: 48, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(201,168,76,0.1)', flexShrink: 0 }}>
-              <GitBranch size={22} style={{ color: T.gold }} />
+            <div
+              style={{
+                width: 46,
+                height: 46,
+                borderRadius: 12,
+                background: 'rgba(201,168,76,0.15)',
+                border: '1px solid rgba(201,168,76,0.3)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexShrink: 0,
+              }}
+            >
+              <MessageCircle size={22} style={{ color: T.gold }} />
             </div>
             <div style={{ flex: 1 }}>
-              <p style={{ fontFamily: 'var(--font-serif)', fontSize: 16, color: T.text, fontWeight: 500 }}>A Ponte</p>
-              <p style={{ fontSize: 13, color: T.secondary, marginTop: 2 }}>Bíblia &times; Alcorão &mdash; 17 profetas, 20 temas</p>
+              <p style={{ fontFamily: 'var(--font-serif)', fontSize: 17, color: T.text, fontWeight: 600, marginBottom: 3 }}>
+                A Mensagem
+              </p>
+              <p style={{ fontSize: 13, color: T.secondary, lineHeight: 1.4 }}>
+                Tudo que você crê é verdade — mas falta o capítulo final
+              </p>
             </div>
             <ArrowRight size={16} style={{ color: T.gold, flexShrink: 0 }} />
-          </PremiumCard>
+          </div>
+        </Link>
+
+        {/* 2x2 grid — 4 more featured */}
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr',
+            gap: 10,
+            marginBottom: 10,
+          }}
+        >
+          {/* Os Profetas */}
+          <Link href="/os-profetas" style={{ textDecoration: 'none' }}>
+            <div
+              style={{
+                padding: '16px 14px',
+                borderRadius: 12,
+                background: T.surface,
+                border: `1px solid ${T.border}`,
+                height: '100%',
+                transition: 'border-color 0.2s ease',
+              }}
+            >
+              <div
+                style={{
+                  width: 36,
+                  height: 36,
+                  borderRadius: 9,
+                  background: 'rgba(201,168,76,0.08)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginBottom: 10,
+                }}
+              >
+                <UsersIcon size={17} style={{ color: T.gold }} />
+              </div>
+              <p style={{ fontSize: 13, fontWeight: 600, color: T.text, marginBottom: 4 }}>Os Profetas</p>
+              <p style={{ fontSize: 11, color: T.muted, lineHeight: 1.4 }}>17 histórias que você já conhece</p>
+            </div>
           </Link>
 
-          <Link
-            href="/a-biblia-do-kalam"
-            style={{ textDecoration: 'none' }}
-          >
-          <PremiumCard variant="featured" spotlight style={{ display: 'flex', alignItems: 'center', gap: 16, padding: 24, borderRadius: 16 }}>
-            <div style={{ width: 48, height: 48, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(201,168,76,0.08)', flexShrink: 0 }}>
-              <BookText size={22} style={{ color: T.gold }} />
+          {/* A Ponte */}
+          <Link href="/a-ponte" style={{ textDecoration: 'none' }}>
+            <div
+              style={{
+                padding: '16px 14px',
+                borderRadius: 12,
+                background: T.surface,
+                border: `1px solid ${T.border}`,
+                height: '100%',
+                transition: 'border-color 0.2s ease',
+              }}
+            >
+              <div
+                style={{
+                  width: 36,
+                  height: 36,
+                  borderRadius: 9,
+                  background: 'rgba(201,168,76,0.08)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginBottom: 10,
+                }}
+              >
+                <GitBranch size={17} style={{ color: T.gold }} />
+              </div>
+              <p style={{ fontSize: 13, fontWeight: 600, color: T.text, marginBottom: 4 }}>A Ponte</p>
+              <p style={{ fontSize: 11, color: T.muted, lineHeight: 1.4 }}>Bíblia × Alcorão — 20 temas</p>
             </div>
-            <div style={{ flex: 1 }}>
-              <p style={{ fontFamily: 'var(--font-serif)', fontSize: 16, color: T.text, fontWeight: 500 }}>A Bíblia do Kalam</p>
-              <p style={{ fontSize: 13, color: T.secondary, marginTop: 2 }}>25 capítulos entrelaçando as duas escrituras</p>
+          </Link>
+
+          {/* Qual Profeta Você É */}
+          <Link href="/descobrir/qual-profeta-voce-e" style={{ textDecoration: 'none' }}>
+            <div
+              style={{
+                padding: '16px 14px',
+                borderRadius: 12,
+                background: T.surface,
+                border: `1px solid ${T.border}`,
+                height: '100%',
+                transition: 'border-color 0.2s ease',
+                position: 'relative',
+              }}
+            >
+              <span
+                style={{
+                  position: 'absolute',
+                  top: 10,
+                  right: 10,
+                  fontSize: 9,
+                  fontWeight: 700,
+                  color: T.gold,
+                  background: 'rgba(201,168,76,0.12)',
+                  padding: '2px 6px',
+                  borderRadius: 4,
+                  letterSpacing: '0.05em',
+                }}
+              >
+                QUIZ
+              </span>
+              <div
+                style={{
+                  width: 36,
+                  height: 36,
+                  borderRadius: 9,
+                  background: 'rgba(201,168,76,0.08)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginBottom: 10,
+                }}
+              >
+                <Zap size={17} style={{ color: T.gold }} />
+              </div>
+              <p style={{ fontSize: 13, fontWeight: 600, color: T.text, marginBottom: 4 }}>Qual Profeta?</p>
+              <p style={{ fontSize: 11, color: T.muted, lineHeight: 1.4 }}>Descubra com qual profeta você se identifica</p>
             </div>
-            <ArrowRight size={16} style={{ color: T.gold, flexShrink: 0 }} />
-          </PremiumCard>
+          </Link>
+
+          {/* Seu Nome em Árabe */}
+          <Link href="/descobrir/seu-nome-em-arabe" style={{ textDecoration: 'none' }}>
+            <div
+              style={{
+                padding: '16px 14px',
+                borderRadius: 12,
+                background: T.surface,
+                border: `1px solid ${T.border}`,
+                height: '100%',
+                transition: 'border-color 0.2s ease',
+              }}
+            >
+              <div
+                style={{
+                  width: 36,
+                  height: 36,
+                  borderRadius: 9,
+                  background: 'rgba(201,168,76,0.08)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginBottom: 10,
+                }}
+              >
+                <Type size={17} style={{ color: T.gold }} />
+              </div>
+              <p style={{ fontSize: 13, fontWeight: 600, color: T.text, marginBottom: 4 }}>Nome em Árabe</p>
+              <p style={{ fontSize: 11, color: T.muted, lineHeight: 1.4 }}>Veja seu nome na língua do Alcorão</p>
+            </div>
           </Link>
         </div>
+
+        {/* Comprovações row */}
+        <Link href="/comprovacoes" style={{ textDecoration: 'none', display: 'block' }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 14,
+              padding: '14px 16px',
+              borderRadius: 12,
+              background: T.surface,
+              border: `1px solid ${T.border}`,
+              transition: 'border-color 0.2s ease',
+            }}
+          >
+            <div
+              style={{
+                width: 36,
+                height: 36,
+                borderRadius: 9,
+                background: 'rgba(201,168,76,0.08)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexShrink: 0,
+              }}
+            >
+              <Scale size={17} style={{ color: T.gold }} />
+            </div>
+            <div style={{ flex: 1 }}>
+              <p style={{ fontSize: 13, fontWeight: 600, color: T.text }}>Comprovações</p>
+              <p style={{ fontSize: 11, color: T.muted, marginTop: 2 }}>
+                30 evidências que a ciência e a fé convergem
+              </p>
+            </div>
+            <ArrowRight size={14} style={{ color: T.muted, flexShrink: 0 }} />
+          </div>
+        </Link>
       </motion.section>
 
       {/* ═══════════════════════════════════════════════════════════════════════

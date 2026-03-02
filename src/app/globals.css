@@ -189,9 +189,13 @@ body {
   .premium-spotlight { display: none !important; }
 }
 
-/* ── Sidebar layout offset (desktop) — rail is always 56px ───────────── */
+/* ── Sidebar layout offset (desktop) ─────────────────────────────────── */
 @media (min-width: 769px) {
   .main-content-wrapper {
-    margin-left: 56px;
+    margin-left: 264px;
+    transition: margin-left 0.25s ease;
+  }
+  .main-content-wrapper.sidebar-hidden {
+    margin-left: 0;
   }
 }
