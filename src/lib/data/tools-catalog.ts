@@ -196,10 +196,11 @@ export const TOOLS_CATALOG: KalamTool[] = [
   {
     id: 'fasting-tracker',
     name: 'Tracker de Jejum',
-    description: 'Acompanhe seus dias de jejum com timer e metas',
+    description: 'Countdown ao Iftar, horários de Suhoor e Niyyah diária',
     icon: 'Timer',
     category: 'pratica',
-    status: 'coming-soon',
+    status: 'available',
+    href: '/a-jornada/ramadan/jejum',
   },
   {
     id: 'guided-meditation',
@@ -240,7 +241,8 @@ export const TOOLS_CATALOG: KalamTool[] = [
     description: 'Registre 3 bênçãos diárias e acompanhe sua evolução',
     icon: 'Smile',
     category: 'reflexao',
-    status: 'coming-soon',
+    status: 'available',
+    href: '/a-alma/gratidao',
   },
   {
     id: 'ramadan-checklist',
@@ -269,10 +271,11 @@ export const TOOLS_CATALOG: KalamTool[] = [
   {
     id: 'calendar-converter',
     name: 'Conversor de Calendário',
-    description: 'Converta entre calendário gregoriano e islâmico',
+    description: 'Converta entre calendário gregoriano e islâmico (Hijri)',
     icon: 'CalendarDays',
     category: 'pratica',
-    status: 'coming-soon',
+    status: 'available',
+    href: '/ferramentas/calendario',
   },
   {
     id: 'halal-guide',
@@ -296,7 +299,8 @@ export const TOOLS_CATALOG: KalamTool[] = [
     description: 'Teste seus conhecimentos com perguntas progressivas',
     icon: 'Brain',
     category: 'interativo',
-    status: 'coming-soon',
+    status: 'available',
+    href: '/ferramentas/quiz',
   },
   {
     id: 'wallpaper-gen',
