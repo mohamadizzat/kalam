@@ -331,8 +331,9 @@ export function Sidebar() {
           </Link>
         </div>
 
-        {/* Nav categories — scrollable */}
+        {/* Nav categories — scrollable (data-lenis-prevent stops Lenis from hijacking scroll here) */}
         <nav
+          data-lenis-prevent
           style={{
             flex: 1,
             overflowY: 'auto',
@@ -564,6 +565,7 @@ export function Sidebar() {
 
             {/* Nav — scrollable */}
             <nav
+              data-lenis-prevent
               style={{
                 flex: 1,
                 overflowY: 'auto',
