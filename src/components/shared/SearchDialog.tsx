@@ -1,8 +1,9 @@
 'use client'
 
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
+import Fuse from 'fuse.js'
 import {
   Search,
   X,
@@ -31,7 +32,10 @@ import {
   HelpCircle,
   Wrench,
   FileText,
+  Moon,
+  History,
 } from 'lucide-react'
+import { SEARCH_INDEX, type SearchEntry } from '@/lib/data/search-index'
 
 // ── DESIGN TOKENS ────────────────────────────────────────────────────────────
 
@@ -46,104 +50,89 @@ const T = {
   border: '#272230',
 } as const
 
-// ── SEARCH INDEX ─────────────────────────────────────────────────────────────
+// ── ICON MAP (string -> component) ───────────────────────────────────────────
 
-interface SearchEntry {
-  title: string
-  href: string
-  keywords: string[]
-  category: 'Início' | 'Descobrir' | 'Aprender' | 'Praticar' | 'Refletir' | 'Kids' | 'Outro'
-  icon: typeof Home
-  description: string
+const ICON_MAP: Record<string, typeof Home> = {
+  Home, Search, BookOpen, Sun, Heart, Star, Mic, Languages, Clock,
+  PenLine, MessageCircle, Layers, Users, Sparkles, Library, Route,
+  BookText, Calendar, BookMarked, Settings, Info, HelpCircle, Wrench,
+  FileText, Compass, Moon,
 }
 
-const SEARCH_INDEX: SearchEntry[] = [
-  // Início
-  { title: 'Início', href: '/', keywords: ['home', 'início', 'principal'], category: 'Início', icon: Home, description: 'Página principal do Kalam' },
+function getIcon(name: string): typeof Home {
+  return ICON_MAP[name] || Compass
+}
 
-  // Descobrir
-  { title: 'A Mensagem', href: '/a-mensagem', keywords: ['mensagem', 'islã', 'islam', 'introdução', 'começo'], category: 'Descobrir', icon: MessageCircle, description: 'A mensagem do Islam explicada' },
-  { title: 'A Ponte', href: '/a-ponte', keywords: ['ponte', 'bíblia', 'bible', 'conexão', 'comparação', 'cristianismo'], category: 'Descobrir', icon: Layers, description: 'Paralelos entre Bíblia e Alcorão' },
-  { title: 'Os Profetas', href: '/os-profetas', keywords: ['profetas', 'prophets', 'histórias', 'adão', 'noé', 'abraão', 'moisés', 'jesus', 'muhammad'], category: 'Descobrir', icon: Users, description: 'Histórias dos profetas' },
-  { title: 'O Sistema', href: '/o-sistema', keywords: ['sistema', 'pilares', 'islam', 'regras', 'princípios'], category: 'Descobrir', icon: Sparkles, description: 'O sistema do Islam explicado' },
-  { title: 'Biblioteca', href: '/biblioteca', keywords: ['biblioteca', 'livros', 'referências', 'recursos'], category: 'Descobrir', icon: Library, description: 'Acervo de referências' },
-  { title: 'Perguntas Difíceis', href: '/perguntas', keywords: ['perguntas', 'dúvidas', 'violência', 'mulheres', 'poligamia', 'jihad', 'difíceis', 'objeções'], category: 'Descobrir', icon: HelpCircle, description: 'Respostas honestas a perguntas difíceis' },
-  { title: 'Manifesto', href: '/manifesto', keywords: ['manifesto', 'missão', 'visão', 'sobre', 'propósito'], category: 'Descobrir', icon: FileText, description: 'O que o Kalam é e por que existe' },
-  { title: 'Comprovações Escriturais', href: '/comprovacoes', keywords: ['comprovações', 'provas', 'escrituras', 'bíblia', 'torah', 'evangelhos', 'paralelos', 'convergência'], category: 'Descobrir', icon: BookOpen, description: '30 paralelos reais entre Quran, Torah, Salmos e Evangelhos' },
+// ── POPULAR ENTRIES ──────────────────────────────────────────────────────────
 
-  // Aprender
-  { title: 'A Palavra (Quran)', href: '/a-palavra', keywords: ['quran', 'alcorão', 'suratas', 'suras', 'versículos', 'palavra'], category: 'Aprender', icon: BookOpen, description: 'Explore o Sagrado Alcorão' },
-  { title: 'Trilhas', href: '/trilhas', keywords: ['trilhas', 'jornada', 'aprendizado', 'caminho', 'curso'], category: 'Aprender', icon: Route, description: 'Trilhas guiadas de aprendizado' },
-  { title: 'A Bíblia do Kalam', href: '/a-biblia-do-kalam', keywords: ['bíblia do kalam', 'guia', 'referência', 'completo'], category: 'Aprender', icon: BookText, description: 'Guia completo de referência' },
-  { title: 'Estudos', href: '/a-palavra/estudo', keywords: ['estudos', 'aprofundamento', 'análise', 'tafsir'], category: 'Aprender', icon: BookMarked, description: 'Estudos aprofundados' },
-  { title: 'Hadiths', href: '/a-palavra/hadiths', keywords: ['hadiths', 'hadith', 'tradição', 'profeta', 'ditos'], category: 'Aprender', icon: BookOpen, description: 'Ditos e tradições do Profeta' },
-  { title: 'Busca no Quran', href: '/a-palavra/busca', keywords: ['busca', 'pesquisa', 'quran', 'versículo', 'procurar'], category: 'Aprender', icon: Search, description: 'Busque versículos no Alcorão' },
-  { title: 'Parábolas', href: '/a-palavra/parabolas', keywords: ['parábolas', 'histórias', 'narrativas', 'quran'], category: 'Aprender', icon: BookOpen, description: 'Parábolas do Alcorão' },
+const POPULAR_HREFS = ['/a-palavra', '/a-ponte', '/a-presenca/dhikr', '/a-alma/journal', '/perguntas', '/ferramentas']
+const POPULAR: SearchEntry[] = SEARCH_INDEX.filter((e) => POPULAR_HREFS.includes(e.href))
 
-  // Praticar
-  { title: 'A Presença', href: '/a-presenca', keywords: ['presença', 'prática', 'adoração', 'ibadah'], category: 'Praticar', icon: Sun, description: 'Ferramentas de prática espiritual' },
-  { title: 'Aya do Dia', href: '/aya-do-dia', keywords: ['aya', 'verso', 'dia', 'diário', 'versículo'], category: 'Praticar', icon: Calendar, description: 'Versículo do dia com reflexão' },
-  { title: 'Ferramentas', href: '/ferramentas', keywords: ['ferramentas', 'tools', 'recursos', 'prática'], category: 'Praticar', icon: Wrench, description: 'Todas as ferramentas em um lugar' },
-  { title: 'Recitação', href: '/a-palavra/recitacao', keywords: ['recitação', 'áudio', 'ouvir', 'quran', 'recitar'], category: 'Praticar', icon: Mic, description: 'Ouça o Quran com áudio' },
-  { title: 'Flashcards', href: '/a-presenca/flashcards', keywords: ['flashcards', '99 nomes', 'allah', 'memorização', 'nomes'], category: 'Praticar', icon: Languages, description: '99 Nomes de Allah' },
-  { title: 'Dhikr', href: '/a-presenca/dhikr', keywords: ['dhikr', 'zikr', 'lembrança', 'contador', 'repetição', 'subhanallah'], category: 'Praticar', icon: Clock, description: 'Contador de dhikr' },
-  { title: 'Duas', href: '/a-presenca/duas', keywords: ['duas', 'dua', 'súplica', 'oração', 'pedido'], category: 'Praticar', icon: Heart, description: 'Súplicas categorizadas' },
-  { title: 'Salah', href: '/a-presenca/salah', keywords: ['salah', 'salat', 'oração', 'namaz', 'rezar', 'reza'], category: 'Praticar', icon: Sun, description: 'Guia de oração' },
-  { title: 'Hifz', href: '/a-palavra/hifz', keywords: ['hifz', 'memorização', 'decorar', 'quran'], category: 'Praticar', icon: BookMarked, description: 'Memorização do Quran' },
-  { title: '99 Nomes', href: '/a-presenca/99-nomes', keywords: ['99 nomes', 'asma ul husna', 'allah', 'atributos'], category: 'Praticar', icon: Sparkles, description: 'Os 99 Nomes de Allah' },
-  { title: 'Contemplação', href: '/a-presenca/contemplacao', keywords: ['contemplação', 'meditação', 'reflexão', 'tafakkur'], category: 'Praticar', icon: Heart, description: 'Práticas de contemplação' },
-  { title: 'Contemplative Companion', href: '/contemplativo', keywords: ['contemplativo', 'áudio', 'mixer', 'foco', 'binaural', 'ambient', 'sanctuary', 'calma', 'sleep', 'dhikr', 'energia'], category: 'Praticar', icon: Sparkles, description: 'Mixer de áudio para foco, calma e contemplação' },
+// ── CATEGORY CONFIG ──────────────────────────────────────────────────────────
 
-  // Refletir
-  { title: 'A Alma', href: '/a-alma', keywords: ['alma', 'espiritualidade', 'interior', 'nafs'], category: 'Refletir', icon: Heart, description: 'Jornada espiritual interior' },
-  { title: 'Journal', href: '/a-alma/journal', keywords: ['journal', 'diário', 'escrita', 'reflexão', 'gratidão'], category: 'Refletir', icon: PenLine, description: 'Diário espiritual' },
-  { title: 'Rotina', href: '/a-alma/rotina', keywords: ['rotina', 'hábitos', 'diário', 'ritual'], category: 'Refletir', icon: Clock, description: 'Rotina de práticas' },
-  { title: 'Plano Diário', href: '/a-jornada/plano-diario', keywords: ['plano', 'diário', 'rotina', 'planejamento'], category: 'Refletir', icon: Calendar, description: 'Planejamento espiritual diário' },
-  { title: 'Saúde Mental', href: '/a-alma/saude-mental', keywords: ['saúde mental', 'ansiedade', 'paz', 'bem-estar'], category: 'Refletir', icon: Heart, description: 'Islam e saúde mental' },
-  { title: 'Progresso', href: '/a-alma/progresso', keywords: ['progresso', 'conquistas', 'evolução', 'avanço'], category: 'Refletir', icon: Sparkles, description: 'Seu progresso espiritual' },
+type FilterCategory = 'Todos' | SearchEntry['category']
 
-  // Kids
-  { title: 'Kids Hub', href: '/kids', keywords: ['kids', 'crianças', 'infantil', 'filhos'], category: 'Kids', icon: Star, description: 'Conteúdo para crianças' },
-  { title: 'Quiz Kids', href: '/kids/quiz', keywords: ['quiz', 'jogo', 'perguntas', 'kids', 'infantil'], category: 'Kids', icon: Sparkles, description: 'Quiz divertido para crianças' },
-  { title: 'Histórias Kids', href: '/kids/historias', keywords: ['histórias', 'contos', 'profetas', 'kids'], category: 'Kids', icon: BookOpen, description: 'Histórias dos profetas para crianças' },
-  { title: 'Atividades Kids', href: '/kids/atividades', keywords: ['atividades', 'pintar', 'colorir', 'kids'], category: 'Kids', icon: PenLine, description: 'Atividades educativas' },
-
-  // Outro
-  { title: 'Sobre', href: '/sobre', keywords: ['sobre', 'equipe', 'projeto', 'quem somos'], category: 'Outro', icon: Info, description: 'Sobre o projeto Kalam' },
-  { title: 'Configurações', href: '/configuracoes', keywords: ['configurações', 'settings', 'preferências', 'conta'], category: 'Outro', icon: Settings, description: 'Configurações do app' },
-  { title: 'Mapa', href: '/mapa', keywords: ['mapa', 'navegação', 'sitemap', 'conteúdo'], category: 'Outro', icon: Compass, description: 'Mapa de todo o conteúdo' },
-
-  // A Jornada sub-pages
-  { title: 'Ramadan', href: '/a-jornada/ramadan', keywords: ['ramadan', 'jejum', 'sawm', 'iftar'], category: 'Praticar', icon: Calendar, description: 'Guia do Ramadan' },
-  { title: 'Zakat', href: '/a-jornada/zakat', keywords: ['zakat', 'caridade', 'esmola', 'calculadora'], category: 'Praticar', icon: Heart, description: 'Calculadora e guia de Zakat' },
-  { title: 'Seerah', href: '/a-jornada/seerah', keywords: ['seerah', 'biografia', 'profeta', 'muhammad', 'vida'], category: 'Aprender', icon: Users, description: 'Biografia do Profeta Muhammad' },
-  { title: 'Companheiros', href: '/a-jornada/companheiros', keywords: ['companheiros', 'sahaba', 'abu bakr', 'omar', 'uthman', 'ali'], category: 'Aprender', icon: Users, description: 'Histórias dos companheiros' },
-  { title: 'Mulheres no Islam', href: '/a-jornada/mulheres', keywords: ['mulheres', 'feminino', 'khadija', 'aisha', 'maryam', 'fatima'], category: 'Descobrir', icon: Heart, description: 'Grandes mulheres na história do Islam' },
-  { title: 'Finanças Islâmicas', href: '/a-jornada/financas', keywords: ['finanças', 'halal', 'riba', 'juros', 'economia'], category: 'Aprender', icon: BookOpen, description: 'Finanças no Islam' },
-  { title: 'Desafios', href: '/a-jornada/desafios', keywords: ['desafios', 'metas', 'objetivos', 'crescimento'], category: 'Praticar', icon: Sparkles, description: 'Desafios de crescimento espiritual' },
-  { title: 'Árabe', href: '/a-presenca/arabe', keywords: ['árabe', 'idioma', 'língua', 'aprender árabe', 'alfabeto'], category: 'Aprender', icon: Languages, description: 'Aprenda o básico do árabe' },
-
-  // A Ponte sub-pages
-  { title: 'Ponte por Profeta', href: '/a-ponte/por-profeta', keywords: ['ponte', 'profeta', 'comparação', 'bíblia'], category: 'Descobrir', icon: Users, description: 'Comparação por profeta' },
-  { title: 'Ponte por Tema', href: '/a-ponte/por-tema', keywords: ['ponte', 'tema', 'tópico', 'comparação'], category: 'Descobrir', icon: Layers, description: 'Comparação por tema' },
-  { title: 'Ponte por Versículo', href: '/a-ponte/por-versiculo', keywords: ['ponte', 'versículo', 'verso', 'comparação'], category: 'Descobrir', icon: BookOpen, description: 'Comparação verso a verso' },
-]
-
-const POPULAR: SearchEntry[] = SEARCH_INDEX.filter((e) =>
-  ['/a-palavra', '/a-ponte', '/a-presenca/dhikr', '/a-alma/journal', '/perguntas', '/ferramentas'].includes(e.href)
-)
-
-// ── CATEGORY ICONS ───────────────────────────────────────────────────────────
+const FILTER_PILLS: FilterCategory[] = ['Todos', 'Comece Aqui', 'Explore', 'Estude', 'Pratique', 'Reflita', 'Kids']
 
 const CATEGORY_ICON: Record<string, typeof Home> = {
-  Início: Home,
-  Descobrir: Compass,
-  Aprender: BookOpen,
-  Praticar: Sun,
-  Refletir: Heart,
-  Kids: Star,
-  Outro: Settings,
+  'Comece Aqui': MessageCircle,
+  'Explore': Compass,
+  'Estude': BookOpen,
+  'Pratique': Sun,
+  'Reflita': Heart,
+  'Kids': Star,
 }
+
+// ── RECENT SEARCHES ──────────────────────────────────────────────────────────
+
+const RECENT_KEY = 'kalam-recent-searches'
+const MAX_RECENT = 5
+
+function getRecentSearches(): string[] {
+  if (typeof window === 'undefined') return []
+  try {
+    const raw = localStorage.getItem(RECENT_KEY)
+    if (!raw) return []
+    const parsed = JSON.parse(raw)
+    return Array.isArray(parsed) ? parsed.slice(0, MAX_RECENT) : []
+  } catch {
+    return []
+  }
+}
+
+function addRecentSearch(term: string) {
+  if (typeof window === 'undefined') return
+  try {
+    const recent = getRecentSearches().filter((s) => s !== term)
+    recent.unshift(term)
+    localStorage.setItem(RECENT_KEY, JSON.stringify(recent.slice(0, MAX_RECENT)))
+  } catch {
+    // silent
+  }
+}
+
+function removeRecentSearch(term: string) {
+  if (typeof window === 'undefined') return
+  try {
+    const recent = getRecentSearches().filter((s) => s !== term)
+    localStorage.setItem(RECENT_KEY, JSON.stringify(recent))
+  } catch {
+    // silent
+  }
+}
+
+// ── FUSE.JS INSTANCE ─────────────────────────────────────────────────────────
+
+const fuse = new Fuse(SEARCH_INDEX, {
+  keys: [
+    { name: 'title', weight: 3 },
+    { name: 'description', weight: 1.5 },
+    { name: 'keywords', weight: 2 },
+  ],
+  threshold: 0.4,
+  minMatchCharLength: 2,
+  includeScore: true,
+})
 
 // ── SEARCH DIALOG ────────────────────────────────────────────────────────────
 
@@ -156,44 +145,71 @@ export function SearchDialog({ open, onClose }: SearchDialogProps) {
   const router = useRouter()
   const [query, setQuery] = useState('')
   const [selectedIndex, setSelectedIndex] = useState(0)
+  const [activeFilter, setActiveFilter] = useState<FilterCategory>('Todos')
+  const [recentSearches, setRecentSearches] = useState<string[]>([])
   const inputRef = useRef<HTMLInputElement>(null)
   const listRef = useRef<HTMLDivElement>(null)
 
-  // Filter results
-  const results = query.trim().length > 0
-    ? SEARCH_INDEX.filter((entry) => {
-        const q = query.toLowerCase()
-        return (
-          entry.title.toLowerCase().includes(q) ||
-          entry.description.toLowerCase().includes(q) ||
-          entry.keywords.some((k) => k.includes(q))
-        )
-      }).slice(0, 12)
-    : []
+  // Load recent searches on open
+  useEffect(() => {
+    if (open) {
+      setRecentSearches(getRecentSearches())
+    }
+  }, [open])
+
+  // Fuzzy search + category filter
+  const results = useMemo(() => {
+    if (query.trim().length < 1) return []
+    const fuseResults = fuse.search(query.trim()).slice(0, 20)
+    const items = fuseResults.map((r) => r.item)
+    if (activeFilter === 'Todos') return items.slice(0, 15)
+    return items.filter((e) => e.category === activeFilter).slice(0, 15)
+  }, [query, activeFilter])
 
   // Group by category
-  const grouped = results.reduce<Record<string, SearchEntry[]>>((acc, entry) => {
-    if (!acc[entry.category]) acc[entry.category] = []
-    acc[entry.category].push(entry)
-    return acc
-  }, {})
+  const grouped = useMemo(() => {
+    return results.reduce<Record<string, SearchEntry[]>>((acc, entry) => {
+      if (!acc[entry.category]) acc[entry.category] = []
+      acc[entry.category].push(entry)
+      return acc
+    }, {})
+  }, [results])
 
   // Flat list for keyboard nav
-  const flatResults = Object.values(grouped).flat()
+  const flatResults = useMemo(() => Object.values(grouped).flat(), [grouped])
+
+  // Items shown when query is empty: recent searches or popular
+  const emptyStateItems = useMemo(() => {
+    if (recentSearches.length > 0) return null // handled separately
+    return POPULAR
+  }, [recentSearches])
 
   // Focus input on open
   useEffect(() => {
     if (open) {
       setQuery('')
       setSelectedIndex(0)
+      setActiveFilter('Todos')
       setTimeout(() => inputRef.current?.focus(), 100)
     }
   }, [open])
 
+  // Navigate to result and save search
+  const navigateTo = useCallback(
+    (entry: SearchEntry) => {
+      if (query.trim()) {
+        addRecentSearch(query.trim())
+      }
+      router.push(entry.href)
+      onClose()
+    },
+    [query, router, onClose]
+  )
+
   // Keyboard navigation
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
-      const list = query.trim() ? flatResults : POPULAR
+      const list = query.trim() ? flatResults : (emptyStateItems || POPULAR)
       if (e.key === 'ArrowDown') {
         e.preventDefault()
         setSelectedIndex((prev) => Math.min(prev + 1, list.length - 1))
@@ -202,20 +218,19 @@ export function SearchDialog({ open, onClose }: SearchDialogProps) {
         setSelectedIndex((prev) => Math.max(prev - 1, 0))
       } else if (e.key === 'Enter' && list[selectedIndex]) {
         e.preventDefault()
-        router.push(list[selectedIndex].href)
-        onClose()
+        navigateTo(list[selectedIndex])
       } else if (e.key === 'Escape') {
         e.preventDefault()
         onClose()
       }
     },
-    [flatResults, selectedIndex, query, router, onClose]
+    [flatResults, emptyStateItems, selectedIndex, query, navigateTo, onClose]
   )
 
-  // Reset selection on query change
+  // Reset selection on query or filter change
   useEffect(() => {
     setSelectedIndex(0)
-  }, [query])
+  }, [query, activeFilter])
 
   // Scroll selected into view
   useEffect(() => {
@@ -229,7 +244,9 @@ export function SearchDialog({ open, onClose }: SearchDialogProps) {
 
   if (!open) return null
 
-  const showPopular = query.trim().length === 0
+  const showEmptyState = query.trim().length === 0
+  const hasRecentSearches = recentSearches.length > 0
+  const hasQuery = query.trim().length > 0
 
   return (
     <AnimatePresence>
@@ -333,6 +350,45 @@ export function SearchDialog({ open, onClose }: SearchDialogProps) {
               </kbd>
             </div>
 
+            {/* Filter pills — show only when there's a query */}
+            {hasQuery && (
+              <div
+                style={{
+                  display: 'flex',
+                  gap: 6,
+                  padding: '8px 18px',
+                  overflowX: 'auto',
+                  borderBottom: `1px solid ${T.border}`,
+                  scrollbarWidth: 'none',
+                }}
+              >
+                {FILTER_PILLS.map((pill) => {
+                  const isActive = pill === activeFilter
+                  return (
+                    <button
+                      key={pill}
+                      onClick={() => setActiveFilter(pill)}
+                      style={{
+                        padding: '4px 12px',
+                        borderRadius: 100,
+                        border: `1px solid ${isActive ? T.gold : T.border}`,
+                        background: isActive ? 'rgba(201,168,76,0.12)' : 'transparent',
+                        color: isActive ? T.gold : T.muted,
+                        fontSize: 11,
+                        fontWeight: 500,
+                        cursor: 'pointer',
+                        whiteSpace: 'nowrap',
+                        transition: 'all 0.15s ease',
+                        fontFamily: 'var(--font-sans)',
+                      }}
+                    >
+                      {pill}
+                    </button>
+                  )
+                })}
+              </div>
+            )}
+
             {/* Results */}
             <div
               ref={listRef}
@@ -344,8 +400,67 @@ export function SearchDialog({ open, onClose }: SearchDialogProps) {
                 scrollbarColor: `${T.border} transparent`,
               }}
             >
-              {showPopular ? (
+              {showEmptyState ? (
                 <>
+                  {/* Recent searches */}
+                  {hasRecentSearches && (
+                    <>
+                      <div
+                        style={{
+                          padding: '8px 10px 4px',
+                          fontSize: 11,
+                          fontWeight: 600,
+                          letterSpacing: '0.06em',
+                          textTransform: 'uppercase',
+                          color: T.muted,
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 6,
+                        }}
+                      >
+                        <History size={12} />
+                        Recentes
+                      </div>
+                      {recentSearches.map((term) => (
+                        <div
+                          key={term}
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 12,
+                            padding: '8px 12px',
+                            borderRadius: 8,
+                            cursor: 'pointer',
+                          }}
+                          onClick={() => setQuery(term)}
+                        >
+                          <History size={14} style={{ color: T.muted, flexShrink: 0 }} />
+                          <span style={{ flex: 1, fontSize: 14, color: T.secondary }}>{term}</span>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              removeRecentSearch(term)
+                              setRecentSearches(getRecentSearches())
+                            }}
+                            style={{
+                              background: 'none',
+                              border: 'none',
+                              color: T.muted,
+                              cursor: 'pointer',
+                              padding: 2,
+                              display: 'flex',
+                              opacity: 0.5,
+                            }}
+                          >
+                            <X size={12} />
+                          </button>
+                        </div>
+                      ))}
+                      <div style={{ height: 8 }} />
+                    </>
+                  )}
+
+                  {/* Popular */}
                   <div
                     style={{
                       padding: '8px 10px 4px',
@@ -362,11 +477,8 @@ export function SearchDialog({ open, onClose }: SearchDialogProps) {
                     <ResultItem
                       key={entry.href}
                       entry={entry}
-                      isSelected={i === selectedIndex}
-                      onClick={() => {
-                        router.push(entry.href)
-                        onClose()
-                      }}
+                      isSelected={!hasRecentSearches && i === selectedIndex}
+                      onClick={() => navigateTo(entry)}
                     />
                   ))}
                 </>
@@ -396,13 +508,10 @@ export function SearchDialog({ open, onClose }: SearchDialogProps) {
                       const idx = flatResults.indexOf(entry)
                       return (
                         <ResultItem
-                          key={entry.href}
+                          key={entry.id}
                           entry={entry}
                           isSelected={idx === selectedIndex}
-                          onClick={() => {
-                            router.push(entry.href)
-                            onClose()
-                          }}
+                          onClick={() => navigateTo(entry)}
                         />
                       )
                     })}
@@ -455,7 +564,7 @@ function ResultItem({
   isSelected: boolean
   onClick: () => void
 }) {
-  const Icon = entry.icon
+  const Icon = getIcon(entry.icon)
 
   return (
     <button
