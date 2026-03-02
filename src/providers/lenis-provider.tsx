@@ -9,6 +9,9 @@ export function LenisProvider({ children }: { children: React.ReactNode }) {
       lerp: 0.1,
       duration: 1.5,
       smoothWheel: true,
+      prevent: (node: HTMLElement) => {
+        return node.closest('[data-lenis-prevent]') !== null
+      },
     })
 
     let rafId: number

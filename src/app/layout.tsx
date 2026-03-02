@@ -18,7 +18,7 @@ import { ContentWrapper } from '@/components/layout/ContentWrapper'
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs'
 import { FloatingContinue } from '@/components/shared/FloatingContinue'
 import { AtmosphericLayer } from '@/components/effects/AtmosphericLayer'
-import { DiscoveryOrb } from '@/components/shared/DiscoveryOrb'
+import { QuickAccessOrb } from '@/components/shared/QuickAccessOrb'
 import { Analytics } from '@vercel/analytics/next'
 import { AuthProvider } from '@/providers/auth-provider'
 
@@ -101,7 +101,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <Footer />
                 </ContentWrapper>
                 <FloatingContinue />
-                <DiscoveryOrb />
+                <QuickAccessOrb />
                 <BottomNav />
               </LenisProvider>
             </SidebarProvider>
