@@ -1,7 +1,7 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
-import { usePathname } from 'next/navigation'
+import { useState, useEffect, useCallback, useRef } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
@@ -12,7 +12,18 @@ import {
   Languages,
   Moon,
   TrendingUp,
+  Sparkles,
+  RefreshCw,
+  ArrowRight,
+  Compass,
+  Zap,
 } from 'lucide-react'
+import {
+  getRandomUnseen,
+  markSeen,
+  getDiscoveryProgress,
+  type DiscoveryItem,
+} from '@/lib/discovery-engine'
 
 // ── DESIGN TOKENS ────────────────────────────────────────────────────────────
 
@@ -36,7 +47,6 @@ const FEATURES = [
     href: '/a-palavra/santuario',
     icon: BookOpen,
     color: '#C9A84C',
-    emoji: '📖',
   },
   {
     id: 'habitos',
@@ -45,7 +55,6 @@ const FEATURES = [
     href: '/a-alma/habitos',
     icon: CheckSquare,
     color: '#4CAF50',
-    emoji: '✅',
   },
   {
     id: 'mood',
@@ -54,7 +63,6 @@ const FEATURES = [
     href: '/a-alma/como-voce-esta',
     icon: Heart,
     color: '#E07A5F',
-    emoji: '💛',
   },
   {
     id: 'arabe',
@@ -63,7 +71,6 @@ const FEATURES = [
     href: '/a-presenca/arabe-quran',
     icon: Languages,
     color: '#7BADE2',
-    emoji: '🔤',
   },
   {
     id: 'progresso',
@@ -72,7 +79,6 @@ const FEATURES = [
     href: '/a-palavra/progresso',
     icon: TrendingUp,
     color: '#B38BDB',
-    emoji: '📊',
   },
   {
     id: 'sleep',
@@ -81,26 +87,53 @@ const FEATURES = [
     href: '/contemplativo/sleep',
     icon: Moon,
     color: '#6B8F71',
-    emoji: '🌙',
   },
 ]
+
+// ── DISCOVERY TYPE BADGES ────────────────────────────────────────────────────
+
+const TYPE_LABELS: Record<DiscoveryItem['type'], { label: string; color: string }> = {
+  fact: { label: 'Fato', color: '#4CAF50' },
+  question: { label: 'Pergunta', color: '#FF9800' },
+  story: { label: 'Historia', color: '#9C27B0' },
+  prophet: { label: 'Profeta', color: '#2196F3' },
+  hadith: { label: 'Hadith', color: '#00BCD4' },
+  bridge: { label: 'Ponte', color: '#E91E63' },
+  phenomenon: { label: 'Fenomeno', color: '#8BC34A' },
+  system: { label: 'Sistema', color: '#FF5722' },
+}
 
 // ── HIDDEN ROUTES (immersive) ────────────────────────────────────────────────
 
 const HIDDEN_PATTERNS = ['/a-palavra/santuario', '/contemplativo/sleep', '/a-presenca/salah']
 
+type Tab = 'access' | 'discover'
+
 // ── COMPONENT ────────────────────────────────────────────────────────────────
 
 export function QuickAccessOrb() {
   const pathname = usePathname()
+  const router = useRouter()
   const [isOpen, setIsOpen] = useState(false)
+  const [activeTab, setActiveTab] = useState<Tab>('access')
   const [mounted, setMounted] = useState(false)
+  const [items, setItems] = useState<DiscoveryItem[]>([])
+  const [progress, setProgress] = useState({ seen: 0, total: 0, percentage: 0 })
   const panelRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => { setMounted(true) }, [])
 
   // Close on route change
   useEffect(() => { setIsOpen(false) }, [pathname])
+
+  // Load discovery items when discover tab opens
+  useEffect(() => {
+    if (isOpen && activeTab === 'discover' && mounted) {
+      const newItems = getRandomUnseen(3)
+      setItems(newItems)
+      setProgress(getDiscoveryProgress())
+    }
+  }, [isOpen, activeTab, mounted])
 
   // Close on click outside
   useEffect(() => {
@@ -118,6 +151,25 @@ export function QuickAccessOrb() {
       document.removeEventListener('click', handleClick)
     }
   }, [isOpen])
+
+  const handleRefresh = useCallback(() => {
+    if (items.length > 0) {
+      markSeen(items.map(i => i.id))
+    }
+    const newItems = getRandomUnseen(3)
+    setItems(newItems)
+    setProgress(getDiscoveryProgress())
+  }, [items])
+
+  const handleItemClick = useCallback(
+    (item: DiscoveryItem) => {
+      markSeen([item.id])
+      setProgress(getDiscoveryProgress())
+      router.push(item.href)
+      setIsOpen(false)
+    },
+    [router]
+  )
 
   const shouldHide = HIDDEN_PATTERNS.some(p => pathname.startsWith(p))
   if (shouldHide || !mounted) return null
@@ -249,14 +301,6 @@ export function QuickAccessOrb() {
                 }}>
                   كلام
                 </span>
-                <span style={{
-                  fontFamily: 'var(--font-serif)',
-                  fontSize: 14,
-                  color: T.text,
-                  fontWeight: 600,
-                }}>
-                  Acesso Rapido
-                </span>
               </div>
               <button
                 onClick={() => setIsOpen(false)}
@@ -274,85 +318,279 @@ export function QuickAccessOrb() {
               </button>
             </div>
 
-            {/* 6 Feature Cards — 2x3 grid */}
+            {/* Tab switcher */}
             <div style={{
-              display: 'grid',
-              gridTemplateColumns: '1fr 1fr',
-              gap: 10,
-              padding: '14px 14px 18px',
+              display: 'flex',
+              gap: 0,
+              padding: '0 14px',
+              borderBottom: `1px solid ${T.border}`,
             }}>
-              {FEATURES.map((feature, i) => {
-                const Icon = feature.icon
-                const isCurrentPage = pathname.startsWith(feature.href)
+              {([
+                { id: 'access' as Tab, label: 'Acesso Rapido', icon: Zap },
+                { id: 'discover' as Tab, label: 'Descobrir', icon: Sparkles },
+              ]).map((tab) => {
+                const isActive = activeTab === tab.id
+                const TabIcon = tab.icon
                 return (
-                  <motion.div
-                    key={feature.id}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.05, duration: 0.2 }}
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id)}
+                    style={{
+                      flex: 1,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: 6,
+                      padding: '10px 0',
+                      background: 'none',
+                      border: 'none',
+                      borderBottom: `2px solid ${isActive ? T.gold : 'transparent'}`,
+                      cursor: 'pointer',
+                      color: isActive ? T.gold : T.muted,
+                      fontSize: 12,
+                      fontWeight: isActive ? 600 : 400,
+                      transition: 'all 0.2s ease',
+                    }}
                   >
-                    <Link
-                      href={feature.href}
-                      onClick={() => setIsOpen(false)}
-                      style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: 6,
-                        padding: '14px 12px',
-                        borderRadius: 14,
-                        border: `1px solid ${isCurrentPage ? 'rgba(201,168,76,0.25)' : T.border}`,
-                        background: isCurrentPage ? 'rgba(201,168,76,0.06)' : T.surface,
-                        textDecoration: 'none',
-                        transition: 'all 0.2s ease',
-                        minHeight: 80,
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.borderColor = 'rgba(201,168,76,0.3)'
-                        e.currentTarget.style.background = 'rgba(201,168,76,0.06)'
-                        e.currentTarget.style.transform = 'translateY(-2px)'
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.borderColor = isCurrentPage ? 'rgba(201,168,76,0.25)' : T.border
-                        e.currentTarget.style.background = isCurrentPage ? 'rgba(201,168,76,0.06)' : T.surface
-                        e.currentTarget.style.transform = 'translateY(0)'
-                      }}
-                    >
-                      {/* Icon */}
-                      <div style={{
-                        width: 32,
-                        height: 32,
-                        borderRadius: 8,
-                        background: `${feature.color}15`,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                      }}>
-                        <Icon size={16} style={{ color: feature.color }} />
-                      </div>
-
-                      {/* Label */}
-                      <span style={{
-                        fontSize: 13,
-                        fontWeight: 600,
-                        color: T.text,
-                        lineHeight: 1.2,
-                      }}>
-                        {feature.label}
-                      </span>
-
-                      {/* Description */}
-                      <span style={{
-                        fontSize: 11,
-                        color: T.muted,
-                        lineHeight: 1.3,
-                      }}>
-                        {feature.description}
-                      </span>
-                    </Link>
-                  </motion.div>
+                    <TabIcon size={14} />
+                    {tab.label}
+                  </button>
                 )
               })}
             </div>
+
+            {/* ── TAB: ACCESS (6 Feature Cards) ── */}
+            {activeTab === 'access' && (
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: '1fr 1fr',
+                gap: 10,
+                padding: '14px 14px 18px',
+              }}>
+                {FEATURES.map((feature, i) => {
+                  const Icon = feature.icon
+                  const isCurrentPage = pathname.startsWith(feature.href)
+                  return (
+                    <motion.div
+                      key={feature.id}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: i * 0.05, duration: 0.2 }}
+                    >
+                      <Link
+                        href={feature.href}
+                        onClick={() => setIsOpen(false)}
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          gap: 6,
+                          padding: '14px 12px',
+                          borderRadius: 14,
+                          border: `1px solid ${isCurrentPage ? 'rgba(201,168,76,0.25)' : T.border}`,
+                          background: isCurrentPage ? 'rgba(201,168,76,0.06)' : T.surface,
+                          textDecoration: 'none',
+                          transition: 'all 0.2s ease',
+                          minHeight: 80,
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.borderColor = 'rgba(201,168,76,0.3)'
+                          e.currentTarget.style.background = 'rgba(201,168,76,0.06)'
+                          e.currentTarget.style.transform = 'translateY(-2px)'
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.borderColor = isCurrentPage ? 'rgba(201,168,76,0.25)' : T.border
+                          e.currentTarget.style.background = isCurrentPage ? 'rgba(201,168,76,0.06)' : T.surface
+                          e.currentTarget.style.transform = 'translateY(0)'
+                        }}
+                      >
+                        <div style={{
+                          width: 32,
+                          height: 32,
+                          borderRadius: 8,
+                          background: `${feature.color}15`,
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                        }}>
+                          <Icon size={16} style={{ color: feature.color }} />
+                        </div>
+                        <span style={{
+                          fontSize: 13,
+                          fontWeight: 600,
+                          color: T.text,
+                          lineHeight: 1.2,
+                        }}>
+                          {feature.label}
+                        </span>
+                        <span style={{
+                          fontSize: 11,
+                          color: T.muted,
+                          lineHeight: 1.3,
+                        }}>
+                          {feature.description}
+                        </span>
+                      </Link>
+                    </motion.div>
+                  )
+                })}
+              </div>
+            )}
+
+            {/* ── TAB: DISCOVER (Insights / Pilulas) ── */}
+            {activeTab === 'discover' && (
+              <>
+                {/* Progress bar */}
+                <div style={{ padding: '10px 18px 4px' }}>
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    marginBottom: 6,
+                  }}>
+                    <span style={{ fontSize: 11, color: T.muted }}>
+                      {progress.seen} de {progress.total} descobertos
+                    </span>
+                    <span style={{ fontSize: 11, color: T.gold, fontWeight: 600 }}>
+                      {progress.percentage}%
+                    </span>
+                  </div>
+                  <div style={{
+                    height: 3,
+                    borderRadius: 2,
+                    background: 'rgba(201,168,76,0.1)',
+                    overflow: 'hidden',
+                  }}>
+                    <motion.div
+                      initial={{ width: 0 }}
+                      animate={{ width: `${progress.percentage}%` }}
+                      transition={{ duration: 0.6, ease: 'easeOut' }}
+                      style={{
+                        height: '100%',
+                        background: `linear-gradient(90deg, ${T.gold}, rgba(201,168,76,0.6))`,
+                        borderRadius: 2,
+                      }}
+                    />
+                  </div>
+                </div>
+
+                {/* Discovery cards */}
+                <div style={{ padding: '8px 14px', display: 'flex', flexDirection: 'column', gap: 8 }}>
+                  {items.map((item, i) => {
+                    const badge = TYPE_LABELS[item.type]
+                    return (
+                      <motion.button
+                        key={item.id}
+                        initial={{ opacity: 0, x: 12 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: i * 0.08, duration: 0.25 }}
+                        onClick={() => handleItemClick(item)}
+                        style={{
+                          display: 'block',
+                          width: '100%',
+                          textAlign: 'left',
+                          padding: '12px 14px',
+                          borderRadius: 12,
+                          border: `1px solid ${T.border}`,
+                          background: T.surface,
+                          cursor: 'pointer',
+                          transition: 'border-color 0.2s ease, background 0.2s ease',
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.borderColor = 'rgba(201,168,76,0.2)'
+                          e.currentTarget.style.background = 'rgba(22,18,32,0.9)'
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.borderColor = T.border
+                          e.currentTarget.style.background = T.surface
+                        }}
+                      >
+                        {/* Badge + source */}
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 6 }}>
+                          <span style={{
+                            fontSize: 9,
+                            fontWeight: 700,
+                            letterSpacing: '0.08em',
+                            textTransform: 'uppercase',
+                            color: badge.color,
+                            padding: '2px 6px',
+                            borderRadius: 4,
+                            background: `${badge.color}15`,
+                          }}>
+                            {badge.label}
+                          </span>
+                          <span style={{ fontSize: 10, color: T.muted }}>{item.source}</span>
+                        </div>
+
+                        {/* Title */}
+                        <p style={{
+                          fontSize: 13,
+                          fontWeight: 600,
+                          color: T.text,
+                          marginBottom: 4,
+                          lineHeight: 1.3,
+                        }}>
+                          {item.title}
+                        </p>
+
+                        {/* Preview */}
+                        <p style={{
+                          fontSize: 12,
+                          color: T.secondary,
+                          lineHeight: 1.5,
+                          display: '-webkit-box',
+                          WebkitLineClamp: 2,
+                          WebkitBoxOrient: 'vertical',
+                          overflow: 'hidden',
+                        }}>
+                          {item.preview}
+                        </p>
+
+                        {/* Arrow */}
+                        <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 6 }}>
+                          <ArrowRight size={12} style={{ color: T.gold, opacity: 0.6 }} />
+                        </div>
+                      </motion.button>
+                    )
+                  })}
+                </div>
+
+                {/* Refresh button */}
+                <div style={{
+                  padding: '10px 18px 16px',
+                  display: 'flex',
+                  justifyContent: 'center',
+                }}>
+                  <button
+                    onClick={handleRefresh}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 6,
+                      padding: '8px 18px',
+                      borderRadius: 999,
+                      border: '1px solid rgba(201,168,76,0.15)',
+                      background: 'rgba(201,168,76,0.06)',
+                      color: T.gold,
+                      fontSize: 12,
+                      fontWeight: 500,
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.borderColor = 'rgba(201,168,76,0.3)'
+                      e.currentTarget.style.background = 'rgba(201,168,76,0.1)'
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.borderColor = 'rgba(201,168,76,0.15)'
+                      e.currentTarget.style.background = 'rgba(201,168,76,0.06)'
+                    }}
+                  >
+                    <RefreshCw size={12} />
+                    Mostrar mais
+                  </button>
+                </div>
+              </>
+            )}
           </motion.div>
         )}
       </AnimatePresence>
