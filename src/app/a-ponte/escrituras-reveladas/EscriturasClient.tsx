@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowLeft, ChevronDown, ChevronUp, BookOpen, Filter } from 'lucide-react'
+import { ArrowLeft, ChevronDown, ChevronUp, BookOpen } from 'lucide-react'
 import { HALAL_BOOKS, TOTAL_PASSAGES, type HalalBook, type HalalPassage, type HalalSection } from '@/lib/data/escrituras-halal'
 
 // ── Tokens ─────────────────────────────────────────────────────────────────
@@ -295,6 +295,183 @@ function BookPanel({ book, filter }: { book: HalalBook; filter: string }) {
   )
 }
 
+// ── Categorias temáticas da sidebar ─────────────────────────────────────────
+const CATEGORIES = [
+  {
+    id: 'zabur',
+    label: 'Zabur',
+    arabic: 'الزبور',
+    subtitle: 'Orações & Louvor',
+    color: '#7BADE2',
+    bookIds: ['salmos'],
+  },
+  {
+    id: 'hikmah',
+    label: 'Hikmah',
+    arabic: 'الحكمة',
+    subtitle: 'Sabedoria',
+    color: '#C9A84C',
+    bookIds: ['proverbios', 'eclesiastes'],
+  },
+  {
+    id: 'qasas',
+    label: 'Qasas',
+    arabic: 'القصص',
+    subtitle: 'Histórias dos Profetas',
+    color: '#E2A07B',
+    bookIds: ['genesis', 'exodo', 'jo', 'jonas', 'daniel'],
+  },
+  {
+    id: 'nubuwwah',
+    label: 'Nubuwwah',
+    arabic: 'النبوة',
+    subtitle: 'Profecias',
+    color: '#B38BDB',
+    bookIds: ['isaias', 'deuteronomio'],
+  },
+  {
+    id: 'injil',
+    label: 'Injil',
+    arabic: 'الإنجيل',
+    subtitle: 'Ensinamentos de Isa (as)',
+    color: '#4CAF7A',
+    bookIds: ['sermao-montanha', 'isa-ensinamentos'],
+  },
+] as const
+
+// ── Sidebar ──────────────────────────────────────────────────────────────────
+function Sidebar({
+  activeBook,
+  setActiveBook,
+  filter,
+  setFilter,
+}: {
+  activeBook: string
+  setActiveBook: (id: string) => void
+  filter: string
+  setFilter: (f: string) => void
+}) {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+
+      {/* Filter pills */}
+      <div style={{ marginBottom: 24 }}>
+        <p style={{ fontSize: 10, letterSpacing: '3px', color: T.muted, marginBottom: 10 }}>
+          FILTRAR POR
+        </p>
+        <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' as const }}>
+          {[
+            { key: 'all', label: 'Todas' },
+            { key: 'full', label: '● Total', dot: T.green },
+            { key: 'context', label: '● Contexto', dot: T.amber },
+          ].map(f => (
+            <button
+              key={f.key}
+              onClick={() => setFilter(f.key)}
+              style={{
+                padding: '5px 12px', borderRadius: 20,
+                fontSize: 12, cursor: 'pointer',
+                background: filter === f.key ? 'rgba(201,168,76,0.12)' : T.elevated,
+                border: filter === f.key ? '1px solid rgba(201,168,76,0.3)' : `1px solid ${T.border}`,
+                color: filter === f.key ? T.gold : T.muted,
+                transition: 'all 0.2s',
+              }}
+            >
+              {f.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Divider */}
+      <div style={{ height: 1, background: T.border, marginBottom: 20 }} />
+
+      {/* Thematic categories */}
+      {CATEGORIES.map(cat => {
+        const booksInCat = HALAL_BOOKS.filter(b => (cat.bookIds as readonly string[]).includes(b.id))
+        const hasActive = booksInCat.some(b => b.id === activeBook)
+
+        return (
+          <div key={cat.id} style={{ marginBottom: 6 }}>
+            {/* Category header */}
+            <div style={{
+              display: 'flex', alignItems: 'center', gap: 10,
+              padding: '8px 10px 6px',
+              borderRadius: 8,
+              background: hasActive ? `${cat.color}10` : 'transparent',
+            }}>
+              {/* Color bar */}
+              <div style={{
+                width: 3, height: 28, borderRadius: 2,
+                background: cat.color, flexShrink: 0,
+                opacity: hasActive ? 1 : 0.4,
+              }} />
+              <div>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>
+                  <span style={{
+                    fontFamily: 'var(--font-serif)',
+                    fontSize: 13, fontWeight: 600,
+                    color: hasActive ? T.text : T.secondary,
+                  }}>
+                    {cat.label}
+                  </span>
+                  <span style={{
+                    fontFamily: 'var(--font-arabic)',
+                    fontSize: 13, color: cat.color,
+                    opacity: hasActive ? 0.9 : 0.4,
+                  }}>
+                    {cat.arabic}
+                  </span>
+                </div>
+                <p style={{ fontSize: 10, color: T.muted, marginTop: 1 }}>
+                  {cat.subtitle}
+                </p>
+              </div>
+            </div>
+
+            {/* Books in this category */}
+            <div style={{ paddingLeft: 13, marginTop: 2 }}>
+              {booksInCat.map(book => {
+                const isActive = activeBook === book.id
+                return (
+                  <button
+                    key={book.id}
+                    onClick={() => setActiveBook(book.id)}
+                    style={{
+                      width: '100%', textAlign: 'left',
+                      padding: '7px 10px 7px 14px',
+                      borderRadius: 7,
+                      background: isActive ? `${cat.color}14` : 'none',
+                      border: 'none',
+                      borderLeft: isActive ? `2px solid ${cat.color}` : '2px solid transparent',
+                      color: isActive ? T.text : T.muted,
+                      fontSize: 13, cursor: 'pointer',
+                      display: 'flex', alignItems: 'center',
+                      justifyContent: 'space-between',
+                      gap: 8, marginBottom: 1,
+                      transition: 'all 0.15s',
+                    }}
+                  >
+                    <span style={{ fontWeight: isActive ? 500 : 400 }}>{book.name}</span>
+                    <span style={{
+                      fontFamily: 'var(--font-arabic)',
+                      fontSize: 12,
+                      color: isActive ? cat.color : T.border,
+                      opacity: isActive ? 1 : 0.8,
+                    }}>
+                      {book.arabicName}
+                    </span>
+                  </button>
+                )
+              })}
+            </div>
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
 // ── Main Component ───────────────────────────────────────────────────────────
 export default function EscriturasClient() {
   const [activeBook, setActiveBook] = useState(HALAL_BOOKS[0].id)
@@ -302,6 +479,7 @@ export default function EscriturasClient() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   const currentBook = HALAL_BOOKS.find(b => b.id === activeBook) ?? HALAL_BOOKS[0]
+  const activeCat = CATEGORIES.find(c => (c.bookIds as readonly string[]).includes(activeBook))
 
   return (
     <div style={{ minHeight: '100vh', background: T.bg, paddingTop: 64 }}>
@@ -408,115 +586,19 @@ export default function EscriturasClient() {
         {/* ── SIDEBAR ── */}
         <aside style={{
           borderRight: `1px solid ${T.border}`,
-          padding: '32px 20px',
+          padding: '28px 16px 28px 20px',
           position: 'sticky',
           top: 64,
           height: 'calc(100vh - 64px)',
           overflowY: 'auto',
           flexShrink: 0,
         }}>
-          {/* Filter */}
-          <div style={{ marginBottom: 24 }}>
-            <p style={{
-              fontSize: 10, letterSpacing: '3px', color: T.muted,
-              marginBottom: 10,
-            }}>
-              FILTRO
-            </p>
-            {[
-              { key: 'all', label: 'Todas' },
-              { key: 'full', label: 'Confiança Total', color: T.green },
-              { key: 'context', label: 'Com Contexto', color: T.amber },
-            ].map(f => (
-              <button
-                key={f.key}
-                onClick={() => setFilter(f.key)}
-                style={{
-                  width: '100%', textAlign: 'left',
-                  padding: '8px 12px', borderRadius: 8,
-                  background: filter === f.key ? 'rgba(201,168,76,0.08)' : 'none',
-                  border: filter === f.key ? '1px solid rgba(201,168,76,0.18)' : '1px solid transparent',
-                  color: f.color ?? (filter === f.key ? T.gold : T.secondary),
-                  fontSize: 13, cursor: 'pointer',
-                  display: 'flex', alignItems: 'center', gap: 8,
-                  marginBottom: 4,
-                }}
-              >
-                {f.color && (
-                  <span style={{ width: 6, height: 6, borderRadius: '50%', background: f.color, flexShrink: 0 }} />
-                )}
-                {f.label}
-              </button>
-            ))}
-          </div>
-
-          {/* Book list */}
-          <div style={{ borderTop: `1px solid ${T.border}`, paddingTop: 20 }}>
-            <p style={{
-              fontSize: 10, letterSpacing: '3px', color: T.muted,
-              marginBottom: 10,
-            }}>
-              LIVROS
-            </p>
-
-            {/* AT */}
-            <p style={{ fontSize: 10, color: T.muted, marginBottom: 6, marginTop: 4 }}>Antigo Testamento</p>
-            {HALAL_BOOKS.filter(b => b.testament === 'antigo').map(book => (
-              <button
-                key={book.id}
-                onClick={() => setActiveBook(book.id)}
-                style={{
-                  width: '100%', textAlign: 'left',
-                  padding: '9px 12px', borderRadius: 8,
-                  background: activeBook === book.id ? 'rgba(201,168,76,0.08)' : 'none',
-                  border: 'none',
-                  color: activeBook === book.id ? T.gold : T.secondary,
-                  fontSize: 13, cursor: 'pointer',
-                  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                  gap: 8, marginBottom: 2,
-                  fontFamily: 'var(--font-sans)',
-                }}
-              >
-                <span>{book.name}</span>
-                <span style={{
-                  fontFamily: 'var(--font-arabic)',
-                  fontSize: 14, color: activeBook === book.id ? T.gold : T.muted,
-                  opacity: 0.7,
-                }}>
-                  {book.arabicName}
-                </span>
-              </button>
-            ))}
-
-            {/* NT */}
-            <p style={{ fontSize: 10, color: T.muted, marginBottom: 6, marginTop: 16 }}>Novo Testamento</p>
-            {HALAL_BOOKS.filter(b => b.testament === 'novo').map(book => (
-              <button
-                key={book.id}
-                onClick={() => setActiveBook(book.id)}
-                style={{
-                  width: '100%', textAlign: 'left',
-                  padding: '9px 12px', borderRadius: 8,
-                  background: activeBook === book.id ? 'rgba(201,168,76,0.08)' : 'none',
-                  border: 'none',
-                  color: activeBook === book.id ? T.gold : T.secondary,
-                  fontSize: 13, cursor: 'pointer',
-                  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                  gap: 8, marginBottom: 2,
-                  fontFamily: 'var(--font-sans)',
-                }}
-              >
-                <span>{book.name}</span>
-                <span style={{
-                  fontFamily: 'var(--font-arabic)',
-                  fontSize: 14, color: activeBook === book.id ? T.gold : T.muted,
-                  opacity: 0.7,
-                }}>
-                  {book.arabicName}
-                </span>
-              </button>
-            ))}
-          </div>
+          <Sidebar
+            activeBook={activeBook}
+            setActiveBook={setActiveBook}
+            filter={filter}
+            setFilter={setFilter}
+          />
         </aside>
 
         {/* ── CONTENT ── */}
@@ -535,25 +617,27 @@ export default function EscriturasClient() {
         </main>
       </div>
 
-      {/* ── MOBILE: book picker button ── */}
+      {/* ── MOBILE: book picker ── */}
       <div className="escrituras-mobile-nav" style={{ display: 'none' }}>
         <div style={{
           position: 'fixed', bottom: 80, left: '50%',
-          transform: 'translateX(-50%)',
-          zIndex: 50,
+          transform: 'translateX(-50%)', zIndex: 50,
         }}>
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
             style={{
               display: 'flex', alignItems: 'center', gap: 8,
-              padding: '12px 20px', borderRadius: 24,
-              background: T.surface,
-              border: `1px solid ${T.border}`,
+              padding: '11px 18px', borderRadius: 24,
+              background: T.surface, border: `1px solid ${T.border}`,
               color: T.text, fontSize: 13, cursor: 'pointer',
               boxShadow: '0 4px 20px rgba(0,0,0,0.4)',
             }}
           >
-            <BookOpen size={16} style={{ color: T.gold }} />
+            <div style={{
+              width: 8, height: 8, borderRadius: '50%', flexShrink: 0,
+              background: activeCat?.color ?? T.gold,
+            }} />
+            <span style={{ color: T.muted, fontSize: 11 }}>{activeCat?.label} /</span>
             {currentBook.name}
             <ChevronDown size={14} style={{ color: T.muted }} />
           </button>
@@ -570,31 +654,16 @@ export default function EscriturasClient() {
                 zIndex: 50, background: T.surface,
                 border: `1px solid ${T.border}`,
                 borderRadius: 16, padding: 16,
-                maxHeight: '60vh', overflowY: 'auto',
+                maxHeight: '65vh', overflowY: 'auto',
                 boxShadow: '0 8px 40px rgba(0,0,0,0.6)',
               }}
             >
-              {HALAL_BOOKS.map(book => (
-                <button
-                  key={book.id}
-                  onClick={() => { setActiveBook(book.id); setSidebarOpen(false) }}
-                  style={{
-                    width: '100%', textAlign: 'left',
-                    padding: '12px 14px', borderRadius: 10,
-                    background: activeBook === book.id ? 'rgba(201,168,76,0.08)' : 'none',
-                    border: 'none',
-                    color: activeBook === book.id ? T.gold : T.text,
-                    fontSize: 15, cursor: 'pointer',
-                    display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                    marginBottom: 4,
-                  }}
-                >
-                  <span>{book.name}</span>
-                  <span style={{ fontFamily: 'var(--font-arabic)', fontSize: 16, color: T.gold, opacity: 0.6 }}>
-                    {book.arabicName}
-                  </span>
-                </button>
-              ))}
+              <Sidebar
+                activeBook={activeBook}
+                setActiveBook={(id) => { setActiveBook(id); setSidebarOpen(false) }}
+                filter={filter}
+                setFilter={setFilter}
+              />
             </motion.div>
           )}
         </AnimatePresence>
