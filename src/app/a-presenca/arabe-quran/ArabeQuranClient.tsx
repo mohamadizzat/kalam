@@ -402,7 +402,7 @@ export function ArabeQuranClient() {
     maxWidth: 500,
     margin: '0 auto',
     padding: '0 16px',
-    paddingBottom: 80,
+    paddingBottom: 100,
   }
 
   // =====================================================================

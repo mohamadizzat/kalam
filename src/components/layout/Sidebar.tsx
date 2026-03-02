@@ -345,10 +345,13 @@ export function Sidebar() {
         {/* Nav categories — scrollable (data-lenis-prevent stops Lenis from hijacking scroll here) */}
         <nav
           data-lenis-prevent
+          onWheel={(e) => e.stopPropagation()}
           style={{
             flex: 1,
             overflowY: 'auto',
             overflowX: 'hidden',
+            overscrollBehavior: 'contain' as const,
+            WebkitOverflowScrolling: 'touch',
             padding: isCollapsed ? '4px 8px' : '4px 12px',
             scrollbarWidth: 'thin',
             scrollbarColor: `${T.border} transparent`,
@@ -577,9 +580,12 @@ export function Sidebar() {
             {/* Nav — scrollable */}
             <nav
               data-lenis-prevent
+              onWheel={(e) => e.stopPropagation()}
               style={{
                 flex: 1,
                 overflowY: 'auto',
+                overscrollBehavior: 'contain' as const,
+                WebkitOverflowScrolling: 'touch',
                 padding: '4px 12px',
               }}
             >

@@ -209,7 +209,7 @@ export function QuranProgressClient() {
         style={{
           maxWidth: 600,
           margin: '0 auto',
-          padding: '0 20px 80px',
+          padding: '0 20px 100px',
         }}
       >
         {/* ══════════════════════════════════════════════════════════ */}

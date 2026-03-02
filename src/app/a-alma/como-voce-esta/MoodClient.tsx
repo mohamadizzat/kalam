@@ -154,7 +154,7 @@ export function MoodClient() {
         style={{
           maxWidth: 500,
           margin: '0 auto',
-          padding: '0 20px 60px',
+          padding: '0 20px 100px',
         }}
       >
         {/* ── Header ── */}
