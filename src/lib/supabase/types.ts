@@ -143,6 +143,25 @@ export interface Database {
           updated_at?: string
         }
       }
+      user_preferences: {
+        Row: {
+          user_id: string
+          persona_id: string
+          onboarding_completed_at: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          user_id: string
+          persona_id?: string
+          onboarding_completed_at?: string | null
+        }
+        Update: {
+          persona_id?: string
+          onboarding_completed_at?: string | null
+          updated_at?: string
+        }
+      }
       kids_progress: {
         Row: {
           user_id: string

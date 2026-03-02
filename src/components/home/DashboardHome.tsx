@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback, useMemo, useRef } from 'react'
+import { useState, useEffect, useMemo, useRef } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
@@ -10,7 +10,6 @@ import {
   Compass,
   Heart,
   Star,
-  Share2,
   Flame,
   BookMarked,
   PenLine,
@@ -29,6 +28,10 @@ import {
 import { SANCTUARY_VERSES, NAMES_PREVIEW } from '@/lib/data/daily-content'
 import { surpriseFactsData } from '@/content/surpriseFacts'
 import { PremiumCard } from '@/components/shared/PremiumCard'
+import { SanctuaryHero } from '@/components/home/SanctuaryHero'
+import { PersonaBanner } from '@/components/home/PersonaBanner'
+import { usePersona } from '@/lib/hooks/usePersona'
+import type { PersonaId } from '@/lib/hooks/usePersona'
 
 // ── DESIGN TOKENS ────────────────────────────────────────────────────────────
 
@@ -156,6 +159,42 @@ const EXPLORE_SECTIONS = [
   },
 ] as const
 
+// ── PERSONA-BASED ORDERING ─────────────────────────────────────────────────
+
+const PERSONA_CATEGORY_ORDER: Record<string, string[]> = {
+  curious: ['Descobrir', 'Aprender', 'Praticar', 'Refletir'],
+  muslim: ['Aprender', 'Praticar', 'Refletir', 'Descobrir'],
+  bible: ['Descobrir', 'Aprender', 'Refletir', 'Praticar'],
+  spiritual: ['Refletir', 'Praticar', 'Descobrir', 'Aprender'],
+  kids: ['Aprender', 'Descobrir', 'Praticar', 'Refletir'],
+}
+
+const PERSONA_QUICK_PRIORITY: Record<string, string[]> = {
+  curious: ['/a-mensagem', '/a-ponte', '/os-profetas', '/a-palavra'],
+  muslim: ['/a-palavra', '/a-palavra/recitacao', '/a-presenca/dhikr', '/a-presenca/99-nomes'],
+  bible: ['/a-ponte', '/a-palavra', '/os-profetas', '/trilhas'],
+  spiritual: ['/a-alma/journal', '/a-presenca/dhikr', '/a-presenca/99-nomes', '/a-palavra/recitacao'],
+  kids: ['/kids', '/a-palavra', '/trilhas', '/a-presenca/flashcards'],
+}
+
+function orderByPersona<T extends { category?: string; href?: string }>(
+  items: readonly T[],
+  order: string[],
+  key: 'category' | 'href'
+): T[] {
+  const mutable = [...items]
+  return mutable.sort((a, b) => {
+    const aKey = key === 'category' ? (a as { category: string }).category : (a as { href: string }).href
+    const bKey = key === 'category' ? (b as { category: string }).category : (b as { href: string }).href
+    const aIdx = order.indexOf(aKey)
+    const bIdx = order.indexOf(bKey)
+    if (aIdx === -1 && bIdx === -1) return 0
+    if (aIdx === -1) return 1
+    if (bIdx === -1) return -1
+    return aIdx - bIdx
+  })
+}
+
 // ── COMPONENT ────────────────────────────────────────────────────────────────
 
 export function DashboardHome() {
@@ -164,10 +203,10 @@ export function DashboardHome() {
   const [verseIndex, setVerseIndex] = useState(0)
   const [nameOfDay, setNameOfDay] = useState(NAMES_PREVIEW[0])
   const [streak, setStreak] = useState(0)
+  const { persona } = usePersona()
   const [lastRead, setLastRead] = useState<LastRead | null>(null)
   const [surahsReadCount, setSurahsReadCount] = useState(0)
   const [journalCount, setJournalCount] = useState(0)
-  const [shareState, setShareState] = useState<'idle' | 'copied'>('idle')
   const [factIndex, setFactIndex] = useState(0)
 
   // ── Init date, greeting, verse ──
@@ -236,23 +275,6 @@ export function DashboardHome() {
 
   const verse = SANCTUARY_VERSES[verseIndex]
 
-  const handleShare = useCallback(async () => {
-    const text = `"${verse.translation}"\n\n${verse.arabic}\n\n— ${verse.surahRef}\n\nKALAM — Deus. Todo dia.`
-
-    if (navigator.share) {
-      try {
-        await navigator.share({ title: 'KALAM — Versículo do Dia', text })
-        return
-      } catch {}
-    }
-
-    try {
-      await navigator.clipboard.writeText(text)
-      setShareState('copied')
-      setTimeout(() => setShareState('idle'), 2000)
-    } catch {}
-  }, [verse])
-
   const allStatsZero = streak === 0 && surahsReadCount === 0 && journalCount === 0
   const hasAnyStats = !allStatsZero
 
@@ -264,11 +286,24 @@ export function DashboardHome() {
     return list
   }, [streak, surahsReadCount, journalCount])
 
+  // ── Personalized content order ──
+  const personalizedSections = useMemo(() => {
+    if (!persona) return [...EXPLORE_SECTIONS]
+    const order = PERSONA_CATEGORY_ORDER[persona] || PERSONA_CATEGORY_ORDER.curious
+    return orderByPersona([...EXPLORE_SECTIONS], order, 'category')
+  }, [persona])
+
+  const personalizedActions = useMemo(() => {
+    if (!persona) return [...QUICK_ACTIONS]
+    const priority = PERSONA_QUICK_PRIORITY[persona] || []
+    return orderByPersona([...QUICK_ACTIONS], priority, 'href')
+  }, [persona])
+
   return (
     <main style={{ background: T.bg, minHeight: '100vh' }}>
 
       {/* ═══════════════════════════════════════════════════════════════════════
-          SECTION 1 — Smart Greeting + Compact Verse
+          SECTION 1 — Sanctuary Greeting + Compact Verse + Persona
       ═══════════════════════════════════════════════════════════════════════ */}
       <section style={{ padding: '48px 24px 0' }}>
         {/* Greeting */}
@@ -276,7 +311,7 @@ export function DashboardHome() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          style={{ marginBottom: 24 }}
+          style={{ marginBottom: 16 }}
         >
           <p style={{ fontFamily: 'var(--font-serif)', fontSize: 26, color: T.text, fontWeight: 500, marginBottom: 4 }}>
             {greeting}
@@ -286,107 +321,19 @@ export function DashboardHome() {
           </p>
         </motion.div>
 
-        {/* Compact Verse Card */}
+        {/* Persona Banner */}
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.1 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
           style={{ marginBottom: 16 }}
         >
-        <PremiumCard variant="featured" spotlight style={{ borderRadius: 20, padding: 24, textAlign: 'center' as const }}>
-          <p
-            style={{
-              fontFamily: 'var(--font-arabic)',
-              direction: 'rtl',
-              fontSize: 'clamp(24px, 5vw, 36px)',
-              lineHeight: 1.7,
-              color: T.gold,
-              marginBottom: 12,
-            }}
-          >
-            {verse.arabic}
-          </p>
-
-          <p
-            style={{
-              fontFamily: 'var(--font-serif)',
-              fontStyle: 'italic',
-              fontSize: 'clamp(15px, 2vw, 17px)',
-              lineHeight: 1.8,
-              color: T.text,
-              maxWidth: 460,
-              margin: '0 auto 8px',
-            }}
-          >
-            &ldquo;{verse.translation}&rdquo;
-          </p>
-
-          <p style={{ fontSize: 12, color: T.muted, marginBottom: 16 }}>
-            &mdash; {verse.surahRef}
-          </p>
-
-          {/* Name of God */}
-          <div
-            style={{
-              borderTop: `1px solid ${T.border}`,
-              paddingTop: 14,
-              marginBottom: 16,
-            }}
-          >
-            <p style={{ fontSize: 10, letterSpacing: '0.15em', color: T.muted, textTransform: 'uppercase', marginBottom: 6 }}>
-              Nome de Deus &middot; Hoje
-            </p>
-            <p style={{ fontFamily: 'var(--font-arabic)', fontSize: 22, color: T.gold, marginBottom: 2 }}>
-              {nameOfDay.arabic}
-            </p>
-            <p style={{ fontSize: 13, color: T.secondary }}>
-              {nameOfDay.transliteration} &mdash; {nameOfDay.meaning}
-            </p>
-          </div>
-
-          {/* CTA Row */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link
-              href="/a-palavra"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 8,
-                padding: '12px 22px',
-                borderRadius: 999,
-                border: '1px solid rgba(201,168,76,0.3)',
-                color: T.gold,
-                fontSize: 14,
-                fontWeight: 500,
-                textDecoration: 'none',
-              }}
-            >
-              Abrir a Palavra <ArrowRight size={15} />
-            </Link>
-
-            <button
-              onClick={handleShare}
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 6,
-                padding: '12px 18px',
-                borderRadius: 999,
-                border: '1px solid rgba(201,168,76,0.15)',
-                background: 'rgba(201,168,76,0.06)',
-                color: shareState === 'copied' ? T.gold : T.muted,
-                fontSize: 13,
-                cursor: 'pointer',
-                transition: 'all 0.3s ease',
-              }}
-            >
-              <Share2 size={14} />
-              {shareState === 'copied' ? 'Copiado!' : 'Compartilhar'}
-            </button>
-          </div>
-        </PremiumCard>
+          <PersonaBanner persona={persona as PersonaId | null} />
         </motion.div>
       </section>
+
+      {/* Sanctuary Hero — compact mode for dashboard */}
+      <SanctuaryHero verse={verse} nameOfDay={nameOfDay} compact />
 
       {/* ═══════════════════════════════════════════════════════════════════════
           SECTION 2 — Continue Reading
@@ -525,7 +472,7 @@ export function DashboardHome() {
           className="hide-scrollbar"
         >
           <style>{`.hide-scrollbar::-webkit-scrollbar { display: none; }`}</style>
-          {QUICK_ACTIONS.map((action) => (
+          {personalizedActions.map((action) => (
             <Link
               key={action.href}
               href={action.href}
@@ -720,7 +667,7 @@ export function DashboardHome() {
             margin: '0 auto',
           }}
         >
-          {EXPLORE_SECTIONS.map((section) => (
+          {personalizedSections.map((section) => (
             <PremiumCard
               key={section.category}
               variant="default"

@@ -1,17 +1,15 @@
 'use client'
 
-import { useState, useEffect, useCallback, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   ArrowRight,
-  ArrowDown,
   BookOpen,
   Sun,
   Compass,
   Heart,
   Star,
-  Share2,
   ChevronLeft,
   ChevronRight,
   Wrench,
@@ -27,7 +25,10 @@ import {
 import { surpriseFactsData } from '@/content/surpriseFacts'
 import { hardQuestionsData } from '@/content/hardQuestions'
 import { recognitionStoriesData } from '@/content/recognitionStories'
-import { SANCTUARY_VERSES } from '@/lib/data/daily-content'
+import { SANCTUARY_VERSES, NAMES_PREVIEW } from '@/lib/data/daily-content'
+import { SanctuaryHero } from '@/components/home/SanctuaryHero'
+import { usePersona } from '@/lib/hooks/usePersona'
+import type { PersonaId } from '@/lib/hooks/usePersona'
 
 // ── TYPES ────────────────────────────────────────────────────────────────────
 
@@ -191,9 +192,9 @@ const fadeUp = {
 
 export function StoryHome({ onNavigate }: StoryHomeProps) {
   const [carouselIndex, setCarouselIndex] = useState(0)
-  const [shareState, setShareState] = useState<'idle' | 'copied'>('idle')
   const [verseIndex, setVerseIndex] = useState(0)
   const carouselRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const { savePersona } = usePersona()
 
   useEffect(() => {
     const day = new Date().getDate()
@@ -201,6 +202,7 @@ export function StoryHome({ onNavigate }: StoryHomeProps) {
   }, [])
 
   const verse = SANCTUARY_VERSES[verseIndex]
+  const nameOfDay = NAMES_PREVIEW[new Date().getDate() % NAMES_PREVIEW.length]
 
   // Auto-advance carousel
   useEffect(() => {
@@ -222,125 +224,17 @@ export function StoryHome({ onNavigate }: StoryHomeProps) {
   }
 
   const handlePersonaClick = (personaId: string) => {
-    try {
-      localStorage.setItem('kalam-persona', personaId)
-    } catch {}
+    savePersona(personaId as PersonaId)
     onNavigate()
   }
-
-  const handleShare = useCallback(async () => {
-    const text = `"${verse.translation}"\n\n${verse.arabic}\n\n— ${verse.surahRef}\n\nKALAM — Deus. Todo dia.`
-    if (navigator.share) {
-      try {
-        await navigator.share({ title: 'KALAM — Verso do Dia', text })
-        return
-      } catch {}
-    }
-    try {
-      await navigator.clipboard.writeText(text)
-      setShareState('copied')
-      setTimeout(() => setShareState('idle'), 2000)
-    } catch {}
-  }, [verse])
 
   return (
     <main style={{ background: T.bg, minHeight: '100vh' }}>
 
       {/* ═══════════════════════════════════════════════════════════════════════
-          SECTION 1 — HERO: Pergunta provocativa em PT-BR (SEM árabe grande)
+          SECTION 1 — SANCTUARY HERO: Immersive sacred entry
       ═══════════════════════════════════════════════════════════════════════ */}
-      <section
-        style={{
-          minHeight: '85vh',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          textAlign: 'center',
-          padding: '80px 24px 48px',
-          position: 'relative',
-        }}
-      >
-        <GoldParticles />
-
-        {/* Provocative question — PT-BR first, no Arabic */}
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: 'easeOut' }}
-          style={{
-            fontFamily: 'var(--font-serif)',
-            fontSize: 'clamp(28px, 5.5vw, 48px)',
-            color: T.text,
-            lineHeight: 1.3,
-            maxWidth: 640,
-            marginBottom: 20,
-            zIndex: 1,
-            fontWeight: 600,
-          }}
-        >
-          E se a mensagem que mudou{' '}
-          <span style={{ color: T.gold }}>1.8 bilhão</span> de vidas...
-          <br />
-          nunca tivesse chegado até você?
-        </motion.h1>
-
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3, ease: 'easeOut' }}
-          style={{
-            fontFamily: 'var(--font-sans)',
-            fontSize: 'clamp(15px, 2vw, 17px)',
-            color: T.secondary,
-            maxWidth: 480,
-            lineHeight: 1.7,
-            marginBottom: 8,
-            zIndex: 1,
-          }}
-        >
-          O Kalam é seu companheiro para descobrir.
-          <br />
-          Sem pressão. Sem compromisso. No seu ritmo.
-        </motion.p>
-
-        {/* Small Arabic + brand mark — subtle, NOT dominant */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.6 }}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 8,
-            marginTop: 16,
-            marginBottom: 32,
-            zIndex: 1,
-          }}
-        >
-          <span style={{ fontFamily: 'var(--font-arabic)', fontSize: 20, color: T.gold, opacity: 0.7 }}>
-            كلام
-          </span>
-          <span style={{ fontSize: 11, color: T.muted, letterSpacing: '0.15em', textTransform: 'uppercase' }}>
-            KALAM
-          </span>
-        </motion.div>
-
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2, duration: 0.8 }}
-          style={{ zIndex: 1 }}
-        >
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-          >
-            <ArrowDown size={20} style={{ color: T.muted }} />
-          </motion.div>
-        </motion.div>
-      </section>
+      <SanctuaryHero verse={verse} nameOfDay={nameOfDay} />
 
       {/* ═══════════════════════════════════════════════════════════════════════
           SECTION 2 — FATOS QUE SURPREENDEM (Carousel)
@@ -985,68 +879,6 @@ export function StoryHome({ onNavigate }: StoryHomeProps) {
           <br />
           Sem intermediários. Sem simplificação. Sem medo.
         </p>
-
-        {/* Verse of the day — compact, contextual */}
-        <div
-          style={{
-            background: T.surface,
-            border: `1px solid ${T.border}`,
-            borderRadius: 16,
-            padding: '20px 24px',
-            width: '100%',
-            textAlign: 'center',
-          }}
-        >
-          <p style={{ fontSize: 10, letterSpacing: '0.15em', color: T.muted, textTransform: 'uppercase', marginBottom: 12 }}>
-            Versículo do dia
-          </p>
-          <p
-            style={{
-              fontFamily: 'var(--font-arabic)',
-              direction: 'rtl',
-              fontSize: 'clamp(22px, 4vw, 32px)',
-              lineHeight: 1.7,
-              color: T.gold,
-              marginBottom: 10,
-            }}
-          >
-            {verse.arabic}
-          </p>
-          <p
-            style={{
-              fontFamily: 'var(--font-serif)',
-              fontStyle: 'italic',
-              fontSize: 'clamp(14px, 2vw, 16px)',
-              lineHeight: 1.7,
-              color: T.text,
-              marginBottom: 8,
-            }}
-          >
-            &ldquo;{verse.translation}&rdquo;
-          </p>
-          <p style={{ fontSize: 12, color: T.muted, marginBottom: 14 }}>
-            &mdash; {verse.surahRef}
-          </p>
-          <button
-            onClick={handleShare}
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 6,
-              padding: '8px 16px',
-              borderRadius: 999,
-              border: `1px solid rgba(201,168,76,0.15)`,
-              background: 'rgba(201,168,76,0.06)',
-              color: shareState === 'copied' ? T.gold : T.muted,
-              fontSize: 12,
-              cursor: 'pointer',
-              transition: 'all 0.3s ease',
-            }}
-          >
-            <Share2 size={13} />
-            {shareState === 'copied' ? 'Copiado!' : 'Compartilhar'}
-          </button>
-        </div>
 
         <div style={{ display: 'flex', gap: 16, marginTop: 8 }}>
           <Link href="/sobre" style={{ fontSize: 13, color: T.muted, textDecoration: 'none' }}>
