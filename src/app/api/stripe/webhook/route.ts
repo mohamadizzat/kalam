@@ -89,7 +89,7 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
     .upsert(
       {
         user_id: userId,
-        tier: 'premium',
+        tier: 'guide',
         status: 'active',
         stripe_subscription_id: subscriptionId || null,
         stripe_customer_id: customerId || null,
@@ -115,8 +115,8 @@ async function handleSubscriptionUpdated(subscription: Stripe.Subscription) {
   if (!userId) return
 
   const status = subscription.status === 'active' ? 'active'
-    : subscription.status === 'past_due' ? 'past_due'
-    : subscription.status === 'canceled' ? 'canceled'
+    : subscription.status === 'past_due' ? 'expired'
+    : subscription.status === 'canceled' ? 'cancelled'
     : 'active'
 
   const periodEnd = subscription.items.data[0]?.current_period_end
@@ -146,7 +146,7 @@ async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
     .from('user_memberships')
     .update({
       tier: 'free',
-      status: 'canceled',
+      status: 'cancelled',
       updated_at: new Date().toISOString(),
     })
     .eq('user_id', userId)
@@ -173,7 +173,7 @@ async function handlePaymentFailed(invoice: Stripe.Invoice) {
   const { error } = await getSupabaseAdmin()
     .from('user_memberships')
     .update({
-      status: 'past_due',
+      status: 'expired',
       updated_at: new Date().toISOString(),
     })
     .eq('stripe_subscription_id', subscriptionId)

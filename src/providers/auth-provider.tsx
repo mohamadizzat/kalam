@@ -29,7 +29,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       const res = await fetch('/api/membership/status')
       const data = await res.json()
-      if (data.tier === 'premium' && data.status === 'active') {
+      if (data.tier === 'guide' && data.status === 'active') {
         setMembershipTier('premium')
       } else {
         setMembershipTier('free')
