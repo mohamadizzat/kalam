@@ -505,6 +505,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
 
+    // Premium
+    {
+      url: `${baseUrl}/meus-sahabas`,
+      lastModified: now,
+      changeFrequency: 'weekly' as const,
+      priority: 0.7,
+    },
+
     // Aprender SEO pages (15 pages)
     ...seoPages,
   ]

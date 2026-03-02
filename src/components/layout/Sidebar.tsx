@@ -195,6 +195,14 @@ const NAV_CATEGORIES: NavCategory[] = [
     ],
   },
   {
+    id: 'premium',
+    label: 'Premium',
+    icon: Sparkles,
+    items: [
+      { label: 'Meus Sahabas', href: '/meus-sahabas', icon: Crown },
+    ],
+  },
+  {
     id: 'kids',
     label: 'Kids',
     icon: Star,
@@ -239,7 +247,7 @@ const premiumDividerStyle: React.CSSProperties = {
 export function Sidebar() {
   const { isOpen, isCollapsed, toggleCollapsed, close } = useSidebar()
   const pathname = usePathname()
-  const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set(['comece-aqui', 'explore', 'estude', 'pratique', 'reflita', 'lideranca', 'kids']))
+  const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set(['comece-aqui', 'explore', 'estude', 'pratique', 'reflita', 'lideranca', 'premium', 'kids']))
   const indicators = useNavIndicators()
 
   // Auto-expand category of active item
@@ -502,7 +510,12 @@ export function Sidebar() {
                           {hasFlame && (
                             <Flame size={12} style={{ color: '#f97316', flexShrink: 0 }} />
                           )}
-                          {count && !hasNovo && !progressColor && !hasFlame && (
+                          {item.href === '/meus-sahabas' && (
+                            <span style={{ fontSize: 9, fontWeight: 700, color: T.gold, background: 'rgba(201,168,76,0.12)', padding: '2px 6px', borderRadius: 4, letterSpacing: '0.05em' }}>
+                              PRO
+                            </span>
+                          )}
+                          {count && !hasNovo && !progressColor && !hasFlame && item.href !== '/meus-sahabas' && (
                             <span
                               style={{
                                 fontSize: 10,
@@ -762,7 +775,12 @@ export function Sidebar() {
                               {hasFlame && (
                                 <Flame size={12} style={{ color: '#f97316', flexShrink: 0 }} />
                               )}
-                              {count && !hasNovo && !progressColor && !hasFlame && (
+                              {item.href === '/meus-sahabas' && (
+                                <span style={{ fontSize: 9, fontWeight: 700, color: T.gold, background: 'rgba(201,168,76,0.12)', padding: '2px 6px', borderRadius: 4, letterSpacing: '0.05em' }}>
+                                  PRO
+                                </span>
+                              )}
+                              {count && !hasNovo && !progressColor && !hasFlame && item.href !== '/meus-sahabas' && (
                                 <span
                                   style={{
                                     fontSize: 10,
