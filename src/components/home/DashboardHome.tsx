@@ -24,8 +24,9 @@ import {
   Sparkles,
   Mic,
   Clock,
+  Layers,
 } from 'lucide-react'
-import { SANCTUARY_VERSES, NAMES_PREVIEW } from '@/lib/data/daily-content'
+import { SANCTUARY_VERSES } from '@/lib/data/daily-content'
 import { getRamadanDay, getTodayRamadan } from '@/lib/data/ramadan'
 import type { RamadanDay } from '@/lib/data/ramadan'
 import { surpriseFactsData } from '@/content/surpriseFacts'
@@ -117,6 +118,7 @@ const QUICK_ACTIONS = [
   { label: 'Trilhas', href: '/trilhas', icon: Route },
   { label: 'A Ponte', href: '/a-ponte', icon: GitBranch },
   { label: 'Profetas', href: '/os-profetas', icon: Star },
+  { label: 'Stories', href: '/conteudo', icon: Layers },
 ] as const
 
 // ── EXPLORE GRID ────────────────────────────────────────────────────────────
@@ -206,7 +208,7 @@ export function DashboardHome() {
   const [dateLabel, setDateLabel] = useState('')
   const [greeting, setGreeting] = useState('')
   const [verseIndex, setVerseIndex] = useState(0)
-  const [nameOfDay, setNameOfDay] = useState(NAMES_PREVIEW[0])
+  // nameOfDay removed — hero de-arabizado
   const [streak, setStreak] = useState(0)
   const { persona } = usePersona()
   const [lastRead, setLastRead] = useState<LastRead | null>(null)
@@ -239,7 +241,7 @@ export function DashboardHome() {
 
     const day = now.getDate()
     setVerseIndex((day - 1) % SANCTUARY_VERSES.length)
-    setNameOfDay(NAMES_PREVIEW[day % NAMES_PREVIEW.length])
+    // nameOfDay removed
   }, [])
 
   // ── Streak ──
@@ -368,7 +370,6 @@ export function DashboardHome() {
       {/* Sanctuary Hero — compact mode for dashboard + ramadan prop */}
       <SanctuaryHero
         verse={verse}
-        nameOfDay={nameOfDay}
         compact
         ramadan={ramadanToday ? { day: ramadanToday.day, phase: ramadanToday.phase, isLailatAlQadr: ramadanToday.isLailatAlQadr } : null}
       />

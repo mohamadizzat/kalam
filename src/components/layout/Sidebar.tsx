@@ -152,6 +152,7 @@ const NAV_CATEGORIES: NavCategory[] = [
       { label: 'Salah', href: '/a-presenca/salah', icon: Sun },
       { label: 'Hifz', href: '/a-palavra/hifz', icon: BookMarked },
       { label: 'Contemplativo', href: '/contemplativo', icon: Sparkles },
+      { label: 'Stories', href: '/conteudo', icon: Layers },
     ],
   },
   {

@@ -24,7 +24,7 @@ import {
 import { surpriseFactsData } from '@/content/surpriseFacts'
 import { hardQuestionsData } from '@/content/hardQuestions'
 import { recognitionStoriesData } from '@/content/recognitionStories'
-import { SANCTUARY_VERSES, NAMES_PREVIEW } from '@/lib/data/daily-content'
+import { SANCTUARY_VERSES } from '@/lib/data/daily-content'
 import { getRamadanDay, getTodayRamadan } from '@/lib/data/ramadan'
 import type { RamadanDay } from '@/lib/data/ramadan'
 import { SanctuaryHero } from '@/components/home/SanctuaryHero'
@@ -114,10 +114,10 @@ const CAROUSEL_FACTS = [
 // ── PERSONA OPTIONS ─────────────────────────────────────────────────────────
 
 const PERSONAS = [
-  { id: 'curious', label: 'Sou curioso sobre o Islã', href: '/a-mensagem', icon: Compass, desc: 'Descubra a mensagem original' },
-  { id: 'muslim', label: 'Já sou muçulmano', href: '/a-palavra', icon: BookOpen, desc: 'Aprofunde na Palavra' },
-  { id: 'bible', label: 'Venho da Bíblia', href: '/a-ponte', icon: GitBranch, desc: 'Bíblia x Alcorão lado a lado' },
-  { id: 'spiritual', label: 'Quero espiritualidade', href: '/a-alma', icon: Heart, desc: 'Reflexão sem rótulo' },
+  { id: 'curious', label: 'Quero entender a origem', href: '/a-mensagem', icon: Compass, desc: 'Descubra a mensagem original' },
+  { id: 'muslim', label: 'Já pratico', href: '/a-palavra', icon: BookOpen, desc: 'Aprofunde na Palavra' },
+  { id: 'bible', label: 'Já estudo a Bíblia', href: '/a-ponte', icon: GitBranch, desc: 'Bíblia x Alcorão lado a lado' },
+  { id: 'spiritual', label: 'Busco algo maior', href: '/a-alma', icon: Heart, desc: 'Reflexão sem rótulo' },
   { id: 'kids', label: 'Meu filho precisa aprender', href: '/kids', icon: Star, desc: 'Conteúdo para crianças' },
 ] as const
 
@@ -156,6 +156,7 @@ const EXPLORE_SECTIONS = [
       { label: 'Recitação', href: '/a-palavra/recitacao', count: 'Com áudio' },
       { label: 'Flashcards', href: '/a-presenca/flashcards', count: '99 Nomes' },
       { label: 'Dhikr', href: '/a-presenca/dhikr', count: 'Contador' },
+      { label: 'Stories', href: '/conteudo', count: '100+ cards' },
     ],
   },
   {
@@ -213,7 +214,7 @@ export function StoryHome({ onNavigate }: StoryHomeProps) {
   }, [])
 
   const verse = SANCTUARY_VERSES[verseIndex]
-  const nameOfDay = NAMES_PREVIEW[new Date().getDate() % NAMES_PREVIEW.length]
+  // nameOfDay removed — hero de-arabizado
 
   // Auto-advance carousel
   useEffect(() => {
@@ -254,7 +255,6 @@ export function StoryHome({ onNavigate }: StoryHomeProps) {
       ═══════════════════════════════════════════════════════════════════════ */}
       <SanctuaryHero
         verse={verse}
-        nameOfDay={nameOfDay}
         ramadan={ramadanToday ? { day: ramadanToday.day, phase: ramadanToday.phase, isLailatAlQadr: ramadanToday.isLailatAlQadr } : null}
       />
 
@@ -463,7 +463,9 @@ export function StoryHome({ onNavigate }: StoryHomeProps) {
           }}
         >
           {/* Card 1: Acervo */}
-          <div
+          <motion.div
+            whileHover={{ y: -4 }}
+            transition={{ duration: 0.2 }}
             style={{
               background: T.surface,
               border: `1px solid ${T.border}`,
@@ -485,10 +487,12 @@ export function StoryHome({ onNavigate }: StoryHomeProps) {
             <p style={{ fontSize: 12, color: T.muted }}>
               Conteúdo para meses de estudo
             </p>
-          </div>
+          </motion.div>
 
           {/* Card 2: Ferramentas */}
-          <div
+          <motion.div
+            whileHover={{ y: -4 }}
+            transition={{ duration: 0.2 }}
             style={{
               background: T.surface,
               border: `1px solid ${T.border}`,
@@ -510,10 +514,12 @@ export function StoryHome({ onNavigate }: StoryHomeProps) {
             <p style={{ fontSize: 12, color: T.muted }}>
               Prática interativa, não só leitura
             </p>
-          </div>
+          </motion.div>
 
           {/* Card 3: Ponte */}
-          <div
+          <motion.div
+            whileHover={{ y: -4 }}
+            transition={{ duration: 0.2 }}
             style={{
               background: T.surface,
               border: `1px solid ${T.border}`,
@@ -535,7 +541,7 @@ export function StoryHome({ onNavigate }: StoryHomeProps) {
             <p style={{ fontSize: 12, color: T.muted }}>
               A ponte, não o muro
             </p>
-          </div>
+          </motion.div>
         </div>
       </motion.section>
 

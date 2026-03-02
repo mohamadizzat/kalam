@@ -27,7 +27,6 @@ interface RamadanProp {
 
 interface SanctuaryHeroProps {
   verse: { arabic: string; translation: string; surahRef: string }
-  nameOfDay?: { arabic: string; transliteration: string; meaning: string }
   compact?: boolean
   ramadan?: RamadanProp | null
 }
@@ -46,7 +45,7 @@ function getAudioUrl(surahNumber: number): string {
 
 // ── Component ────────────────────────────────────────────────────────────────
 
-export function SanctuaryHero({ verse, nameOfDay, compact = false, ramadan }: SanctuaryHeroProps) {
+export function SanctuaryHero({ verse, compact = false, ramadan }: SanctuaryHeroProps) {
   const ramadanPhaseColor = ramadan ? getPhaseColor(ramadan.phase) : null
   const ramadanPhaseRgb = ramadan ? getPhaseRgb(ramadan.phase) : null
   const audioRef = useRef<HTMLAudioElement | null>(null)
@@ -144,7 +143,7 @@ export function SanctuaryHero({ verse, nameOfDay, compact = false, ramadan }: Sa
     <section
       className={cn(
         'relative flex flex-col items-center justify-center overflow-hidden',
-        compact ? 'py-16 md:py-20' : 'min-h-[85vh] py-20'
+        compact ? 'py-16 md:py-20' : 'min-h-[60vh] py-20'
       )}
       style={{ background: tokens.bg }}
     >
@@ -228,13 +227,13 @@ export function SanctuaryHero({ verse, nameOfDay, compact = false, ramadan }: Sa
         className="relative z-10 w-full px-6 md:px-8"
         style={{ maxWidth: 680, textAlign: 'center' }}
       >
-        {/* ── Name of the Day / Ramadan header ───────────────────────────── */}
-        {ramadan ? (
+        {/* ── Ramadan header (PT-BR) ─────────────────────────────────────── */}
+        {ramadan && (
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2, ease }}
-            style={{ marginBottom: compact ? 20 : 28 }}
+            transition={{ duration: 0.6, delay: 0.2, ease }}
+            style={{ marginBottom: compact ? 16 : 24 }}
           >
             <p style={{
               fontFamily: "'Inter', sans-serif",
@@ -248,82 +247,52 @@ export function SanctuaryHero({ verse, nameOfDay, compact = false, ramadan }: Sa
               RAMADAN — DIA {ramadan.day}
             </p>
             <p style={{
-              fontFamily: 'var(--font-arabic)',
-              fontSize: compact ? 20 : 24,
+              fontFamily: "'Inter', sans-serif",
+              fontSize: compact ? 18 : 22,
+              fontWeight: 600,
               color: ramadanPhaseColor || tokens.gold,
               lineHeight: 1.4,
               marginBottom: 4,
             }}>
-              رمضان كريم
+              Ramadan Kareem
             </p>
             {ramadan.isLailatAlQadr && (
               <p style={{
-                fontFamily: 'var(--font-arabic)',
-                fontSize: compact ? 14 : 16,
+                fontFamily: "'Inter', sans-serif",
+                fontSize: compact ? 13 : 14,
                 color: `${tokens.gold}99`,
                 letterSpacing: '0.5px',
+                fontStyle: 'italic',
                 marginTop: 4,
               }}>
-                خَيْرٌ مِنْ أَلْفِ شَهْرٍ
+                Melhor que mil meses
               </p>
             )}
           </motion.div>
-        ) : nameOfDay ? (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2, ease }}
-            style={{ marginBottom: compact ? 20 : 28 }}
-          >
-            <p style={{
-              fontFamily: "'Inter', sans-serif",
-              fontSize: 10,
-              fontWeight: 500,
-              letterSpacing: '3px',
-              textTransform: 'uppercase',
-              color: tokens.muted,
-              marginBottom: 6,
-            }}>
-              NOME DO DIA
-            </p>
-            <p style={{
-              fontFamily: 'var(--font-arabic)',
-              fontSize: compact ? 20 : 24,
-              color: tokens.gold,
-              lineHeight: 1.4,
-              marginBottom: 4,
-            }}>
-              {nameOfDay.arabic}
-            </p>
-            <p style={{
-              fontFamily: "'Inter', sans-serif",
-              fontSize: 13,
-              color: tokens.secondary,
-              letterSpacing: '0.5px',
-            }}>
-              {nameOfDay.transliteration} — {nameOfDay.meaning}
-            </p>
-          </motion.div>
-        ) : null}
+        )}
 
-        {/* ── Bismillah ──────────────────────────────────────────────────── */}
+        {/* ── Headline PT-BR ─────────────────────────────────────────────── */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.0, delay: 0.5, ease }}
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.5, ease }}
+          style={{ marginBottom: compact ? 20 : 28 }}
         >
           <p
             style={{
-              fontFamily: 'var(--font-arabic)',
-              fontSize: compact ? 'clamp(24px, 5vw, 36px)' : 'clamp(28px, 6vw, 44px)',
-              color: tokens.gold,
-              direction: 'rtl',
-              lineHeight: 1.8,
-              textShadow: `0 0 40px ${tokens.gold}20`,
-              marginBottom: compact ? 24 : 36,
+              fontFamily: 'var(--font-serif)',
+              fontSize: compact ? 'clamp(20px, 4vw, 30px)' : 'clamp(24px, 5vw, 38px)',
+              color: tokens.text,
+              lineHeight: 1.4,
+              fontWeight: 500,
+              maxWidth: 560,
+              marginLeft: 'auto',
+              marginRight: 'auto',
             }}
           >
-            بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
+            Tudo que você acredita é verdade.
+            <br />
+            <span style={{ color: tokens.gold }}>Mas falta o capítulo final.</span>
           </p>
         </motion.div>
 
@@ -331,12 +300,12 @@ export function SanctuaryHero({ verse, nameOfDay, compact = false, ramadan }: Sa
         <motion.div
           initial={{ opacity: 0, scaleX: 0 }}
           animate={{ opacity: 1, scaleX: 1 }}
-          transition={{ duration: 0.8, delay: 1.2, ease }}
+          transition={{ duration: 0.6, delay: 0.8, ease }}
           style={{
             display: 'flex',
             alignItems: 'center',
             gap: 12,
-            marginBottom: compact ? 24 : 36,
+            marginBottom: compact ? 20 : 28,
             maxWidth: 200,
             marginLeft: 'auto',
             marginRight: 'auto',
@@ -365,7 +334,7 @@ export function SanctuaryHero({ verse, nameOfDay, compact = false, ramadan }: Sa
         <motion.div
           initial={{ opacity: 0, y: 20, filter: 'blur(6px)' }}
           animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-          transition={{ duration: 0.9, delay: 1.5, ease }}
+          transition={{ duration: 0.9, delay: 1.0, ease }}
           style={{ marginBottom: compact ? 16 : 24 }}
         >
           {/* Eyebrow */}
@@ -376,25 +345,24 @@ export function SanctuaryHero({ verse, nameOfDay, compact = false, ramadan }: Sa
             letterSpacing: '3px',
             textTransform: 'uppercase',
             color: `${tokens.gold}80`,
-            marginBottom: compact ? 14 : 20,
+            marginBottom: compact ? 10 : 14,
           }}>
             VERSO DO DIA
           </p>
 
-          {/* Arabic verse */}
+          {/* Arabic verse — reduced */}
           <p style={{
             fontFamily: 'var(--font-arabic)',
             direction: 'rtl',
-            fontSize: compact ? 'clamp(20px, 4.5vw, 30px)' : 'clamp(22px, 5vw, 34px)',
+            fontSize: 'clamp(13px, 2vw, 16px)',
             lineHeight: 1.9,
-            color: tokens.text,
-            textShadow: `0 0 30px ${tokens.gold}10`,
-            marginBottom: compact ? 14 : 20,
+            color: `${tokens.text}90`,
+            marginBottom: compact ? 10 : 14,
           }}>
             {verse.arabic}
           </p>
 
-          {/* Translation */}
+          {/* Translation — prominent */}
           <p style={{
             fontFamily: "'Inter', sans-serif",
             fontSize: compact ? 14 : 16,
@@ -423,7 +391,7 @@ export function SanctuaryHero({ verse, nameOfDay, compact = false, ramadan }: Sa
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 2.5, ease }}
+          transition={{ duration: 0.7, delay: 1.8, ease }}
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -525,7 +493,7 @@ export function SanctuaryHero({ verse, nameOfDay, compact = false, ramadan }: Sa
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 2.8, ease }}
+          transition={{ duration: 0.5, delay: 2.2, ease }}
           style={{
             fontFamily: "'Inter', sans-serif",
             fontSize: 11,
@@ -543,7 +511,7 @@ export function SanctuaryHero({ verse, nameOfDay, compact = false, ramadan }: Sa
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 3.0, ease }}
+          transition={{ duration: 0.6, delay: 2.4, ease }}
           style={{
             position: 'absolute',
             bottom: 0,
