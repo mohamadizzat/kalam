@@ -4,6 +4,7 @@ import { useState, useRef, useCallback, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Play, Pause, Volume2, Share2, Check, Copy } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { getPhaseColor, getPhaseRgb } from '@/lib/ramadan-helpers'
 
 // ── Design tokens ────────────────────────────────────────────────────────────
 const tokens = {
@@ -18,10 +19,17 @@ const tokens = {
 } as const
 
 // ── Types ────────────────────────────────────────────────────────────────────
+interface RamadanProp {
+  day: number
+  phase: 'mercy' | 'forgiveness' | 'freedom'
+  isLailatAlQadr: boolean
+}
+
 interface SanctuaryHeroProps {
   verse: { arabic: string; translation: string; surahRef: string }
   nameOfDay?: { arabic: string; transliteration: string; meaning: string }
   compact?: boolean
+  ramadan?: RamadanProp | null
 }
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
@@ -38,7 +46,9 @@ function getAudioUrl(surahNumber: number): string {
 
 // ── Component ────────────────────────────────────────────────────────────────
 
-export function SanctuaryHero({ verse, nameOfDay, compact = false }: SanctuaryHeroProps) {
+export function SanctuaryHero({ verse, nameOfDay, compact = false, ramadan }: SanctuaryHeroProps) {
+  const ramadanPhaseColor = ramadan ? getPhaseColor(ramadan.phase) : null
+  const ramadanPhaseRgb = ramadan ? getPhaseRgb(ramadan.phase) : null
   const audioRef = useRef<HTMLAudioElement | null>(null)
   const [isPlaying, setIsPlaying] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -151,7 +161,7 @@ export function SanctuaryHero({ verse, nameOfDay, compact = false }: SanctuaryHe
           pointerEvents: 'none',
         }}
       >
-        {/* Top-right gold glow */}
+        {/* Top-right glow */}
         <motion.div
           animate={{
             scale: [1, 1.15, 1],
@@ -165,11 +175,13 @@ export function SanctuaryHero({ verse, nameOfDay, compact = false }: SanctuaryHe
             width: '60%',
             height: '60%',
             borderRadius: '50%',
-            background: `radial-gradient(circle, ${tokens.gold}18 0%, transparent 70%)`,
+            background: ramadanPhaseRgb
+              ? `radial-gradient(circle, rgba(${ramadanPhaseRgb},0.1) 0%, transparent 70%)`
+              : `radial-gradient(circle, ${tokens.gold}18 0%, transparent 70%)`,
             filter: 'blur(80px)',
           }}
         />
-        {/* Bottom-left gold glow */}
+        {/* Bottom-left glow */}
         <motion.div
           animate={{
             scale: [1, 1.1, 1],
@@ -183,7 +195,9 @@ export function SanctuaryHero({ verse, nameOfDay, compact = false }: SanctuaryHe
             width: '50%',
             height: '50%',
             borderRadius: '50%',
-            background: `radial-gradient(circle, ${tokens.gold}14 0%, transparent 70%)`,
+            background: ramadanPhaseRgb
+              ? `radial-gradient(circle, rgba(${ramadanPhaseRgb},0.08) 0%, transparent 70%)`
+              : `radial-gradient(circle, ${tokens.gold}14 0%, transparent 70%)`,
             filter: 'blur(90px)',
           }}
         />
@@ -201,7 +215,9 @@ export function SanctuaryHero({ verse, nameOfDay, compact = false }: SanctuaryHe
             width: '40%',
             height: '40%',
             borderRadius: '50%',
-            background: `radial-gradient(circle, ${tokens.goldLight}10 0%, transparent 70%)`,
+            background: ramadanPhaseRgb
+              ? `radial-gradient(circle, rgba(${ramadanPhaseRgb},0.06) 0%, transparent 70%)`
+              : `radial-gradient(circle, ${tokens.goldLight}10 0%, transparent 70%)`,
             filter: 'blur(60px)',
           }}
         />
@@ -212,8 +228,47 @@ export function SanctuaryHero({ verse, nameOfDay, compact = false }: SanctuaryHe
         className="relative z-10 w-full px-6 md:px-8"
         style={{ maxWidth: 680, textAlign: 'center' }}
       >
-        {/* ── Name of the Day (optional) ─────────────────────────────────── */}
-        {nameOfDay && (
+        {/* ── Name of the Day / Ramadan header ───────────────────────────── */}
+        {ramadan ? (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2, ease }}
+            style={{ marginBottom: compact ? 20 : 28 }}
+          >
+            <p style={{
+              fontFamily: "'Inter', sans-serif",
+              fontSize: 10,
+              fontWeight: 500,
+              letterSpacing: '3px',
+              textTransform: 'uppercase',
+              color: ramadanPhaseColor || tokens.gold,
+              marginBottom: 6,
+            }}>
+              RAMADAN — DIA {ramadan.day}
+            </p>
+            <p style={{
+              fontFamily: 'var(--font-arabic)',
+              fontSize: compact ? 20 : 24,
+              color: ramadanPhaseColor || tokens.gold,
+              lineHeight: 1.4,
+              marginBottom: 4,
+            }}>
+              رمضان كريم
+            </p>
+            {ramadan.isLailatAlQadr && (
+              <p style={{
+                fontFamily: 'var(--font-arabic)',
+                fontSize: compact ? 14 : 16,
+                color: `${tokens.gold}99`,
+                letterSpacing: '0.5px',
+                marginTop: 4,
+              }}>
+                خَيْرٌ مِنْ أَلْفِ شَهْرٍ
+              </p>
+            )}
+          </motion.div>
+        ) : nameOfDay ? (
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -249,7 +304,7 @@ export function SanctuaryHero({ verse, nameOfDay, compact = false }: SanctuaryHe
               {nameOfDay.transliteration} — {nameOfDay.meaning}
             </p>
           </motion.div>
-        )}
+        ) : null}
 
         {/* ── Bismillah ──────────────────────────────────────────────────── */}
         <motion.div

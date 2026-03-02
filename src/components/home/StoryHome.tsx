@@ -20,15 +20,17 @@ import {
   Route,
   BookText,
   GitBranch,
-  Calendar,
 } from 'lucide-react'
 import { surpriseFactsData } from '@/content/surpriseFacts'
 import { hardQuestionsData } from '@/content/hardQuestions'
 import { recognitionStoriesData } from '@/content/recognitionStories'
 import { SANCTUARY_VERSES, NAMES_PREVIEW } from '@/lib/data/daily-content'
-import { getTodayRamadan, RAMADAN_PHASES } from '@/lib/data/ramadan'
+import { getRamadanDay, getTodayRamadan } from '@/lib/data/ramadan'
 import type { RamadanDay } from '@/lib/data/ramadan'
 import { SanctuaryHero } from '@/components/home/SanctuaryHero'
+import { RamadanAtmosphere } from '@/components/ramadan/RamadanAtmosphere'
+import { RamadanDailyCard } from '@/components/ramadan/RamadanDailyCard'
+import { RamadanPhaseProgress } from '@/components/ramadan/RamadanPhaseProgress'
 import { usePersona } from '@/lib/hooks/usePersona'
 import type { PersonaId } from '@/lib/hooks/usePersona'
 
@@ -198,9 +200,11 @@ export function StoryHome({ onNavigate }: StoryHomeProps) {
   const carouselRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const { savePersona } = usePersona()
   const [ramadanToday, setRamadanToday] = useState<RamadanDay | null>(null)
+  const [ramadanDayNum, setRamadanDayNum] = useState<number | null>(null)
 
   useEffect(() => {
     setRamadanToday(getTodayRamadan())
+    setRamadanDayNum(getRamadanDay())
   }, [])
 
   useEffect(() => {
@@ -236,99 +240,34 @@ export function StoryHome({ onNavigate }: StoryHomeProps) {
   }
 
   return (
-    <main style={{ background: T.bg, minHeight: '100vh' }}>
+    <main style={{ background: T.bg, minHeight: '100vh', position: 'relative' }}>
+
+      {/* ═══════════════════════════════════════════════════════════════════════
+          RAMADAN ATMOSPHERE (stars + gradient + moon — only during Ramadan)
+      ═══════════════════════════════════════════════════════════════════════ */}
+      {ramadanToday && (
+        <RamadanAtmosphere phase={ramadanToday.phase} isLailatAlQadr={ramadanToday.isLailatAlQadr} />
+      )}
 
       {/* ═══════════════════════════════════════════════════════════════════════
           SECTION 1 — SANCTUARY HERO: Immersive sacred entry
       ═══════════════════════════════════════════════════════════════════════ */}
-      <SanctuaryHero verse={verse} nameOfDay={nameOfDay} />
+      <SanctuaryHero
+        verse={verse}
+        nameOfDay={nameOfDay}
+        ramadan={ramadanToday ? { day: ramadanToday.day, phase: ramadanToday.phase, isLailatAlQadr: ramadanToday.isLailatAlQadr } : null}
+      />
 
       {/* ═══════════════════════════════════════════════════════════════════════
-          RAMADAN BANNER (shown only during Ramadan)
+          RAMADAN DAILY CARD + PHASE PROGRESS (replaces old banner)
       ═══════════════════════════════════════════════════════════════════════ */}
-      {ramadanToday && (() => {
-        const phase = RAMADAN_PHASES.find(p => p.key === ramadanToday.phase)
-        return (
-          <motion.section
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            style={{ padding: '0 24px 32px' }}
-          >
-            <Link
-              href="/a-jornada/ramadan"
-              style={{ textDecoration: 'none', display: 'block' }}
-            >
-              <div
-                style={{
-                  maxWidth: 600,
-                  margin: '0 auto',
-                  background: `linear-gradient(135deg, rgba(${phase?.key === 'mercy' ? '74,144,217' : phase?.key === 'forgiveness' ? '201,168,76' : '217,74,74'},0.08) 0%, ${T.surface} 100%)`,
-                  border: `1px solid ${phase?.color || T.gold}33`,
-                  borderRadius: 20,
-                  padding: '28px 24px',
-                  position: 'relative',
-                  overflow: 'hidden',
-                }}
-              >
-                {/* Phase indicator */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
-                  <Calendar size={14} style={{ color: phase?.color || T.gold }} />
-                  <p style={{ fontSize: 11, letterSpacing: '0.15em', color: phase?.color || T.gold, textTransform: 'uppercase', fontWeight: 600 }}>
-                    Ramadan — Dia {ramadanToday.day} · {phase?.label}
-                  </p>
-                </div>
-
-                {/* Theme */}
-                <p
-                  style={{
-                    fontFamily: 'var(--font-serif)',
-                    fontSize: 'clamp(17px, 2.5vw, 20px)',
-                    color: T.text,
-                    fontWeight: 600,
-                    marginBottom: 8,
-                  }}
-                >
-                  {ramadanToday.theme}
-                </p>
-
-                {/* Deed */}
-                <p style={{ fontSize: 13, color: T.secondary, lineHeight: 1.7, marginBottom: 14 }}>
-                  {ramadanToday.deed.length > 120 ? ramadanToday.deed.slice(0, 120) + '...' : ramadanToday.deed}
-                </p>
-
-                {/* CTA */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                  <p style={{ fontSize: 13, color: phase?.color || T.gold, fontWeight: 500 }}>
-                    Ver jornada completa
-                  </p>
-                  <ArrowRight size={14} style={{ color: phase?.color || T.gold }} />
-                </div>
-
-                {/* Lailat al-Qadr badge */}
-                {ramadanToday.isLailatAlQadr && (
-                  <div
-                    style={{
-                      position: 'absolute',
-                      top: 12,
-                      right: 16,
-                      padding: '4px 10px',
-                      borderRadius: 999,
-                      background: 'rgba(201,168,76,0.15)',
-                      border: '1px solid rgba(201,168,76,0.3)',
-                    }}
-                  >
-                    <p style={{ fontSize: 10, color: T.gold, fontWeight: 600, letterSpacing: '0.05em' }}>
-                      ✦ Noite do Decreto
-                    </p>
-                  </div>
-                )}
-              </div>
-            </Link>
-          </motion.section>
-        )
-      })()}
+      {ramadanToday && ramadanDayNum && (
+        <>
+          <RamadanPhaseProgress currentDay={ramadanDayNum} />
+          <div style={{ height: 20 }} />
+          <RamadanDailyCard ramadanDay={ramadanToday} />
+        </>
+      )}
 
       {/* ═══════════════════════════════════════════════════════════════════════
           SECTION 2 — FATOS QUE SURPREENDEM (Carousel)
