@@ -1,0 +1,335 @@
+/* ═══════════════════════════════════════════════════════════════
+   UX OVERRIDES — KALAM BRASIL
+   Corrigir cursor, flickering, e melhorar hierarquia visual
+   Importar ÚLTIMO para garantir precedência
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── FIX CURSOR (animations.css removeu cursor globalmente) ── */
+*, *::before, *::after {
+  cursor: auto !important;
+}
+button, [role="button"], a,
+.faq-question, .path-card, .main-tab, .sub-tab,
+.mobile-nav-btn, .scripture-btn, .layer-card,
+.apoiar-card, .prophet-card, .study-phase,
+.pillar-card, .article-card, .tl-item {
+  cursor: pointer !important;
+}
+
+/* ── FIX TRANSITIONS (transition:all causa flickering) ── */
+.main-tab, .sub-tab, .mobile-nav-btn,
+.layer-card, .path-card, .prophet-card,
+.pillar-card, .article-card, .apoiar-card,
+.faq-question, .scripture-btn, .gloss-card,
+.cref-card, .study-phase {
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease,
+    opacity 0.2s ease !important;
+}
+
+/* ── FIX FADE-IN — sempre visível, só o movimento anima ── */
+.fade-in {
+  opacity: 1 !important;
+  animation: kalamFadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+}
+@keyframes kalamFadeUp {
+  from { transform: translateY(10px); }
+  to   { transform: translateY(0); }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   NAV — abas mais claras e separadas
+   ═══════════════════════════════════════════════════════════════ */
+
+.header {
+  height: 60px;
+  background: rgba(12, 11, 9, 0.97) !important;
+  border-bottom: 1px solid rgba(200,169,81,0.12) !important;
+  backdrop-filter: blur(24px);
+}
+
+.main-tabs {
+  gap: 0 !important;
+}
+
+.main-tab {
+  padding: 6px 14px !important;
+  font-size: 12px !important;
+  letter-spacing: 1px !important;
+  font-weight: 500 !important;
+  border-radius: 6px !important;
+  border: none !important;
+  border-bottom: 2px solid transparent !important;
+  color: rgba(245,239,224,0.4) !important;
+  position: relative;
+}
+
+.main-tab:hover {
+  color: rgba(245,239,224,0.75) !important;
+  background: rgba(200,169,81,0.07) !important;
+}
+
+.main-tab.active {
+  color: #C8A951 !important;
+  background: rgba(200,169,81,0.08) !important;
+  border-bottom-color: #C8A951 !important;
+}
+
+/* ── SUBTABS — pill style claro ── */
+.subtabs-bar {
+  background: #141210 !important;
+  border-bottom: 1px solid rgba(200,169,81,0.06) !important;
+  padding: 0 20px !important;
+  gap: 6px !important;
+  min-height: 44px !important;
+}
+
+.sub-tab {
+  padding: 5px 16px !important;
+  border-radius: 20px !important;
+  font-size: 13px !important;
+  letter-spacing: 0.2px !important;
+  color: rgba(245,239,224,0.42) !important;
+  border: 1px solid transparent !important;
+  background: transparent !important;
+}
+
+.sub-tab:hover {
+  color: rgba(245,239,224,0.72) !important;
+  background: rgba(200,169,81,0.06) !important;
+}
+
+.sub-tab.active {
+  color: #C8A951 !important;
+  background: rgba(200,169,81,0.1) !important;
+  border-color: rgba(200,169,81,0.2) !important;
+}
+
+/* ── TAB ICON BADGES (novo) ── */
+.main-tab-icon {
+  display: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CONTENT — seções mais organizadas e legíveis
+   ═══════════════════════════════════════════════════════════════ */
+
+.content {
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+.section {
+  max-width: 760px !important;
+  margin: 0 auto;
+  padding: 48px 32px 80px !important;
+}
+
+/* ── SECTION HEADER — mais limpo ── */
+.section-header {
+  text-align: center;
+  margin-bottom: 48px !important;
+}
+
+.section-arabic {
+  font-family: 'Noto Naskh Arabic', serif;
+  font-size: 28px;
+  color: rgba(200,169,81,0.4);
+  margin-bottom: 8px;
+  display: block;
+}
+
+.section-title {
+  font-family: 'Cormorant Garamond', serif !important;
+  font-size: 36px !important;
+  font-weight: 300 !important;
+  color: #F5EFE0 !important;
+  letter-spacing: 0.5px;
+  line-height: 1.15;
+}
+
+.section-line {
+  width: 48px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(200,169,81,0.5), transparent);
+  margin: 16px auto 0;
+}
+
+/* ── CONTENT TEXT — mais legível ── */
+.content-text {
+  font-size: 17px !important;
+  line-height: 1.85 !important;
+  color: rgba(245,239,224,0.78) !important;
+  margin-bottom: 18px;
+}
+
+.content-subtitle {
+  font-family: 'Cormorant Garamond', serif !important;
+  font-size: 22px !important;
+  font-weight: 500 !important;
+  color: #F5EFE0 !important;
+  margin-bottom: 16px;
+  border-left: 3px solid rgba(200,169,81,0.4) !important;
+  padding-left: 14px !important;
+}
+
+/* ── CARDS — mais organizados ── */
+.layer-card, .path-card, .prophet-card,
+.pillar-card, .article-card, .gloss-card,
+.apoiar-card, .study-phase, .cref-card {
+  border-radius: 10px !important;
+  border: 1px solid rgba(200,169,81,0.08) !important;
+  background: linear-gradient(150deg, #1E1B17, #1A1815) !important;
+}
+
+.layer-card:hover, .path-card:hover, .prophet-card:hover,
+.pillar-card:hover, .apoiar-card:hover {
+  border-color: rgba(200,169,81,0.2) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 28px rgba(0,0,0,0.4) !important;
+}
+
+/* ── FAQ — mais clean ── */
+.faq-item {
+  border-radius: 8px !important;
+  border: 1px solid rgba(200,169,81,0.08) !important;
+  background: linear-gradient(150deg, #1E1B17, #1A1815) !important;
+  margin-bottom: 8px !important;
+  overflow: hidden;
+}
+
+.faq-question {
+  padding: 18px 20px !important;
+  font-size: 16px !important;
+}
+
+.faq-answer {
+  padding: 4px 20px 18px !important;
+  font-size: 15px !important;
+  line-height: 1.75 !important;
+  color: rgba(245,239,224,0.72) !important;
+  border-top: 1px solid rgba(200,169,81,0.06) !important;
+}
+
+/* ── TIMELINE — alinhada ── */
+.tl-content {
+  border-radius: 8px !important;
+  border-color: rgba(200,169,81,0.1) !important;
+}
+
+/* ── QUOTE BLOCK — mais elegant ── */
+.quote-block {
+  border-left: 3px solid rgba(200,169,81,0.35) !important;
+  background: rgba(200,169,81,0.04) !important;
+  border-radius: 0 8px 8px 0 !important;
+  padding: 20px 24px !important;
+  margin: 28px 0 !important;
+}
+
+.quote-text {
+  font-size: 18px !important;
+  line-height: 1.75 !important;
+  font-style: italic;
+}
+
+/* ── KEY CONCEPT ── */
+.key-concept {
+  border-radius: 8px !important;
+  padding: 22px 24px !important;
+  background: rgba(200,169,81,0.05) !important;
+  border: 1px solid rgba(200,169,81,0.12) !important;
+  margin: 24px 0 !important;
+}
+
+/* ── SABIA QUE ── */
+.sabia-que {
+  border-radius: 8px !important;
+  padding: 18px 20px !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE NAV — mais claro com labels
+   ═══════════════════════════════════════════════════════════════ */
+
+.mobile-nav {
+  border-top: 1px solid rgba(200,169,81,0.1) !important;
+  background: rgba(10, 9, 8, 0.98) !important;
+  backdrop-filter: blur(16px);
+}
+
+.mobile-nav-btn {
+  gap: 3px !important;
+}
+
+.mobile-nav-btn.active .mobile-nav-icon {
+  color: #C8A951 !important;
+}
+
+.mobile-nav-btn.active .mobile-nav-label {
+  color: #C8A951 !important;
+  opacity: 1 !important;
+}
+
+/* ── Fix shimmer on hover (prevent repaints) ── */
+.arabic-shimmer:hover,
+.arabic-shimmer-subtle:hover {
+  animation: none !important;
+}
+
+/* ── Remove will-change on non-animated elements ── */
+*:not(:hover) {
+  will-change: auto;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SECTION BREADCRUMB (novo)
+   ═══════════════════════════════════════════════════════════════ */
+.section-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(200,169,81,0.45);
+  margin-bottom: 40px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(200,169,81,0.06);
+}
+
+.section-breadcrumb-sep {
+  opacity: 0.4;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE ADJUSTMENTS
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .section {
+    padding: 32px 20px 80px !important;
+  }
+
+  .section-title {
+    font-size: 28px !important;
+  }
+
+  .header {
+    padding: 0 16px !important;
+  }
+
+  /* Mostrar só 4 tabs no header mobile, resto no bottom nav */
+  .main-tabs {
+    display: none !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .mobile-nav {
+    display: none !important;
+  }
+}

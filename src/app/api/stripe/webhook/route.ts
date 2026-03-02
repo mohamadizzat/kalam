@@ -1,6 +1,7 @@
 import { NextRequest } from 'next/server'
 import Stripe from 'stripe'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
+import { loopsOnUpgrade, loopsOnCancel } from '@/lib/loops'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -101,6 +102,12 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
   if (error) {
     console.error('[Stripe Webhook] Failed to upsert membership:', error.message)
   }
+
+  // Loops — upgrade event
+  const { data: userData } = await getSupabaseAdmin().auth.admin.getUserById(userId)
+  if (userData?.user?.email) {
+    loopsOnUpgrade({ email: userData.user.email, userId })
+  }
 }
 
 async function handleSubscriptionUpdated(subscription: Stripe.Subscription) {
@@ -146,6 +153,12 @@ async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
 
   if (error) {
     console.error('[Stripe Webhook] Failed to cancel membership:', error.message)
+  }
+
+  // Loops — cancel event
+  const { data: userData } = await getSupabaseAdmin().auth.admin.getUserById(userId)
+  if (userData?.user?.email) {
+    loopsOnCancel({ email: userData.user.email, userId })
   }
 }
 

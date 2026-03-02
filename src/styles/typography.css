@@ -1,0 +1,1554 @@
+/* =============================================================================
+   KALAM BRASIL — SISTEMA TIPOGRÁFICO EDITORIAL
+   typography.css v2.0
+   =============================================================================
+
+   FILOSOFIA: Leitura de texto sagrado exige a mesma atenção que livro impresso.
+   Cada decisão aqui tem razão técnica + editorial. Nenhuma é arbitrária.
+
+   FONTES:
+     • Cormorant Garamond — Headings. Pesos 300–700 + itálico. Elegância editorial.
+       Inspirada na tipografia dos livros franceses do século XVI.
+       Funciona bem em displays grandes e com texto luminoso sobre fundo escuro.
+     • Crimson Pro — Corpo. Pesos 300–600 + itálico. Criada para leitura em tela.
+       Herda a tradição das fontes Garamond para leitura confortável e sustentada.
+     • Noto Naskh Arabic — Árabe. Pesos 400–700. Cobertura Unicode completa.
+       Projetada para máxima legibilidade com vogais (harakat) em display e texto.
+
+   ESCALA DE BASE: 18px (não 16px)
+     Conteúdo religioso/filosófico pede leitura mais lenta e reflexiva.
+     16px é ergonomicamente correto para interfaces. 18px é correto para prosa.
+     The New Yorker, The Atlantic, Longreads: todos usam 18–20px como base.
+
+   CLAMP() — ESCALA FLUIDA:
+     Todos os tamanhos usam clamp(min, preferred, max) para escalar suavemente
+     entre 375px e 1440px sem media queries para tipografia.
+     Fórmula: clamp(min-px, calc(Vpx + Vvw), max-px)
+
+   LARGURA DE COLUNA: 660–680px ≈ 65–70 caracteres por linha
+     Abaixo de 55ch: o olho volta cedo demais, perde o ritmo.
+     Acima de 80ch: o olho perde a próxima linha ao voltar da direita.
+
+   LINE-HEIGHT 1.85 para prosa:
+     Texto com 18px de base precisa de pelo menos 1.75. 1.85 cria o "ar"
+     de página impressa premium. Leitores percebem isso como "fácil de ler".
+
+   ÁRABE: regras diferentes
+     Fonte árabe precisa de font-size 10–15% maior porque os caracteres
+     são opticamente menores que latinos no mesmo corpo. Line-height 2.0–2.2
+     para acomodar vogais (harakat) que ficam acima e abaixo da linha base.
+     NUNCA usar letter-spacing em árabe — quebra ligaduras.
+
+   VARIÁVEIS REFERENCIADAS (definidas em design-system.css / App.jsx :root):
+     --gold:       #C8A951     --gold-light: #E8D5A0
+     --dark:       #0F0E0C     --dark2:      #1A1815    --dark3: #242119
+     --cream:      #F5EFE0     --green:      #2D6B4F
+     --radius:     8px         --radius-sm:  5px
+     --card-bg     --card-border  --card-shadow
+
+   VARIÁVEIS ADICIONAIS (definidas aqui):
+     --gold-100:      #C8A951          (alias semântico para text-gold)
+     --gold-dim:      rgba(200,169,81,0.65)   (texto ouro suave)
+     --gold-ghost:    rgba(200,169,81,0.18)   (decorativo)
+     --cream-bright:  rgba(245,239,224,0.92)  (corpo de texto primário)
+     --cream-mid:     rgba(245,239,224,0.78)  (corpo secundário)
+     --cream-muted:   rgba(245,239,224,0.60)  (metadados, datas)
+     --cream-faint:   rgba(245,239,224,0.36)  (placeholders, desabilitado)
+     --type-base:     18px
+     --lh-prose:      1.85
+     --lh-arabic:     2.1
+     --prose-width:   660px
+     --drop-cap-size: 4.2em
+
+   ÍNDICE:
+     0.  Google Fonts Import
+     1.  Variáveis tipográficas locais
+     2.  Hierarquia de headings (com clamp())
+     3.  Corpo de texto
+     4.  Labels e metadata (Cormorant Garamond small caps)
+     5.  Texto árabe
+     6.  Prose (container + espaçamento editorial)
+     7.  Section titles com ornamento
+     8.  Pull quote
+     9.  Drop cap
+    10.  Emphasis e inline utilities
+    11.  Número de hadith (decorativo)
+    12.  Footnotes
+    13.  Dividers tipográficos
+    14.  Responsive (375px → 1440px via clamp + breakpoints)
+   ============================================================================= */
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   0. GOOGLE FONTS IMPORT
+   Carrega todas as variantes necessárias em uma única requisição por família.
+   Usar display=swap para evitar FOIT (flash of invisible text).
+   ───────────────────────────────────────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap');
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   1. VARIÁVEIS TIPOGRÁFICAS LOCAIS
+   Estendem as variáveis do :root sem sobrescrever nada do design-system.css
+   ───────────────────────────────────────────────────────────────────────────── */
+
+:root {
+  /* Aliases semânticos para cores (não duplicam, apenas nomeiam a intenção) */
+  --gold-100:     #C8A951;
+  --gold-dim:     rgba(200,169,81,0.65);
+  --gold-ghost:   rgba(200,169,81,0.18);
+
+  /* Escala de opacidade do cream */
+  --cream-bright: rgba(245,239,224,0.92);
+  --cream-mid:    rgba(245,239,224,0.78);
+  --cream-muted:  rgba(245,239,224,0.60);
+  --cream-faint:  rgba(245,239,224,0.36);
+
+  /* ── ESCALA TIPOGRÁFICA FLUIDA (clamp) ──────────────────────────────────────
+     Fórmula geral: clamp(mobile-min, viewport-calc, desktop-max)
+     Viewport calc usa vw para interpolar suavemente entre 375px e 1440px.
+     Referência: https://clamp.font-size.app/
+
+     Categoria       | Mobile(375) | Desktop(1440) | clamp()
+     ─────────────────┼─────────────┼───────────────┼──────────────────────────── */
+  --type-tiny:   clamp(10px,  calc(9px  + 0.27vw), 12px);   /* metadata mínima    */
+  --type-xs:     clamp(11px,  calc(10px + 0.28vw), 13px);   /* labels caps        */
+  --type-sm:     clamp(13px,  calc(12px + 0.38vw), 15px);   /* notas, footnotes   */
+  --type-base:   clamp(16px,  calc(15px + 0.56vw), 18px);   /* corpo padrão       */
+  --type-md:     clamp(17px,  calc(15px + 0.75vw), 19px);   /* body-large, lead   */
+  --type-lg:     clamp(19px,  calc(17px + 0.75vw), 22px);   /* heading-card       */
+  --type-xl:     clamp(22px,  calc(18px + 1.13vw), 28px);   /* heading-section    */
+  --type-2xl:    clamp(28px,  calc(22px + 1.69vw), 38px);   /* heading-display    */
+  --type-3xl:    clamp(36px,  calc(28px + 2.26vw), 52px);   /* heading-hero       */
+  --type-display:clamp(48px,  calc(36px + 3.38vw), 64px);   /* display extremo    */
+  --type-grand:  clamp(56px,  calc(40px + 4.51vw), 80px);   /* máximo editorial   */
+
+  /* Árabe: opticamente maior que o equivalente latino */
+  --type-arabic-inline: clamp(20px, calc(18px + 0.56vw), 22px);
+  --type-arabic-card:   clamp(24px, calc(20px + 1.13vw), 28px);
+  --type-arabic-section:clamp(36px, calc(28px + 2.26vw), 42px);
+  --type-arabic-hero:   clamp(40px, calc(32px + 3.38vw), 64px);
+
+  /* Line-heights */
+  --lh-display: 1.05;    /* display grandioso — comprimido para impacto */
+  --lh-tight:   1.2;     /* headings — padrão editorial para títulos grandes */
+  --lh-heading: 1.35;    /* headings médios */
+  --lh-lead:    1.6;     /* lead paragraphs, chapôs */
+  --lh-prose:   1.75;    /* corpo de texto padrão */
+  --lh-loose:   2.0;     /* notas, legibilidade ampliada */
+  --lh-arabic:  2.1;     /* árabe — acomoda harakat acima/abaixo */
+
+  /* Largura máxima da coluna de leitura */
+  --prose-width: 660px;
+  --prose-width-wide: 820px;
+
+  /* Letter-spacing por categoria */
+  --ls-display:  -0.03em;  /* display grande, comprime o tracking natural */
+  --ls-heading:  -0.02em;  /* headings padrão */
+  --ls-tight:    -0.01em;
+  --ls-normal:    0em;
+  --ls-caps:      0.12em;  /* LABELS EM CAPS — padrão editorial */
+  --ls-caps-wide: 0.20em;  /* labels decorativos, chapter markers */
+  --ls-caps-xl:   0.28em;  /* ornamental, uso esparso */
+
+  /* Drop cap */
+  --drop-cap-size:  4.2em;
+  --drop-cap-lines: 3;
+
+  /* Ornamento de seção */
+  --ornament-line-color: rgba(200,169,81,0.25);
+  --ornament-line-width: 40px;
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   2. HIERARQUIA DE HEADINGS
+   ─────────────────────────────────────────────────────────────────────────────
+
+   Todos os sizes usam clamp() para escala fluida.
+   Anti-aliasing suave é obrigatório em dark backgrounds com peso leve.
+
+   Uso:
+     .heading-grand    → seção de abertura de página, momento de marca
+     .heading-display  → título principal de uma seção/capítulo
+     .heading-section  → subtítulo de seção dentro de um capítulo
+     .heading-card     → título dentro de card, resultado de busca, glossário
+     .heading-hero     → título de hero section com árabe
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* Máximo editorial — usado em heroes e momentos de marca */
+.heading-grand {
+  font-family: 'Cormorant Garamond', serif;
+  font-size:   var(--type-grand);      /* clamp(56px, calc(40px + 4.51vw), 80px) */
+  font-weight: 300;
+  line-height: var(--lh-display);     /* 1.05 — impacto máximo */
+  letter-spacing: var(--ls-display);  /* -0.03em */
+  color: var(--cream);
+  hyphens: none;
+  word-break: keep-all;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.heading-grand--gold {
+  color: var(--gold-100);
+}
+
+.heading-grand--italic {
+  font-style: italic;
+  letter-spacing: 0;
+}
+
+/* Display — título principal de seção */
+.heading-display {
+  font-family: 'Cormorant Garamond', serif;
+  font-size:   var(--type-2xl);        /* clamp(28px, calc(22px + 1.69vw), 38px) */
+  font-weight: 300;
+  line-height: var(--lh-tight);       /* 1.2 */
+  letter-spacing: var(--ls-heading);  /* -0.02em */
+  color: var(--cream);
+  hyphens: none;
+  word-break: keep-all;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.heading-display--gold {
+  color: var(--gold-100);
+}
+
+.heading-display--italic {
+  font-style: italic;
+  letter-spacing: 0;
+}
+
+/* H1 hero — para títulos de página principais */
+.heading-hero {
+  font-family: 'Cormorant Garamond', serif;
+  font-size:   var(--type-3xl);       /* clamp(36px, calc(28px + 2.26vw), 52px) */
+  font-weight: 300;
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+  color: var(--cream);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Section heading — h2 */
+.heading-section {
+  font-family: 'Cormorant Garamond', serif;
+  font-size:   var(--type-xl);        /* clamp(22px, calc(18px + 1.13vw), 28px) */
+  font-weight: 400;
+  line-height: var(--lh-heading);    /* 1.35 */
+  letter-spacing: var(--ls-heading);
+  color: var(--cream);
+  margin-bottom: 0.6em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Variante com borda dourada à esquerda */
+.heading-section--ruled {
+  padding-left: 16px;
+  border-left: 2px solid rgba(200,169,81,0.45);
+}
+
+/* Heading de card — h3 */
+.heading-card {
+  font-family: 'Cormorant Garamond', serif;
+  font-size:   var(--type-lg);        /* clamp(19px, calc(17px + 0.75vw), 22px) */
+  font-weight: 400;
+  line-height: var(--lh-heading);
+  letter-spacing: 0;
+  color: var(--cream);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.heading-card--gold {
+  font-family: 'Cormorant Garamond', serif;
+  font-size:   var(--type-lg);
+  font-weight: 500;
+  color: var(--gold-100);
+  line-height: var(--lh-heading);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* h1 para página inteira — acima do heading-display */
+/* clamp(40px, calc(32px + 2.26vw), 48px) */
+.heading-h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size:   clamp(40px, calc(32px + 2.26vw), 48px);
+  font-weight: 300;
+  line-height: 1.15;
+  letter-spacing: var(--ls-display);
+  color: var(--cream);
+  hyphens: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* h2 para página inteira */
+/* clamp(28px, calc(22px + 1.69vw), 32px) */
+.heading-h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size:   clamp(28px, calc(22px + 1.69vw), 32px);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: var(--ls-heading);
+  color: var(--cream);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* h3 */
+/* clamp(20px, calc(17px + 0.85vw), 24px) */
+.heading-h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size:   clamp(20px, calc(17px + 0.85vw), 24px);
+  font-weight: 400;
+  line-height: 1.3;
+  color: var(--cream);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* h4 */
+/* clamp(16px, calc(15px + 0.28vw), 18px) */
+.heading-h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size:   clamp(16px, calc(15px + 0.28vw), 18px);
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--cream);
+  -webkit-font-smoothing: antialiased;
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   3. CORPO DE TEXTO
+   ─────────────────────────────────────────────────────────────────────────────
+
+   Uso:
+     .body-large  → parágrafo de abertura, chapô, lead text (17–18px)
+     .body-base   → corpo padrão de leitura longa (16–18px)
+     .body-small  → notas explicativas, legendas, texto dentro de cards (14px)
+     .body-tiny   → metadados mínimos, timestamps, referencias (12px)
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* Lead / chapô — primeiro parágrafo, levemente maior */
+.body-large {
+  font-family: 'Crimson Pro', serif;
+  font-size:   var(--type-md);        /* clamp(17px, calc(15px + 0.75vw), 19px) */
+  font-weight: 400;
+  line-height: var(--lh-prose);      /* 1.75 */
+  color: var(--cream-bright);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  hyphens: auto;
+  hyphenate-limit-chars: 6 3 3;
+  overflow-wrap: break-word;
+}
+
+/* Corpo padrão */
+.body-base {
+  font-family: 'Crimson Pro', serif;
+  font-size:   var(--type-base);     /* clamp(16px, calc(15px + 0.56vw), 18px) */
+  font-weight: 400;
+  line-height: var(--lh-prose);
+  color: var(--cream-bright);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  hyphens: auto;
+  hyphenate-limit-chars: 6 3 3;
+  overflow-wrap: break-word;
+}
+
+/* Corpo menor — contexto, legenda, nota dentro de card */
+.body-small {
+  font-family: 'Crimson Pro', serif;
+  font-size:   var(--type-sm);       /* clamp(13px, calc(12px + 0.38vw), 15px) */
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--cream-muted);
+  -webkit-font-smoothing: antialiased;
+  hyphens: auto;
+  overflow-wrap: break-word;
+}
+
+/* Corpo mínimo — metadados, datas, referências discretas */
+.body-micro {
+  font-family: 'Crimson Pro', serif;
+  font-size:   var(--type-xs);       /* clamp(11px, calc(10px + 0.28vw), 13px) */
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--cream-faint);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Corpo em itálico — para ênfase editorial */
+.body-italic {
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* Parágrafo de abertura de seção — lead + itálico */
+.body-lead {
+  font-family: 'Cormorant Garamond', serif;
+  font-size:   clamp(18px, calc(16px + 0.56vw), 20px);
+  font-style: italic;
+  font-weight: 300;
+  line-height: var(--lh-lead);      /* 1.6 */
+  color: rgba(245,239,224,0.80);
+  max-width: var(--prose-width);
+  margin-bottom: 1.5em;
+  -webkit-font-smoothing: antialiased;
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   4. LABELS E METADATA
+   ─────────────────────────────────────────────────────────────────────────────
+
+   Labels usam Cormorant Garamond em small caps — elegância editorial máxima.
+   A regra: quanto menor o texto, mais tracking (letter-spacing) ele precisa.
+   Letter-spacing compensa a compressão óptica em tamanhos pequenos.
+
+   Uso:
+     .label-caps     → ORIGEM · MENSAGEM · ALCORÃO (Cormorant Garamond SC)
+     .label-caps-sm  → variante menor
+     .label-arabic   → pequeno texto árabe em linha com label
+     .label-meta     → datas, referências, versículos
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* Label padrão em Cormorant Garamond small caps */
+.label-caps {
+  font-family: 'Cormorant Garamond', serif;
+  font-size:   var(--type-xs);       /* clamp(11px, calc(10px + 0.28vw), 13px) */
+  font-weight: 600;
+  font-variant: small-caps;
+  text-transform: uppercase;
+  letter-spacing: var(--ls-caps);   /* 0.12em — essencial para legibilidade */
+  line-height: 1;
+  color: var(--gold-dim);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Variante de label maior — sub-seções, sidebar */
+.label-caps--lg {
+  font-family: 'Cormorant Garamond', serif;
+  font-size:   clamp(12px, calc(11px + 0.28vw), 14px);
+  font-weight: 500;
+  font-variant: small-caps;
+  text-transform: uppercase;
+  letter-spacing: var(--ls-caps-wide);  /* 0.20em */
+  color: var(--gold-dim);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Label dourado brilhante — destaques ativos, tabs selecionadas */
+.label-caps--bright {
+  font-family: 'Cormorant Garamond', serif;
+  font-size:   var(--type-xs);
+  font-weight: 700;
+  font-variant: small-caps;
+  text-transform: uppercase;
+  letter-spacing: var(--ls-caps);
+  color: var(--gold-100);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Label ornamental — chapter markers, seções especiais */
+.label-caps--ornamental {
+  font-family: 'Cormorant Garamond', serif;
+  font-size:   clamp(10px, calc(9px + 0.28vw), 12px);
+  font-weight: 400;
+  font-variant: small-caps;
+  text-transform: uppercase;
+  letter-spacing: var(--ls-caps-xl);   /* 0.28em */
+  color: var(--gold-dim);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Label árabe pequeno — para transliterações ao lado de labels latinos */
+.label-arabic {
+  font-family: 'Noto Naskh Arabic', serif;
+  font-size:   clamp(14px, calc(13px + 0.28vw), 16px);
+  font-weight: 400;
+  line-height: 1;
+  color: var(--gold-dim);
+  direction: rtl;
+  unicode-bidi: bidi-override;
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Metadata / timestamp — datas, referências, versículos */
+.label-meta {
+  font-family: 'Crimson Pro', serif;
+  font-size:   clamp(11px, calc(10px + 0.28vw), 13px);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--cream-muted);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Era / período histórico — usado na timeline */
+.label-era {
+  font-family: 'Cormorant Garamond', serif;
+  font-size:   clamp(12px, calc(11px + 0.28vw), 14px);
+  font-weight: 500;
+  font-style: italic;
+  letter-spacing: 0.02em;
+  color: var(--gold-dim);
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   5. TEXTO ÁRABE
+   ─────────────────────────────────────────────────────────────────────────────
+
+   REGRAS ESPECIAIS:
+   1. Sempre maior que o equivalente latino em 15–20% (correção óptica)
+   2. Line-height 2.0–2.2 SEMPRE — os harakat (vogais) ficam acima/abaixo
+   3. direction: rtl — OBRIGATÓRIO em qualquer bloco árabe
+   4. NUNCA usar letter-spacing em árabe — quebra ligaduras
+   5. font-feature-settings: 'liga' 1, 'calt' 1 — garante ligaduras corretas
+
+   Uso:
+     .arabic-hero    → بسم الله الرحمن الرحيم — hero section grande
+     .arabic-section → إبراهيم — nome de profeta em cabeçalho
+     .arabic-inline  → آدم — nome árabe dentro de parágrafo
+     .arabic-verse   → versículo completo em bloco isolado
+     .arabic-basmala → bismillah — abertura especial
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* Árabe heroico — bismillah, títulos de seção, abertura */
+.arabic-hero {
+  font-family: 'Noto Naskh Arabic', serif;
+  font-size:   var(--type-arabic-hero);  /* clamp(40px,...,64px) */
+  font-weight: 400;
+  line-height: var(--lh-arabic);         /* 2.1 */
+  color: var(--gold-100);
+  direction: rtl;
+  text-align: center;
+  letter-spacing: 0;                     /* NUNCA em árabe */
+  font-feature-settings: 'liga' 1, 'calt' 1, 'kern' 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Variante cream */
+.arabic-hero--cream {
+  font-family: 'Noto Naskh Arabic', serif;
+  font-size:   var(--type-arabic-hero);
+  font-weight: 400;
+  line-height: var(--lh-arabic);
+  color: var(--cream-bright);
+  direction: rtl;
+  text-align: center;
+  letter-spacing: 0;
+  font-feature-settings: 'liga' 1, 'calt' 1;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Árabe de seção — subtítulo, cabeçalho de card de profeta */
+.arabic-section {
+  font-family: 'Noto Naskh Arabic', serif;
+  font-size:   var(--type-arabic-section);  /* clamp(36px,...,42px) */
+  font-weight: 400;
+  line-height: var(--lh-arabic);
+  color: var(--gold-100);
+  opacity: 0.75;
+  direction: rtl;
+  text-align: center;
+  letter-spacing: 0;
+  font-feature-settings: 'liga' 1, 'calt' 1;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Árabe em linha com texto latino */
+.arabic-inline {
+  font-family: 'Noto Naskh Arabic', serif;
+  font-size:   var(--type-arabic-inline);   /* clamp(20px,...,22px) */
+  font-weight: 400;
+  line-height: 1;
+  color: var(--gold-dim);
+  direction: rtl;
+  unicode-bidi: embed;
+  display: inline-block;
+  vertical-align: baseline;
+  letter-spacing: 0;
+  font-feature-settings: 'liga' 1, 'calt' 1;
+  -webkit-font-smoothing: antialiased;
+  margin-right: 0.1em;
+  margin-left: 0.05em;
+}
+
+/* Versículo do Alcorão em bloco isolado */
+.arabic-verse {
+  font-family: 'Noto Naskh Arabic', serif;
+  font-size:   var(--type-arabic-card);     /* clamp(24px,...,28px) */
+  font-weight: 400;
+  line-height: 2.2;
+  color: var(--cream-bright);
+  direction: rtl;
+  text-align: right;
+  letter-spacing: 0;
+  font-feature-settings: 'liga' 1, 'calt' 1, 'kern' 1;
+  -webkit-font-smoothing: antialiased;
+  padding: 32px 0;
+  margin: 0;
+}
+
+/* Basmala — tratamento especial, sempre no início de surah */
+.arabic-basmala {
+  font-family: 'Noto Naskh Arabic', serif;
+  font-size:   clamp(26px, calc(22px + 1.13vw), 32px);
+  font-weight: 400;
+  line-height: 2.1;
+  color: var(--gold-100);
+  direction: rtl;
+  text-align: center;
+  letter-spacing: 0;
+  font-feature-settings: 'liga' 1, 'calt' 1;
+  -webkit-font-smoothing: antialiased;
+  margin-bottom: 1.5em;
+  opacity: 0.85;
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   6. PROSE — CONTAINER DE LEITURA + ESPAÇAMENTO
+   ─────────────────────────────────────────────────────────────────────────────
+
+   .prose é o container. Tudo que vive dentro dele herda tipografia de leitura.
+   Separa o "texto para ler" do "UI para interagir".
+
+   Uso:
+     <article class="prose">
+       <p>O Islam...</p>
+       <p>Em árabe, a palavra...</p>
+       <h2>A Mensagem Central</h2>
+     </article>
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.prose {
+  max-width: var(--prose-width);     /* 660px ≈ 65ch em Crimson Pro 18px */
+  font-family: 'Crimson Pro', serif;
+  font-size:   var(--type-base);
+  font-weight: 400;
+  line-height: var(--lh-prose);     /* 1.75 */
+  color: var(--cream-bright);
+  text-align: justify;
+  hyphens: auto;
+  hyphenate-limit-chars: 6 3 3;
+  overflow-wrap: break-word;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+.prose p + p {
+  margin-top: 1.5em;
+}
+
+.prose p:first-child {
+  margin-top: 0;
+}
+
+.prose h1,
+.prose h2,
+.prose h3 {
+  font-family: 'Cormorant Garamond', serif;
+  margin-top: 2.2em;
+  margin-bottom: 0.8em;
+  hyphens: none;
+  text-align: left;
+  -webkit-font-smoothing: antialiased;
+}
+
+.prose h1:first-child,
+.prose h2:first-child,
+.prose h3:first-child {
+  margin-top: 0;
+}
+
+.prose h1 { font-size: var(--type-2xl); font-weight: 300; line-height: var(--lh-tight); }
+.prose h2 { font-size: var(--type-xl);  font-weight: 400; line-height: var(--lh-heading); }
+.prose h3 { font-size: var(--type-lg);  font-weight: 400; line-height: var(--lh-heading); }
+
+.prose p + h2,
+.prose p + h3 {
+  margin-top: 2.8em;
+}
+
+.prose h1 + p,
+.prose h2 + p,
+.prose h3 + p {
+  margin-top: 0;
+}
+
+.prose ul,
+.prose ol {
+  font-family: 'Crimson Pro', serif;
+  font-size:   var(--type-base);
+  line-height: var(--lh-prose);
+  color: var(--cream-bright);
+  padding-left: 1.5em;
+  margin: 1em 0;
+}
+
+.prose li + li {
+  margin-top: 0.5em;
+}
+
+.prose strong {
+  font-weight: 600;
+  color: var(--cream);
+}
+
+.prose em {
+  font-style: italic;
+  font-weight: 400;
+  color: rgba(245,239,224,0.85);
+}
+
+.prose a {
+  color: var(--gold-100);
+  text-decoration: underline;
+  text-decoration-color: rgba(200,169,81,0.35);
+  text-underline-offset: 0.15em;
+  transition: text-decoration-color 0.2s ease, color 0.2s ease;
+}
+
+.prose a:hover {
+  color: var(--gold-light, #E8D5A0);
+  text-decoration-color: rgba(200,169,81,0.7);
+}
+
+.prose blockquote {
+  border-left: 2px solid rgba(200,169,81,0.4);
+  padding-left: 1.25em;
+  margin: 1.5em 0;
+  font-style: italic;
+  color: var(--cream-mid);
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   7. SECTION TITLES COM ORNAMENTO
+   ─────────────────────────────────────────────────────────────────────────────
+
+   Section titles usam uma linha ornamental dourada acima e/ou abaixo
+   para separar visualmente seções de conteúdo em leitura longa.
+   Inspirado em livros islâmicos clássicos e revistas editoriais.
+
+   Uso:
+     <h2 class="section-title">A Mensagem Central</h2>
+     <h2 class="section-title section-title--centered">Tawhid</h2>
+     <h2 class="section-title section-title--over-line">Profetas</h2>
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* Título de seção com linha ornamental abaixo */
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size:   var(--type-xl);
+  font-weight: 300;
+  line-height: var(--lh-heading);
+  letter-spacing: var(--ls-heading);
+  color: var(--cream);
+  padding-bottom: 0.6em;
+  margin-bottom: 1.5em;
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Linha ornamental dourada abaixo do título */
+.section-title::after {
+  content:  '';
+  position: absolute;
+  bottom:   0;
+  left:     0;
+  width:    var(--ornament-line-width, 40px);
+  height:   1px;
+  background: linear-gradient(
+    90deg,
+    rgba(200,169,81,0.8) 0%,
+    rgba(200,169,81,0.3) 60%,
+    transparent 100%
+  );
+}
+
+/* Variante centralizada — para seções simétricas */
+.section-title--centered {
+  text-align: center;
+}
+
+.section-title--centered::after {
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+}
+
+/* Variante com linha acima E abaixo */
+.section-title--bordered {
+  padding-top: 0.6em;
+  border-top: 1px solid rgba(200,169,81,0.14);
+}
+
+/* Variante com número decorativo */
+.section-title--numbered {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5em;
+}
+
+.section-title--numbered .section-title__num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size:   clamp(40px, calc(32px + 2.26vw), 56px);
+  font-weight: 300;
+  color: var(--gold-100);
+  opacity: 0.18;
+  line-height: 1;
+  letter-spacing: -2px;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+/* Variante dourada — hero sections */
+.section-title--gold {
+  color: var(--gold-100);
+}
+
+.section-title--gold::after {
+  width: 56px;
+  background: linear-gradient(
+    90deg,
+    var(--gold-100) 0%,
+    rgba(200,169,81,0.4) 60%,
+    transparent 100%
+  );
+}
+
+/* Ornamento completo: linha — símbolo — linha */
+.section-ornament {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 2em 0;
+  color: var(--gold-dim);
+}
+
+.section-ornament::before,
+.section-ornament::after {
+  content:    '';
+  flex:       1;
+  height:     1px;
+  background: linear-gradient(90deg, transparent, rgba(200,169,81,0.25));
+}
+
+.section-ornament::after {
+  background: linear-gradient(90deg, rgba(200,169,81,0.25), transparent);
+}
+
+.section-ornament__symbol {
+  font-family: 'Cormorant Garamond', serif;
+  font-size:   var(--type-xs);
+  letter-spacing: 6px;
+  color: var(--gold-dim);
+  flex-shrink: 0;
+  user-select: none;
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   8. PULL QUOTE
+   ─────────────────────────────────────────────────────────────────────────────
+
+   Pull quotes são as "âncoras emocionais" do texto. Devem parar o leitor.
+   Tamanho maior, itálico, cor diferente, margem negativa para sangria visual.
+
+   Uso:
+     <aside class="pull-quote">
+       <p class="pull-quote__text">"Não há divindade exceto Allah."</p>
+       <cite class="pull-quote__source">A Shahada — O Testemunho de Fé</cite>
+     </aside>
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.pull-quote {
+  margin: 48px -24px;
+  padding: 36px 40px;
+  background: linear-gradient(
+    135deg,
+    rgba(200,169,81,0.06) 0%,
+    rgba(200,169,81,0.02) 60%,
+    transparent 100%
+  );
+  border-top:    1px solid rgba(200,169,81,0.25);
+  border-bottom: 1px solid rgba(200,169,81,0.25);
+  position: relative;
+}
+
+/* Guillemet decorativo de abertura */
+.pull-quote::before {
+  content: '"';
+  position: absolute;
+  top: 8px;
+  left: 28px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(72px, calc(60px + 3.38vw), 100px);
+  line-height: 1;
+  color: var(--gold-100);
+  opacity: 0.10;
+  pointer-events: none;
+}
+
+/* O texto da citação */
+.pull-quote__text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size:   clamp(19px, calc(17px + 0.56vw), 22px);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.65;
+  color: var(--cream);
+  text-align: center;
+  margin-bottom: 16px;
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+  hyphens: none;
+}
+
+/* Fonte/atribuição */
+.pull-quote__source {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size:   var(--type-xs);
+  font-weight: 600;
+  font-variant: small-caps;
+  letter-spacing: var(--ls-caps);
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  text-align: center;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Árabe antes do texto latino */
+.pull-quote__arabic {
+  font-family: 'Noto Naskh Arabic', serif;
+  font-size:   clamp(22px, calc(20px + 0.56vw), 26px);
+  font-weight: 400;
+  line-height: 2.0;
+  color: var(--gold-100);
+  text-align: center;
+  direction: rtl;
+  letter-spacing: 0;
+  font-feature-settings: 'liga' 1, 'calt' 1;
+  -webkit-font-smoothing: antialiased;
+  margin-bottom: 0.5em;
+}
+
+/* Variante compacta — dentro de cards */
+.pull-quote--compact {
+  margin: 24px 0;
+  padding: 24px 28px;
+}
+
+.pull-quote--compact .pull-quote__text {
+  font-size: clamp(17px, calc(15px + 0.56vw), 19px);
+}
+
+.pull-quote--compact::before {
+  font-size: clamp(56px, calc(48px + 2.26vw), 72px);
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   9. DROP CAP
+   ─────────────────────────────────────────────────────────────────────────────
+
+   O drop cap é o "welcome" de uma seção. Indica: "aqui começa algo importante."
+   A primeira letra fica grande e ocupa N linhas de altura.
+
+   Uso:
+     <p class="prose-dropcap">Em árabe, a palavra "kalam" significa...</p>
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.prose-dropcap::first-letter,
+.prose--dropcap > p:first-of-type::first-letter {
+  font-family: 'Cormorant Garamond', serif;
+  font-size:   var(--drop-cap-size);  /* 4.2em ≈ ~75px com base 18px */
+  font-weight: 300;
+  line-height: 0.82;
+  float: left;
+  margin-right: 0.08em;
+  margin-bottom: -0.05em;
+  color: var(--gold-100);
+  -webkit-font-smoothing: antialiased;
+}
+
+.prose-dropcap--gold::first-letter {
+  font-family: 'Cormorant Garamond', serif;
+  font-size:   var(--drop-cap-size);
+  font-weight: 400;
+  line-height: 0.80;
+  float: left;
+  margin-right: 0.1em;
+  margin-bottom: -0.06em;
+  color: var(--gold-100);
+  text-shadow: 0 0 40px rgba(200,169,81,0.3);
+  -webkit-font-smoothing: antialiased;
+}
+
+.prose-dropcap--cream::first-letter {
+  font-family: 'Cormorant Garamond', serif;
+  font-size:   var(--drop-cap-size);
+  font-weight: 300;
+  line-height: 0.82;
+  float: left;
+  margin-right: 0.08em;
+  margin-bottom: -0.05em;
+  color: var(--cream);
+  opacity: 0.85;
+  -webkit-font-smoothing: antialiased;
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   10. EMPHASIS E INLINE UTILITIES
+   ─────────────────────────────────────────────────────────────────────────────
+
+   Uso:
+     <span class="text-gold">palavra dourada</span>
+     <span class="text-italic-gold">ênfase em dourado itálico</span>
+     <mark class="text-highlight">versículo chave</mark>
+     <dfn class="text-term">Tawhid</dfn>
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.text-gold         { color: var(--gold-100); }
+.text-italic-gold  { color: var(--gold-100); font-style: italic; font-weight: 400; }
+.text-gold-dim     { color: var(--gold-dim); }
+.text-cream        { color: var(--cream); }
+.text-muted        { color: var(--cream-muted); }
+.text-faint        { color: var(--cream-faint); }
+.text-green        { color: var(--green, #2D6B4F); }
+
+/* Highlight com fundo sutil — inline mark */
+.text-highlight {
+  background:  rgba(200,169,81,0.12);
+  color:       var(--cream);
+  padding:     0.05em 0.25em;
+  border-radius: 2px;
+  font-style:  normal;
+}
+
+/* Transliteração — texto latino representando pronúncia árabe */
+.text-transliteration {
+  font-family: 'Crimson Pro', serif;
+  font-style:  italic;
+  font-size:   0.95em;
+  color:       var(--cream-muted);
+}
+
+/* Termo técnico — primeira menção de termos islâmicos */
+.text-term {
+  font-style:     italic;
+  color:          var(--gold-dim);
+  cursor:         help;
+  border-bottom:  1px dashed rgba(200,169,81,0.35);
+}
+
+/* Alinhamentos */
+.text-left    { text-align: left;    }
+.text-center  { text-align: center;  }
+.text-right   { text-align: right;   }
+.text-justify { text-align: justify; }
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   11. NÚMERO DE HADITH — DECORATIVO
+   ─────────────────────────────────────────────────────────────────────────────
+
+   Hadiths são numerados. O número é mais que identificador — é editorial.
+
+   Uso:
+     <article class="hadith-block">
+       <div class="hadith-number">
+         <span class="hadith-number__arabic">١</span>
+         <span class="hadith-number__label">Hadith</span>
+       </div>
+       <p class="hadith-text">...</p>
+       <p class="hadith-chain">— Narrado por Abu Hurairah (r.a.)</p>
+     </article>
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.hadith-number {
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  justify-content: center;
+  width:           80px;
+  height:          80px;
+  border-radius:   50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(200,169,81,0.14) 0%,
+    rgba(200,169,81,0.04) 70%,
+    transparent 100%
+  );
+  border:     1px solid rgba(200,169,81,0.22);
+  flex-shrink: 0;
+  position:   relative;
+}
+
+.hadith-number__arabic {
+  font-family: 'Noto Naskh Arabic', serif;
+  font-size:   clamp(28px, calc(24px + 1.13vw), 36px);
+  font-weight: 600;
+  line-height: 1;
+  color:       var(--gold-100);
+  direction:   rtl;
+  letter-spacing: 0;
+  -webkit-font-smoothing: antialiased;
+  display:     block;
+  margin-bottom: -4px;
+}
+
+.hadith-number__label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size:   clamp(8px, calc(7px + 0.28vw), 10px);
+  font-weight: 600;
+  font-variant: small-caps;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color:       var(--gold-dim);
+  display:     block;
+  margin-top:  2px;
+}
+
+.hadith-badge {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  min-width: 36px;
+  height:    36px;
+  padding:   0 8px;
+  border-radius: 4px;
+  background: rgba(200,169,81,0.08);
+  border:     1px solid rgba(200,169,81,0.18);
+  font-family: 'Noto Naskh Arabic', serif;
+  font-size:   clamp(16px, calc(14px + 0.56vw), 18px);
+  font-weight: 600;
+  color:       var(--gold-100);
+  direction:   rtl;
+  letter-spacing: 0;
+  line-height: 1;
+  vertical-align: middle;
+  -webkit-font-smoothing: antialiased;
+}
+
+.hadith-block {
+  display:    flex;
+  gap:        24px;
+  align-items: flex-start;
+  padding:    28px 0;
+  border-bottom: 1px solid rgba(200,169,81,0.08);
+}
+
+.hadith-block:last-child {
+  border-bottom: none;
+}
+
+.hadith-text {
+  font-family: 'Crimson Pro', serif;
+  font-size:   var(--type-base);
+  font-weight: 400;
+  line-height: var(--lh-prose);
+  color:       var(--cream-bright);
+  flex:        1;
+  -webkit-font-smoothing: antialiased;
+  hyphens:     auto;
+}
+
+.hadith-chain {
+  font-family: 'Crimson Pro', serif;
+  font-size:   clamp(12px, calc(11px + 0.28vw), 14px);
+  font-style:  italic;
+  color:       var(--cream-muted);
+  margin-top:  8px;
+}
+
+/* Número de fundo decorativo — watermark de seção */
+.hadith-bg-number {
+  font-family: 'Noto Naskh Arabic', serif;
+  font-size:   clamp(120px, calc(100px + 5.63vw), 180px);
+  font-weight: 700;
+  line-height: 1;
+  color:       var(--gold-100);
+  opacity:     0.04;
+  pointer-events: none;
+  user-select: none;
+  position:    absolute;
+  right:       -16px;
+  bottom:      -24px;
+  direction:   rtl;
+  letter-spacing: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   12. FOOTNOTES / NOTAS DE RODAPÉ
+   ─────────────────────────────────────────────────────────────────────────────
+
+   Uso:
+     <section class="footnotes">
+       <p class="footnote">
+         <span class="footnote__num">1</span>
+         Martin Lings, <em>Muhammad: His Life Based on the Earliest Sources</em>
+       </p>
+     </section>
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.footnotes {
+  margin-top:  48px;
+  padding-top: 24px;
+  border-top:  1px solid rgba(200,169,81,0.12);
+}
+
+.footnotes__title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size:   var(--type-xs);
+  font-weight: 600;
+  font-variant: small-caps;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color:       var(--gold-dim);
+  margin-bottom: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.footnote {
+  font-family: 'Crimson Pro', serif;
+  font-size:   clamp(13px, calc(12px + 0.28vw), 15px);
+  font-weight: 400;
+  line-height: 1.65;
+  color:       var(--cream-muted);
+  display:     flex;
+  gap:         10px;
+  align-items: baseline;
+  margin-bottom: 8px;
+  hyphens:     auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.footnote__num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size:   clamp(11px, calc(10px + 0.28vw), 13px);
+  font-weight: 600;
+  color:       var(--gold-dim);
+  flex-shrink: 0;
+  margin-top:  0.1em;
+  min-width:   16px;
+}
+
+/* Referência inline no corpo do texto */
+.fn-ref {
+  font-family: 'Cormorant Garamond', serif;
+  font-size:   clamp(9px, calc(8px + 0.28vw), 11px);
+  font-weight: 600;
+  color:       var(--gold-dim);
+  vertical-align: super;
+  line-height: 0;
+  cursor:      pointer;
+  text-decoration: none;
+  transition:  color 0.2s;
+}
+
+.fn-ref:hover {
+  color: var(--gold-100);
+}
+
+/* Referências bibliográficas formais */
+.reference-block {
+  font-family: 'Crimson Pro', serif;
+  font-size:   clamp(12px, calc(11px + 0.28vw), 14px);
+  line-height: 1.6;
+  color:       var(--cream-muted);
+  padding-left: 1.5em;
+  text-indent:  -1.5em;   /* hanging indent — padrão bibliográfico */
+  margin-bottom: 10px;
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   13. DIVIDERS TIPOGRÁFICOS
+   ─────────────────────────────────────────────────────────────────────────────
+
+   3 tipos:
+   1. Linha simples — separação funcional
+   2. Ornamental com símbolo central — separação entre seções de leitura
+   3. Árabe centralizado — separação com identidade do projeto
+
+   Uso:
+     <hr class="divider-line">
+     <div class="divider-ornament"><span class="divider-ornament__symbol">❋</span></div>
+     <div class="divider-arabic-sym"><span class="divider-arabic-sym__glyph">ۖ</span></div>
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* Linha simples dourada */
+.divider-line {
+  border:     none;
+  border-top: 1px solid rgba(200,169,81,0.15);
+  margin:     40px 0;
+}
+
+/* Linha com gradiente — desvanece nas extremidades */
+.divider-fade {
+  border:     none;
+  height:     1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(200,169,81,0.35) 30%,
+    rgba(200,169,81,0.35) 70%,
+    transparent 100%
+  );
+  margin: 48px 0;
+}
+
+/* Ornamento tipográfico — três pontos entre linhas douradas */
+.divider-ornament {
+  text-align:  center;
+  margin:      48px 0;
+  position:    relative;
+  display:     flex;
+  align-items: center;
+  gap:         12px;
+}
+
+.divider-ornament::before,
+.divider-ornament::after {
+  content:    '';
+  flex:       1;
+  height:     1px;
+  background: linear-gradient(90deg, transparent, rgba(200,169,81,0.25));
+}
+
+.divider-ornament::after {
+  background: linear-gradient(90deg, rgba(200,169,81,0.25), transparent);
+}
+
+.divider-ornament__symbol {
+  font-family: 'Cormorant Garamond', serif;
+  font-size:   clamp(13px, calc(12px + 0.28vw), 15px);
+  color:       var(--gold-dim);
+  flex-shrink: 0;
+  user-select: none;
+  letter-spacing: 4px;
+}
+
+/* Simples de três pontos — via pseudo-elemento */
+.divider-dots {
+  text-align:  center;
+  margin:      48px 0;
+  color:       var(--gold-dim);
+  font-family: 'Cormorant Garamond', serif;
+  font-size:   clamp(16px, calc(14px + 0.56vw), 20px);
+  letter-spacing: 0.5em;
+  line-height: 1;
+}
+
+.divider-dots::before {
+  content: '· · ·';
+}
+
+/* Divider com símbolo árabe central */
+.divider-arabic-sym {
+  text-align:  center;
+  margin:      48px 0;
+  position:    relative;
+  display:     flex;
+  align-items: center;
+  gap:         16px;
+}
+
+.divider-arabic-sym::before,
+.divider-arabic-sym::after {
+  content:    '';
+  flex:       1;
+  height:     1px;
+  background: linear-gradient(90deg, transparent, rgba(200,169,81,0.25));
+}
+
+.divider-arabic-sym::after {
+  background: linear-gradient(90deg, rgba(200,169,81,0.25), transparent);
+}
+
+.divider-arabic-sym__glyph {
+  font-family: 'Noto Naskh Arabic', serif;
+  font-size:   clamp(16px, calc(14px + 0.56vw), 18px);
+  color:       var(--gold-dim);
+  flex-shrink: 0;
+  direction:   rtl;
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+/* Linha simples minimal */
+.divider-simple {
+  border:     none;
+  height:     1px;
+  background: rgba(200,169,81,0.08);
+  margin:     28px 0;
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   14. RESPONSIVE — 375px → 1440px
+   ─────────────────────────────────────────────────────────────────────────────
+
+   Os tamanhos de tipo já usam clamp() e escalam automaticamente.
+   Media queries aqui ajustam apenas comportamentos de layout e
+   elementos que não podem ser controlados via clamp.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* Tablet — 768px */
+@media (max-width: 768px) {
+  :root {
+    --drop-cap-size: 3.5em;
+    --prose-width:   100%;
+  }
+
+  .prose {
+    max-width: 100%;
+  }
+
+  .pull-quote {
+    margin:  36px 0;
+    padding: 28px 24px;
+  }
+
+  .hadith-block {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .hadith-number {
+    width:  60px;
+    height: 60px;
+  }
+}
+
+/* Mobile portrait — 480px */
+@media (max-width: 480px) {
+  :root {
+    --drop-cap-size: 3em;
+    --lh-prose: 1.70;
+  }
+
+  .prose-dropcap::first-letter,
+  .prose--dropcap > p:first-of-type::first-letter {
+    line-height: 0.85;
+  }
+
+  .pull-quote {
+    margin:  28px 0;
+    padding: 20px 16px;
+  }
+
+  .pull-quote__text {
+    font-size: clamp(16px, calc(14px + 0.56vw), 18px);
+  }
+
+  .hadith-number {
+    width:  52px;
+    height: 52px;
+  }
+
+  .arabic-verse {
+    font-size: clamp(20px, calc(18px + 0.56vw), 24px);
+  }
+
+  .section-title--numbered .section-title__num {
+    display: none;
+  }
+}
+
+/* Mobile mínimo — 375px */
+@media (max-width: 375px) {
+  .prose {
+    text-align:  left;
+    hyphens:     none;
+  }
+
+  .pull-quote {
+    margin:  20px 0;
+    padding: 16px 14px;
+  }
+
+  .pull-quote::before {
+    font-size: 52px;
+    top:  4px;
+    left: 10px;
+  }
+
+  .arabic-hero {
+    line-height: 1.9;
+  }
+
+  .hadith-block {
+    gap: 12px;
+  }
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   REFERÊNCIA RÁPIDA — COMBINAÇÕES COMUNS
+   ─────────────────────────────────────────────────────────────────────────────
+
+   CARD DE PROFETA:
+     <article>
+       <div class="arabic-section">إبراهيم</div>
+       <h3 class="heading-card--gold">Ibrahim — O Patriarca</h3>
+       <p class="body-base">Rejeitou os ídolos de seu pai...</p>
+       <span class="label-caps">~2000 a.C.</span>
+     </article>
+
+   SEÇÃO DE LEITURA LONGA:
+     <section>
+       <h2 class="section-title">O Tawhid no Alcorão</h2>
+       <article class="prose prose-dropcap">
+         <p>No princípio de toda revelação...</p>
+         <p>A unicidade de Deus...</p>
+       </article>
+     </section>
+
+   CITAÇÃO COM ÁRABE:
+     <aside class="pull-quote">
+       <p class="pull-quote__arabic">قُلْ هُوَ اللَّهُ أَحَدٌ</p>
+       <p class="pull-quote__text">Diga: Ele é Allah, O Único.</p>
+       <cite class="pull-quote__source">Alcorão 112:1</cite>
+     </aside>
+
+   LABEL DE SEÇÃO COM ORNAMENTO:
+     <h2 class="section-title section-title--centered">Os Profetas</h2>
+     <div class="section-ornament">
+       <span class="section-ornament__symbol">◈ ◈ ◈</span>
+     </div>
+
+   HADITH COMPLETO:
+     <article class="hadith-block">
+       <div class="hadith-number">
+         <span class="hadith-number__arabic">١</span>
+         <span class="hadith-number__label">Hadith</span>
+       </div>
+       <div>
+         <p class="hadith-text">"As ações são julgadas pelas intenções..."</p>
+         <p class="hadith-chain">— Narrado por Umar ibn al-Khattab (r.a.)</p>
+       </div>
+     </article>
+   ───────────────────────────────────────────────────────────────────────────── */

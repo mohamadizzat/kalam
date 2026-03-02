@@ -1,0 +1,383 @@
+{
+  "brand": {
+    "name": "KALAM",
+    "tagline": "A Palavra",
+    "meaning": "كلام — The Word of God",
+    "website": "kalambrasil.com"
+  },
+  "colors": {
+    "midnight": {
+      "hex": "#0A0A0A",
+      "rgb": [
+        10,
+        10,
+        10
+      ],
+      "swatch": "color-swatches/midnight-0A0A0A.png"
+    },
+    "sacred-gold": {
+      "hex": "#C9A84C",
+      "rgb": [
+        201,
+        168,
+        76
+      ],
+      "swatch": "color-swatches/sacred-gold-C9A84C.png"
+    },
+    "ivory": {
+      "hex": "#F5F5F0",
+      "rgb": [
+        245,
+        245,
+        240
+      ],
+      "swatch": "color-swatches/ivory-F5F5F0.png"
+    },
+    "deep-navy": {
+      "hex": "#1A1A2E",
+      "rgb": [
+        26,
+        26,
+        46
+      ],
+      "swatch": "color-swatches/deep-navy-1A1A2E.png"
+    },
+    "bronze": {
+      "hex": "#8B7355",
+      "rgb": [
+        139,
+        115,
+        85
+      ],
+      "swatch": "color-swatches/bronze-8B7355.png"
+    },
+    "surface": {
+      "hex": "#161220",
+      "rgb": [
+        22,
+        18,
+        32
+      ],
+      "swatch": "color-swatches/surface-161220.png"
+    },
+    "elevated": {
+      "hex": "#1C1828",
+      "rgb": [
+        28,
+        24,
+        40
+      ],
+      "swatch": "color-swatches/elevated-1C1828.png"
+    },
+    "gold-soft": {
+      "hex": "#D4AF37",
+      "rgb": [
+        212,
+        175,
+        55
+      ],
+      "swatch": "color-swatches/gold-soft-D4AF37.png"
+    },
+    "gold-muted": {
+      "hex": "#B8960C",
+      "rgb": [
+        184,
+        150,
+        12
+      ],
+      "swatch": "color-swatches/gold-muted-B8960C.png"
+    },
+    "app-bg": {
+      "hex": "#0D0B12",
+      "rgb": [
+        13,
+        11,
+        18
+      ],
+      "swatch": "color-swatches/app-bg-0D0B12.png"
+    }
+  },
+  "typography": {
+    "heading": {
+      "family": "Playfair Display",
+      "weights": [
+        400,
+        600,
+        700
+      ]
+    },
+    "body": {
+      "family": "Inter Variable",
+      "weights": [
+        300,
+        400,
+        500,
+        600,
+        700
+      ]
+    },
+    "arabic_display": {
+      "family": "Amiri",
+      "weights": [
+        400,
+        700
+      ]
+    },
+    "arabic_body": {
+      "family": "Noto Naskh Arabic",
+      "weights": [
+        400,
+        600
+      ]
+    }
+  },
+  "logos": {
+    "primary-dark": {
+      "description": "KALAM + كلام wordmark on dark",
+      "shape": "square",
+      "original": "originals/primary-dark-original.png",
+      "transparent": "png/transparent/primary-dark-1024px.png",
+      "on_dark": "png/on-dark/primary-dark-dark-1024px.png",
+      "on_light": "png/on-light/primary-dark-light-1024px.png",
+      "sizes": [
+        4096,
+        2048,
+        1024,
+        512
+      ]
+    },
+    "icon-mark": {
+      "description": "K letterform geometric outline",
+      "shape": "square",
+      "original": "originals/icon-mark-original.png",
+      "transparent": "png/transparent/icon-mark-1024px.png",
+      "on_dark": "png/on-dark/icon-mark-dark-1024px.png",
+      "on_light": "png/on-light/icon-mark-light-1024px.png",
+      "sizes": [
+        4096,
+        2048,
+        1024,
+        512
+      ]
+    },
+    "vertical-lockup": {
+      "description": "كلام + KALAM + A PALAVRA stacked",
+      "shape": "portrait",
+      "original": "originals/vertical-lockup-original.png",
+      "transparent": "png/transparent/vertical-lockup-1024px.png",
+      "on_dark": "png/on-dark/vertical-lockup-dark-1024px.png",
+      "on_light": "png/on-light/vertical-lockup-light-1024px.png",
+      "sizes": [
+        4096,
+        2048,
+        1024,
+        512
+      ]
+    },
+    "horizontal-dark": {
+      "description": "كلام calligraphy | KALAM horizontal",
+      "shape": "landscape",
+      "original": "originals/horizontal-dark-original.png",
+      "transparent": "png/transparent/horizontal-dark-1024px.png",
+      "on_dark": "png/on-dark/horizontal-dark-dark-1024px.png",
+      "on_light": "png/on-light/horizontal-dark-light-1024px.png",
+      "sizes": [
+        4096,
+        2048,
+        1024,
+        512
+      ]
+    },
+    "social-avatar": {
+      "description": "KS monogram in dark circle",
+      "shape": "square",
+      "original": "originals/social-avatar-original.png",
+      "transparent": "png/transparent/social-avatar-1024px.png",
+      "on_dark": "png/on-dark/social-avatar-dark-1024px.png",
+      "on_light": "png/on-light/social-avatar-light-1024px.png",
+      "sizes": [
+        4096,
+        2048,
+        1024,
+        512
+      ]
+    },
+    "monogram": {
+      "description": "Serif K letter with flourish",
+      "shape": "square",
+      "original": "originals/monogram-original.png",
+      "transparent": "png/transparent/monogram-1024px.png",
+      "on_dark": "png/on-dark/monogram-dark-1024px.png",
+      "on_light": "png/on-light/monogram-light-1024px.png",
+      "sizes": [
+        4096,
+        2048,
+        1024,
+        512
+      ]
+    },
+    "arabic-only": {
+      "description": "كلام arabic calligraphy only",
+      "shape": "square",
+      "original": "originals/arabic-only-original.png",
+      "transparent": "png/transparent/arabic-only-1024px.png",
+      "on_dark": "png/on-dark/arabic-only-dark-1024px.png",
+      "on_light": "png/on-light/arabic-only-light-1024px.png",
+      "sizes": [
+        4096,
+        2048,
+        1024,
+        512
+      ]
+    },
+    "full-lockup": {
+      "description": "Full brand lockup vertical",
+      "shape": "portrait",
+      "original": "originals/full-lockup-original.png",
+      "transparent": "png/transparent/full-lockup-1024px.png",
+      "on_dark": "png/on-dark/full-lockup-dark-1024px.png",
+      "on_light": "png/on-light/full-lockup-light-1024px.png",
+      "sizes": [
+        4096,
+        2048,
+        1024,
+        512
+      ]
+    },
+    "horizontal-light": {
+      "description": "Horizontal lockup dark bg",
+      "shape": "landscape",
+      "original": "originals/horizontal-light-original.png",
+      "transparent": "png/transparent/horizontal-light-1024px.png",
+      "on_dark": "png/on-dark/horizontal-light-dark-1024px.png",
+      "on_light": "png/on-light/horizontal-light-light-1024px.png",
+      "sizes": [
+        4096,
+        2048,
+        1024,
+        512
+      ]
+    },
+    "light-bg": {
+      "description": "Horizontal lockup light background",
+      "shape": "landscape",
+      "original": "originals/light-bg-original.png",
+      "transparent": "png/transparent/light-bg-1024px.png",
+      "on_dark": "png/on-dark/light-bg-dark-1024px.png",
+      "on_light": "png/on-light/light-bg-light-1024px.png",
+      "sizes": [
+        4096,
+        2048,
+        1024,
+        512
+      ]
+    },
+    "watermark": {
+      "description": "Watermark version",
+      "shape": "landscape",
+      "original": "originals/watermark-original.png",
+      "transparent": "png/transparent/watermark-1024px.png",
+      "on_dark": "png/on-dark/watermark-dark-1024px.png",
+      "on_light": "png/on-light/watermark-light-1024px.png",
+      "sizes": [
+        4096,
+        2048,
+        1024,
+        512
+      ]
+    },
+    "main": {
+      "description": "Main logo mark",
+      "shape": "square",
+      "original": "originals/main-original.png",
+      "transparent": "png/transparent/main-1024px.png",
+      "on_dark": "png/on-dark/main-dark-1024px.png",
+      "on_light": "png/on-light/main-light-1024px.png",
+      "sizes": [
+        4096,
+        2048,
+        1024,
+        512
+      ]
+    }
+  },
+  "social": {
+    "instagram-post": {
+      "width": 1080,
+      "height": 1080
+    },
+    "instagram-story": {
+      "width": 1080,
+      "height": 1920
+    },
+    "instagram-profile": {
+      "width": 800,
+      "height": 800
+    },
+    "youtube-banner": {
+      "width": 2560,
+      "height": 1440
+    },
+    "youtube-thumbnail": {
+      "width": 1280,
+      "height": 720
+    },
+    "youtube-profile": {
+      "width": 800,
+      "height": 800
+    },
+    "twitter-header": {
+      "width": 1500,
+      "height": 500
+    },
+    "twitter-profile": {
+      "width": 800,
+      "height": 800
+    },
+    "linkedin-banner": {
+      "width": 1584,
+      "height": 396
+    },
+    "linkedin-profile": {
+      "width": 800,
+      "height": 800
+    },
+    "facebook-cover": {
+      "width": 1640,
+      "height": 924
+    },
+    "og-image": {
+      "width": 1200,
+      "height": 630
+    },
+    "favicon-512": {
+      "width": 512,
+      "height": 512
+    },
+    "favicon-192": {
+      "width": 192,
+      "height": 192
+    }
+  },
+  "guidelines": {
+    "never": [
+      "Pure black #000000",
+      "Pure white #FFFFFF",
+      "Islamic crescent",
+      "Green dominant",
+      "Mosque photos",
+      "Islam/Muslim in titles",
+      "Auto-play audio",
+      "Pop-ups",
+      "Chat widgets"
+    ],
+    "always": [
+      "Dark mode forced",
+      "Sacred Gold #C9A84C accent",
+      "Gradual Islamic elements",
+      "Masterclass/Apple aesthetic"
+    ]
+  },
+  "total_assets": 395,
+  "generated": "2026-03-01"
+}

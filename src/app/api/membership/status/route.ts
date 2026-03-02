@@ -1,5 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import { NextResponse } from 'next/server'
+import { loopsOnSignup } from '@/lib/loops'
 
 export async function GET() {
   try {
@@ -27,6 +28,15 @@ export async function GET() {
       if (insertErr) {
         console.error('[membership/status] Insert error:', insertErr.message)
         return NextResponse.json({ tier: 'free', authenticated: true })
+      }
+
+      // New user — fire Loops signup event
+      if (user.email) {
+        loopsOnSignup({
+          email: user.email,
+          name: user.user_metadata?.full_name ?? user.user_metadata?.name,
+          userId: user.id,
+        })
       }
 
       return NextResponse.json({

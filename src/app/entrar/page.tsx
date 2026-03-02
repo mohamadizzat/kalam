@@ -5,6 +5,11 @@ export const metadata = {
   description: 'Entre na sua conta para salvar seu progresso.',
 }
 
-export default function EntrarPage() {
-  return <EntrarClient />
+export default async function EntrarPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ redirect?: string }>
+}) {
+  const params = await searchParams
+  return <EntrarClient redirect={params.redirect} />
 }

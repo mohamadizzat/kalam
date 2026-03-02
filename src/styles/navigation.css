@@ -1,0 +1,700 @@
+/*
+ * navigation.css — Mensagem Única
+ * Redesign completo da navegação: header, tabs, subtabs, mobile nav, breadcrumb
+ *
+ * Uso: importar no topo de App.jsx ou main.jsx
+ * @import './styles/navigation.css';
+ *
+ * Depende das variáveis CSS definidas em :root no App.jsx:
+ *   --gold, --gold-light, --dark, --dark2, --dark3, --cream
+ *   --header-h, --subtab-h, --mobile-nav-h
+ */
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   TOKENS LOCAIS (sobrescrevem apenas o que é necessário)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+:root {
+  --nav-header-h: 64px;           /* mais generoso que os 56px originais */
+  --nav-subtab-h: 44px;
+  --nav-mobile-h: 68px;           /* mais espaço pra respiro nos ícones */
+  --nav-transition: 220ms cubic-bezier(0.4, 0, 0.2, 1);
+  --nav-fade: 180ms ease-out;
+  --nav-gold-dim: rgba(200, 169, 81, 0.14);
+  --nav-gold-border: rgba(200, 169, 81, 0.18);
+  --nav-gold-dot: #C8A951;
+  --nav-surface-header: rgba(13, 11, 9, 0.97);
+  --nav-surface-subtab: rgba(20, 18, 14, 0.98);
+  --nav-surface-mobile: rgba(11, 9, 7, 0.98);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   HEADER
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/*
+ * Substitui .header do App.jsx.
+ * Mudanças: altura 64px, border inferior ainda mais suave,
+ * sem gradiente agressivo — leve névoa escura.
+ */
+.header {
+  height: var(--nav-header-h);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  padding: 0 28px;
+  gap: 0;                        /* logo cresce, tabs ficam à direita */
+  background: var(--nav-surface-header);
+  border-bottom: 1px solid rgba(200, 169, 81, 0.06);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+  z-index: 200;
+  box-shadow: 0 1px 32px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+/* Linha dourada ínfima na parte inferior — sutil mas marca presença */
+.header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 28px;
+  right: 28px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(200, 169, 81, 0.22) 30%,
+    rgba(200, 169, 81, 0.22) 70%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+/* ── LOGO ── */
+
+/*
+ * Hierarquia corrigida: árabe é a identidade central, não decoração.
+ * Texto latino fica menor, mais distante, como legenda.
+ */
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+  text-decoration: none;
+  cursor: default;
+  margin-right: 32px;            /* separa logo dos tabs */
+}
+
+.logo-arabic {
+  font-family: 'Noto Naskh Arabic', serif;
+  font-size: 28px;               /* era 22px — árabe como identidade */
+  color: var(--gold);
+  line-height: 1;
+  letter-spacing: 0.5px;
+  /* shimmer suave no hover do logo */
+  transition: opacity var(--nav-transition);
+}
+
+.header-logo:hover .logo-arabic {
+  opacity: 0.85;
+}
+
+.logo-divider {
+  width: 1px;
+  height: 20px;
+  background: rgba(200, 169, 81, 0.18);
+  flex-shrink: 0;
+}
+
+.logo-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 11px;               /* era 15px — agora é legenda */
+  font-weight: 400;
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  color: rgba(245, 239, 224, 0.5);  /* era 0.85 — mais recuado */
+  white-space: nowrap;
+}
+
+.logo-text span {
+  color: rgba(200, 169, 81, 0.75);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   TABS PRINCIPAIS (desktop)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.main-tabs {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex: 1;
+}
+
+/*
+ * .main-tab redesenhado:
+ * - Sem underline por padrão
+ * - Ativo: apenas a cor muda para gold, sem background
+ * - Indicador: linha tênue na parte INFERIOR da tab (não borda grossa)
+ * - Hover: aparição muito suave
+ */
+.main-tab {
+  position: relative;
+  padding: 0 18px;
+  height: var(--nav-header-h);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-family: 'Crimson Pro', serif;
+  font-size: 12.5px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: rgba(245, 239, 224, 0.36);
+  transition: color var(--nav-transition);
+  white-space: nowrap;
+  /* remove qualquer outline de foco visível mas mantém acessibilidade */
+  outline: none;
+}
+
+/* Indicador de ativo: linha fina na base da tab — não é borda de caixa */
+.main-tab::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 18px;
+  right: 18px;
+  height: 1.5px;
+  background: var(--gold);
+  border-radius: 2px 2px 0 0;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform var(--nav-transition);
+}
+
+.main-tab:hover {
+  color: rgba(200, 169, 81, 0.7);
+}
+
+.main-tab.active {
+  color: var(--gold);
+}
+
+.main-tab.active::after {
+  transform: scaleX(1);
+}
+
+/* Indicador de "novo conteúdo": ponto dourado no canto superior direito */
+.main-tab[data-new="true"]::before {
+  content: '';
+  position: absolute;
+  top: 14px;
+  right: 10px;
+  width: 5px;
+  height: 5px;
+  background: var(--nav-gold-dot);
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgba(200, 169, 81, 0.7);
+  animation: nav-dot-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes nav-dot-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.55; transform: scale(0.75); }
+}
+
+/* Classe alternativa JSX sem atributo data (compatível com estado React) */
+.main-tab.has-new::before {
+  content: '';
+  position: absolute;
+  top: 14px;
+  right: 10px;
+  width: 5px;
+  height: 5px;
+  background: var(--nav-gold-dot);
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgba(200, 169, 81, 0.7);
+  animation: nav-dot-pulse 2.4s ease-in-out infinite;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   SUBTABS — estilo "categorias de revista"
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/*
+ * Fundo ligeiramente diferente do header — cria separação visual.
+ * Sem border-bottom pesada: apenas a linha dourada suave via ::after.
+ */
+.subtabs-bar {
+  height: var(--nav-subtab-h);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  padding: 0 28px;
+  gap: 6px;
+  background: var(--nav-surface-subtab);
+  border-bottom: none;
+  overflow-x: auto;
+  scrollbar-width: none;
+  position: relative;
+}
+
+.subtabs-bar::-webkit-scrollbar { display: none; }
+
+/* Fade lateral para indicar scroll horizontal (mobile) */
+.subtabs-bar::before,
+.subtabs-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 32px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.subtabs-bar::before {
+  left: 0;
+  background: linear-gradient(90deg, var(--nav-surface-subtab) 0%, transparent 100%);
+}
+
+.subtabs-bar::after {
+  right: 0;
+  background: linear-gradient(270deg, var(--nav-surface-subtab) 0%, transparent 100%);
+}
+
+/* Linha divisória entre subtabs e conteúdo */
+.subtabs-bar + * {
+  border-top: 1px solid rgba(200, 169, 81, 0.06);
+}
+
+/*
+ * .sub-tab — pill com preenchimento sutil no ativo.
+ * Inativos: texto quase invisible, sem borda.
+ * Hover: texto aparece, borda surge.
+ * Ativo: pill preenchido mas não opaco — respira.
+ */
+.sub-tab {
+  position: relative;
+  padding: 5px 16px;
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  font-family: 'Cormorant Garamond', serif;   /* troca de Crimson Pro — mais editorial */
+  font-size: 13.5px;
+  font-weight: 400;
+  letter-spacing: 0.2px;
+  color: rgba(245, 239, 224, 0.3);
+  border-radius: 100px;
+  transition:
+    color var(--nav-transition),
+    border-color var(--nav-transition),
+    background var(--nav-transition);
+  white-space: nowrap;
+  flex-shrink: 0;
+  outline: none;
+}
+
+.sub-tab:hover {
+  color: rgba(200, 169, 81, 0.75);
+  border-color: rgba(200, 169, 81, 0.15);
+}
+
+.sub-tab.active {
+  color: var(--gold);
+  border-color: rgba(200, 169, 81, 0.28);
+  background: rgba(200, 169, 81, 0.06);
+  /* micro-elevação */
+  box-shadow: inset 0 1px 0 rgba(200, 169, 81, 0.12), 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Ponto de "novo conteúdo" também nos subtabs */
+.sub-tab.has-new::after {
+  content: '';
+  display: inline-block;
+  margin-left: 6px;
+  width: 4px;
+  height: 4px;
+  background: var(--nav-gold-dot);
+  border-radius: 50%;
+  vertical-align: middle;
+  box-shadow: 0 0 4px rgba(200, 169, 81, 0.6);
+  animation: nav-dot-pulse 2.4s ease-in-out infinite;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   BREADCRUMB / CONTEXT BAR
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/*
+ * .context-bar: faixa discreta abaixo dos subtabs.
+ * Mostra onde o usuário está: "Origem › A Lei do Original"
+ * Muito discreto — não compete com conteúdo.
+ *
+ * Adicionar no JSX:
+ * <div className="context-bar">
+ *   <span className="context-bar-root">{activeTabLabel}</span>
+ *   <span className="context-bar-sep">›</span>
+ *   <span className="context-bar-leaf">{activeSubTabLabel}</span>
+ * </div>
+ */
+.context-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 28px;
+  background: transparent;
+  border-bottom: 1px solid rgba(200, 169, 81, 0.04);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  /* funde com o conteúdo ao scrollar */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.context-bar-root {
+  font-family: 'Crimson Pro', serif;
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(200, 169, 81, 0.4);
+}
+
+.context-bar-sep {
+  font-size: 11px;
+  color: rgba(200, 169, 81, 0.2);
+  line-height: 1;
+}
+
+.context-bar-leaf {
+  font-family: 'Crimson Pro', serif;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  color: rgba(245, 239, 224, 0.35);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   TRANSIÇÃO DE CONTEÚDO — fade-in ao mudar de tab
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/*
+ * Adicionar classe .content-panel ao wrapper do conteúdo ativo.
+ * No JSX, trocar a key do elemento para forçar remount e re-trigger da animação:
+ *   <div key={activeTab + activeSubTab} className="content-panel">
+ */
+.content-panel {
+  animation: nav-fade-in var(--nav-fade) both;
+}
+
+@keyframes nav-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/*
+ * Variante para conteúdo que entra da lateral (swipe).
+ * Adicionar .content-panel--slide ao trocar subtab dentro da mesma seção.
+ */
+.content-panel--slide {
+  animation: nav-slide-in var(--nav-fade) both;
+}
+
+@keyframes nav-slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   MOBILE BOTTOM NAV
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/*
+ * Redesign completo:
+ * - Não gruda na borda inferior com padding de safe area
+ * - Fundo sólido escuro com blur — parece um elemento flutuante
+ * - Indicador de ativo: linha dourada no TOPO de cada item (não underline)
+ * - Ícone + label com gap generoso
+ * - Escala suave no toque
+ */
+.mobile-nav {
+  display: none;                 /* ativado via media query abaixo */
+  height: var(--nav-mobile-h);
+  flex-shrink: 0;
+  background: var(--nav-surface-mobile);
+  border-top: 1px solid rgba(200, 169, 81, 0.07);
+  backdrop-filter: blur(36px);
+  -webkit-backdrop-filter: blur(36px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  align-items: stretch;
+  box-shadow:
+    0 -1px 0 rgba(200, 169, 81, 0.04),
+    0 -4px 24px rgba(0, 0, 0, 0.6);
+  position: relative;
+}
+
+/* Brilho sutil na borda superior */
+.mobile-nav::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(200, 169, 81, 0.15) 40%,
+    rgba(200, 169, 81, 0.15) 60%,
+    transparent
+  );
+  pointer-events: none;
+}
+
+/*
+ * Cada botão do mobile nav.
+ * Indicador de ativo: barra dourada no TOPO (oposta ao border-top do container)
+ * em vez da borda inferior — mais moderna e clara.
+ */
+.mobile-nav-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+  padding: 10px 4px 8px;
+  outline: none;
+  /* hint de swipe: área de toque maior que o visual */
+  touch-action: manipulation;
+  transition: transform 80ms ease;
+}
+
+/* Micro-escala no toque — feedback tátil via CSS */
+.mobile-nav-btn:active {
+  transform: scale(0.92);
+}
+
+/* Indicador de ativo: linha no topo do botão */
+.mobile-nav-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 22%;
+  right: 22%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--gold),
+    transparent
+  );
+  border-radius: 0 0 3px 3px;
+  transform: scaleX(0);
+  transition: transform var(--nav-transition);
+}
+
+.mobile-nav-btn.active::before {
+  transform: scaleX(1);
+}
+
+/* Ícone */
+.mobile-nav-icon {
+  font-size: 20px;               /* era 17px — mais expressivo */
+  color: rgba(245, 239, 224, 0.22);
+  transition: color var(--nav-transition), transform var(--nav-transition);
+  line-height: 1;
+  display: block;
+}
+
+.mobile-nav-btn.active .mobile-nav-icon {
+  color: var(--gold);
+  transform: translateY(-1px);   /* micro-elevação no ativo */
+}
+
+/* Label */
+.mobile-nav-label {
+  font-family: 'Crimson Pro', serif;
+  font-size: 10px;               /* era 9px — mais legível */
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  color: rgba(245, 239, 224, 0.22);
+  transition: color var(--nav-transition);
+  line-height: 1;
+}
+
+.mobile-nav-btn.active .mobile-nav-label {
+  color: var(--gold);
+}
+
+/* Ponto de "novo conteúdo" no mobile nav */
+.mobile-nav-btn.has-new .mobile-nav-icon {
+  position: relative;
+}
+
+.mobile-nav-btn.has-new::after {
+  content: '';
+  position: absolute;
+  top: 8px;
+  right: calc(50% - 14px);      /* posiciona ao lado direito do ícone */
+  width: 5px;
+  height: 5px;
+  background: var(--nav-gold-dot);
+  border-radius: 50%;
+  border: 1px solid var(--nav-surface-mobile);
+  box-shadow: 0 0 5px rgba(200, 169, 81, 0.6);
+  animation: nav-dot-pulse 2.4s ease-in-out infinite;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   SWIPE HINT — dica visual de gestos no mobile
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/*
+ * Adicionar .swipe-hint ao wrapper do conteúdo para mostrar
+ * setas de scroll horizontal discretas nas extremidades.
+ * Some automaticamente após interação (via JS ou após delay).
+ */
+.swipe-hint {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Fade lateral no subtabs-bar no mobile para indicar scroll */
+@media (max-width: 768px) {
+  .subtabs-bar {
+    /* scroll com momentum no iOS */
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+    scroll-behavior: smooth;
+  }
+
+  .sub-tab {
+    scroll-snap-align: start;
+  }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   RESPONSIVE — mobile breakpoint
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+@media (max-width: 768px) {
+  :root {
+    --nav-header-h: 54px;
+    --nav-subtab-h: 42px;
+    --nav-mobile-h: 64px;
+  }
+
+  .header {
+    padding: 0 16px;
+    gap: 0;
+  }
+
+  .header::after {
+    left: 16px;
+    right: 16px;
+  }
+
+  .header-logo {
+    margin-right: 0;             /* sem tabs no mobile — logo ocupa o espaço */
+    gap: 10px;
+  }
+
+  .logo-arabic {
+    font-size: 22px;
+  }
+
+  .logo-text {
+    font-size: 10px;
+    letter-spacing: 2.5px;
+  }
+
+  .main-tabs {
+    display: none;               /* tablets e desktop apenas */
+  }
+
+  .subtabs-bar {
+    padding: 0 12px;
+    gap: 4px;
+  }
+
+  .sub-tab {
+    padding: 4px 13px;
+    font-size: 12.5px;
+  }
+
+  .context-bar {
+    padding: 5px 16px;
+  }
+
+  .mobile-nav {
+    display: flex;               /* mostra no mobile */
+  }
+}
+
+/* Tablet intermediário (768–1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .header {
+    padding: 0 20px;
+  }
+
+  .main-tab {
+    padding: 0 13px;
+    font-size: 11.5px;
+    letter-spacing: 1px;
+  }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   ACESSIBILIDADE — focus-visible
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.main-tab:focus-visible,
+.sub-tab:focus-visible,
+.mobile-nav-btn:focus-visible {
+  outline: 2px solid rgba(200, 169, 81, 0.5);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   REDUÇÃO DE MOVIMENTO — respeitar preferências do sistema
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+@media (prefers-reduced-motion: reduce) {
+  .main-tab,
+  .main-tab::after,
+  .sub-tab,
+  .mobile-nav-btn,
+  .mobile-nav-btn::before,
+  .mobile-nav-icon,
+  .mobile-nav-label,
+  .content-panel,
+  .content-panel--slide {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .content-panel,
+  .content-panel--slide {
+    opacity: 1;
+    transform: none;
+  }
+}

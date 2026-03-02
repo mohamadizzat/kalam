@@ -1,0 +1,795 @@
+/* ============================================================
+   MENSAGEM ÚNICA — MOBILE CSS
+   Redesign completo para público brasileiro mobile-first
+   Breakpoints: 768px (tablet/phone grande) | 480px (phone pequeno)
+   ============================================================ */
+
+/* ─── RESET GLOBAL MOBILE ─────────────────────────────────── */
+
+/* Remove tap highlight em todos elementos interativos */
+* {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
+/* Permite seleção de texto onde faz sentido (leitura) */
+p, .content-text, .faq-answer, .prophet-desc, .gloss-def,
+.tl-event, .article-desc, .key-concept-text, .sabia-text {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+/* Smooth scrolling nativo em iOS */
+.content {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ─── BASE MOBILE (até 768px) ────────────────────────────── */
+
+@media (max-width: 768px) {
+
+  /* ── VARIÁVEIS MOBILE ── */
+  :root {
+    --header-h: 52px;
+    --subtab-h: 40px;
+    --mobile-nav-h: 60px;
+  }
+
+  /* ── APP CONTAINER ── */
+  .app {
+    /* Garante que o conteúdo não fica atrás do nav bar do iOS */
+    min-height: -webkit-fill-available;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    padding: 0 16px;
+    gap: 12px;
+  }
+
+  .logo-arabic {
+    font-size: 18px;
+  }
+
+  .logo-text {
+    font-size: 12px;
+    letter-spacing: 2px;
+  }
+
+  .logo-divider {
+    display: none;
+  }
+
+  /* Desktop tabs desaparecem — mobile nav assume */
+  .main-tabs {
+    display: none;
+  }
+
+  .mobile-nav {
+    display: flex;
+  }
+
+  /* ── SUB-TABS ── */
+  .subtabs-bar {
+    padding: 0 12px;
+    gap: 6px;
+    /* Scroll horizontal suave */
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .sub-tab {
+    /* Touch target mínimo 44px */
+    min-height: 40px;
+    padding: 8px 16px;
+    font-size: 13px;
+    scroll-snap-align: start;
+    flex-shrink: 0;
+  }
+
+  /* ── SEÇÕES — BREATHING ROOM ── */
+  .section {
+    padding: 40px 20px 72px;
+    /* 72px de baixo = garante conteúdo acima do mobile-nav */
+  }
+
+  .section-header {
+    margin-bottom: 36px;
+  }
+
+  /* ── TIPOGRAFIA ── */
+  /* Mínimo 16px para não acionar zoom automático do iOS */
+  .section-title {
+    font-size: 28px;
+    letter-spacing: 1px;
+  }
+
+  .section-arabic {
+    font-size: 28px;
+  }
+
+  .content-text {
+    font-size: 17px;
+    line-height: 1.85;
+    /* Justificado fica ruim em mobile estreito */
+    text-align: left;
+  }
+
+  .content-subtitle {
+    font-size: 18px;
+  }
+
+  .quote-text {
+    font-size: 17px;
+  }
+
+  .key-concept-text {
+    font-size: 16px;
+    line-height: 1.75;
+  }
+
+  .sabia-text {
+    font-size: 16px;
+  }
+
+  /* ── HERO ORIGEM ── */
+  .origem-hero {
+    padding: 40px 16px 32px;
+  }
+
+  .origem-kalam {
+    font-size: 52px;
+  }
+
+  .origem-tagline {
+    font-size: 12px;
+    letter-spacing: 3px;
+    margin-bottom: 28px;
+  }
+
+  .origem-intro {
+    font-size: 17px;
+    line-height: 1.8;
+  }
+
+  /* ── GRIDS → 1 COLUNA + ESPAÇAMENTO ── */
+  .layer-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .paths-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .articles-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .glossary-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .apoiar-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  /* ── PILARES — 2 COLUNAS em mobile ── */
+  /* 5 pilares viram 2+2+1 — mais legível que 1 coluna */
+  .pillars-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  /* ── CARDS — PADDING AJUSTADO ── */
+  .layer-card {
+    padding: 22px 18px;
+  }
+
+  .path-card {
+    padding: 24px 20px;
+    /* Remove hover transform em touch — sem efeito útil */
+  }
+  .path-card:hover {
+    transform: none;
+  }
+
+  .pillar-card {
+    padding: 20px 14px;
+  }
+  .pillar-card:hover {
+    transform: none;
+  }
+
+  .pillar-num {
+    font-size: 24px;
+  }
+
+  .pillar-title {
+    font-size: 16px;
+  }
+
+  .article-card {
+    padding: 18px;
+    gap: 12px;
+  }
+
+  .article-num {
+    font-size: 26px;
+    width: 32px;
+  }
+
+  .article-title {
+    font-size: 16px;
+  }
+
+  .gloss-card {
+    padding: 16px;
+  }
+
+  .gloss-term {
+    font-size: 18px;
+  }
+
+  .apoiar-card {
+    padding: 28px 20px;
+  }
+  .apoiar-card:hover {
+    transform: none;
+  }
+
+  /* ── PROFETAS ── */
+  .prophet-header {
+    flex-wrap: wrap;
+    gap: 8px 12px;
+  }
+
+  .prophet-name {
+    font-size: 22px;
+  }
+
+  .prophet-era {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .prophet-desc {
+    font-size: 16px;
+  }
+
+  .prophet-key {
+    font-size: 14px;
+  }
+
+  /* ── TIMELINE — linha à esquerda, tudo à direita ── */
+  .timeline-wrap {
+    padding-left: 0;
+  }
+
+  .timeline-line {
+    left: 20px;
+    transform: none;
+  }
+
+  /* Todos os items ficam à direita da linha */
+  .tl-item {
+    flex-direction: column !important;
+    padding-left: 48px;
+    padding-right: 0;
+  }
+
+  .tl-content {
+    width: 100% !important;
+    text-align: left !important;
+    margin: 0 !important;
+    padding: 14px 16px;
+  }
+
+  .tl-dot {
+    left: 16px !important;
+    transform: none !important;
+  }
+
+  .tl-era {
+    font-size: 10px;
+  }
+
+  .tl-event {
+    font-size: 14px;
+  }
+
+  /* ── ESTUDO (Roteiro) ── */
+  .study-phase {
+    flex-direction: column;
+    gap: 12px;
+    padding: 20px;
+  }
+
+  .study-phase-num {
+    align-self: flex-start;
+  }
+
+  /* ── MISSÃO ── */
+  .missao-hero {
+    padding: 36px 16px 32px;
+  }
+
+  .missao-arabic {
+    font-size: 36px;
+  }
+
+  .missao-title {
+    font-size: 28px;
+    letter-spacing: 2px;
+  }
+
+  .missao-sub {
+    font-size: 16px;
+  }
+
+  /* ── CITAÇÃO / QUOTE ── */
+  .quote-block {
+    padding: 22px 20px;
+    margin: 28px 0;
+  }
+
+  /* ── SABIA QUE ── */
+  .sabia-que {
+    padding: 18px 18px;
+    margin: 24px 0;
+  }
+
+  /* ── BODY MAP → 1 COLUNA ── */
+  .body-map-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  /* ── FAQ ── */
+  /* Touch target mínimo 52px para fácil toque */
+  .faq-question {
+    min-height: 52px;
+    font-size: 17px;
+    padding: 16px 0;
+  }
+
+  .faq-answer {
+    font-size: 16px;
+    line-height: 1.8;
+  }
+
+  /* ── CROSS-REFS ── */
+  .cref-card {
+    padding: 20px 16px;
+  }
+
+  .cref-text {
+    font-size: 16px;
+  }
+
+  /* ── SUBTABS (touch targets) ── */
+  .sub-tab {
+    min-height: 40px;
+    padding: 8px 16px;
+  }
+
+  /* ── MOBILE NAV ITEMS ── */
+  .mobile-nav-btn {
+    min-height: 56px;
+    /* Garantia de touch target fácil */
+  }
+
+  .mobile-nav-label {
+    font-size: 8px;
+  }
+
+  /* ── SCROLL SNAPPING HORIZONTAL (sliders de cards) ── */
+  /* Use em containers horizontais com overflow-x: scroll */
+  .card-slider {
+    display: flex;
+    gap: 12px;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 8px;
+    /* Padding lateral para primeiro/último card ficarem visíveis */
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .card-slider::-webkit-scrollbar {
+    display: none;
+  }
+
+  .card-slider > * {
+    scroll-snap-align: start;
+    flex-shrink: 0;
+    /* Largura padrão: quase tela + hint do próximo card */
+    width: calc(85vw);
+  }
+
+  /* Variant: mostrar 1.15 cards (hint de scroll) */
+  .card-slider--peek > * {
+    width: calc(100vw - 60px);
+  }
+
+  /* Variant: 2 cards visíveis */
+  .card-slider--two > * {
+    width: calc(50vw - 18px);
+  }
+
+  /* ── PULL-TO-REFRESH HINT (CSS only) ── */
+  /* Mostra indicador visual quando usuário puxa o conteúdo para baixo */
+  .content::before {
+    content: '↓';
+    display: block;
+    text-align: center;
+    font-size: 14px;
+    color: rgba(200, 169, 81, 0.3);
+    letter-spacing: 3px;
+    height: 0;
+    overflow: hidden;
+    transition: height 0.2s ease, opacity 0.2s ease;
+    opacity: 0;
+  }
+
+  /* Ativa quando o scroll está no topo e usuário puxa */
+  .content.is-pulling::before {
+    height: 32px;
+    opacity: 1;
+  }
+
+  /* ── ESCRITURAS NAV — scroll horizontal ── */
+  .scriptures-nav {
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    gap: 4px;
+    flex-wrap: nowrap;
+  }
+
+  .scriptures-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scripture-btn {
+    flex-shrink: 0;
+    min-height: 40px;
+    padding: 8px 16px;
+    font-size: 15px;
+  }
+
+  /* ── LAYER ARROW — aparece em 1 coluna para mostrar fluxo ── */
+  .layer-arrow {
+    display: block;
+    font-size: 20px;
+    color: rgba(200, 169, 81, 0.25);
+    text-align: center;
+    margin: 4px 0;
+  }
+
+  /* ── PRINCIPLE ITEMS ── */
+  .principle-item {
+    gap: 14px;
+    padding: 14px 0;
+  }
+
+  .principle-text {
+    font-size: 16px;
+  }
+
+  /* ── KEY CONCEPT ── */
+  .key-concept {
+    padding: 18px 18px;
+  }
+
+  /* ── QURAN EXPLORER ── */
+  .quran-fullwidth {
+    /* Sem padding lateral desnecessário */
+    padding: 0;
+  }
+}
+
+/* ─── SMALL PHONE (até 480px) ────────────────────────────── */
+
+@media (max-width: 480px) {
+
+  /* ── SEÇÃO: padding mínimo funcional ── */
+  .section {
+    padding: 32px 16px 72px;
+  }
+
+  /* ── TIPOGRAFIA COMPACTA ── */
+  .section-title {
+    font-size: 24px;
+  }
+
+  .section-arabic {
+    font-size: 24px;
+  }
+
+  .origem-kalam {
+    font-size: 44px;
+  }
+
+  .origem-intro {
+    font-size: 16px;
+  }
+
+  .missao-title {
+    font-size: 24px;
+    letter-spacing: 1.5px;
+  }
+
+  .missao-arabic {
+    font-size: 32px;
+  }
+
+  /* ── PILARES → 1 COLUNA em phones muito pequenos ── */
+  /* 480px já é estreito demais para 2 colunas de pilares */
+  .pillars-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* ── CARDS COMPACTOS ── */
+  .layer-card {
+    padding: 18px 16px;
+  }
+
+  .path-card {
+    padding: 20px 16px;
+  }
+
+  .path-icon {
+    font-size: 30px;
+    margin-bottom: 12px;
+  }
+
+  .path-title {
+    font-size: 19px;
+  }
+
+  .prophet-card {
+    padding: 20px 16px;
+  }
+
+  .prophet-name {
+    font-size: 20px;
+  }
+
+  .quote-block {
+    padding: 18px 16px;
+  }
+
+  .quote-text {
+    font-size: 16px;
+  }
+
+  .study-phase {
+    padding: 18px 16px;
+  }
+
+  .cref-card {
+    padding: 18px 14px;
+  }
+
+  /* ── HADITH / CARD ESPECIAL ── */
+  .card-hadith {
+    padding: 16px;
+  }
+
+  /* ── FAQ ── */
+  .faq-question {
+    font-size: 16px;
+  }
+
+  /* ── HEADER COMPACTO ── */
+  .logo-text {
+    display: none;
+    /* Em 480px mantém só o logo em árabe */
+  }
+
+  /* ── SCROLL SNAPPING — cards quase full width ── */
+  .card-slider > * {
+    width: calc(100vw - 40px);
+  }
+
+  .card-slider--two > * {
+    width: calc(100vw - 48px);
+    /* Só 1 card visível em phones pequenos */
+  }
+}
+
+/* ─── LANDSCAPE MOBILE ────────────────────────────────────── */
+
+@media (max-height: 500px) and (orientation: landscape) {
+
+  /* Nav menor para maximizar área de conteúdo */
+  :root {
+    --mobile-nav-h: 48px;
+    --header-h: 46px;
+  }
+
+  .mobile-nav {
+    height: 48px;
+  }
+
+  .mobile-nav-btn {
+    min-height: 48px;
+  }
+
+  .mobile-nav-label {
+    display: none;
+    /* Em landscape estreito, só ícone */
+  }
+
+  .section {
+    padding-top: 24px;
+    padding-bottom: 60px;
+  }
+
+  .section-header {
+    margin-bottom: 24px;
+  }
+
+  .origem-hero {
+    padding-top: 24px;
+    padding-bottom: 20px;
+  }
+
+  .origem-kalam {
+    font-size: 40px;
+  }
+
+  /* Timeline em landscape: cabe 2 colunas */
+  .tl-item {
+    flex-direction: row !important;
+    padding-left: 0;
+  }
+
+  .tl-content {
+    width: 45% !important;
+  }
+
+  .tl-item.left .tl-content {
+    text-align: right !important;
+    margin-right: auto !important;
+  }
+
+  .tl-item.right .tl-content {
+    text-align: left !important;
+    margin-left: auto !important;
+  }
+
+  .timeline-line {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .tl-dot {
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+  }
+}
+
+/* ─── SAFE AREA (iPhone notch + Dynamic Island) ───────────── */
+
+/* Nav inferior respeita o indicador de home do iPhone */
+.mobile-nav {
+  padding-bottom: env(safe-area-inset-bottom, 8px);
+}
+
+/* Header respeita a notch lateral em landscape */
+@supports (padding-left: env(safe-area-inset-left)) {
+  .header {
+    padding-left: max(16px, env(safe-area-inset-left));
+    padding-right: max(16px, env(safe-area-inset-right));
+  }
+
+  @media (max-width: 768px) {
+    .section {
+      padding-left: max(20px, env(safe-area-inset-left));
+      padding-right: max(20px, env(safe-area-inset-right));
+    }
+  }
+}
+
+/* ─── SCROLL SNAPPING — CONTAINERS REUTILIZÁVEIS ──────────── */
+/*
+  Como usar:
+  <div class="card-slider">
+    <div class="layer-card">...</div>
+    <div class="layer-card">...</div>
+  </div>
+
+  Variantes:
+  - card-slider          → 85% de largura por card (default)
+  - card-slider--peek    → quase fullwidth, mostra borda do próximo
+  - card-slider--two     → 2 cards visíveis por vez
+*/
+
+/* Fade nos cards fora do viewport para indicar scroll */
+.card-slider {
+  position: relative;
+}
+
+.card-slider::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 32px;
+  height: 100%;
+  background: linear-gradient(to right, transparent, rgba(15, 14, 12, 0.8));
+  pointer-events: none;
+  /* Só mostra em mobile */
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .card-slider::after {
+    display: block;
+  }
+}
+
+/* ─── ACESSIBILIDADE MOBILE ───────────────────────────────── */
+
+/* Foco visível para navegação por teclado externo (Bluetooth) */
+@media (max-width: 768px) {
+  :focus-visible {
+    outline: 2px solid rgba(200, 169, 81, 0.7);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Remove outline apenas quando não é navegação por teclado */
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+}
+
+/* Reduz animações para usuários com preferência de motion reduzido */
+@media (prefers-reduced-motion: reduce) {
+  .pillar-card,
+  .path-card,
+  .apoiar-card,
+  .layer-card {
+    transition: none;
+  }
+
+  .faq-icon {
+    transition: none;
+  }
+}
+
+/* ─── PERFORMANCE MOBILE ──────────────────────────────────── */
+
+/* GPU compositing para cards com animação */
+@media (max-width: 768px) {
+  .pillar-card,
+  .path-card,
+  .apoiar-card,
+  .layer-card,
+  .prophet-card {
+    will-change: auto;
+    /* Evita will-change permanente — só ativa no hover via JS se necessário */
+  }
+
+  /* Previne layout shifts no conteúdo arabe durante carregamento de fonte */
+  .section-arabic,
+  .origem-kalam,
+  .missao-arabic,
+  .logo-arabic,
+  .pillar-num,
+  .pillar-arabic,
+  .prophet-arabic,
+  .gloss-arabic {
+    font-display: swap;
+  }
+}

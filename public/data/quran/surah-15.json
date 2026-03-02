@@ -1,0 +1,596 @@
+[
+  {
+    "key": "15:1",
+    "number": 1,
+    "arabic": " الٓر ۚ تِلْكَ ءَايَـٰتُ ٱلْكِتَـٰبِ وَقُرْءَانٍ مُّبِينٍ",
+    "portuguese": "Alif, Lãm, Rã. Esses são os versículos do Livro e explícito Alcorão."
+  },
+  {
+    "key": "15:2",
+    "number": 2,
+    "arabic": "رُّبَمَا يَوَدُّ ٱلَّذِينَ كَفَرُوا۟ لَوْ كَانُوا۟ مُسْلِمِينَ",
+    "portuguese": "É muito provável que os que renegaram a Fé almejem haver sido muçulmanos."
+  },
+  {
+    "key": "15:3",
+    "number": 3,
+    "arabic": "ذَرْهُمْ يَأْكُلُوا۟ وَيَتَمَتَّعُوا۟ وَيُلْهِهِمُ ٱلْأَمَلُ ۖ فَسَوْفَ يَعْلَمُونَ",
+    "portuguese": "Deixa-os comer e gozar e deixa a esperança entretê-los, pois, logo saberão!"
+  },
+  {
+    "key": "15:4",
+    "number": 4,
+    "arabic": "وَمَآ أَهْلَكْنَا مِن قَرْيَةٍ إِلَّا وَلَهَا كِتَابٌ مَّعْلُومٌ",
+    "portuguese": "E não aniquilamos cidade alguma, sem que ela tivesse prescrição determinada."
+  },
+  {
+    "key": "15:5",
+    "number": 5,
+    "arabic": "مَّا تَسْبِقُ مِنْ أُمَّةٍ أَجَلَهَا وَمَا يَسْتَـْٔخِرُونَ",
+    "portuguese": "Nenhuma comunidade antecipa seu termo nem o atrasa."
+  },
+  {
+    "key": "15:6",
+    "number": 6,
+    "arabic": "وَقَالُوا۟ يَـٰٓأَيُّهَا ٱلَّذِى نُزِّلَ عَلَيْهِ ٱلذِّكْرُ إِنَّكَ لَمَجْنُونٌ",
+    "portuguese": "E eles dizem: \"Ó tu, sobre quem foi descido o Alcorão! Por certo, és louco!\""
+  },
+  {
+    "key": "15:7",
+    "number": 7,
+    "arabic": "لَّوْ مَا تَأْتِينَا بِٱلْمَلَـٰٓئِكَةِ إِن كُنتَ مِنَ ٱلصَّـٰدِقِينَ",
+    "portuguese": "\"Que nos faças vir os anjos, se és dos verídicos!\""
+  },
+  {
+    "key": "15:8",
+    "number": 8,
+    "arabic": "مَا نُنَزِّلُ ٱلْمَلَـٰٓئِكَةَ إِلَّا بِٱلْحَقِّ وَمَا كَانُوٓا۟ إِذًا مُّنظَرِينَ",
+    "portuguese": "Não fazemos descer os anjos senão com a verdade e, nesse caso, não haveria, para eles dilação."
+  },
+  {
+    "key": "15:9",
+    "number": 9,
+    "arabic": "إِنَّا نَحْنُ نَزَّلْنَا ٱلذِّكْرَ وَإِنَّا لَهُۥ لَحَـٰفِظُونَ",
+    "portuguese": "Por certo, Nós fizemos descer o Alcorão e por certo, dele somos Custódios."
+  },
+  {
+    "key": "15:10",
+    "number": 10,
+    "arabic": "وَلَقَدْ أَرْسَلْنَا مِن قَبْلِكَ فِى شِيَعِ ٱلْأَوَّلِينَ",
+    "portuguese": "E, com efeito, enviamos, antes de ti, Mensageiros às seitas dos antepassados."
+  },
+  {
+    "key": "15:11",
+    "number": 11,
+    "arabic": "وَمَا يَأْتِيهِم مِّن رَّسُولٍ إِلَّا كَانُوا۟ بِهِۦ يَسْتَهْزِءُونَ",
+    "portuguese": "E não lhes chegou Mensageiro algum, sem que dele zombassem."
+  },
+  {
+    "key": "15:12",
+    "number": 12,
+    "arabic": "كَذَٰلِكَ نَسْلُكُهُۥ فِى قُلُوبِ ٱلْمُجْرِمِينَ",
+    "portuguese": "Assim, também, Nós o introduzimos nos corações dos criminosos."
+  },
+  {
+    "key": "15:13",
+    "number": 13,
+    "arabic": "لَا يُؤْمِنُونَ بِهِۦ ۖ وَقَدْ خَلَتْ سُنَّةُ ٱلْأَوَّلِينَ",
+    "portuguese": "Nele não crêem. E, com efeito, passaram os procedimentos dos antepassados."
+  },
+  {
+    "key": "15:14",
+    "number": 14,
+    "arabic": "وَلَوْ فَتَحْنَا عَلَيْهِم بَابًا مِّنَ ٱلسَّمَآءِ فَظَلُّوا۟ فِيهِ يَعْرُجُونَ",
+    "portuguese": "E, se lhes abríssemos uma porta do céu, e eles seguissem ascendendo a ela,"
+  },
+  {
+    "key": "15:15",
+    "number": 15,
+    "arabic": "لَقَالُوٓا۟ إِنَّمَا سُكِّرَتْ أَبْصَـٰرُنَا بَلْ نَحْنُ قَوْمٌ مَّسْحُورُونَ",
+    "portuguese": "Em verdade, ainda, diriam: \"Apenas, nossas vistas turvam-se; aliás, somos um povo enfeitiçado!\""
+  },
+  {
+    "key": "15:16",
+    "number": 16,
+    "arabic": "وَلَقَدْ جَعَلْنَا فِى ٱلسَّمَآءِ بُرُوجًا وَزَيَّنَّـٰهَا لِلنَّـٰظِرِينَ",
+    "portuguese": "E, com efeito, fizemos no céu, constelações, e aformoseamo-lo, para os olhadores."
+  },
+  {
+    "key": "15:17",
+    "number": 17,
+    "arabic": "وَحَفِظْنَـٰهَا مِن كُلِّ شَيْطَـٰنٍ رَّجِيمٍ",
+    "portuguese": "E custodiamo-lo, contra todo demônio maldito."
+  },
+  {
+    "key": "15:18",
+    "number": 18,
+    "arabic": "إِلَّا مَنِ ٱسْتَرَقَ ٱلسَّمْعَ فَأَتْبَعَهُۥ شِهَابٌ مُّبِينٌ",
+    "portuguese": "Mas a quem tenta ouvir às ocultas, então, uma evidente bólide persegue-o."
+  },
+  {
+    "key": "15:19",
+    "number": 19,
+    "arabic": "وَٱلْأَرْضَ مَدَدْنَـٰهَا وَأَلْقَيْنَا فِيهَا رَوَٰسِىَ وَأَنۢبَتْنَا فِيهَا مِن كُلِّ شَىْءٍ مَّوْزُونٍ",
+    "portuguese": "E a terra, estendemo-la e,nela, implantamos assentes montanhas e nela, fizemos germinar de toda cousa, no justo peso"
+  },
+  {
+    "key": "15:20",
+    "number": 20,
+    "arabic": "وَجَعَلْنَا لَكُمْ فِيهَا مَعَـٰيِشَ وَمَن لَّسْتُمْ لَهُۥ بِرَٰزِقِينَ",
+    "portuguese": "E, nela, fizemos meios de subsistência para vós e para aqueles aos quais não estais dando sustento."
+  },
+  {
+    "key": "15:21",
+    "number": 21,
+    "arabic": "وَإِن مِّن شَىْءٍ إِلَّا عِندَنَا خَزَآئِنُهُۥ وَمَا نُنَزِّلُهُۥٓ إِلَّا بِقَدَرٍ مَّعْلُومٍ",
+    "portuguese": "E não há cousa alguma, sem que estejam junto de nós seus cofres, e não a fazemos descer senão na medida determinada."
+  },
+  {
+    "key": "15:22",
+    "number": 22,
+    "arabic": "وَأَرْسَلْنَا ٱلرِّيَـٰحَ لَوَٰقِحَ فَأَنزَلْنَا مِنَ ٱلسَّمَآءِ مَآءً فَأَسْقَيْنَـٰكُمُوهُ وَمَآ أَنتُمْ لَهُۥ بِخَـٰزِنِينَ",
+    "portuguese": "E enviamos os ventos fecundantes, e fazemos descer do céu água, e damo-vo-la de beber; e não sois seus retentores."
+  },
+  {
+    "key": "15:23",
+    "number": 23,
+    "arabic": "وَإِنَّا لَنَحْنُ نُحْىِۦ وَنُمِيتُ وَنَحْنُ ٱلْوَٰرِثُونَ",
+    "portuguese": "E, por certo, damos a vida e damos a morte; e Nós somos O Herdeiro."
+  },
+  {
+    "key": "15:24",
+    "number": 24,
+    "arabic": "وَلَقَدْ عَلِمْنَا ٱلْمُسْتَقْدِمِينَ مِنكُمْ وَلَقَدْ عَلِمْنَا ٱلْمُسْتَـْٔخِرِينَ",
+    "portuguese": "E, com efeito, sabemos dos antecessores de vós e, com efeito, sabemos dos sucessores."
+  },
+  {
+    "key": "15:25",
+    "number": 25,
+    "arabic": "وَإِنَّ رَبَّكَ هُوَ يَحْشُرُهُمْ ۚ إِنَّهُۥ حَكِيمٌ عَلِيمٌ",
+    "portuguese": "E, por certo, teu Senhor os reunirá. Por certo, Ele é O Sábio, Onisciente."
+  },
+  {
+    "key": "15:26",
+    "number": 26,
+    "arabic": "وَلَقَدْ خَلَقْنَا ٱلْإِنسَـٰنَ مِن صَلْصَـٰلٍ مِّنْ حَمَإٍ مَّسْنُونٍ",
+    "portuguese": "E, com efeito, criamos o ser humano de argila sonorosa de barro moldável."
+  },
+  {
+    "key": "15:27",
+    "number": 27,
+    "arabic": "وَٱلْجَآنَّ خَلَقْنَـٰهُ مِن قَبْلُ مِن نَّارِ ٱلسَّمُومِ",
+    "portuguese": "E os gênios, criamo-los, antes, do fogo do Samum."
+  },
+  {
+    "key": "15:28",
+    "number": 28,
+    "arabic": "وَإِذْ قَالَ رَبُّكَ لِلْمَلَـٰٓئِكَةِ إِنِّى خَـٰلِقٌۢ بَشَرًا مِّن صَلْصَـٰلٍ مِّنْ حَمَإٍ مَّسْنُونٍ",
+    "portuguese": "E quando teu Senhor disse aos anjos: \"Por certo, estou criando um mortal de argila sonorosa, de barro moldável.\""
+  },
+  {
+    "key": "15:29",
+    "number": 29,
+    "arabic": "فَإِذَا سَوَّيْتُهُۥ وَنَفَخْتُ فِيهِ مِن رُّوحِى فَقَعُوا۟ لَهُۥ سَـٰجِدِينَ",
+    "portuguese": "\"E, quando o houver formado e, nele, houver soprado algo de Meu Espírito, então, caí prosternados, diante dele\""
+  },
+  {
+    "key": "15:30",
+    "number": 30,
+    "arabic": "فَسَجَدَ ٱلْمَلَـٰٓئِكَةُ كُلُّهُمْ أَجْمَعُونَ",
+    "portuguese": "E todos os anjos prosternaram-se, juntos,"
+  },
+  {
+    "key": "15:31",
+    "number": 31,
+    "arabic": "إِلَّآ إِبْلِيسَ أَبَىٰٓ أَن يَكُونَ مَعَ ٱلسَّـٰجِدِينَ",
+    "portuguese": "Exceto Iblis. Ele se recusou estar com os que se prosternavam."
+  },
+  {
+    "key": "15:32",
+    "number": 32,
+    "arabic": "قَالَ يَـٰٓإِبْلِيسُ مَا لَكَ أَلَّا تَكُونَ مَعَ ٱلسَّـٰجِدِينَ",
+    "portuguese": "Allah disse: \"Ó Iblis! Por que razão não estás com os que se prosternam?\""
+  },
+  {
+    "key": "15:33",
+    "number": 33,
+    "arabic": "قَالَ لَمْ أَكُن لِّأَسْجُدَ لِبَشَرٍ خَلَقْتَهُۥ مِن صَلْصَـٰلٍ مِّنْ حَمَإٍ مَّسْنُونٍ",
+    "portuguese": "Disse: \"Não é admissível que me prosterne diante de um mortal que criaste de argila sonorosa, de barro moldável\""
+  },
+  {
+    "key": "15:34",
+    "number": 34,
+    "arabic": "قَالَ فَٱخْرُجْ مِنْهَا فَإِنَّكَ رَجِيمٌ",
+    "portuguese": "Allah disse: \"Então, sai dele e, por certo, és maldito\"."
+  },
+  {
+    "key": "15:35",
+    "number": 35,
+    "arabic": "وَإِنَّ عَلَيْكَ ٱللَّعْنَةَ إِلَىٰ يَوْمِ ٱلدِّينِ",
+    "portuguese": "\"E, por certo, a maldição será sobre ti, até o Dia do Juízo\""
+  },
+  {
+    "key": "15:36",
+    "number": 36,
+    "arabic": "قَالَ رَبِّ فَأَنظِرْنِىٓ إِلَىٰ يَوْمِ يُبْعَثُونَ",
+    "portuguese": "Iblís disse: \"Senhor meu! Concede-me dilação, até um dia, em que eles serão ressuscitados\""
+  },
+  {
+    "key": "15:37",
+    "number": 37,
+    "arabic": "قَالَ فَإِنَّكَ مِنَ ٱلْمُنظَرِينَ",
+    "portuguese": "Allah disse: \"Por certo, és daqueles aos quais será concedida dilação\""
+  },
+  {
+    "key": "15:38",
+    "number": 38,
+    "arabic": "إِلَىٰ يَوْمِ ٱلْوَقْتِ ٱلْمَعْلُومِ",
+    "portuguese": "\"Até o dia do tempo determinado\""
+  },
+  {
+    "key": "15:39",
+    "number": 39,
+    "arabic": "قَالَ رَبِّ بِمَآ أَغْوَيْتَنِى لَأُزَيِّنَنَّ لَهُمْ فِى ٱلْأَرْضِ وَلَأُغْوِيَنَّهُمْ أَجْمَعِينَ",
+    "portuguese": "Ele disse: \"Senhor meu! Pelo mal a que me condenaste, em verdade, aformosearei o erro para eles, na terra, e fá-los-ei a todos incorrer no mal\"."
+  },
+  {
+    "key": "15:40",
+    "number": 40,
+    "arabic": "إِلَّا عِبَادَكَ مِنْهُمُ ٱلْمُخْلَصِينَ",
+    "portuguese": "Exceto Teus servos prediletos, entre eles\""
+  },
+  {
+    "key": "15:41",
+    "number": 41,
+    "arabic": "قَالَ هَـٰذَا صِرَٰطٌ عَلَىَّ مُسْتَقِيمٌ",
+    "portuguese": "Allah disse: \"Esta é uma senda reta, que Me impende observar.\""
+  },
+  {
+    "key": "15:42",
+    "number": 42,
+    "arabic": "إِنَّ عِبَادِى لَيْسَ لَكَ عَلَيْهِمْ سُلْطَـٰنٌ إِلَّا مَنِ ٱتَّبَعَكَ مِنَ ٱلْغَاوِينَ",
+    "portuguese": "\"Por certo, sobre Meus servos não terás poder algum, exceto sobre os que te seguirem, entre os desviados\""
+  },
+  {
+    "key": "15:43",
+    "number": 43,
+    "arabic": "وَإِنَّ جَهَنَّمَ لَمَوْعِدُهُمْ أَجْمَعِينَ",
+    "portuguese": "\"E, por certo, a Geena será seu lugar prometido, de todos.\""
+  },
+  {
+    "key": "15:44",
+    "number": 44,
+    "arabic": "لَهَا سَبْعَةُ أَبْوَٰبٍ لِّكُلِّ بَابٍ مِّنْهُمْ جُزْءٌ مَّقْسُومٌ",
+    "portuguese": "\"Ela tem sete portas. Cada porta terá deles uma parte determinada\""
+  },
+  {
+    "key": "15:45",
+    "number": 45,
+    "arabic": "إِنَّ ٱلْمُتَّقِينَ فِى جَنَّـٰتٍ وَعُيُونٍ",
+    "portuguese": "Por certo, os piedosos estarão entre jardins e fontes."
+  },
+  {
+    "key": "15:46",
+    "number": 46,
+    "arabic": "ٱدْخُلُوهَا بِسَلَـٰمٍ ءَامِنِينَ",
+    "portuguese": "Dir-se-lhes-á: \"Entrai neles em paz e em segurança\""
+  },
+  {
+    "key": "15:47",
+    "number": 47,
+    "arabic": "وَنَزَعْنَا مَا فِى صُدُورِهِم مِّنْ غِلٍّ إِخْوَٰنًا عَلَىٰ سُرُرٍ مُّتَقَـٰبِلِينَ",
+    "portuguese": "E tiraremos o que houver de ódio em seus peitos, sendo como irmãos, em leitos, frente a frente."
+  },
+  {
+    "key": "15:48",
+    "number": 48,
+    "arabic": "لَا يَمَسُّهُمْ فِيهَا نَصَبٌ وَمَا هُم مِّنْهَا بِمُخْرَجِينَ",
+    "portuguese": "Neles, nenhuma fadiga os tocará, e deles jamais os farão sair."
+  },
+  {
+    "key": "15:49",
+    "number": 49,
+    "arabic": "۞ نَبِّئْ عِبَادِىٓ أَنِّىٓ أَنَا ٱلْغَفُورُ ٱلرَّحِيمُ",
+    "portuguese": "Informa Meus servos, Muhammad, de que sou O Perdoador, O Misericordiador."
+  },
+  {
+    "key": "15:50",
+    "number": 50,
+    "arabic": "وَأَنَّ عَذَابِى هُوَ ٱلْعَذَابُ ٱلْأَلِيمُ",
+    "portuguese": "E de que Meu castigo é o doloroso castigo."
+  },
+  {
+    "key": "15:51",
+    "number": 51,
+    "arabic": "وَنَبِّئْهُمْ عَن ضَيْفِ إِبْرَٰهِيمَ",
+    "portuguese": "E informa-os dos hóspedes de Abraão."
+  },
+  {
+    "key": "15:52",
+    "number": 52,
+    "arabic": "إِذْ دَخَلُوا۟ عَلَيْهِ فَقَالُوا۟ سَلَـٰمًا قَالَ إِنَّا مِنكُمْ وَجِلُونَ",
+    "portuguese": "Quando entraram junto dele e disseram: \"Salam!, Paz ! Disse ele: \"Por certo, estamos atemorizados convosco\""
+  },
+  {
+    "key": "15:53",
+    "number": 53,
+    "arabic": "قَالُوا۟ لَا تَوْجَلْ إِنَّا نُبَشِّرُكَ بِغُلَـٰمٍ عَلِيمٍ",
+    "portuguese": "Disseram: \"Não te atemorizes! Por certo, alvissaramo-te um filho sapiente\""
+  },
+  {
+    "key": "15:54",
+    "number": 54,
+    "arabic": "قَالَ أَبَشَّرْتُمُونِى عَلَىٰٓ أَن مَّسَّنِىَ ٱلْكِبَرُ فَبِمَ تُبَشِّرُونَ",
+    "portuguese": "Disse: \"Alvissarais-me um filho, enquanto a velhice já me tocou? Então, o que me alvissarais?\""
+  },
+  {
+    "key": "15:55",
+    "number": 55,
+    "arabic": "قَالُوا۟ بَشَّرْنَـٰكَ بِٱلْحَقِّ فَلَا تَكُن مِّنَ ٱلْقَـٰنِطِينَ",
+    "portuguese": "Disseram: \"Alvissaramo-te a verdade. Então, não sejas dos desesperados\""
+  },
+  {
+    "key": "15:56",
+    "number": 56,
+    "arabic": "قَالَ وَمَن يَقْنَطُ مِن رَّحْمَةِ رَبِّهِۦٓ إِلَّا ٱلضَّآلُّونَ",
+    "portuguese": "Disse: \"E quem pode desesperar-se da misericórdia de seu Senhor, senão os descaminhados?\""
+  },
+  {
+    "key": "15:57",
+    "number": 57,
+    "arabic": "قَالَ فَمَا خَطْبُكُمْ أَيُّهَا ٱلْمُرْسَلُونَ",
+    "portuguese": "Disse ainda: \"Qual é vosso intuito, ó Mensageiros?\""
+  },
+  {
+    "key": "15:58",
+    "number": 58,
+    "arabic": "قَالُوٓا۟ إِنَّآ أُرْسِلْنَآ إِلَىٰ قَوْمٍ مُّجْرِمِينَ",
+    "portuguese": "Disseram: \"Por certo, estamos sendo enviados a um povo criminoso\""
+  },
+  {
+    "key": "15:59",
+    "number": 59,
+    "arabic": "إِلَّآ ءَالَ لُوطٍ إِنَّا لَمُنَجُّوهُمْ أَجْمَعِينَ",
+    "portuguese": "\"Exceto à família de Lot. Por certo, salvá-la-emos, a todos\""
+  },
+  {
+    "key": "15:60",
+    "number": 60,
+    "arabic": "إِلَّا ٱمْرَأَتَهُۥ قَدَّرْنَآ ۙ إِنَّهَا لَمِنَ ٱلْغَـٰبِرِينَ",
+    "portuguese": "\"Exceto sua mulher. Determinamos que, por certo, ela será dos que ficarão para trás\""
+  },
+  {
+    "key": "15:61",
+    "number": 61,
+    "arabic": "فَلَمَّا جَآءَ ءَالَ لُوطٍ ٱلْمُرْسَلُونَ",
+    "portuguese": "E, quando os Mensageiros chegaram à família de Lot,"
+  },
+  {
+    "key": "15:62",
+    "number": 62,
+    "arabic": "قَالَ إِنَّكُمْ قَوْمٌ مُّنكَرُونَ",
+    "portuguese": "Ele disse: \"Por certo, sois um grupo desconhecido\""
+  },
+  {
+    "key": "15:63",
+    "number": 63,
+    "arabic": "قَالُوا۟ بَلْ جِئْنَـٰكَ بِمَا كَانُوا۟ فِيهِ يَمْتَرُونَ",
+    "portuguese": "Disseram: \"Mais chegamos a ti com o que eles contestam\"."
+  },
+  {
+    "key": "15:64",
+    "number": 64,
+    "arabic": "وَأَتَيْنَـٰكَ بِٱلْحَقِّ وَإِنَّا لَصَـٰدِقُونَ",
+    "portuguese": "\"E trouxemo-te a verdade e, por certo, somos verídicos.\""
+  },
+  {
+    "key": "15:65",
+    "number": 65,
+    "arabic": "فَأَسْرِ بِأَهْلِكَ بِقِطْعٍ مِّنَ ٱلَّيْلِ وَٱتَّبِعْ أَدْبَـٰرَهُمْ وَلَا يَلْتَفِتْ مِنكُمْ أَحَدٌ وَٱمْضُوا۟ حَيْثُ تُؤْمَرُونَ",
+    "portuguese": "\"Então, parte com tua família, na calada da noite, e segue suas pegadas, e que nenhum de vós retorne atrás. E ide para onde sois ordenados\""
+  },
+  {
+    "key": "15:66",
+    "number": 66,
+    "arabic": "وَقَضَيْنَآ إِلَيْهِ ذَٰلِكَ ٱلْأَمْرَ أَنَّ دَابِرَ هَـٰٓؤُلَآءِ مَقْطُوعٌ مُّصْبِحِينَ",
+    "portuguese": "E inspiramo-lhe essa ordem: que esses serão exterminados, até o último deles, logo ao amanhecer."
+  },
+  {
+    "key": "15:67",
+    "number": 67,
+    "arabic": "وَجَآءَ أَهْلُ ٱلْمَدِينَةِ يَسْتَبْشِرُونَ",
+    "portuguese": "E os habitantes da cidade chegaram, exultantes."
+  },
+  {
+    "key": "15:68",
+    "number": 68,
+    "arabic": "قَالَ إِنَّ هَـٰٓؤُلَآءِ ضَيْفِى فَلَا تَفْضَحُونِ",
+    "portuguese": "Ele disse: \"Por certo, esses são meus hóspedes. Então, não me desonreis\"."
+  },
+  {
+    "key": "15:69",
+    "number": 69,
+    "arabic": "وَٱتَّقُوا۟ ٱللَّهَ وَلَا تُخْزُونِ",
+    "portuguese": "\"E temei a Allah e não me ignominieis\""
+  },
+  {
+    "key": "15:70",
+    "number": 70,
+    "arabic": "قَالُوٓا۟ أَوَلَمْ نَنْهَكَ عَنِ ٱلْعَـٰلَمِينَ",
+    "portuguese": "Disseram: \"Não te coibimos de hospedar quem quer que seja dos mundos?\""
+  },
+  {
+    "key": "15:71",
+    "number": 71,
+    "arabic": "قَالَ هَـٰٓؤُلَآءِ بَنَاتِىٓ إِن كُنتُمْ فَـٰعِلِينَ",
+    "portuguese": "Ele disse: \"Estas são minhas filhas se quereis fazê-lo\""
+  },
+  {
+    "key": "15:72",
+    "number": 72,
+    "arabic": "لَعَمْرُكَ إِنَّهُمْ لَفِى سَكْرَتِهِمْ يَعْمَهُونَ",
+    "portuguese": "Por tua vida, Muhammad! Por certo, eles estavam em sua embriaguez, caminhando às cegas."
+  },
+  {
+    "key": "15:73",
+    "number": 73,
+    "arabic": "فَأَخَذَتْهُمُ ٱلصَّيْحَةُ مُشْرِقِينَ",
+    "portuguese": "Então, o Grito apanhou-os, ao nascer do sol."
+  },
+  {
+    "key": "15:74",
+    "number": 74,
+    "arabic": "فَجَعَلْنَا عَـٰلِيَهَا سَافِلَهَا وَأَمْطَرْنَا عَلَيْهِمْ حِجَارَةً مِّن سِجِّيلٍ",
+    "portuguese": "E revolvemo-las de cima para baixo, e fizemos chover sobre eles pedras de sijjil[(pedras de barro cozido)."
+  },
+  {
+    "key": "15:75",
+    "number": 75,
+    "arabic": "إِنَّ فِى ذَٰلِكَ لَـَٔايَـٰتٍ لِّلْمُتَوَسِّمِينَ",
+    "portuguese": "Por certo, há nisso sinais para os observantes."
+  },
+  {
+    "key": "15:76",
+    "number": 76,
+    "arabic": "وَإِنَّهَا لَبِسَبِيلٍ مُّقِيمٍ",
+    "portuguese": "E, por certo, elas estavam em um caminho, que ainda permanece."
+  },
+  {
+    "key": "15:77",
+    "number": 77,
+    "arabic": "إِنَّ فِى ذَٰلِكَ لَـَٔايَةً لِّلْمُؤْمِنِينَ",
+    "portuguese": "Por certo, há nisso um sinal para os crentes."
+  },
+  {
+    "key": "15:78",
+    "number": 78,
+    "arabic": "وَإِن كَانَ أَصْحَـٰبُ ٱلْأَيْكَةِ لَظَـٰلِمِينَ",
+    "portuguese": "E, por certo, os habitantes de Al-Aykah eram injustos."
+  },
+  {
+    "key": "15:79",
+    "number": 79,
+    "arabic": "فَٱنتَقَمْنَا مِنْهُمْ وَإِنَّهُمَا لَبِإِمَامٍ مُّبِينٍ",
+    "portuguese": "Então, vingamo-Nos deles. E, por certo, ambas estão em evidente caminho."
+  },
+  {
+    "key": "15:80",
+    "number": 80,
+    "arabic": "وَلَقَدْ كَذَّبَ أَصْحَـٰبُ ٱلْحِجْرِ ٱلْمُرْسَلِينَ",
+    "portuguese": "E, com efeito, os companheiros de Al-Hijr desmentiram aos Mensageiros."
+  },
+  {
+    "key": "15:81",
+    "number": 81,
+    "arabic": "وَءَاتَيْنَـٰهُمْ ءَايَـٰتِنَا فَكَانُوا۟ عَنْهَا مُعْرِضِينَ",
+    "portuguese": "E concedemo-lhes Nossos sinais, e eles lhes estavam dando de ombros."
+  },
+  {
+    "key": "15:82",
+    "number": 82,
+    "arabic": "وَكَانُوا۟ يَنْحِتُونَ مِنَ ٱلْجِبَالِ بُيُوتًا ءَامِنِينَ",
+    "portuguese": "E escavavam, em segurança, casas nas montanhas."
+  },
+  {
+    "key": "15:83",
+    "number": 83,
+    "arabic": "فَأَخَذَتْهُمُ ٱلصَّيْحَةُ مُصْبِحِينَ",
+    "portuguese": "Então, o Grito apanhou-os, logo ao amanhecer."
+  },
+  {
+    "key": "15:84",
+    "number": 84,
+    "arabic": "فَمَآ أَغْنَىٰ عَنْهُم مَّا كَانُوا۟ يَكْسِبُونَ",
+    "portuguese": "E de nada lhes valeu o que logravam."
+  },
+  {
+    "key": "15:85",
+    "number": 85,
+    "arabic": "وَمَا خَلَقْنَا ٱلسَّمَـٰوَٰتِ وَٱلْأَرْضَ وَمَا بَيْنَهُمَآ إِلَّا بِٱلْحَقِّ ۗ وَإِنَّ ٱلسَّاعَةَ لَـَٔاتِيَةٌ ۖ فَٱصْفَحِ ٱلصَّفْحَ ٱلْجَمِيلَ",
+    "portuguese": "E não criamos os céus e a terra e o que há entre ambos, senão com a verdade. E, por certo, a Hora está prestes a chegar. Então, tolera os adversários com bela tolerância."
+  },
+  {
+    "key": "15:86",
+    "number": 86,
+    "arabic": "إِنَّ رَبَّكَ هُوَ ٱلْخَلَّـٰقُ ٱلْعَلِيمُ",
+    "portuguese": "Por certo, teu Senhor é O Criador, O Onisciente."
+  },
+  {
+    "key": "15:87",
+    "number": 87,
+    "arabic": "وَلَقَدْ ءَاتَيْنَـٰكَ سَبْعًا مِّنَ ٱلْمَثَانِى وَٱلْقُرْءَانَ ٱلْعَظِيمَ",
+    "portuguese": "E, com efeito, concedemo-te sete versículos dos reiterativos e o magnífico Alcorão."
+  },
+  {
+    "key": "15:88",
+    "number": 88,
+    "arabic": "لَا تَمُدَّنَّ عَيْنَيْكَ إِلَىٰ مَا مَتَّعْنَا بِهِۦٓ أَزْوَٰجًا مِّنْهُمْ وَلَا تَحْزَنْ عَلَيْهِمْ وَٱخْفِضْ جَنَاحَكَ لِلْمُؤْمِنِينَ",
+    "portuguese": "Não estendas teus olhos para aquilo que fizemos gozar alguns casais entre eles. E não te entristeças por eles. E baixa tua asa aos crentes."
+  },
+  {
+    "key": "15:89",
+    "number": 89,
+    "arabic": "وَقُلْ إِنِّىٓ أَنَا ٱلنَّذِيرُ ٱلْمُبِينُ",
+    "portuguese": "E dize: \"Por certo, sou o evidente admoestador\" do castigo."
+  },
+  {
+    "key": "15:90",
+    "number": 90,
+    "arabic": "كَمَآ أَنزَلْنَا عَلَى ٱلْمُقْتَسِمِينَ",
+    "portuguese": "Como o que fizemos descer sobre os que dividiram o Livro."
+  },
+  {
+    "key": "15:91",
+    "number": 91,
+    "arabic": "ٱلَّذِينَ جَعَلُوا۟ ٱلْقُرْءَانَ عِضِينَ",
+    "portuguese": "Que fizeram o Alcorão em fragmentos."
+  },
+  {
+    "key": "15:92",
+    "number": 92,
+    "arabic": "فَوَرَبِّكَ لَنَسْـَٔلَنَّهُمْ أَجْمَعِينَ",
+    "portuguese": "Então, Muhammad, por teu Senhor! Interrogá-los-emos, a todos."
+  },
+  {
+    "key": "15:93",
+    "number": 93,
+    "arabic": "عَمَّا كَانُوا۟ يَعْمَلُونَ",
+    "portuguese": "Acerca do que faziam."
+  },
+  {
+    "key": "15:94",
+    "number": 94,
+    "arabic": "فَٱصْدَعْ بِمَا تُؤْمَرُ وَأَعْرِضْ عَنِ ٱلْمُشْرِكِينَ",
+    "portuguese": "Proclama, então, aquilo para o qual és ordenado e dá de ombros aos idólatras."
+  },
+  {
+    "key": "15:95",
+    "number": 95,
+    "arabic": "إِنَّا كَفَيْنَـٰكَ ٱلْمُسْتَهْزِءِينَ",
+    "portuguese": "Por certo, Nós bastamo-te contra os zombadores."
+  },
+  {
+    "key": "15:96",
+    "number": 96,
+    "arabic": "ٱلَّذِينَ يَجْعَلُونَ مَعَ ٱللَّهِ إِلَـٰهًا ءَاخَرَ ۚ فَسَوْفَ يَعْلَمُونَ",
+    "portuguese": "Que fazem, junto de Allah, outro deus. Então eles logo saberão."
+  },
+  {
+    "key": "15:97",
+    "number": 97,
+    "arabic": "وَلَقَدْ نَعْلَمُ أَنَّكَ يَضِيقُ صَدْرُكَ بِمَا يَقُولُونَ",
+    "portuguese": "E, em verdade, sabemos que teu peito se constrange com o que dizem."
+  },
+  {
+    "key": "15:98",
+    "number": 98,
+    "arabic": "فَسَبِّحْ بِحَمْدِ رَبِّكَ وَكُن مِّنَ ٱلسَّـٰجِدِينَ",
+    "portuguese": "Então, glorifica com louvor, a teu Senhor e sê dos que se prosternam."
+  },
+  {
+    "key": "15:99",
+    "number": 99,
+    "arabic": "وَٱعْبُدْ رَبَّكَ حَتَّىٰ يَأْتِيَكَ ٱلْيَقِينُ",
+    "portuguese": "E adora teu Senhor, até chegar-te a certeza."
+  }
+]

@@ -3,6 +3,7 @@
 import { ReactNode } from 'react'
 import { useAuth } from '@/providers/auth-provider'
 import { useMembership } from '@/lib/hooks/useMembership'
+import { useRouter } from 'next/navigation'
 import { Crown, Sparkles } from 'lucide-react'
 
 interface PremiumGateProps {
@@ -44,6 +45,7 @@ export function PremiumGate({ children, fallback }: PremiumGateProps) {
 function DefaultUpgradeCTA() {
   const { checkout, loading } = useMembership()
   const { user } = useAuth()
+  const router = useRouter()
 
   return (
     <section style={{
@@ -106,8 +108,8 @@ function DefaultUpgradeCTA() {
       </p>
 
       <button
-        onClick={user ? checkout : undefined}
-        disabled={loading || !user}
+        onClick={user ? checkout : () => router.push('/entrar?redirect=/meus-sahabas')}
+        disabled={loading}
         style={{
           fontFamily: 'var(--font-sans)',
           fontSize: 15,
@@ -125,7 +127,7 @@ function DefaultUpgradeCTA() {
           boxShadow: '0 4px 20px rgba(201,168,76,0.2)',
         }}
       >
-        {!user ? 'Faça login para assinar' : loading ? 'Redirecionando...' : 'Assinar Premium — R$49,90/mês'}
+        {loading ? 'Redirecionando...' : !user ? 'Entrar para assinar' : 'Assinar Premium — R$49,90/mês'}
       </button>
 
       <div style={{

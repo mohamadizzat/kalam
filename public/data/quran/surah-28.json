@@ -1,0 +1,530 @@
+[
+  {
+    "key": "28:1",
+    "number": 1,
+    "arabic": " طسٓمٓ",
+    "portuguese": "Ta, Sin, Mim."
+  },
+  {
+    "key": "28:2",
+    "number": 2,
+    "arabic": "تِلْكَ ءَايَـٰتُ ٱلْكِتَـٰبِ ٱلْمُبِينِ",
+    "portuguese": "Esses são os versículos do explícito Livro."
+  },
+  {
+    "key": "28:3",
+    "number": 3,
+    "arabic": "نَتْلُوا۟ عَلَيْكَ مِن نَّبَإِ مُوسَىٰ وَفِرْعَوْنَ بِٱلْحَقِّ لِقَوْمٍ يُؤْمِنُونَ",
+    "portuguese": "Recitamos, para ti, com a verdade, algo da história de Moisés e Faraó, para beneficiar um povo que crê."
+  },
+  {
+    "key": "28:4",
+    "number": 4,
+    "arabic": "إِنَّ فِرْعَوْنَ عَلَا فِى ٱلْأَرْضِ وَجَعَلَ أَهْلَهَا شِيَعًا يَسْتَضْعِفُ طَآئِفَةً مِّنْهُمْ يُذَبِّحُ أَبْنَآءَهُمْ وَيَسْتَحْىِۦ نِسَآءَهُمْ ۚ إِنَّهُۥ كَانَ مِنَ ٱلْمُفْسِدِينَ",
+    "portuguese": "Por certo, Faraó sublimou-se em arrogância, na terra, e fez seus habitantes divididos em seitas, subjugando uma facção deles, degolando seus filhos e deixando vivas suas mulheres. Por certo, ele era dos corruptores."
+  },
+  {
+    "key": "28:5",
+    "number": 5,
+    "arabic": "وَنُرِيدُ أَن نَّمُنَّ عَلَى ٱلَّذِينَ ٱسْتُضْعِفُوا۟ فِى ٱلْأَرْضِ وَنَجْعَلَهُمْ أَئِمَّةً وَنَجْعَلَهُمُ ٱلْوَٰرِثِينَ",
+    "portuguese": "E Nós desejamos fazer mercê para os que foram subjugados, na terra, e fazê-los próceres e fazê-los os herdeiros do reino de Faraó,"
+  },
+  {
+    "key": "28:6",
+    "number": 6,
+    "arabic": "وَنُمَكِّنَ لَهُمْ فِى ٱلْأَرْضِ وَنُرِىَ فِرْعَوْنَ وَهَـٰمَـٰنَ وَجُنُودَهُمَا مِنْهُم مَّا كَانُوا۟ يَحْذَرُونَ",
+    "portuguese": "E empossá-los, na terra, e fazer ver a Faraó e a Haman e a seus exércitos aquilo de que se precatavam, acerca deles."
+  },
+  {
+    "key": "28:7",
+    "number": 7,
+    "arabic": "وَأَوْحَيْنَآ إِلَىٰٓ أُمِّ مُوسَىٰٓ أَنْ أَرْضِعِيهِ ۖ فَإِذَا خِفْتِ عَلَيْهِ فَأَلْقِيهِ فِى ٱلْيَمِّ وَلَا تَخَافِى وَلَا تَحْزَنِىٓ ۖ إِنَّا رَآدُّوهُ إِلَيْكِ وَجَاعِلُوهُ مِنَ ٱلْمُرْسَلِينَ",
+    "portuguese": "E inspiramos à mãe de Moisés: \"Amamenta-o. E, quando temeres por ele, lança-o na onda, e não temas, e não te entristeças. Por certo, devolver-to-emos e fá-lo-emos dos Mensageiros.\""
+  },
+  {
+    "key": "28:8",
+    "number": 8,
+    "arabic": "فَٱلْتَقَطَهُۥٓ ءَالُ فِرْعَوْنَ لِيَكُونَ لَهُمْ عَدُوًّا وَحَزَنًا ۗ إِنَّ فِرْعَوْنَ وَهَـٰمَـٰنَ وَجُنُودَهُمَا كَانُوا۟ خَـٰطِـِٔينَ",
+    "portuguese": "Então, a família de Faraó recolheu-o, para que lhes fosse inimigo e tristeza. Por certo, Faraó e Haman e seus exércitos estavam errados."
+  },
+  {
+    "key": "28:9",
+    "number": 9,
+    "arabic": "وَقَالَتِ ٱمْرَأَتُ فِرْعَوْنَ قُرَّتُ عَيْنٍ لِّى وَلَكَ ۖ لَا تَقْتُلُوهُ عَسَىٰٓ أَن يَنفَعَنَآ أَوْ نَتَّخِذَهُۥ وَلَدًا وَهُمْ لَا يَشْعُرُونَ",
+    "portuguese": "E a mulher de Faraó disse: \"Ele é, para mim e para ti, alegre frescor dos olhos. Não o mateis. Quiçá nos beneficie, ou o tomemos por filho.\" E não perceberam o que iria ocorrer."
+  },
+  {
+    "key": "28:10",
+    "number": 10,
+    "arabic": "وَأَصْبَحَ فُؤَادُ أُمِّ مُوسَىٰ فَـٰرِغًا ۖ إِن كَادَتْ لَتُبْدِى بِهِۦ لَوْلَآ أَن رَّبَطْنَا عَلَىٰ قَلْبِهَا لِتَكُونَ مِنَ ٱلْمُؤْمِنِينَ",
+    "portuguese": "E o coração da mãe de Moisés amanheceu vazio. Por certo, quase o haveria mostrado, não lhe houvéssemos revigorado o coração, para que fosse dos crentes."
+  },
+  {
+    "key": "28:11",
+    "number": 11,
+    "arabic": "وَقَالَتْ لِأُخْتِهِۦ قُصِّيهِ ۖ فَبَصُرَتْ بِهِۦ عَن جُنُبٍ وَهُمْ لَا يَشْعُرُونَ",
+    "portuguese": "E ela disse à irmã dele: \"Encalça-o.\" Então, esta o enxergava, de longe, enquanto não percebiam."
+  },
+  {
+    "key": "28:12",
+    "number": 12,
+    "arabic": "۞ وَحَرَّمْنَا عَلَيْهِ ٱلْمَرَاضِعَ مِن قَبْلُ فَقَالَتْ هَلْ أَدُلُّكُمْ عَلَىٰٓ أَهْلِ بَيْتٍ يَكْفُلُونَهُۥ لَكُمْ وَهُمْ لَهُۥ نَـٰصِحُونَ",
+    "portuguese": "E, antes, proibimo-lhe as amas-de-leite; então, ela disse: \"Quereis vos indique uma família de uma casa, a qual cuidará dele, para vós, e com ele será cautelosa?\""
+  },
+  {
+    "key": "28:13",
+    "number": 13,
+    "arabic": "فَرَدَدْنَـٰهُ إِلَىٰٓ أُمِّهِۦ كَىْ تَقَرَّ عَيْنُهَا وَلَا تَحْزَنَ وَلِتَعْلَمَ أَنَّ وَعْدَ ٱللَّهِ حَقٌّ وَلَـٰكِنَّ أَكْثَرَهُمْ لَا يَعْلَمُونَ",
+    "portuguese": "Assim, devolvemo-lo a sua mãe, para que se lhe refrescassem os olhos de alegria e para que ela não se entristecesse e soubesse que a promessa de Allah é verdadeira; mas a maioria deles não sabe."
+  },
+  {
+    "key": "28:14",
+    "number": 14,
+    "arabic": "وَلَمَّا بَلَغَ أَشُدَّهُۥ وَٱسْتَوَىٰٓ ءَاتَيْنَـٰهُ حُكْمًا وَعِلْمًا ۚ وَكَذَٰلِكَ نَجْزِى ٱلْمُحْسِنِينَ",
+    "portuguese": "E, quando ele atingiu a sua força plena, e amadureceu, concedemo-lhe sabedoria e ciência. E assim, recompensamos os benfeitores."
+  },
+  {
+    "key": "28:15",
+    "number": 15,
+    "arabic": "وَدَخَلَ ٱلْمَدِينَةَ عَلَىٰ حِينِ غَفْلَةٍ مِّنْ أَهْلِهَا فَوَجَدَ فِيهَا رَجُلَيْنِ يَقْتَتِلَانِ هَـٰذَا مِن شِيعَتِهِۦ وَهَـٰذَا مِنْ عَدُوِّهِۦ ۖ فَٱسْتَغَـٰثَهُ ٱلَّذِى مِن شِيعَتِهِۦ عَلَى ٱلَّذِى مِنْ عَدُوِّهِۦ فَوَكَزَهُۥ مُوسَىٰ فَقَضَىٰ عَلَيْهِ ۖ قَالَ هَـٰذَا مِنْ عَمَلِ ٱلشَّيْطَـٰنِ ۖ إِنَّهُۥ عَدُوٌّ مُّضِلٌّ مُّبِينٌ",
+    "portuguese": "E entrou na cidade, em momento de desatenção de seus habitantes, e nela, encontrou dois homens que se combatiam: este, de sua seita, e aquele, de seus inimigos. Então, aquele de sua seita pediu-lhe socorrimento contra aquele de seus inimigos; e Moisés esmurrou-o, e pôs-lhe termo à vida. Moisés disse: \"Isto é da ação de Satã. Por certo, ele é inimigo declarado, desencaminhador.\""
+  },
+  {
+    "key": "28:16",
+    "number": 16,
+    "arabic": "قَالَ رَبِّ إِنِّى ظَلَمْتُ نَفْسِى فَٱغْفِرْ لِى فَغَفَرَ لَهُۥٓ ۚ إِنَّهُۥ هُوَ ٱلْغَفُورُ ٱلرَّحِيمُ",
+    "portuguese": "Ele disse: \"Senhor meu! Por certo, fui injusto comigo mesmo; então, perdoa-me.\" E Ele o perdoou. Por certo, Ele é O Perdoador, O Misericordiador."
+  },
+  {
+    "key": "28:17",
+    "number": 17,
+    "arabic": "قَالَ رَبِّ بِمَآ أَنْعَمْتَ عَلَىَّ فَلَنْ أَكُونَ ظَهِيرًا لِّلْمُجْرِمِينَ",
+    "portuguese": "Ele disse: \"Senhor meu! Por aquilo com que me agraciaste, não serei coadjutor dos criminosos.\""
+  },
+  {
+    "key": "28:18",
+    "number": 18,
+    "arabic": "فَأَصْبَحَ فِى ٱلْمَدِينَةِ خَآئِفًا يَتَرَقَّبُ فَإِذَا ٱلَّذِى ٱسْتَنصَرَهُۥ بِٱلْأَمْسِ يَسْتَصْرِخُهُۥ ۚ قَالَ لَهُۥ مُوسَىٰٓ إِنَّكَ لَغَوِىٌّ مُّبِينٌ",
+    "portuguese": "E ele amanheceu, na cidade, temeroso, ficando à espreita, e eis aquele que, na véspera, lhe pedira o socorro, gritou, para que lhe valesse. Moisés disse-lhe: \"Por certo, és evidente sedutor!\""
+  },
+  {
+    "key": "28:19",
+    "number": 19,
+    "arabic": "فَلَمَّآ أَنْ أَرَادَ أَن يَبْطِشَ بِٱلَّذِى هُوَ عَدُوٌّ لَّهُمَا قَالَ يَـٰمُوسَىٰٓ أَتُرِيدُ أَن تَقْتُلَنِى كَمَا قَتَلْتَ نَفْسًۢا بِٱلْأَمْسِ ۖ إِن تُرِيدُ إِلَّآ أَن تَكُونَ جَبَّارًا فِى ٱلْأَرْضِ وَمَا تُرِيدُ أَن تَكُونَ مِنَ ٱلْمُصْلِحِينَ",
+    "portuguese": "E quando desejou desferir golpes contra o que era inimigo de ambos, este disse: \"Ó Moisés! Desejas matar-me, como mataste, ontem uma pessoa? Não desejas senão ser tirano na terra, e não desejas ser dos reformadores.\""
+  },
+  {
+    "key": "28:20",
+    "number": 20,
+    "arabic": "وَجَآءَ رَجُلٌ مِّنْ أَقْصَا ٱلْمَدِينَةِ يَسْعَىٰ قَالَ يَـٰمُوسَىٰٓ إِنَّ ٱلْمَلَأَ يَأْتَمِرُونَ بِكَ لِيَقْتُلُوكَ فَٱخْرُجْ إِنِّى لَكَ مِنَ ٱلنَّـٰصِحِينَ",
+    "portuguese": "E um homem chegou, do extremo da cidade, correndo. Ele disse: \"Ó Moisés! Por certo, os dignitários deliberam sobre ti, para matar-te; então, sai da cidade. Por certo, sou-te dos conselheiros.\""
+  },
+  {
+    "key": "28:21",
+    "number": 21,
+    "arabic": "فَخَرَجَ مِنْهَا خَآئِفًا يَتَرَقَّبُ ۖ قَالَ رَبِّ نَجِّنِى مِنَ ٱلْقَوْمِ ٱلظَّـٰلِمِينَ",
+    "portuguese": "Então, ele saiu dela, temeroso, ficando à espreita. Ele disse: \"Senhor meu! Salva-me do povo injusto.\""
+  },
+  {
+    "key": "28:22",
+    "number": 22,
+    "arabic": "وَلَمَّا تَوَجَّهَ تِلْقَآءَ مَدْيَنَ قَالَ عَسَىٰ رَبِّىٓ أَن يَهْدِيَنِى سَوَآءَ ٱلسَّبِيلِ",
+    "portuguese": "E, quando se dirigiu rumo a Madian, disse: \"Quiçá, meu Senhor me guie ao caminho direito.\""
+  },
+  {
+    "key": "28:23",
+    "number": 23,
+    "arabic": "وَلَمَّا وَرَدَ مَآءَ مَدْيَنَ وَجَدَ عَلَيْهِ أُمَّةً مِّنَ ٱلنَّاسِ يَسْقُونَ وَوَجَدَ مِن دُونِهِمُ ٱمْرَأَتَيْنِ تَذُودَانِ ۖ قَالَ مَا خَطْبُكُمَا ۖ قَالَتَا لَا نَسْقِى حَتَّىٰ يُصْدِرَ ٱلرِّعَآءُ ۖ وَأَبُونَا شَيْخٌ كَبِيرٌ",
+    "portuguese": "E, quando chegou ao poço de água de Madian, encontrou, junto dele, uma multidão de homens, que abeberava os rebanhos, e encontrou, um pouco distante deles, duas mulheres, que retinham os seus. Ele disse: \"Qual é vosso intuito?\" Ambas disseram: \"Não abeberaremos nossos rebanhos, até que os pastores partam com os seus, e nosso pai é bastante idoso.\""
+  },
+  {
+    "key": "28:24",
+    "number": 24,
+    "arabic": "فَسَقَىٰ لَهُمَا ثُمَّ تَوَلَّىٰٓ إِلَى ٱلظِّلِّ فَقَالَ رَبِّ إِنِّى لِمَآ أَنزَلْتَ إِلَىَّ مِنْ خَيْرٍ فَقِيرٌ",
+    "portuguese": "Então, ele abeberou os rebanhos, para elas; em seguida, retirou-se à sombra, e disse: \"Senhor meu! Por certo, estou necessitado do que fizeste descer de bom, para mim.\""
+  },
+  {
+    "key": "28:25",
+    "number": 25,
+    "arabic": "فَجَآءَتْهُ إِحْدَىٰهُمَا تَمْشِى عَلَى ٱسْتِحْيَآءٍ قَالَتْ إِنَّ أَبِى يَدْعُوكَ لِيَجْزِيَكَ أَجْرَ مَا سَقَيْتَ لَنَا ۚ فَلَمَّا جَآءَهُۥ وَقَصَّ عَلَيْهِ ٱلْقَصَصَ قَالَ لَا تَخَفْ ۖ نَجَوْتَ مِنَ ٱلْقَوْمِ ٱلظَّـٰلِمِينَ",
+    "portuguese": "Em seguida, uma das duas mulheres chegou-lhe andando com recato. Disse: \"Por certo, meu pai te convoca, para recompensar-te com o prêmio de haveres abeberado os rebanhos, por nós.\" E, quando chegou a ele e lhe narrou a narrativa, aquele disse: \"Nada temas! Salvaste-te do povo injusto.\""
+  },
+  {
+    "key": "28:26",
+    "number": 26,
+    "arabic": "قَالَتْ إِحْدَىٰهُمَا يَـٰٓأَبَتِ ٱسْتَـْٔجِرْهُ ۖ إِنَّ خَيْرَ مَنِ ٱسْتَـْٔجَرْتَ ٱلْقَوِىُّ ٱلْأَمِينُ",
+    "portuguese": "Uma das duas disse: \"Ó meu pai! Emprega-o. Por certo, o melhor dos que empregares é o forte, o leal.\""
+  },
+  {
+    "key": "28:27",
+    "number": 27,
+    "arabic": "قَالَ إِنِّىٓ أُرِيدُ أَنْ أُنكِحَكَ إِحْدَى ٱبْنَتَىَّ هَـٰتَيْنِ عَلَىٰٓ أَن تَأْجُرَنِى ثَمَـٰنِىَ حِجَجٍ ۖ فَإِنْ أَتْمَمْتَ عَشْرًا فَمِنْ عِندِكَ ۖ وَمَآ أُرِيدُ أَنْ أَشُقَّ عَلَيْكَ ۚ سَتَجِدُنِىٓ إِن شَآءَ ٱللَّهُ مِنَ ٱلصَّـٰلِحِينَ",
+    "portuguese": "Ele disse: \"Por certo, desejo esposarte com uma destas minhas duas filhas, com a condição de me servires por oito anos. E se completares dez, sê-lo-á por tua conta. E nada desejo dificultar-te. Se Allah quiser, encontrar-me-ás dos íntegros.\""
+  },
+  {
+    "key": "28:28",
+    "number": 28,
+    "arabic": "قَالَ ذَٰلِكَ بَيْنِى وَبَيْنَكَ ۖ أَيَّمَا ٱلْأَجَلَيْنِ قَضَيْتُ فَلَا عُدْوَٰنَ عَلَىَّ ۖ وَٱللَّهُ عَلَىٰ مَا نَقُولُ وَكِيلٌ",
+    "portuguese": "Moisés disse: \"Isso fica entre mim e ti. Seja qual for dos dois termos que eu cumprir, nada de transgressão, contra mim. E Allah, sobre o que dizemos, é Patrono.\""
+  },
+  {
+    "key": "28:29",
+    "number": 29,
+    "arabic": "۞ فَلَمَّا قَضَىٰ مُوسَى ٱلْأَجَلَ وَسَارَ بِأَهْلِهِۦٓ ءَانَسَ مِن جَانِبِ ٱلطُّورِ نَارًا قَالَ لِأَهْلِهِ ٱمْكُثُوٓا۟ إِنِّىٓ ءَانَسْتُ نَارًا لَّعَلِّىٓ ءَاتِيكُم مِّنْهَا بِخَبَرٍ أَوْ جَذْوَةٍ مِّنَ ٱلنَّارِ لَعَلَّكُمْ تَصْطَلُونَ",
+    "portuguese": "Então, quando Moisés encerrou o termo e partiu com sua família, entreviu um fogo do lado do Monte. Ele disse a sua família: \"Permanecei, aqui - por certo, entrevejo um fogo - na esperança de fazer-vos vir dele uma notícia, ou um lenho aceso, para vos aquecerdes.\""
+  },
+  {
+    "key": "28:30",
+    "number": 30,
+    "arabic": "فَلَمَّآ أَتَىٰهَا نُودِىَ مِن شَـٰطِئِ ٱلْوَادِ ٱلْأَيْمَنِ فِى ٱلْبُقْعَةِ ٱلْمُبَـٰرَكَةِ مِنَ ٱلشَّجَرَةِ أَن يَـٰمُوسَىٰٓ إِنِّىٓ أَنَا ٱللَّهُ رَبُّ ٱلْعَـٰلَمِينَ",
+    "portuguese": "E, quando chegou a ele, chamaram-no, do lado direito do vale, na região bendita da árvore: \"Ó Moisés! Por certo, Eu, Eu sou Allah, O Senhor dos mundos,\""
+  },
+  {
+    "key": "28:31",
+    "number": 31,
+    "arabic": "وَأَنْ أَلْقِ عَصَاكَ ۖ فَلَمَّا رَءَاهَا تَهْتَزُّ كَأَنَّهَا جَآنٌّ وَلَّىٰ مُدْبِرًا وَلَمْ يُعَقِّبْ ۚ يَـٰمُوسَىٰٓ أَقْبِلْ وَلَا تَخَفْ ۖ إِنَّكَ مِنَ ٱلْـَٔامِنِينَ",
+    "portuguese": "\"E lança tua vara.\" E, quando a viu mover-se, como se fora cobra, voltou as costas, fugindo, e não volveu atrás. Ele disse: \"Ó Moisés! Vem, e não te atemorizes. Por certo, tu és dos que estão em segurança.\""
+  },
+  {
+    "key": "28:32",
+    "number": 32,
+    "arabic": "ٱسْلُكْ يَدَكَ فِى جَيْبِكَ تَخْرُجْ بَيْضَآءَ مِنْ غَيْرِ سُوٓءٍ وَٱضْمُمْ إِلَيْكَ جَنَاحَكَ مِنَ ٱلرَّهْبِ ۖ فَذَٰنِكَ بُرْهَـٰنَانِ مِن رَّبِّكَ إِلَىٰ فِرْعَوْنَ وَمَلَإِي۟هِۦٓ ۚ إِنَّهُمْ كَانُوا۟ قَوْمًا فَـٰسِقِينَ",
+    "portuguese": "\"Introduze tua mão na abertura de teu peitilho, ela sairá alva, sem mal algum, e junta a ti tua mão, para te guardares do medo. Então, estas são duas provanças de teu Senhor para Faraó e seus dignitários. Por certo, eles são um povo perverso.\""
+  },
+  {
+    "key": "28:33",
+    "number": 33,
+    "arabic": "قَالَ رَبِّ إِنِّى قَتَلْتُ مِنْهُمْ نَفْسًا فَأَخَافُ أَن يَقْتُلُونِ",
+    "portuguese": "Moisés disse: \"Senhor meu! Por certo matei um homem deles; então, temo que me matem.\""
+  },
+  {
+    "key": "28:34",
+    "number": 34,
+    "arabic": "وَأَخِى هَـٰرُونُ هُوَ أَفْصَحُ مِنِّى لِسَانًا فَأَرْسِلْهُ مَعِىَ رِدْءًا يُصَدِّقُنِىٓ ۖ إِنِّىٓ أَخَافُ أَن يُكَذِّبُونِ",
+    "portuguese": "\"E meu irmão Aarão, ele é mais eloqüente que eu, em linguagem; então, envia-o comigo, por adjutor, que me confirmará as palavras. Por certo, temo que me desmintam.\""
+  },
+  {
+    "key": "28:35",
+    "number": 35,
+    "arabic": "قَالَ سَنَشُدُّ عَضُدَكَ بِأَخِيكَ وَنَجْعَلُ لَكُمَا سُلْطَـٰنًا فَلَا يَصِلُونَ إِلَيْكُمَا ۚ بِـَٔايَـٰتِنَآ أَنتُمَا وَمَنِ ٱتَّبَعَكُمَا ٱلْغَـٰلِبُونَ",
+    "portuguese": "Allah disse: \"Fortalecer-te-emos o braço com teu irmão e far-vos-emos ter poder; então, não chegarão até vós. Com Nossos sinais, vós ambos e quem vos seguir sereis os vencedores.\""
+  },
+  {
+    "key": "28:36",
+    "number": 36,
+    "arabic": "فَلَمَّا جَآءَهُم مُّوسَىٰ بِـَٔايَـٰتِنَا بَيِّنَـٰتٍ قَالُوا۟ مَا هَـٰذَآ إِلَّا سِحْرٌ مُّفْتَرًى وَمَا سَمِعْنَا بِهَـٰذَا فِىٓ ءَابَآئِنَا ٱلْأَوَّلِينَ",
+    "portuguese": "E quando Moisés lhes chegou, com Nossos evidentes sinais, disseram: \"Isto não é senão magia forjada! E jamais ouvimos algo disso, entre nossos pais antepassados.\""
+  },
+  {
+    "key": "28:37",
+    "number": 37,
+    "arabic": "وَقَالَ مُوسَىٰ رَبِّىٓ أَعْلَمُ بِمَن جَآءَ بِٱلْهُدَىٰ مِنْ عِندِهِۦ وَمَن تَكُونُ لَهُۥ عَـٰقِبَةُ ٱلدَّارِ ۖ إِنَّهُۥ لَا يُفْلِحُ ٱلظَّـٰلِمُونَ",
+    "portuguese": "E Moisés disse: \"Meu Senhor é bem Sabedor de quem chega com a orientação de Sua parte e de quem tem o final feliz da Derradeira Morada. Por certo, os injustos não serão bem-aventurados.\""
+  },
+  {
+    "key": "28:38",
+    "number": 38,
+    "arabic": "وَقَالَ فِرْعَوْنُ يَـٰٓأَيُّهَا ٱلْمَلَأُ مَا عَلِمْتُ لَكُم مِّنْ إِلَـٰهٍ غَيْرِى فَأَوْقِدْ لِى يَـٰهَـٰمَـٰنُ عَلَى ٱلطِّينِ فَٱجْعَل لِّى صَرْحًا لَّعَلِّىٓ أَطَّلِعُ إِلَىٰٓ إِلَـٰهِ مُوسَىٰ وَإِنِّى لَأَظُنُّهُۥ مِنَ ٱلْكَـٰذِبِينَ",
+    "portuguese": "E Faraó disse: \"Ó dignitários! Não conheço, para vós, nenhum outro deus que não seja eu; então, acende-me o fogo, ó Hamam, sob o barro! E faze-me uma torre, na esperança de que eu possa subir até O Deus de Moisés; e, por certo, penso que ele é dos mentirosos.\""
+  },
+  {
+    "key": "28:39",
+    "number": 39,
+    "arabic": "وَٱسْتَكْبَرَ هُوَ وَجُنُودُهُۥ فِى ٱلْأَرْضِ بِغَيْرِ ٱلْحَقِّ وَظَنُّوٓا۟ أَنَّهُمْ إِلَيْنَا لَا يُرْجَعُونَ",
+    "portuguese": "E ele se ensoberbeceu sem razão, na terra, ele e seu exército, e pensaram que a Nós não seriam retornados."
+  },
+  {
+    "key": "28:40",
+    "number": 40,
+    "arabic": "فَأَخَذْنَـٰهُ وَجُنُودَهُۥ فَنَبَذْنَـٰهُمْ فِى ٱلْيَمِّ ۖ فَٱنظُرْ كَيْفَ كَانَ عَـٰقِبَةُ ٱلظَّـٰلِمِينَ",
+    "portuguese": "Então, apanhamo-lo e a seu exército, e deitamo-los fora, na onda. Olha, pois, como foi o fim dos injustos!"
+  },
+  {
+    "key": "28:41",
+    "number": 41,
+    "arabic": "وَجَعَلْنَـٰهُمْ أَئِمَّةً يَدْعُونَ إِلَى ٱلنَّارِ ۖ وَيَوْمَ ٱلْقِيَـٰمَةِ لَا يُنصَرُونَ",
+    "portuguese": "E fizemo-los próceres, convocando os homens ao Fogo. E, no Dia da Ressurreição, não serão socorridos."
+  },
+  {
+    "key": "28:42",
+    "number": 42,
+    "arabic": "وَأَتْبَعْنَـٰهُمْ فِى هَـٰذِهِ ٱلدُّنْيَا لَعْنَةً ۖ وَيَوْمَ ٱلْقِيَـٰمَةِ هُم مِّنَ ٱلْمَقْبُوحِينَ",
+    "portuguese": "E fizemo-los perseguidos, na vida terrena, por maldição. E, no Dia da Ressurreição, serão dos ascorosos."
+  },
+  {
+    "key": "28:43",
+    "number": 43,
+    "arabic": "وَلَقَدْ ءَاتَيْنَا مُوسَى ٱلْكِتَـٰبَ مِنۢ بَعْدِ مَآ أَهْلَكْنَا ٱلْقُرُونَ ٱلْأُولَىٰ بَصَآئِرَ لِلنَّاسِ وَهُدًى وَرَحْمَةً لَّعَلَّهُمْ يَتَذَكَّرُونَ",
+    "portuguese": "E, com efeito, concedemos a Moisés o Livro - depois de havermos aniquilado as primeiras gerações - como clarividências para os humanos e orientação e misericórdia, para meditarem."
+  },
+  {
+    "key": "28:44",
+    "number": 44,
+    "arabic": "وَمَا كُنتَ بِجَانِبِ ٱلْغَرْبِىِّ إِذْ قَضَيْنَآ إِلَىٰ مُوسَى ٱلْأَمْرَ وَمَا كُنتَ مِنَ ٱلشَّـٰهِدِينَ",
+    "portuguese": "E não estavas, Muhammad, no lado oeste do Monte Sinai, quando decretamos a Moisés a Ordem, e não foste das testemunhas."
+  },
+  {
+    "key": "28:45",
+    "number": 45,
+    "arabic": "وَلَـٰكِنَّآ أَنشَأْنَا قُرُونًا فَتَطَاوَلَ عَلَيْهِمُ ٱلْعُمُرُ ۚ وَمَا كُنتَ ثَاوِيًا فِىٓ أَهْلِ مَدْيَنَ تَتْلُوا۟ عَلَيْهِمْ ءَايَـٰتِنَا وَلَـٰكِنَّا كُنَّا مُرْسِلِينَ",
+    "portuguese": "Mas fizemos surgir gerações, cuja idade prolongou-se. E tu não moravas com os habitantes de Madian, para recitar Nossos versículos, para eles, mas Nós que enviamos os Mensageiros."
+  },
+  {
+    "key": "28:46",
+    "number": 46,
+    "arabic": "وَمَا كُنتَ بِجَانِبِ ٱلطُّورِ إِذْ نَادَيْنَا وَلَـٰكِن رَّحْمَةً مِّن رَّبِّكَ لِتُنذِرَ قَوْمًا مَّآ أَتَىٰهُم مِّن نَّذِيرٍ مِّن قَبْلِكَ لَعَلَّهُمْ يَتَذَكَّرُونَ",
+    "portuguese": "E não estavas ao lado do Monte At-Tur, quando chamamos a Moisés, mas és enviado como misericórdia de teu Senhor, a fim de admoestares um povo - ao qual não chegou admoestador algum, antes de ti - para meditarem,"
+  },
+  {
+    "key": "28:47",
+    "number": 47,
+    "arabic": "وَلَوْلَآ أَن تُصِيبَهُم مُّصِيبَةٌۢ بِمَا قَدَّمَتْ أَيْدِيهِمْ فَيَقُولُوا۟ رَبَّنَا لَوْلَآ أَرْسَلْتَ إِلَيْنَا رَسُولًا فَنَتَّبِعَ ءَايَـٰتِكَ وَنَكُونَ مِنَ ٱلْمُؤْمِنِينَ",
+    "portuguese": "E, se uma desgraça os alcançava pelo que suas mãos anteciparam, eles diriam: \"Senhor nosso! Se nos houvesses enviado um Mensageiro; haveríamos seguido teus versículos e seríamos dos crentes!\""
+  },
+  {
+    "key": "28:48",
+    "number": 48,
+    "arabic": "فَلَمَّا جَآءَهُمُ ٱلْحَقُّ مِنْ عِندِنَا قَالُوا۟ لَوْلَآ أُوتِىَ مِثْلَ مَآ أُوتِىَ مُوسَىٰٓ ۚ أَوَلَمْ يَكْفُرُوا۟ بِمَآ أُوتِىَ مُوسَىٰ مِن قَبْلُ ۖ قَالُوا۟ سِحْرَانِ تَظَـٰهَرَا وَقَالُوٓا۟ إِنَّا بِكُلٍّ كَـٰفِرُونَ",
+    "portuguese": "Mas agora, quando lhes chega a verdade de Nossa parte, dizem: \"Que Ihe fosse concedido algo igual ao que foi concedido a Moisés!\" E não renegaram o que fora concedido, antes, a Moisés? Dizem: \"São duas magias que se auxiliam!\" E dizem: \"Por certo, somos renegadores de cada uma delas.\""
+  },
+  {
+    "key": "28:49",
+    "number": 49,
+    "arabic": "قُلْ فَأْتُوا۟ بِكِتَـٰبٍ مِّنْ عِندِ ٱللَّهِ هُوَ أَهْدَىٰ مِنْهُمَآ أَتَّبِعْهُ إِن كُنتُمْ صَـٰدِقِينَ",
+    "portuguese": "Dize: \"Então, fazei vir um livro, da parte de Allah, o qual seja melhor guia que ambos, e eu o seguirei, se sois verídicos.\""
+  },
+  {
+    "key": "28:50",
+    "number": 50,
+    "arabic": "فَإِن لَّمْ يَسْتَجِيبُوا۟ لَكَ فَٱعْلَمْ أَنَّمَا يَتَّبِعُونَ أَهْوَآءَهُمْ ۚ وَمَنْ أَضَلُّ مِمَّنِ ٱتَّبَعَ هَوَىٰهُ بِغَيْرِ هُدًى مِّنَ ٱللَّهِ ۚ إِنَّ ٱللَّهَ لَا يَهْدِى ٱلْقَوْمَ ٱلظَّـٰلِمِينَ",
+    "portuguese": "E, se te não atendem, sabe então, que o que eles seguem são suas paixões. E quem mais descaminhado que aquele que segue a própria paixão, sem orientação alguma de Allah? Por certo, Allah não guia o povo injusto."
+  },
+  {
+    "key": "28:51",
+    "number": 51,
+    "arabic": "۞ وَلَقَدْ وَصَّلْنَا لَهُمُ ٱلْقَوْلَ لَعَلَّهُمْ يَتَذَكَّرُونَ",
+    "portuguese": "E, com efeito, fizemos chegar-lhes, sucessivamente, o Dito, O Alcorão, para meditarem."
+  },
+  {
+    "key": "28:52",
+    "number": 52,
+    "arabic": "ٱلَّذِينَ ءَاتَيْنَـٰهُمُ ٱلْكِتَـٰبَ مِن قَبْلِهِۦ هُم بِهِۦ يُؤْمِنُونَ",
+    "portuguese": "Aqueles aos quais concedêramos o Livro, antes deste, neste crêem."
+  },
+  {
+    "key": "28:53",
+    "number": 53,
+    "arabic": "وَإِذَا يُتْلَىٰ عَلَيْهِمْ قَالُوٓا۟ ءَامَنَّا بِهِۦٓ إِنَّهُ ٱلْحَقُّ مِن رَّبِّنَآ إِنَّا كُنَّا مِن قَبْلِهِۦ مُسْلِمِينَ",
+    "portuguese": "E, quando recitado, para eles, dizem: \"Cremos nele: por certo, é a Verdade de nosso Senhor; por certo, éramos, antes dele, Muçulmanos\"."
+  },
+  {
+    "key": "28:54",
+    "number": 54,
+    "arabic": "أُو۟لَـٰٓئِكَ يُؤْتَوْنَ أَجْرَهُم مَّرَّتَيْنِ بِمَا صَبَرُوا۟ وَيَدْرَءُونَ بِٱلْحَسَنَةِ ٱلسَّيِّئَةَ وَمِمَّا رَزَقْنَـٰهُمْ يُنفِقُونَ",
+    "portuguese": "A esses, conceder-se-lhes-á o prêmio, duas vezes, porque pacientam e revidam o mal com o bem e despendem do que lhes damos por sustento."
+  },
+  {
+    "key": "28:55",
+    "number": 55,
+    "arabic": "وَإِذَا سَمِعُوا۟ ٱللَّغْوَ أَعْرَضُوا۟ عَنْهُ وَقَالُوا۟ لَنَآ أَعْمَـٰلُنَا وَلَكُمْ أَعْمَـٰلُكُمْ سَلَـٰمٌ عَلَيْكُمْ لَا نَبْتَغِى ٱلْجَـٰهِلِينَ",
+    "portuguese": "E, quando ouvem frivolidades, dão-lhes de ombros, e dizem: \"A nós, nossas obras, e a vós, vossas obras. Que a paz seja sobre vós! Não buscamos a companhia dos ignorantes.\""
+  },
+  {
+    "key": "28:56",
+    "number": 56,
+    "arabic": "إِنَّكَ لَا تَهْدِى مَنْ أَحْبَبْتَ وَلَـٰكِنَّ ٱللَّهَ يَهْدِى مَن يَشَآءُ ۚ وَهُوَ أَعْلَمُ بِٱلْمُهْتَدِينَ",
+    "portuguese": "Por certo, tu, Muhammad, não podes guiar a quem quer que ames mas Allah guia a quem quer. E Ele é bem Sabedor dos que são guiados."
+  },
+  {
+    "key": "28:57",
+    "number": 57,
+    "arabic": "وَقَالُوٓا۟ إِن نَّتَّبِعِ ٱلْهُدَىٰ مَعَكَ نُتَخَطَّفْ مِنْ أَرْضِنَآ ۚ أَوَلَمْ نُمَكِّن لَّهُمْ حَرَمًا ءَامِنًا يُجْبَىٰٓ إِلَيْهِ ثَمَرَٰتُ كُلِّ شَىْءٍ رِّزْقًا مِّن لَّدُنَّا وَلَـٰكِنَّ أَكْثَرَهُمْ لَا يَعْلَمُونَ",
+    "portuguese": "E eles dizem: \"Se seguimos a orientação contigo, arrebatar-nos-ão de nossa terra.\" E não os empossamos em um Santuário seguro, para o qual se levam frutos de toda espécie, como sustento de Nossa parte? Mas a maioria deles não sabe."
+  },
+  {
+    "key": "28:58",
+    "number": 58,
+    "arabic": "وَكَمْ أَهْلَكْنَا مِن قَرْيَةٍۭ بَطِرَتْ مَعِيشَتَهَا ۖ فَتِلْكَ مَسَـٰكِنُهُمْ لَمْ تُسْكَن مِّنۢ بَعْدِهِمْ إِلَّا قَلِيلًا ۖ وَكُنَّا نَحْنُ ٱلْوَٰرِثِينَ",
+    "portuguese": "E que de cidades aniquilamos, que foram ingratas com sua vida. E eis suas vivendas que não foram habitadas, depois deles, senão um pouco. E Nós somos O Herdeiro deles."
+  },
+  {
+    "key": "28:59",
+    "number": 59,
+    "arabic": "وَمَا كَانَ رَبُّكَ مُهْلِكَ ٱلْقُرَىٰ حَتَّىٰ يَبْعَثَ فِىٓ أُمِّهَا رَسُولًا يَتْلُوا۟ عَلَيْهِمْ ءَايَـٰتِنَا ۚ وَمَا كُنَّا مُهْلِكِى ٱلْقُرَىٰٓ إِلَّا وَأَهْلُهَا ظَـٰلِمُونَ",
+    "portuguese": "E não é admissível que teu Senhor estivesse aniquilando as cidades, sem antes, haver enviado a sua metrópole um Mensageiro, que recitasse Nossos versículos para eles. E não é admissível que estivéssemos aniquilando as cidades, sem que seus habitantes fossem injustos."
+  },
+  {
+    "key": "28:60",
+    "number": 60,
+    "arabic": "وَمَآ أُوتِيتُم مِّن شَىْءٍ فَمَتَـٰعُ ٱلْحَيَوٰةِ ٱلدُّنْيَا وَزِينَتُهَا ۚ وَمَا عِندَ ٱللَّهِ خَيْرٌ وَأَبْقَىٰٓ ۚ أَفَلَا تَعْقِلُونَ",
+    "portuguese": "E o que quer que vos seja concedido é, apenas, gozo da vida terrena e seu ornamento. E o que está junto de Allah é melhor e mais permanente. Então, não razoais?"
+  },
+  {
+    "key": "28:61",
+    "number": 61,
+    "arabic": "أَفَمَن وَعَدْنَـٰهُ وَعْدًا حَسَنًا فَهُوَ لَـٰقِيهِ كَمَن مَّتَّعْنَـٰهُ مَتَـٰعَ ٱلْحَيَوٰةِ ٱلدُّنْيَا ثُمَّ هُوَ يَوْمَ ٱلْقِيَـٰمَةِ مِنَ ٱلْمُحْضَرِينَ",
+    "portuguese": "E, será que aquele a quem prometemos bela promessa - e com ela encontrará - é como aquele a quem fizemos gozar gozo da vida terrena, em seguida, no Dia da Ressurreição, será dos trazidos ao Fogo?"
+  },
+  {
+    "key": "28:62",
+    "number": 62,
+    "arabic": "وَيَوْمَ يُنَادِيهِمْ فَيَقُولُ أَيْنَ شُرَكَآءِىَ ٱلَّذِينَ كُنتُمْ تَزْعُمُونَ",
+    "portuguese": "E um dia, Ele os chamará e dirá: \"Onde estão Meus parceiros, que vós pretendíeis serem deuses?\""
+  },
+  {
+    "key": "28:63",
+    "number": 63,
+    "arabic": "قَالَ ٱلَّذِينَ حَقَّ عَلَيْهِمُ ٱلْقَوْلُ رَبَّنَا هَـٰٓؤُلَآءِ ٱلَّذِينَ أَغْوَيْنَآ أَغْوَيْنَـٰهُمْ كَمَا غَوَيْنَا ۖ تَبَرَّأْنَآ إِلَيْكَ ۖ مَا كَانُوٓا۟ إِيَّانَا يَعْبُدُونَ",
+    "portuguese": "Aqueles contra quem se cumprirá o Dito, dirão: \"Senhor nosso! São estes os que transviamos; transviamo-los como nós nos transviamos. Rompemos com eles, perante Ti. Eles a nós não adoravam.\""
+  },
+  {
+    "key": "28:64",
+    "number": 64,
+    "arabic": "وَقِيلَ ٱدْعُوا۟ شُرَكَآءَكُمْ فَدَعَوْهُمْ فَلَمْ يَسْتَجِيبُوا۟ لَهُمْ وَرَأَوُا۟ ٱلْعَذَابَ ۚ لَوْ أَنَّهُمْ كَانُوا۟ يَهْتَدُونَ",
+    "portuguese": "E dir-se-lhes-á: \"Convocai vossos ídolos.\" E eles os convocarão, mas não lhes atenderão, e verão o castigo. Se houvessem sido guiados!"
+  },
+  {
+    "key": "28:65",
+    "number": 65,
+    "arabic": "وَيَوْمَ يُنَادِيهِمْ فَيَقُولُ مَاذَآ أَجَبْتُمُ ٱلْمُرْسَلِينَ",
+    "portuguese": "E um dia, Ele os chamará e dirá: \"Que respondestes aos Mensageiros?\""
+  },
+  {
+    "key": "28:66",
+    "number": 66,
+    "arabic": "فَعَمِيَتْ عَلَيْهِمُ ٱلْأَنۢبَآءُ يَوْمَئِذٍ فَهُمْ لَا يَتَسَآءَلُونَ",
+    "portuguese": "E, nesse dia, confundir-se-Ihes-ão os informes, e eles não se interrogarão."
+  },
+  {
+    "key": "28:67",
+    "number": 67,
+    "arabic": "فَأَمَّا مَن تَابَ وَءَامَنَ وَعَمِلَ صَـٰلِحًا فَعَسَىٰٓ أَن يَكُونَ مِنَ ٱلْمُفْلِحِينَ",
+    "portuguese": "Então, quanto a quem se voltou arrependido e creu e fez o bem, quiçá, seja ele dos bem-aventurados."
+  },
+  {
+    "key": "28:68",
+    "number": 68,
+    "arabic": "وَرَبُّكَ يَخْلُقُ مَا يَشَآءُ وَيَخْتَارُ ۗ مَا كَانَ لَهُمُ ٱلْخِيَرَةُ ۚ سُبْحَـٰنَ ٱللَّهِ وَتَعَـٰلَىٰ عَمَّا يُشْرِكُونَ",
+    "portuguese": "E teu Senhor cria o que quer, e escolhe o que quer. Não é admissível que a escolha seja deles. Glorificado e Sublimado seja Allah, acima do que idolatram!"
+  },
+  {
+    "key": "28:69",
+    "number": 69,
+    "arabic": "وَرَبُّكَ يَعْلَمُ مَا تُكِنُّ صُدُورُهُمْ وَمَا يُعْلِنُونَ",
+    "portuguese": "E teu Senhor sabe o que seus peitos ocultam e o que manifestam."
+  },
+  {
+    "key": "28:70",
+    "number": 70,
+    "arabic": "وَهُوَ ٱللَّهُ لَآ إِلَـٰهَ إِلَّا هُوَ ۖ لَهُ ٱلْحَمْدُ فِى ٱلْأُولَىٰ وَٱلْـَٔاخِرَةِ ۖ وَلَهُ ٱلْحُكْمُ وَإِلَيْهِ تُرْجَعُونَ",
+    "portuguese": "E Ele é Allah: não existe deus senão Ele, dEle é o Louvor, na primeira vida e na Derradeira. E dEle é o julgamento. E a Ele sereis retornados."
+  },
+  {
+    "key": "28:71",
+    "number": 71,
+    "arabic": "قُلْ أَرَءَيْتُمْ إِن جَعَلَ ٱللَّهُ عَلَيْكُمُ ٱلَّيْلَ سَرْمَدًا إِلَىٰ يَوْمِ ٱلْقِيَـٰمَةِ مَنْ إِلَـٰهٌ غَيْرُ ٱللَّهِ يَأْتِيكُم بِضِيَآءٍ ۖ أَفَلَا تَسْمَعُونَ",
+    "portuguese": "Dize: \"Vistes? Se Allah fizesse a noite perpétua sobre vós, até o Dia da Ressurreição, que outro deus que Allah vos faria chegar luminosidade? Então, não ouvis?\""
+  },
+  {
+    "key": "28:72",
+    "number": 72,
+    "arabic": "قُلْ أَرَءَيْتُمْ إِن جَعَلَ ٱللَّهُ عَلَيْكُمُ ٱلنَّهَارَ سَرْمَدًا إِلَىٰ يَوْمِ ٱلْقِيَـٰمَةِ مَنْ إِلَـٰهٌ غَيْرُ ٱللَّهِ يَأْتِيكُم بِلَيْلٍ تَسْكُنُونَ فِيهِ ۖ أَفَلَا تُبْصِرُونَ",
+    "portuguese": "Dize: \"Vistes? Se Allah fizesse o dia perpétuo sobre vós, até o Dia da Ressurreição, que outro deus que Allah vos faria chegar uma noite, em que repousásseis? Então, não o enxergais?\""
+  },
+  {
+    "key": "28:73",
+    "number": 73,
+    "arabic": "وَمِن رَّحْمَتِهِۦ جَعَلَ لَكُمُ ٱلَّيْلَ وَٱلنَّهَارَ لِتَسْكُنُوا۟ فِيهِ وَلِتَبْتَغُوا۟ مِن فَضْلِهِۦ وَلَعَلَّكُمْ تَشْكُرُونَ",
+    "portuguese": "E, de Sua misericórdia, Ele fez-vos a noite e o dia, para, naquela, repousardes, e para, neste, buscardes algo de Seu favor, e para serdes agradecidos."
+  },
+  {
+    "key": "28:74",
+    "number": 74,
+    "arabic": "وَيَوْمَ يُنَادِيهِمْ فَيَقُولُ أَيْنَ شُرَكَآءِىَ ٱلَّذِينَ كُنتُمْ تَزْعُمُونَ",
+    "portuguese": "E um dia, Ele os chamará e dirá: \"Onde estão Meus parceiros, que vós pretendíeis serem deuses?\""
+  },
+  {
+    "key": "28:75",
+    "number": 75,
+    "arabic": "وَنَزَعْنَا مِن كُلِّ أُمَّةٍ شَهِيدًا فَقُلْنَا هَاتُوا۟ بُرْهَـٰنَكُمْ فَعَلِمُوٓا۟ أَنَّ ٱلْحَقَّ لِلَّهِ وَضَلَّ عَنْهُم مَّا كَانُوا۟ يَفْتَرُونَ",
+    "portuguese": "E tiraremos, de cada nação, uma testemunha, e diremos: \"Trazei vossas provanças.\" Então, eles saberão que a Verdade é de Allah. E o que forjavam sumirá, para longe deles."
+  },
+  {
+    "key": "28:76",
+    "number": 76,
+    "arabic": "۞ إِنَّ قَـٰرُونَ كَانَ مِن قَوْمِ مُوسَىٰ فَبَغَىٰ عَلَيْهِمْ ۖ وَءَاتَيْنَـٰهُ مِنَ ٱلْكُنُوزِ مَآ إِنَّ مَفَاتِحَهُۥ لَتَنُوٓأُ بِٱلْعُصْبَةِ أُو۟لِى ٱلْقُوَّةِ إِذْ قَالَ لَهُۥ قَوْمُهُۥ لَا تَفْرَحْ ۖ إِنَّ ٱللَّهَ لَا يُحِبُّ ٱلْفَرِحِينَ",
+    "portuguese": "Por certo, Qarun era do povo de Moisés, e cometeu transgressão contra eles - e concedêramo-lhe, dos tesouros, aquilo cujas chaves extenuam um coeso grupo, dotado de força - quando lhe disse seu povo: \"Não te jactes de teus tesouros. Por certo, Allah não ama os jactanciosos.\""
+  },
+  {
+    "key": "28:77",
+    "number": 77,
+    "arabic": "وَٱبْتَغِ فِيمَآ ءَاتَىٰكَ ٱللَّهُ ٱلدَّارَ ٱلْـَٔاخِرَةَ ۖ وَلَا تَنسَ نَصِيبَكَ مِنَ ٱلدُّنْيَا ۖ وَأَحْسِن كَمَآ أَحْسَنَ ٱللَّهُ إِلَيْكَ ۖ وَلَا تَبْغِ ٱلْفَسَادَ فِى ٱلْأَرْضِ ۖ إِنَّ ٱللَّهَ لَا يُحِبُّ ٱلْمُفْسِدِينَ",
+    "portuguese": "\"E busca a Derradeira Morada no que Allah te concedeu, e não esqueças tua porção, na vida terrena. E bem-faze, como Allah te bem fez. E não busques semear a corrupção na terra. Por certo, Allah não ama os corruptores.\""
+  },
+  {
+    "key": "28:78",
+    "number": 78,
+    "arabic": "قَالَ إِنَّمَآ أُوتِيتُهُۥ عَلَىٰ عِلْمٍ عِندِىٓ ۚ أَوَلَمْ يَعْلَمْ أَنَّ ٱللَّهَ قَدْ أَهْلَكَ مِن قَبْلِهِۦ مِنَ ٱلْقُرُونِ مَنْ هُوَ أَشَدُّ مِنْهُ قُوَّةً وَأَكْثَرُ جَمْعًا ۚ وَلَا يُسْـَٔلُ عَن ذُنُوبِهِمُ ٱلْمُجْرِمُونَ",
+    "portuguese": "Ele disse: \"Isso me foi concedido, apenas, graças a uma ciência que tenho.\" E não sabia ele que Allah, de fato, aniquilara, antes dele, gerações, que lhe eram mais veementes em força e mais numerosas? E os criminosos não serão interrogados acerca de seus delitos."
+  },
+  {
+    "key": "28:79",
+    "number": 79,
+    "arabic": "فَخَرَجَ عَلَىٰ قَوْمِهِۦ فِى زِينَتِهِۦ ۖ قَالَ ٱلَّذِينَ يُرِيدُونَ ٱلْحَيَوٰةَ ٱلدُّنْيَا يَـٰلَيْتَ لَنَا مِثْلَ مَآ أُوتِىَ قَـٰرُونُ إِنَّهُۥ لَذُو حَظٍّ عَظِيمٍ",
+    "portuguese": "E ele saiu a seu povo, com seus ornamentos. Os que desejavam a vida terrena disseram: \"Quem dera houvesse, para nós, algo igual ao que foi concedido a Qarun! Por certo, ele é de magnífica sorte!\""
+  },
+  {
+    "key": "28:80",
+    "number": 80,
+    "arabic": "وَقَالَ ٱلَّذِينَ أُوتُوا۟ ٱلْعِلْمَ وَيْلَكُمْ ثَوَابُ ٱللَّهِ خَيْرٌ لِّمَنْ ءَامَنَ وَعَمِلَ صَـٰلِحًا وَلَا يُلَقَّىٰهَآ إِلَّا ٱلصَّـٰبِرُونَ",
+    "portuguese": "E aqueles, aos quais foi concedida a ciência, disseram: \"Ai de vós! A retribuição de Allah é melhor para quem crê e faz o bem. E ela não é conferida senão aos que pacientam.\""
+  },
+  {
+    "key": "28:81",
+    "number": 81,
+    "arabic": "فَخَسَفْنَا بِهِۦ وَبِدَارِهِ ٱلْأَرْضَ فَمَا كَانَ لَهُۥ مِن فِئَةٍ يَنصُرُونَهُۥ مِن دُونِ ٱللَّهِ وَمَا كَانَ مِنَ ٱلْمُنتَصِرِينَ",
+    "portuguese": "Então, fizemos a terra engoli-lo ele e a seu lar; e, não houve, para ele, hoste alguma que o socorresse, em vez de Allah, e ele não foi dos socorridos."
+  },
+  {
+    "key": "28:82",
+    "number": 82,
+    "arabic": "وَأَصْبَحَ ٱلَّذِينَ تَمَنَّوْا۟ مَكَانَهُۥ بِٱلْأَمْسِ يَقُولُونَ وَيْكَأَنَّ ٱللَّهَ يَبْسُطُ ٱلرِّزْقَ لِمَن يَشَآءُ مِنْ عِبَادِهِۦ وَيَقْدِرُ ۖ لَوْلَآ أَن مَّنَّ ٱللَّهُ عَلَيْنَا لَخَسَفَ بِنَا ۖ وَيْكَأَنَّهُۥ لَا يُفْلِحُ ٱلْكَـٰفِرُونَ",
+    "portuguese": "E os que, na véspera, anelaram sua posição, amanheceram dizendo: \"Seguramente, Allah prodigaliza o sustento a quem quer, de Seus servos, e restringe-o. Se Allah não nos houvesse feito mercê, haveria feito a terra engolir-nos. Seguramente, os renegadores da Fé não são bem-aventurados.\""
+  },
+  {
+    "key": "28:83",
+    "number": 83,
+    "arabic": "تِلْكَ ٱلدَّارُ ٱلْـَٔاخِرَةُ نَجْعَلُهَا لِلَّذِينَ لَا يُرِيدُونَ عُلُوًّا فِى ٱلْأَرْضِ وَلَا فَسَادًا ۚ وَٱلْعَـٰقِبَةُ لِلْمُتَّقِينَ",
+    "portuguese": "Essa Derradeira Morada, fá-la-emos para os que não desejam soberba, na terra, nem semear nela a corrupção. E o final feliz será para os piedosos."
+  },
+  {
+    "key": "28:84",
+    "number": 84,
+    "arabic": "مَن جَآءَ بِٱلْحَسَنَةِ فَلَهُۥ خَيْرٌ مِّنْهَا ۖ وَمَن جَآءَ بِٱلسَّيِّئَةِ فَلَا يُجْزَى ٱلَّذِينَ عَمِلُوا۟ ٱلسَّيِّـَٔاتِ إِلَّا مَا كَانُوا۟ يَعْمَلُونَ",
+    "portuguese": "Quem chega com a boa ação terá algo melhor que esta. E quem chega com a má ação, que ele saiba que os que fazem más ações não serão recompensados senão pelo que faziam."
+  },
+  {
+    "key": "28:85",
+    "number": 85,
+    "arabic": "إِنَّ ٱلَّذِى فَرَضَ عَلَيْكَ ٱلْقُرْءَانَ لَرَآدُّكَ إِلَىٰ مَعَادٍ ۚ قُل رَّبِّىٓ أَعْلَمُ مَن جَآءَ بِٱلْهُدَىٰ وَمَنْ هُوَ فِى ضَلَـٰلٍ مُّبِينٍ",
+    "portuguese": "Por certo, Aquele que preceituou o Alcorão, sobre ti, te devolverá no dia do Juízo. Dize: \"Meu Senhor é bem Sabedor de quem chega com a orientação e de quem está em evidente descaminho.\""
+  },
+  {
+    "key": "28:86",
+    "number": 86,
+    "arabic": "وَمَا كُنتَ تَرْجُوٓا۟ أَن يُلْقَىٰٓ إِلَيْكَ ٱلْكِتَـٰبُ إِلَّا رَحْمَةً مِّن رَّبِّكَ ۖ فَلَا تَكُونَنَّ ظَهِيرًا لِّلْكَـٰفِرِينَ",
+    "portuguese": "E tu não esperavas que o Livro te fosse revelado, mas o foi por misericórdia de teu Senhor. Então, não sejas, de modo algum, coadjutor dos renegadores da Fé."
+  },
+  {
+    "key": "28:87",
+    "number": 87,
+    "arabic": "وَلَا يَصُدُّنَّكَ عَنْ ءَايَـٰتِ ٱللَّهِ بَعْدَ إِذْ أُنزِلَتْ إِلَيْكَ ۖ وَٱدْعُ إِلَىٰ رَبِّكَ ۖ وَلَا تَكُونَنَّ مِنَ ٱلْمُشْرِكِينَ",
+    "portuguese": "E que estes não te afastem dos versículos de Allah, após haverem sido descidos para ti. E invoca a teu Senhor. E não sejas, de modo algum dos idólatras."
+  },
+  {
+    "key": "28:88",
+    "number": 88,
+    "arabic": "وَلَا تَدْعُ مَعَ ٱللَّهِ إِلَـٰهًا ءَاخَرَ ۘ لَآ إِلَـٰهَ إِلَّا هُوَ ۚ كُلُّ شَىْءٍ هَالِكٌ إِلَّا وَجْهَهُۥ ۚ لَهُ ٱلْحُكْمُ وَإِلَيْهِ تُرْجَعُونَ",
+    "portuguese": "E não invoques, com Allah, outro deus. Não existe deus senão Ele. Todas as cousas serão aniquiladas, exceto Sua Face. DEle é o julgamento, e a Ele sereis retornados."
+  }
+]

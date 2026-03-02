@@ -1,0 +1,44 @@
+[
+  {
+    "key": "107:1",
+    "number": 1,
+    "arabic": " أَرَءَيْتَ ٱلَّذِى يُكَذِّبُ بِٱلدِّينِ",
+    "portuguese": "Viste quem desmente o Dia do Juízo?"
+  },
+  {
+    "key": "107:2",
+    "number": 2,
+    "arabic": "فَذَٰلِكَ ٱلَّذِى يَدُعُّ ٱلْيَتِيمَ",
+    "portuguese": "Esse é o que repele o órfão,"
+  },
+  {
+    "key": "107:3",
+    "number": 3,
+    "arabic": "وَلَا يَحُضُّ عَلَىٰ طَعَامِ ٱلْمِسْكِينِ",
+    "portuguese": "E não incitava ninguém a alimentar o necessitado.\""
+  },
+  {
+    "key": "107:4",
+    "number": 4,
+    "arabic": "فَوَيْلٌ لِّلْمُصَلِّينَ",
+    "portuguese": "Então, ai dos orantes"
+  },
+  {
+    "key": "107:5",
+    "number": 5,
+    "arabic": "ٱلَّذِينَ هُمْ عَن صَلَاتِهِمْ سَاهُونَ",
+    "portuguese": "Que são distraídos de suas orações,"
+  },
+  {
+    "key": "107:6",
+    "number": 6,
+    "arabic": "ٱلَّذِينَ هُمْ يُرَآءُونَ",
+    "portuguese": "Que, por ostentação, só querem ser vistos orando,"
+  },
+  {
+    "key": "107:7",
+    "number": 7,
+    "arabic": "وَيَمْنَعُونَ ٱلْمَاعُونَ",
+    "portuguese": "E impedem o adjutório."
+  }
+]

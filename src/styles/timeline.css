@@ -1,0 +1,575 @@
+/*
+ * timeline.css — Mensagem Única
+ * Redesign épico da linha do tempo: 6.000 anos de história profética
+ *
+ * Variáveis esperadas no escopo global (definidas em App.jsx):
+ *   --gold:         rgb(200,169,81)
+ *   --dark3:        fundo base dos cards
+ *   --card-bg:      fundo dos cards
+ *   --card-border:  borda dos cards
+ *   --card-shadow:  sombra dos cards
+ *   --radius-sm:    border-radius padrão
+ *   --parchment:    rgb(245,239,224)
+ */
+
+/* ═══════════════════════════════════════════════
+   KEYFRAMES — Animações de entrada
+   ═══════════════════════════════════════════════ */
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-36px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(36px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes markerPulse {
+  0%, 100% {
+    box-shadow:
+      0 0 0 0   rgba(200, 169, 81, 0.55),
+      0 0 0 0   rgba(200, 169, 81, 0.25);
+  }
+  50% {
+    box-shadow:
+      0 0 0 6px  rgba(200, 169, 81, 0.18),
+      0 0 0 12px rgba(200, 169, 81, 0.06);
+  }
+}
+
+@keyframes revealSpine {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ═══════════════════════════════════════════════
+   WRAPPER
+   ═══════════════════════════════════════════════ */
+
+.timeline {
+  position: relative;
+  padding: 24px 0 60px;
+  /* empurra os cards do eixo central */
+  --tl-gap: 32px;       /* espaço entre card e linha central */
+  --tl-card-w: 44%;     /* largura dos cards em desktop */
+  --tl-spine-w: 2px;    /* espessura da linha central */
+  --tl-marker-size: 16px;
+  --tl-marker-diamond: 18px;
+  --gold-raw: 200, 169, 81;
+}
+
+/* ═══════════════════════════════════════════════
+   LINHA CENTRAL (SPINE)
+   ═══════════════════════════════════════════════ */
+
+.timeline-spine {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: var(--tl-spine-w);
+  transform: translateX(-50%);
+  z-index: 0;
+
+  /* Gradiente dourado com fade nas extremidades */
+  background: linear-gradient(
+    to bottom,
+    transparent          0%,
+    rgba(var(--gold-raw), 0.08)  4%,
+    rgba(var(--gold-raw), 0.22) 15%,
+    rgba(var(--gold-raw), 0.35) 40%,
+    rgba(var(--gold-raw), 0.40) 50%,
+    rgba(var(--gold-raw), 0.35) 60%,
+    rgba(var(--gold-raw), 0.22) 85%,
+    rgba(var(--gold-raw), 0.08) 96%,
+    transparent         100%
+  );
+
+  /* Brilho sutil atrás da linha */
+  filter: drop-shadow(0 0 4px rgba(var(--gold-raw), 0.18));
+
+  animation: revealSpine 1.2s ease both;
+}
+
+/* Reflexo de luz (pseudo-elemento) */
+.timeline-spine::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  width: 1px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(var(--gold-raw), 0.55) 30%,
+    rgba(var(--gold-raw), 0.65) 50%,
+    rgba(var(--gold-raw), 0.55) 70%,
+    transparent
+  );
+  opacity: 0.5;
+}
+
+/* ═══════════════════════════════════════════════
+   ITEM DA TIMELINE
+   ═══════════════════════════════════════════════ */
+
+.timeline-item {
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+  margin-bottom: 0;           /* visual contínuo sem gap */
+  padding-bottom: 40px;       /* respiro entre eventos */
+  z-index: 1;
+}
+
+/* Estado inicial: invisível, aguardando .visible */
+.timeline-item .timeline-card {
+  opacity: 0;
+  animation-fill-mode: both;
+  animation-duration: 0.65s;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  animation-play-state: paused;
+}
+
+/* Quando JS adiciona .visible ao .timeline-item */
+.timeline-item.visible.left  .timeline-card { animation-name: slideInLeft;  animation-play-state: running; }
+.timeline-item.visible.right .timeline-card { animation-name: slideInRight; animation-play-state: running; }
+
+/* Delay escalonado por posição — usa CSS custom property opcional */
+.timeline-item:nth-child(1)  .timeline-card { animation-delay: 0.00s; }
+.timeline-item:nth-child(2)  .timeline-card { animation-delay: 0.06s; }
+.timeline-item:nth-child(3)  .timeline-card { animation-delay: 0.10s; }
+.timeline-item:nth-child(4)  .timeline-card { animation-delay: 0.14s; }
+.timeline-item:nth-child(5)  .timeline-card { animation-delay: 0.18s; }
+.timeline-item:nth-child(n+6) .timeline-card { animation-delay: 0.22s; }
+
+/* ═══════════════════════════════════════════════
+   MARCADORES CENTRAIS
+   ═══════════════════════════════════════════════ */
+
+.timeline-marker {
+  position: absolute;
+  left: 50%;
+  top: 18px;
+  transform: translateX(-50%);
+  z-index: 2;
+  transition: transform 0.25s ease, filter 0.25s ease;
+}
+
+/* Marcador padrão: círculo */
+.timeline-marker .marker-shape {
+  display: block;
+  width: var(--tl-marker-size);
+  height: var(--tl-marker-size);
+  border-radius: 50%;
+  background: var(--dark3, #0d0d0f);
+  border: 2px solid rgba(var(--gold-raw), 0.45);
+  position: relative;
+  transition: border-color 0.25s ease, background 0.25s ease;
+}
+
+/* Ponto interno do círculo */
+.timeline-marker .marker-shape::after {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background: rgba(var(--gold-raw), 0.22);
+  transition: background 0.25s ease;
+}
+
+/* Hover no item — realça o marcador */
+.timeline-item:hover .marker-shape {
+  border-color: rgba(var(--gold-raw), 0.85);
+  background: rgba(var(--gold-raw), 0.08);
+}
+.timeline-item:hover .marker-shape::after {
+  background: rgba(var(--gold-raw), 0.40);
+}
+
+/* ── Marcador DIAMOND (evento maior / prophet) ── */
+.timeline-marker.diamond .marker-shape {
+  width: var(--tl-marker-diamond);
+  height: var(--tl-marker-diamond);
+  border-radius: 3px;
+  transform: rotate(45deg);
+  border-width: 2px;
+}
+.timeline-marker.diamond .marker-shape::after {
+  border-radius: 2px;
+}
+
+/* ── Marcador REVELATION (escritura sagrada) ── */
+.timeline-marker.revelation .marker-shape {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(var(--gold-raw), 0.10);
+  border: 2px solid rgba(var(--gold-raw), 0.70);
+  animation: markerPulse 2.8s ease-in-out infinite;
+}
+.timeline-marker.revelation .marker-shape::after {
+  background: rgba(var(--gold-raw), 0.45);
+}
+
+/* Ícone dentro do marcador (opcional — SVG/emoji via data-icon) */
+.timeline-marker .marker-icon {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  color: rgba(var(--gold-raw), 0.85);
+  line-height: 1;
+  user-select: none;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ═══════════════════════════════════════════════
+   CARDS
+   ═══════════════════════════════════════════════ */
+
+.timeline-card {
+  width: var(--tl-card-w);
+  padding: 20px 24px 18px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-sm, 6px);
+  box-shadow: var(--card-shadow);
+  position: relative;
+  transition:
+    border-color 0.25s ease,
+    box-shadow   0.25s ease,
+    transform    0.25s ease;
+}
+
+/* Alinhamento: esquerda */
+.timeline-item.left  .timeline-card {
+  text-align: right;
+  margin-right: auto;
+  margin-left: 0;
+}
+
+/* Alinhamento: direita */
+.timeline-item.right .timeline-card {
+  text-align: left;
+  margin-left: auto;
+  margin-right: 0;
+}
+
+/* Hover suave */
+.timeline-item:hover .timeline-card {
+  border-color: rgba(var(--gold-raw), 0.22);
+  box-shadow:
+    var(--card-shadow),
+    0 0 22px rgba(var(--gold-raw), 0.06);
+  transform: translateY(-1px);
+}
+
+/* ── Seta apontando para a linha central ── */
+.timeline-card::before {
+  content: '';
+  position: absolute;
+  top: 22px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  pointer-events: none;
+}
+
+.timeline-item.left  .timeline-card::before {
+  right: -8px;
+  border-width: 6px 0 6px 8px;
+  border-color: transparent transparent transparent var(--card-border, rgba(200,169,81,0.10));
+}
+
+.timeline-item.right .timeline-card::before {
+  left: -8px;
+  border-width: 6px 8px 6px 0;
+  border-color: transparent var(--card-border, rgba(200,169,81,0.10)) transparent transparent;
+}
+
+/* ═══════════════════════════════════════════════
+   ERA (data / período)
+   ═══════════════════════════════════════════════ */
+
+.timeline-era {
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(var(--gold-raw), 0.75);
+  margin-bottom: 6px;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+/* ═══════════════════════════════════════════════
+   TÍTULO DO EVENTO
+   ═══════════════════════════════════════════════ */
+
+.timeline-event {
+  font-size: 15px;
+  line-height: 1.65;
+  color: rgba(245, 239, 224, 0.82);
+  margin: 0;
+}
+
+/* Variante: evento com título em destaque */
+.timeline-event-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: rgba(245, 239, 224, 0.95);
+  margin-bottom: 4px;
+}
+
+/* ═══════════════════════════════════════════════
+   BADGE DE ESCRITURA (Torah, Alcorão, Evangelho…)
+   ═══════════════════════════════════════════════ */
+
+.timeline-scripture-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 12px;
+  padding: 4px 10px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: rgba(var(--gold-raw), 0.90);
+  background: rgba(var(--gold-raw), 0.07);
+  border: 1px solid rgba(var(--gold-raw), 0.28);
+  border-radius: 3px;
+  position: relative;
+  /* Brilho interno suave */
+  box-shadow: inset 0 0 12px rgba(var(--gold-raw), 0.05);
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.timeline-scripture-badge::before {
+  content: '✦';
+  font-size: 8px;
+  color: rgba(var(--gold-raw), 0.60);
+  line-height: 1;
+}
+
+.timeline-item:hover .timeline-scripture-badge {
+  background: rgba(var(--gold-raw), 0.11);
+  border-color: rgba(var(--gold-raw), 0.42);
+}
+
+/* ─── Alinhamento do badge por lado ─── */
+.timeline-item.left  .timeline-scripture-badge {
+  margin-left: auto;
+  /* já está alinhado à direita pelo text-align: right no card */
+}
+
+/* ═══════════════════════════════════════════════
+   CARD REVELATION (escritura sagrada — tipo especial)
+   Fundo ligeiramente diferente, borda esquerda dourada
+   ═══════════════════════════════════════════════ */
+
+.timeline-card.revelation {
+  background: linear-gradient(
+    135deg,
+    rgba(var(--gold-raw), 0.06) 0%,
+    var(--card-bg)             60%
+  );
+  border-color: rgba(var(--gold-raw), 0.20);
+}
+
+.timeline-item.left  .timeline-card.revelation {
+  border-right: 2px solid rgba(var(--gold-raw), 0.40);
+}
+
+.timeline-item.right .timeline-card.revelation {
+  border-left: 2px solid rgba(var(--gold-raw), 0.40);
+}
+
+/* Reflexo de luz no topo do card revelation */
+.timeline-card.revelation::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 12px;
+  right: 12px;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(var(--gold-raw), 0.35) 30%,
+    rgba(var(--gold-raw), 0.50) 50%,
+    rgba(var(--gold-raw), 0.35) 70%,
+    transparent
+  );
+  border-radius: 1px;
+}
+
+/* ─── Texto mais luminoso dentro de revelation ─── */
+.timeline-card.revelation .timeline-event {
+  color: rgba(245, 239, 224, 0.90);
+}
+
+.timeline-card.revelation .timeline-era {
+  color: rgba(var(--gold-raw), 0.90);
+}
+
+/* ═══════════════════════════════════════════════
+   SEPARADOR DE ERA (agrupamento por período)
+   Elemento opcional: <div class="timeline-epoch-label">Idade do Ferro</div>
+   ═══════════════════════════════════════════════ */
+
+.timeline-epoch-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin: 48px 0 36px;
+  position: relative;
+  z-index: 2;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(var(--gold-raw), 0.45);
+}
+
+.timeline-epoch-label::before,
+.timeline-epoch-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(var(--gold-raw), 0.20)
+  );
+  max-width: 160px;
+}
+
+.timeline-epoch-label::after {
+  background: linear-gradient(
+    to left,
+    transparent,
+    rgba(var(--gold-raw), 0.20)
+  );
+}
+
+/* ═══════════════════════════════════════════════
+   MOBILE
+   Linha no lado esquerdo, cards 100% de largura
+   ═══════════════════════════════════════════════ */
+
+@media (max-width: 680px) {
+
+  .timeline {
+    --tl-card-w: 100%;
+    padding-left: 36px;  /* espaço para a linha e os marcadores */
+    padding-bottom: 40px;
+  }
+
+  /* Spine move para a esquerda */
+  .timeline-spine {
+    left: 14px;
+    transform: none;
+  }
+
+  /* Todos os itens viram "right" (texto alinhado à esquerda) */
+  .timeline-item {
+    flex-direction: row;
+    padding-bottom: 28px;
+  }
+
+  .timeline-item.left  .timeline-card,
+  .timeline-item.right .timeline-card {
+    width: var(--tl-card-w);
+    text-align: left;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  /* Marcadores colam na linha esquerda */
+  .timeline-marker {
+    left: 14px;
+    top: 16px;
+    transform: translateX(-50%);
+  }
+
+  /* Seta: só do lado esquerdo (em direção ao card) */
+  .timeline-item.left  .timeline-card::before,
+  .timeline-item.right .timeline-card::before {
+    left: -8px;
+    right: auto;
+    border-width: 6px 8px 6px 0;
+    border-color: transparent var(--card-border, rgba(200,169,81,0.10)) transparent transparent;
+  }
+
+  /* Revelation mobile: borda esquerda em ambos os lados */
+  .timeline-item.left  .timeline-card.revelation {
+    border-right: 1px solid rgba(var(--gold-raw), 0.20);
+    border-left:  2px solid rgba(var(--gold-raw), 0.40);
+  }
+
+  /* Badge de scripture — alinha sempre à esquerda */
+  .timeline-item.left  .timeline-scripture-badge,
+  .timeline-item.right .timeline-scripture-badge {
+    margin-left: 0;
+  }
+
+  /* Animações mobile: tudo slide-in da direita */
+  .timeline-item.visible.left  .timeline-card { animation-name: slideInRight; }
+  .timeline-item.visible.right .timeline-card { animation-name: slideInRight; }
+
+  /* Epoch labels mais compactos */
+  .timeline-epoch-label {
+    margin: 32px 0 24px;
+    font-size: 10px;
+    letter-spacing: 2px;
+  }
+
+  .timeline-epoch-label::before,
+  .timeline-epoch-label::after {
+    max-width: 60px;
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   REDUCED MOTION — respeitar preferência do usuário
+   ═══════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .timeline-item .timeline-card {
+    opacity: 1;
+    animation: none !important;
+  }
+
+  .timeline-item.visible .timeline-card {
+    opacity: 1;
+  }
+
+  .timeline-marker.revelation .marker-shape {
+    animation: none;
+  }
+}

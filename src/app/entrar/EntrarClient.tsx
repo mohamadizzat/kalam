@@ -9,9 +9,10 @@ import { Mail, Lock, User, ArrowLeft, Eye, EyeOff } from 'lucide-react'
 
 type Mode = 'login' | 'signup'
 
-export function EntrarClient() {
+export function EntrarClient({ redirect }: { redirect?: string }) {
   const router = useRouter()
   const { signInWithEmail, signUpWithEmail, signInWithGoogle } = useAuth()
+  const destination = redirect || '/'
 
   const [mode, setMode] = useState<Mode>('login')
   const [email, setEmail] = useState('')
@@ -36,7 +37,7 @@ export function EntrarClient() {
             ? 'Email ou senha incorretos'
             : 'Erro ao entrar. Tente novamente.')
         } else {
-          router.push('/')
+          router.push(destination)
         }
       } else {
         if (password.length < 6) {
@@ -48,7 +49,7 @@ export function EntrarClient() {
         if (error) {
           setError('Erro ao criar conta. Tente novamente.')
         } else {
-          setSuccess('Conta criada! Verifique seu email para confirmar.')
+          router.push(destination)
         }
       }
     } catch {

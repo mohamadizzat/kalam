@@ -1,0 +1,50 @@
+[
+  {
+    "key": "99:1",
+    "number": 1,
+    "arabic": " إِذَا زُلْزِلَتِ ٱلْأَرْضُ زِلْزَالَهَا",
+    "portuguese": "Quando a terra for tremida por seu tremor,"
+  },
+  {
+    "key": "99:2",
+    "number": 2,
+    "arabic": "وَأَخْرَجَتِ ٱلْأَرْضُ أَثْقَالَهَا",
+    "portuguese": "E a terra fizer sair seus pesos,"
+  },
+  {
+    "key": "99:3",
+    "number": 3,
+    "arabic": "وَقَالَ ٱلْإِنسَـٰنُ مَا لَهَا",
+    "portuguese": "E o ser humano disser: \"O que há com ela?\""
+  },
+  {
+    "key": "99:4",
+    "number": 4,
+    "arabic": "يَوْمَئِذٍ تُحَدِّثُ أَخْبَارَهَا",
+    "portuguese": "Nesse dia, ela contará suas notícias,"
+  },
+  {
+    "key": "99:5",
+    "number": 5,
+    "arabic": "بِأَنَّ رَبَّكَ أَوْحَىٰ لَهَا",
+    "portuguese": "Conforme seu Senhor lho inspirou."
+  },
+  {
+    "key": "99:6",
+    "number": 6,
+    "arabic": "يَوْمَئِذٍ يَصْدُرُ ٱلنَّاسُ أَشْتَاتًا لِّيُرَوْا۟ أَعْمَـٰلَهُمْ",
+    "portuguese": "Nesse dia os humanos camparecerão, separadamente, para os fazerem ver suas obras."
+  },
+  {
+    "key": "99:7",
+    "number": 7,
+    "arabic": "فَمَن يَعْمَلْ مِثْقَالَ ذَرَّةٍ خَيْرًا يَرَهُۥ",
+    "portuguese": "Então quem houver feito um peso de àtomo de bem o verá,"
+  },
+  {
+    "key": "99:8",
+    "number": 8,
+    "arabic": "وَمَن يَعْمَلْ مِثْقَالَ ذَرَّةٍ شَرًّا يَرَهُۥ",
+    "portuguese": "E quem houver feito um peso de átomo de mal o verá."
+  }
+]

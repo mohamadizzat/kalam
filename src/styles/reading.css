@@ -1,0 +1,656 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   KALAM BRASIL — Reading Experience CSS
+   Otimizado para leitura de conteúdo denso: textos islâmicos, versículos,
+   hadiths e pontes interreligiosas.
+
+   Tokens mapeados para o projeto:
+     --text-primary  → var(--cream)      #F5EFE0
+     --text-muted    → rgba(245,239,224,0.50)
+     --gold-100      → var(--gold)       #C8A951
+     --gold-dim      → var(--gold-light) #E8D5A0
+     --font-arabic   → 'Noto Naskh Arabic', serif
+     --font-serif    → 'Crimson Pro', serif
+     --font-display  → 'Cormorant Garamond', serif
+
+   Como importar em App.jsx ou main.jsx:
+     import './styles/reading.css';
+═══════════════════════════════════════════════════════════════════════════ */
+
+/* ─── TOKEN BRIDGE ─────────────────────────────────────────────────────────
+   Define aliases semânticos para não quebrar o design system existente.
+   Estes complementam as variáveis em :root do App.jsx — não substituem.
+─────────────────────────────────────────────────────────────────────────── */
+:root {
+  --text-primary:  var(--cream,    #F5EFE0);
+  --text-muted:    rgba(245, 239, 224, 0.50);
+  --text-faint:    rgba(245, 239, 224, 0.30);
+  --gold-100:      var(--gold,       #C8A951);
+  --gold-dim:      var(--gold-light, #E8D5A0);
+  --surface-quote: rgba(200, 169, 81, 0.055);
+  --border-gold:   rgba(200, 169, 81, 0.20);
+  --border-subtle: rgba(200, 169, 81, 0.09);
+  --font-arabic:   'Noto Naskh Arabic', 'Traditional Arabic', serif;
+  --font-serif:    'Crimson Pro', Georgia, serif;
+  --font-display:  'Cormorant Garamond', 'Palatino Linotype', serif;
+
+  /* Leitura: largura máxima calibrada para ~65 caracteres */
+  --prose-width:   660px;
+  --prose-padding: clamp(16px, 5vw, 32px);
+}
+
+
+/* ─── SMOOTH SCROLL ─────────────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+}
+
+
+/* ─── TEXT SELECTION ────────────────────────────────────────────────────── */
+::selection {
+  background: rgba(200, 169, 81, 0.22);
+  color: var(--text-primary);
+}
+
+::-moz-selection {
+  background: rgba(200, 169, 81, 0.22);
+  color: var(--text-primary);
+}
+
+
+/* ─── CURSOR CUSTOMIZADO ────────────────────────────────────────────────── */
+/*
+  Cursor personalizado opcional — ativar se quiser experiência imersiva.
+  Requer JS para criar um dot que segue o mouse. Exemplo em JS:
+
+  document.addEventListener('mousemove', (e) => {
+    dot.style.left = e.clientX + 'px';
+    dot.style.top  = e.clientY + 'px';
+  });
+
+  CSS que acompanha:
+    body { cursor: none; }
+    .cursor-dot {
+      position: fixed; pointer-events: none; z-index: 9999;
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #C8A951; opacity: 0.75;
+      transform: translate(-50%, -50%);
+      transition: opacity 0.2s ease;
+    }
+    .cursor-ring {
+      position: fixed; pointer-events: none; z-index: 9998;
+      width: 28px; height: 28px; border-radius: 50%;
+      border: 1px solid rgba(200,169,81,0.4);
+      transform: translate(-50%, -50%);
+      transition: transform 0.12s ease, opacity 0.2s ease;
+    }
+*/
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PROSE CONTAINER
+   O coração da experiência de leitura. Largura máxima de 660px garante que
+   os olhos não percorram mais de ~65 caracteres por linha — limite científico
+   para conforto de leitura sem fadiga visual.
+═══════════════════════════════════════════════════════════════════════════ */
+.prose {
+  max-width: var(--prose-width);
+  margin: 0 auto;
+  padding: 0 var(--prose-padding);
+  font-family: var(--font-serif);
+  color: var(--text-primary);
+}
+
+/* Parágrafo base */
+.prose p {
+  font-size: 18px;
+  line-height: 1.85;
+  color: var(--text-primary);
+  margin-bottom: 1.5em;
+  font-weight: 300;
+  letter-spacing: 0.01em;
+}
+
+/* Sem indent entre parágrafos consecutivos — espaço já separa visualmente */
+.prose p + p {
+  text-indent: 0;
+}
+
+/* Primeiro parágrafo — lide/abertura levemente maior, chama o leitor */
+.prose p:first-of-type {
+  font-size: 20px;
+  line-height: 1.80;
+  color: var(--text-primary);
+  opacity: 0.95;
+}
+
+/* Headings dentro do prose */
+.prose h2 {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 500;
+  color: var(--gold-100);
+  margin: 2em 0 0.6em;
+  letter-spacing: 0.02em;
+}
+
+.prose h3 {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--gold-dim);
+  margin: 1.6em 0 0.5em;
+  letter-spacing: 0.02em;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   QUOTE TYPES
+   Cada tipo de citação tem identidade visual própria.
+   A hierarquia: Alcorão > Bíblia/Zabur > Hadith > Pull quote
+═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Versículo do Alcorão ── */
+/* Tratamento mais reverente: árabe no topo, tradução, referência */
+.quote-quran {
+  position: relative;
+  margin: 2em 0;
+  padding: 24px 28px 20px;
+  background: var(--surface-quote);
+  border-left: 3px solid var(--gold-100);
+  border-radius: 0 6px 6px 0;
+}
+
+.quote-quran .quran-arabic {
+  font-family: var(--font-arabic);
+  font-size: 1.55em;
+  line-height: 2.2;
+  direction: rtl;
+  text-align: right;
+  color: var(--gold-100);
+  opacity: 0.92;
+  display: block;
+  margin-bottom: 14px;
+  /* Leve sombra de texto para profundidade */
+  text-shadow: 0 0 28px rgba(200, 169, 81, 0.18);
+}
+
+.quote-quran .quran-translation {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  font-style: italic;
+  line-height: 1.75;
+  color: var(--text-primary);
+  opacity: 0.88;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.quote-quran .quran-ref {
+  font-family: var(--font-serif);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold-100);
+  opacity: 0.65;
+  display: block;
+}
+
+
+/* ── Versículo bíblico ── */
+/* Tom mais suave — verde sutil na borda, sem dominância */
+.quote-bible {
+  position: relative;
+  margin: 1.8em 0;
+  padding: 20px 24px 18px;
+  background: rgba(45, 107, 79, 0.07);
+  border-left: 3px solid rgba(45, 107, 79, 0.55);
+  border-radius: 0 6px 6px 0;
+}
+
+.quote-bible .bible-text {
+  font-family: var(--font-serif);
+  font-size: 16.5px;
+  font-style: italic;
+  line-height: 1.78;
+  color: var(--text-primary);
+  opacity: 0.85;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.quote-bible .bible-ref {
+  font-family: var(--font-serif);
+  font-size: 12px;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: rgba(45, 107, 79, 0.80);
+  display: block;
+}
+
+
+/* ── Hadith ── */
+/* Árabe pequeno + transliteração opcional + tradução + cadeia de transmissão */
+.quote-hadith {
+  position: relative;
+  margin: 2em 0;
+  padding: 22px 26px 18px;
+  background: rgba(200, 169, 81, 0.04);
+  border: 1px solid var(--border-subtle);
+  border-top: 2px solid rgba(200, 169, 81, 0.30);
+  border-radius: 6px;
+}
+
+.quote-hadith .hadith-arabic {
+  font-family: var(--font-arabic);
+  font-size: 1.15em;
+  line-height: 2.0;
+  direction: rtl;
+  text-align: right;
+  color: var(--gold-dim);
+  opacity: 0.80;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.quote-hadith .hadith-transliteration {
+  font-family: var(--font-serif);
+  font-size: 13.5px;
+  font-style: italic;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 8px;
+  letter-spacing: 0.02em;
+}
+
+.quote-hadith .hadith-translation {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  line-height: 1.72;
+  color: var(--text-primary);
+  opacity: 0.85;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.quote-hadith .hadith-source {
+  font-family: var(--font-serif);
+  font-size: 12px;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  display: block;
+}
+
+
+/* ── Pull Quote ── */
+/* Frase extraída do texto para quebrar monotonia visual.
+   Deve ser usada raramente — no máximo 1 por seção longa. */
+.pull-quote {
+  position: relative;
+  margin: 2.5em auto;
+  max-width: 520px;
+  padding: 0;
+  text-align: center;
+}
+
+/* Linha acima */
+.pull-quote::before {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-100), transparent);
+  margin: 0 auto 20px;
+  opacity: 0.55;
+}
+
+/* Linha abaixo */
+.pull-quote::after {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-100), transparent);
+  margin: 20px auto 0;
+  opacity: 0.55;
+}
+
+.pull-quote p,
+.pull-quote blockquote {
+  font-family: var(--font-display);
+  font-size: 23px;
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1.55;
+  color: var(--gold-dim);
+  letter-spacing: 0.015em;
+  margin: 0;
+  /* Sem aspas visuais grandes — elegância pela tipografia, não pelo ornamento */
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CALLOUTS
+   Blocos para informação complementar que não interrompe o fluxo narrativo.
+   Devem ficar à margem do argumento central.
+═══════════════════════════════════════════════════════════════════════════ */
+
+/* Base compartilhada */
+.callout-fact,
+.callout-context,
+.callout-bridge {
+  display: flex;
+  gap: 14px;
+  margin: 1.8em 0;
+  padding: 18px 20px;
+  border-radius: 6px;
+  font-family: var(--font-serif);
+  font-size: 15.5px;
+  line-height: 1.68;
+}
+
+/* Ícone do callout */
+.callout-fact::before,
+.callout-context::before,
+.callout-bridge::before {
+  flex-shrink: 0;
+  font-size: 17px;
+  line-height: 1.5;
+  opacity: 0.80;
+}
+
+/* ── Callout Fato — dado verificável, número, dado histórico ── */
+.callout-fact {
+  background: rgba(200, 169, 81, 0.07);
+  border: 1px solid rgba(200, 169, 81, 0.14);
+  color: var(--text-primary);
+}
+
+.callout-fact::before {
+  content: '◉';
+  color: var(--gold-100);
+}
+
+/* ── Callout Contexto — informação histórica, cultural, geográfica ── */
+.callout-context {
+  background: rgba(74, 111, 165, 0.08);
+  border: 1px solid rgba(74, 111, 165, 0.18);
+  color: var(--text-primary);
+}
+
+.callout-context::before {
+  content: '◎';
+  color: #4A6FA5;
+  opacity: 0.80;
+}
+
+/* ── Callout Ponte — conexão explícita Bíblia↔Alcorão ── */
+.callout-bridge {
+  background: rgba(45, 107, 79, 0.07);
+  border: 1px solid rgba(45, 107, 79, 0.16);
+  color: var(--text-primary);
+  border-left: 3px solid rgba(45, 107, 79, 0.45);
+}
+
+.callout-bridge::before {
+  content: '⟷';
+  color: rgba(45, 107, 79, 0.85);
+  font-size: 18px;
+}
+
+/* Label de categoria dentro do callout */
+.callout-label {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.55;
+  margin-bottom: 5px;
+  font-family: var(--font-serif);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SECTION BREAK
+   Ornamento entre seções. Respiro visual entre blocos de conteúdo.
+   Alternativas comentadas — descomente a que preferir.
+═══════════════════════════════════════════════════════════════════════════ */
+.section-break {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin: 3em auto;
+  max-width: 220px;
+  opacity: 0.40;
+}
+
+/* Linha esquerda */
+.section-break::before {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--gold-100);
+}
+
+/* Ornamento central — ✦ dourado */
+.section-break-inner {
+  color: var(--gold-100);
+  font-size: 13px;
+  letter-spacing: 6px;
+  flex-shrink: 0;
+}
+
+.section-break-inner::before {
+  content: '✦';
+}
+
+/* Linha direita */
+.section-break::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--gold-100);
+}
+
+/*
+  Alternativa: três pontos simples
+  .section-break-inner::before { content: '· · ·'; letter-spacing: 8px; }
+
+  Alternativa: caractere árabe decorativo
+  .section-break-inner::before { content: '﷽'; font-family: var(--font-arabic); font-size: 18px; }
+*/
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   READING PROGRESS BAR
+   Barra fina no topo indicando progresso de scroll da seção/página atual.
+   Width é controlado via CSS custom property --scroll-progress (0 a 1)
+   atualizada por JS:
+
+   const bar = document.querySelector('.reading-progress-bar');
+   const section = document.querySelector('.prose-section'); // elemento alvo
+
+   const onScroll = () => {
+     const rect   = section.getBoundingClientRect();
+     const total  = section.offsetHeight - window.innerHeight;
+     const scroll = Math.max(0, -rect.top);
+     const pct    = total > 0 ? Math.min(1, scroll / total) : 0;
+     bar.style.setProperty('--scroll-progress', pct);
+   };
+   window.addEventListener('scroll', onScroll, { passive: true });
+═══════════════════════════════════════════════════════════════════════════ */
+.reading-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold-100), var(--gold-dim));
+  z-index: 1000;
+  /* Width controlado por JS via CSS custom property */
+  width: calc(var(--scroll-progress, 0) * 100%);
+  /* Transição suave — imperceptível mas elimina jerkiness */
+  transition: width 0.1s ease-out;
+  /* Brilho sutil para não ser apenas uma linha morta */
+  box-shadow: 0 0 8px rgba(200, 169, 81, 0.45);
+  pointer-events: none;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   HIGHLIGHTS & INLINE EMPHASIS
+   Usar com parcimônia — destaque perde força quando exagerado.
+   Máximo: 1 destaque dourado a cada 150 palavras.
+═══════════════════════════════════════════════════════════════════════════ */
+
+/* Termo-chave em dourado */
+.highlight-gold {
+  color: var(--gold-100);
+  font-weight: 500;
+}
+
+/* Termo que será definido — underline pontilhado indica "há mais aqui" */
+.highlight-term {
+  color: var(--gold-dim);
+  font-weight: 400;
+  border-bottom: 1px dotted rgba(200, 169, 81, 0.50);
+  cursor: help;
+  /* Não usar text-decoration para não entrar em conflito */
+  text-decoration: none;
+}
+
+/* Passagem importante — itálico, sem cor (confiança tipográfica) */
+.highlight-emphasis {
+  font-style: italic;
+  color: var(--text-primary);
+  opacity: 0.95;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   FOOTNOTE
+   Notas de rodapé e referências bibliográficas menores.
+═══════════════════════════════════════════════════════════════════════════ */
+.footnote {
+  font-family: var(--font-serif);
+  font-size: 13px;
+  line-height: 1.60;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border-subtle);
+  margin-top: 2.5em;
+  padding-top: 1.2em;
+}
+
+.footnote p {
+  font-size: 13px;
+  line-height: 1.60;
+  color: var(--text-muted);
+  margin-bottom: 0.6em;
+}
+
+/* Número da nota inline */
+.footnote-ref {
+  font-size: 11px;
+  vertical-align: super;
+  color: var(--gold-100);
+  opacity: 0.70;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.footnote-ref:hover {
+  opacity: 1;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   ÁRABE INLINE
+   Quando texto árabe aparece no meio de uma frase em português.
+   Maior que o texto latino ao redor — letras árabes são menores opticamente.
+═══════════════════════════════════════════════════════════════════════════ */
+.arabic-inline {
+  font-family: var(--font-arabic);
+  font-size: 1.20em;      /* 20% maior que o texto ao redor */
+  direction: rtl;
+  display: inline;
+  color: var(--gold-100);
+  opacity: 0.90;
+  /* Ajuste de baseline para alinhar com o texto latino */
+  vertical-align: baseline;
+  line-height: 1;
+  /* Espaço lateral para não colidir com o texto adjacente */
+  margin: 0 3px;
+}
+
+/* Bloco árabe autônomo — não inline */
+.arabic-block {
+  font-family: var(--font-arabic);
+  font-size: 1.65em;
+  line-height: 2.2;
+  direction: rtl;
+  text-align: center;
+  color: var(--gold-100);
+  opacity: 0.88;
+  display: block;
+  margin: 1.4em 0;
+  text-shadow: 0 0 32px rgba(200, 169, 81, 0.15);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   RESPONSIVE
+   Mobile-first: em telas pequenas o prose usa padding lateral e reduz
+   ligeiramente o tamanho da fonte para não quebrar o ritmo.
+═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 720px) {
+  .prose {
+    padding: 0 16px;
+  }
+
+  .prose p {
+    font-size: 16.5px;
+    line-height: 1.80;
+  }
+
+  .prose p:first-of-type {
+    font-size: 18px;
+  }
+
+  .pull-quote p,
+  .pull-quote blockquote {
+    font-size: 19px;
+  }
+
+  .quote-quran .quran-arabic {
+    font-size: 1.30em;
+  }
+
+  .quote-quran,
+  .quote-bible,
+  .quote-hadith {
+    padding: 16px 18px 14px;
+  }
+
+  .callout-fact,
+  .callout-context,
+  .callout-bridge {
+    font-size: 14.5px;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 400px) {
+  .prose p {
+    font-size: 15.5px;
+  }
+
+  .prose p:first-of-type {
+    font-size: 17px;
+  }
+
+  .arabic-inline {
+    font-size: 1.15em;
+  }
+}

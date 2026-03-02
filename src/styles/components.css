@@ -1,0 +1,2845 @@
+/*
+ * ═══════════════════════════════════════════════════════════════════════════
+ *  KALAM BRASIL — Sistema de Componentes
+ *  components.css v2.0
+ *  Dark Mode Premium · Editorial · Islâmico · Brasileiro
+ *
+ *  Tokens herdados de design-system.css / App.jsx (usar via var(), não redefinir):
+ *    --gold: #C8A951        --gold-light: #E8D5A0
+ *    --dark: #0F0E0C        --dark2: #1A1815       --dark3: #242119
+ *    --cream: #F5EFE0       --green: #2D6B4F
+ *    --card-bg              --card-border           --card-shadow
+ *    --radius: 8px          --radius-sm: 5px
+ *
+ *  Tipografia (definida em typography.css):
+ *    'Cormorant Garamond' — títulos, editorial, peso 300-700
+ *    'Noto Naskh Arabic'  — texto árabe, peso 400-700
+ *    'Crimson Pro'        — corpo de texto, peso 300-600
+ *
+ *  ÍNDICE:
+ *    §0   Tokens locais + animações
+ *    §1   Card base
+ *    §2   .hadith-card
+ *    §3   .surprise-fact-card
+ *    §4   .manuscript-card
+ *    §5   .recognition-story-card
+ *    §6   .bridge-card
+ *    §7   .system-protocol-card
+ *    §8   .question-answer-card
+ *    §9   .prophet-card-expanded
+ *    §10  .fact-badge
+ *    §11  .arabic-display
+ *    §12  .verse-reference
+ *    §13  Badges de relação escritural legados
+ *    §14  Section headers editoriais
+ *    §15  Callouts
+ *    §16  Dividers de componente
+ *    §17  Progress / Steps
+ *    §18  Quote styles
+ *    §19  Grid layouts
+ *    §20  Utilitários islâmicos
+ *    §21  Estados loading / empty / error
+ *    §22  Utilitários gerais
+ *    §23  Responsive global
+ * ═══════════════════════════════════════════════════════════════════════════
+ */
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   §0  TOKENS LOCAIS + ANIMAÇÕES
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* Paleta semântica de relação escritural */
+  --color-confirms:       #2D6B4F;
+  --color-confirms-bg:    rgba(45, 107, 79, 0.13);
+  --color-confirms-glow:  rgba(45, 107, 79, 0.06);
+
+  --color-expands:        #4A6FA5;
+  --color-expands-bg:     rgba(74, 111, 165, 0.13);
+  --color-expands-glow:   rgba(74, 111, 165, 0.06);
+
+  --color-corrects:       #A0522D;
+  --color-corrects-bg:    rgba(160, 82, 45, 0.13);
+  --color-corrects-glow:  rgba(160, 82, 45, 0.06);
+
+  --color-differs:        #6B6B6B;
+  --color-differs-bg:     rgba(107, 107, 107, 0.1);
+  --color-differs-glow:   rgba(107, 107, 107, 0.04);
+
+  /* Espaçamento editorial */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-7:  28px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+
+  /* Velocidade de transição */
+  --ease-card:   0.25s ease;
+  --ease-hover:  0.2s ease;
+  --ease-reveal: 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Gold aliases (para clareza nas regras abaixo) */
+  --gold-100:   #C8A951;
+  --gold-dim:   rgba(200, 169, 81, 0.65);
+  --gold-ghost: rgba(200, 169, 81, 0.18);
+
+  /* Cream aliases */
+  --cream-bright: rgba(245, 239, 224, 0.92);
+  --cream-mid:    rgba(245, 239, 224, 0.78);
+  --cream-muted:  rgba(245, 239, 224, 0.60);
+  --cream-faint:  rgba(245, 239, 224, 0.36);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+@keyframes shimmerGold {
+  0%   { background-position: -300% center; }
+  100% { background-position:  300% center; }
+}
+
+@keyframes pulseGold {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(200, 169, 81, 0); }
+  50%       { box-shadow: 0 0 0 4px rgba(200, 169, 81, 0.1); }
+}
+
+@keyframes expandWidth {
+  from { width: 0; }
+  to   { width: 100%; }
+}
+
+/* Utilitário: escalonar filhos com animação */
+.animate-children > * {
+  opacity: 0;
+  animation: fadeUp var(--ease-reveal) forwards;
+}
+
+.animate-children > *:nth-child(1) { animation-delay: 0ms; }
+.animate-children > *:nth-child(2) { animation-delay: 60ms; }
+.animate-children > *:nth-child(3) { animation-delay: 120ms; }
+.animate-children > *:nth-child(4) { animation-delay: 180ms; }
+.animate-children > *:nth-child(5) { animation-delay: 240ms; }
+.animate-children > *:nth-child(6) { animation-delay: 300ms; }
+.animate-children > *:nth-child(7) { animation-delay: 360ms; }
+.animate-children > *:nth-child(8) { animation-delay: 420ms; }
+
+.card-reveal {
+  opacity: 0;
+  animation: fadeUp var(--ease-reveal) forwards;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   §1  CARD BASE
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.card {
+  background:    var(--card-bg, #1A1815);
+  border:        1px solid var(--card-border, rgba(200, 169, 81, 0.1));
+  border-radius: var(--radius, 8px);
+  padding:       var(--space-7);
+  box-shadow:    var(--card-shadow, 0 4px 20px rgba(0,0,0,0.4));
+  position:      relative;
+  overflow:      hidden;
+  transition:
+    border-color var(--ease-card),
+    box-shadow   var(--ease-card),
+    transform    var(--ease-card);
+}
+
+.card--interactive { cursor: pointer; }
+
+.card--interactive:hover {
+  border-color: rgba(200, 169, 81, 0.22);
+  box-shadow:
+    0 6px 28px rgba(0, 0, 0, 0.45),
+    0 0  14px rgba(200, 169, 81, 0.05);
+  transform: translateY(-2px);
+}
+
+.card--interactive:active {
+  transform: translateY(0);
+  box-shadow: var(--card-shadow, 0 4px 20px rgba(0,0,0,0.4));
+}
+
+.card--selected {
+  border-color: rgba(200, 169, 81, 0.45);
+  background:   linear-gradient(150deg, rgba(200, 169, 81, 0.07) 0%, #1A1815 100%);
+  box-shadow:
+    0 0 0 1px rgba(200, 169, 81, 0.2),
+    0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Card featured — borda dourada no topo */
+.card-featured {
+  background:
+    linear-gradient(160deg, rgba(200, 169, 81, 0.06) 0%, #1A1815 60%, #17150F 100%);
+  border:        1px solid rgba(200, 169, 81, 0.16);
+  border-radius: var(--radius, 8px);
+  padding:       var(--space-8);
+  box-shadow:
+    var(--card-shadow, 0 4px 20px rgba(0,0,0,0.4)),
+    0 0 32px rgba(200, 169, 81, 0.04);
+  position:  relative;
+  overflow:  hidden;
+  transition:
+    border-color var(--ease-card),
+    box-shadow   var(--ease-card);
+}
+
+.card-featured::before {
+  content:  '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height:   2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(200, 169, 81, 0.6) 30%,
+    var(--gold-100, #C8A951) 50%,
+    rgba(200, 169, 81, 0.6) 70%,
+    transparent 100%
+  );
+}
+
+.card-featured:hover {
+  border-color: rgba(200, 169, 81, 0.28);
+  box-shadow:
+    0 8px 36px rgba(0, 0, 0, 0.5),
+    0 0  24px rgba(200, 169, 81, 0.07);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   §2  .hadith-card
+   ═══════════════════════════════════════════════════════════════════════════
+   Exibe um hadith completo:
+     - Árabe grande no topo (alinhado à direita, RTL)
+     - Transliteração em itálico abaixo do árabe
+     - Tradução em corpo principal
+     - Badge de fonte (Sahih Bukhari, Muslim etc.) no rodapé
+   ─────────────────────────────────────────────────────────────────────────── */
+
+.hadith-card {
+  background:    var(--card-bg, #1A1815);
+  border:        1px solid rgba(200, 169, 81, 0.12);
+  border-radius: var(--radius, 8px);
+  padding:       var(--space-8);
+  box-shadow:    var(--card-shadow, 0 4px 20px rgba(0,0,0,0.4));
+  position:      relative;
+  overflow:      hidden;
+  transition:
+    border-color var(--ease-card),
+    box-shadow   var(--ease-card);
+}
+
+/* Número editorial watermark */
+.hadith-card::before {
+  content:        attr(data-hadith-number);
+  position:       absolute;
+  top:            8px;
+  left:           16px;
+  font-family:    'Cormorant Garamond', serif;
+  font-size:      72px;
+  font-weight:    300;
+  color:          var(--gold-100, #C8A951);
+  opacity:        0.06;
+  line-height:    1;
+  pointer-events: none;
+  user-select:    none;
+  letter-spacing: -2px;
+}
+
+.hadith-card:hover {
+  border-color: rgba(200, 169, 81, 0.24);
+  box-shadow:
+    0 8px 36px rgba(0, 0, 0, 0.5),
+    0 0  16px rgba(200, 169, 81, 0.06);
+}
+
+/* Número de sequência visível */
+.hadith-card__number {
+  font-family:    'Cormorant Garamond', serif;
+  font-size:      11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color:          var(--gold-100, #C8A951);
+  opacity:        0.5;
+  margin-bottom:  var(--space-5);
+  display:        block;
+}
+
+/* Árabe grande — epígrafe principal do hadith */
+.hadith-card__arabic {
+  font-family:   'Noto Naskh Arabic', serif;
+  font-size:     clamp(20px, calc(17px + 0.85vw), 24px);
+  font-weight:   500;
+  color:         var(--gold-100, #C8A951);
+  opacity:       0.88;
+  text-align:    right;
+  direction:     rtl;
+  line-height:   2.0;
+  margin-bottom: var(--space-3);
+  display:       block;
+  letter-spacing: 0;
+  font-feature-settings: 'liga' 1, 'calt' 1;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Transliteração — pronúncia latina do texto árabe */
+.hadith-card__transliteration {
+  font-family:   'Crimson Pro', serif;
+  font-size:     clamp(13px, calc(12px + 0.28vw), 15px);
+  font-style:    italic;
+  color:         var(--cream-muted);
+  text-align:    right;
+  margin-bottom: var(--space-5);
+  display:       block;
+  line-height:   1.6;
+  border-right:  2px solid rgba(200, 169, 81, 0.2);
+  padding-right: var(--space-4);
+}
+
+/* Divisor entre árabe e tradução */
+.hadith-card__divider {
+  width:      48px;
+  height:     1px;
+  background: linear-gradient(90deg, transparent, rgba(200, 169, 81, 0.35), transparent);
+  margin:     0 auto var(--space-5);
+}
+
+/* Texto da tradução — corpo principal */
+.hadith-card__translation {
+  font-family:   'Cormorant Garamond', serif;
+  font-size:     clamp(17px, calc(15px + 0.56vw), 19px);
+  font-style:    italic;
+  color:         var(--cream-bright);
+  line-height:   1.75;
+  margin-bottom: var(--space-6);
+  position:      relative;
+  padding-left:  var(--space-5);
+}
+
+/* Aspas decorativas na tradução */
+.hadith-card__translation::before {
+  content:    '"';
+  position:   absolute;
+  left:       0;
+  top:        -6px;
+  font-size:  44px;
+  font-style: normal;
+  font-family:'Cormorant Garamond', serif;
+  color:      var(--gold-100, #C8A951);
+  opacity:    0.22;
+  line-height: 1;
+}
+
+/* Rodapé — narrador + badge de grau */
+.hadith-card__source {
+  display:     flex;
+  align-items: center;
+  gap:         var(--space-2);
+  flex-wrap:   wrap;
+  padding-top: var(--space-4);
+  border-top:  1px solid rgba(200, 169, 81, 0.08);
+}
+
+.hadith-card__narrator {
+  font-family:    'Crimson Pro', serif;
+  font-size:      11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color:          var(--gold-100, #C8A951);
+  opacity:        0.6;
+}
+
+.hadith-card__grade {
+  font-family:    'Crimson Pro', serif;
+  font-size:      10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color:          var(--color-confirms, #2D6B4F);
+  border:         1px solid rgba(45, 107, 79, 0.3);
+  padding:        2px 8px;
+  border-radius:  3px;
+}
+
+/* Badge da coleção (Sahih Bukhari, Sahih Muslim…) */
+.hadith-card__collection {
+  font-family: 'Crimson Pro', serif;
+  font-size:   13px;
+  color:       var(--cream-faint);
+  margin-left: auto;
+  font-style:  italic;
+}
+
+@media (max-width: 768px) {
+  .hadith-card { padding: var(--space-6); }
+  .hadith-card__arabic { font-size: clamp(18px, calc(16px + 0.56vw), 22px); }
+  .hadith-card__translation { font-size: clamp(15px, calc(14px + 0.28vw), 17px); }
+}
+
+@media (max-width: 480px) {
+  .hadith-card { padding: var(--space-5); }
+  .hadith-card__translation { padding-left: var(--space-4); }
+  .hadith-card__collection  { margin-left: 0; width: 100%; margin-top: var(--space-2); }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   §3  .surprise-fact-card
+   ═══════════════════════════════════════════════════════════════════════════
+   Card de fato surpreendente:
+     - Borda dourada completa
+     - Número grande decorativo em destaque (ex: "830")
+     - Texto do fato em corpo principal
+     - Badge de categoria (Ex: "Ciência", "História")
+   ─────────────────────────────────────────────────────────────────────────── */
+
+.surprise-fact-card {
+  background:    var(--card-bg, #1A1815);
+  border:        1px solid rgba(200, 169, 81, 0.28);
+  border-radius: var(--radius, 8px);
+  padding:       var(--space-8) var(--space-7) var(--space-7) var(--space-8);
+  box-shadow:
+    var(--card-shadow, 0 4px 20px rgba(0,0,0,0.4)),
+    0 0 24px rgba(200, 169, 81, 0.04);
+  position:  relative;
+  overflow:  hidden;
+  transition:
+    border-color var(--ease-card),
+    box-shadow   var(--ease-card),
+    transform    var(--ease-card);
+}
+
+/* Cantos ornamentais dourados */
+.surprise-fact-card::before {
+  content:  '';
+  position: absolute;
+  top:      0; left: 0; right: 0;
+  height:   2px;
+  background: linear-gradient(
+    90deg,
+    rgba(200, 169, 81, 0.7) 0%,
+    var(--gold-100, #C8A951) 50%,
+    rgba(200, 169, 81, 0.7) 100%
+  );
+}
+
+.surprise-fact-card::after {
+  content:  '';
+  position: absolute;
+  bottom:   0; left: 0; right: 0;
+  height:   1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(200, 169, 81, 0.2),
+    transparent
+  );
+}
+
+.surprise-fact-card:hover {
+  border-color: rgba(200, 169, 81, 0.45);
+  transform:    translateY(-2px);
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.5),
+    0 0   24px rgba(200, 169, 81, 0.08);
+}
+
+/* Número grande em destaque — o "wow" visual do card */
+.surprise-fact-card__number {
+  font-family:    'Cormorant Garamond', serif;
+  font-size:      clamp(52px, calc(44px + 2.26vw), 72px);
+  font-weight:    300;
+  color:          var(--gold-100, #C8A951);
+  line-height:    1;
+  letter-spacing: -2px;
+  margin-bottom:  var(--space-4);
+  display:        block;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Unidade/sufixo do número (ex: "anos", "%", "km") */
+.surprise-fact-card__unit {
+  font-family: 'Cormorant Garamond', serif;
+  font-size:   clamp(18px, calc(16px + 0.56vw), 22px);
+  font-weight: 300;
+  color:       var(--gold-dim);
+  margin-left: 4px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Texto principal do fato */
+.surprise-fact-card__text {
+  font-family:   'Crimson Pro', serif;
+  font-size:     clamp(15px, calc(14px + 0.28vw), 17px);
+  font-weight:   400;
+  line-height:   1.75;
+  color:         var(--cream-bright);
+  margin-bottom: var(--space-5);
+}
+
+/* Contexto expandido — detalhe extra do fato */
+.surprise-fact-card__context {
+  font-family:   'Crimson Pro', serif;
+  font-size:     clamp(13px, calc(12px + 0.28vw), 14px);
+  line-height:   1.65;
+  color:         var(--cream-muted);
+  padding-top:   var(--space-4);
+  border-top:    1px solid rgba(200, 169, 81, 0.08);
+  margin-bottom: var(--space-4);
+}
+
+/* Badge de categoria */
+.surprise-fact-card__category {
+  display:        inline-flex;
+  align-items:    center;
+  gap:            5px;
+  font-family:    'Crimson Pro', serif;
+  font-size:      10px;
+  font-weight:    500;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color:          var(--gold-100, #C8A951);
+  border:         1px solid rgba(200, 169, 81, 0.25);
+  padding:        3px 10px;
+  border-radius:  3px;
+  background:     rgba(200, 169, 81, 0.06);
+}
+
+@media (max-width: 480px) {
+  .surprise-fact-card { padding: var(--space-6) var(--space-5); }
+  .surprise-fact-card__number { font-size: clamp(44px, calc(36px + 2.26vw), 56px); }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   §4  .manuscript-card
+   ═══════════════════════════════════════════════════════════════════════════
+   Card de manuscrito histórico:
+     - Banner visual no topo (image-like, gradiente sobre placeholder)
+     - Título em Cormorant Garamond
+     - Data e localização em metadata caps
+     - Texto de significado histórico/teológico
+   ─────────────────────────────────────────────────────────────────────────── */
+
+.manuscript-card {
+  background:    var(--card-bg, #1A1815);
+  border:        1px solid rgba(200, 169, 81, 0.14);
+  border-radius: var(--radius, 8px);
+  overflow:      hidden;
+  box-shadow:    var(--card-shadow, 0 4px 20px rgba(0,0,0,0.4));
+  transition:
+    border-color var(--ease-card),
+    box-shadow   var(--ease-card),
+    transform    var(--ease-card);
+}
+
+.manuscript-card:hover {
+  border-color: rgba(200, 169, 81, 0.28);
+  transform:    translateY(-2px);
+  box-shadow:
+    0 8px 36px rgba(0, 0, 0, 0.5),
+    0 0  16px rgba(200, 169, 81, 0.06);
+}
+
+/* Banner visual — imagem ou gradiente placeholder */
+.manuscript-card__banner {
+  width:    100%;
+  height:   clamp(120px, 20vw, 180px);
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(12, 11, 9, 0) 0%,
+      rgba(12, 11, 9, 0.6) 100%
+    ),
+    linear-gradient(
+      135deg,
+      #1E1B17 0%,
+      #2A2418 35%,
+      #1A1510 70%,
+      #0F0D0A 100%
+    );
+  display: flex;
+  align-items: flex-end;
+  padding:  var(--space-4);
+}
+
+/* Imagem do banner quando fornecida via background-image inline */
+.manuscript-card__banner img {
+  position:   absolute;
+  inset:      0;
+  width:      100%;
+  height:     100%;
+  object-fit: cover;
+  opacity:    0.55;
+}
+
+/* Overlay sobre a imagem */
+.manuscript-card__banner::after {
+  content:  '';
+  position: absolute;
+  inset:    0;
+  background: linear-gradient(
+    180deg,
+    rgba(12, 11, 9, 0.1) 0%,
+    rgba(12, 11, 9, 0.7) 100%
+  );
+}
+
+/* Ornamento árabe sobre o banner */
+.manuscript-card__ornament {
+  font-family: 'Noto Naskh Arabic', serif;
+  font-size:   clamp(28px, calc(24px + 1.13vw), 36px);
+  color:       var(--gold-100, #C8A951);
+  opacity:     0.18;
+  direction:   rtl;
+  position:    relative;
+  z-index:     1;
+  line-height: 1;
+  letter-spacing: 0;
+  user-select: none;
+}
+
+/* Corpo do card */
+.manuscript-card__body {
+  padding: var(--space-6) var(--space-7) var(--space-7);
+}
+
+/* Título do manuscrito */
+.manuscript-card__title {
+  font-family:   'Cormorant Garamond', serif;
+  font-size:     clamp(18px, calc(16px + 0.56vw), 22px);
+  font-weight:   500;
+  color:         var(--cream);
+  line-height:   1.3;
+  margin-bottom: var(--space-3);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Metadata linha: data + separador + localização */
+.manuscript-card__meta {
+  display:        flex;
+  align-items:    center;
+  gap:            var(--space-2);
+  flex-wrap:      wrap;
+  margin-bottom:  var(--space-4);
+}
+
+.manuscript-card__date,
+.manuscript-card__location {
+  font-family:    'Crimson Pro', serif;
+  font-size:      11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color:          var(--gold-dim);
+}
+
+.manuscript-card__meta-sep {
+  display:       inline-block;
+  width:         3px;
+  height:        3px;
+  border-radius: 50%;
+  background:    rgba(200, 169, 81, 0.35);
+  vertical-align: middle;
+}
+
+/* Texto de significado histórico/teológico */
+.manuscript-card__significance {
+  font-family: 'Crimson Pro', serif;
+  font-size:   clamp(14px, calc(13px + 0.28vw), 16px);
+  line-height: 1.75;
+  color:       var(--cream-mid);
+}
+
+/* Tag de tipo */
+.manuscript-card__type {
+  display:        inline-block;
+  font-family:    'Crimson Pro', serif;
+  font-size:      10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color:          rgba(200, 169, 81, 0.55);
+  border:         1px solid rgba(200, 169, 81, 0.18);
+  padding:        2px 8px;
+  border-radius:  2px;
+  margin-bottom:  var(--space-3);
+}
+
+@media (max-width: 480px) {
+  .manuscript-card__body  { padding: var(--space-5); }
+  .manuscript-card__banner { height: 100px; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   §5  .recognition-story-card
+   ═══════════════════════════════════════════════════════════════════════════
+   Card de história de reconhecimento (pessoa que encontrou o Islam):
+     - Placeholder circular de imagem com iniciais
+     - Nome + badge de tipo (Convertido, Estudioso, Líder)
+     - Frase de impacto em itálico (quote)
+     - Trecho da história + link "ler mais"
+   ─────────────────────────────────────────────────────────────────────────── */
+
+.recognition-story-card {
+  background:    var(--card-bg, #1A1815);
+  border:        1px solid var(--card-border, rgba(200, 169, 81, 0.1));
+  border-radius: var(--radius, 8px);
+  padding:       var(--space-7);
+  box-shadow:    var(--card-shadow, 0 4px 20px rgba(0,0,0,0.4));
+  position:      relative;
+  overflow:      hidden;
+  transition:
+    border-color var(--ease-card),
+    box-shadow   var(--ease-card),
+    transform    var(--ease-card);
+}
+
+.recognition-story-card:hover {
+  border-color: rgba(200, 169, 81, 0.2);
+  box-shadow:
+    0 8px 36px rgba(0, 0, 0, 0.5),
+    0 0  16px rgba(200, 169, 81, 0.05);
+  transform: translateY(-2px);
+}
+
+/* Header — imagem + nome + badge */
+.recognition-story-card__header {
+  display:       flex;
+  align-items:   center;
+  gap:           var(--space-4);
+  margin-bottom: var(--space-5);
+}
+
+/* Placeholder circular de imagem */
+.recognition-story-card__avatar {
+  width:           56px;
+  height:          56px;
+  border-radius:   50%;
+  background:      linear-gradient(135deg, rgba(200, 169, 81, 0.15), rgba(200, 169, 81, 0.05));
+  border:          1px solid rgba(200, 169, 81, 0.25);
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  flex-shrink:     0;
+  overflow:        hidden;
+  position:        relative;
+}
+
+/* Iniciais dentro do avatar */
+.recognition-story-card__avatar-initials {
+  font-family: 'Cormorant Garamond', serif;
+  font-size:   22px;
+  font-weight: 500;
+  color:       var(--gold-100, #C8A951);
+  opacity:     0.8;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+}
+
+/* Imagem real quando disponível */
+.recognition-story-card__avatar img {
+  position:   absolute;
+  inset:      0;
+  width:      100%;
+  height:     100%;
+  object-fit: cover;
+}
+
+/* Área de nome + badge */
+.recognition-story-card__identity {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Nome da pessoa */
+.recognition-story-card__name {
+  font-family:   'Cormorant Garamond', serif;
+  font-size:     clamp(17px, calc(15px + 0.56vw), 19px);
+  font-weight:   500;
+  color:         var(--cream);
+  line-height:   1.2;
+  margin-bottom: var(--space-1);
+  white-space:   nowrap;
+  overflow:      hidden;
+  text-overflow: ellipsis;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Badge de tipo */
+.recognition-story-card__type {
+  display:        inline-flex;
+  align-items:    center;
+  font-family:    'Crimson Pro', serif;
+  font-size:      10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color:          var(--gold-dim);
+  border:         1px solid rgba(200, 169, 81, 0.2);
+  padding:        2px 8px;
+  border-radius:  3px;
+  background:     rgba(200, 169, 81, 0.05);
+}
+
+/* Quote — frase de impacto da pessoa */
+.recognition-story-card__quote {
+  font-family:   'Cormorant Garamond', serif;
+  font-size:     clamp(16px, calc(14px + 0.56vw), 18px);
+  font-style:    italic;
+  font-weight:   400;
+  color:         var(--cream-mid);
+  line-height:   1.65;
+  margin-bottom: var(--space-4);
+  padding-left:  var(--space-5);
+  border-left:   2px solid rgba(200, 169, 81, 0.3);
+  position:      relative;
+}
+
+.recognition-story-card__quote::before {
+  content:    '"';
+  position:   absolute;
+  left:       8px;
+  top:        -8px;
+  font-size:  36px;
+  font-style: normal;
+  color:      var(--gold-100, #C8A951);
+  opacity:    0.2;
+  line-height: 1;
+}
+
+/* Trecho da história */
+.recognition-story-card__excerpt {
+  font-family:   'Crimson Pro', serif;
+  font-size:     clamp(13px, calc(12px + 0.28vw), 15px);
+  line-height:   1.7;
+  color:         var(--cream-muted);
+  margin-bottom: var(--space-4);
+  display:       -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow:      hidden;
+}
+
+/* Link "ler mais" */
+.recognition-story-card__read-more {
+  display:        inline-flex;
+  align-items:    center;
+  gap:            var(--space-1);
+  font-family:    'Crimson Pro', serif;
+  font-size:      11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color:          var(--gold-100, #C8A951);
+  opacity:        0.7;
+  text-decoration: none;
+  transition:     opacity var(--ease-hover);
+  cursor:         pointer;
+  background:     none;
+  border:         none;
+  padding:        0;
+}
+
+.recognition-story-card__read-more:hover {
+  opacity: 1;
+}
+
+.recognition-story-card__read-more::after {
+  content:   '→';
+  font-size: 13px;
+  transition: transform var(--ease-hover);
+}
+
+.recognition-story-card__read-more:hover::after {
+  transform: translateX(3px);
+}
+
+@media (max-width: 480px) {
+  .recognition-story-card { padding: var(--space-5); }
+  .recognition-story-card__avatar { width: 48px; height: 48px; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   §6  .bridge-card
+   ═══════════════════════════════════════════════════════════════════════════
+   Card de ponte entre escrituras (Cristão ↔ Islâmico):
+     - Layout dividido: lado esquerdo (texto cristão) + lado direito (texto islâmico)
+     - Seção central de sobreposição/conexão
+     - Indicadores de relação (confirma, expande, corrige)
+   ─────────────────────────────────────────────────────────────────────────── */
+
+.bridge-card {
+  background:    var(--card-bg, #1A1815);
+  border:        1px solid rgba(200, 169, 81, 0.14);
+  border-radius: var(--radius, 8px);
+  overflow:      hidden;
+  box-shadow:    var(--card-shadow, 0 4px 20px rgba(0,0,0,0.4));
+  transition:
+    border-color var(--ease-card),
+    box-shadow   var(--ease-card);
+}
+
+.bridge-card:hover {
+  border-color: rgba(200, 169, 81, 0.25);
+  box-shadow:
+    0 8px 36px rgba(0, 0, 0, 0.5),
+    0 0  16px rgba(200, 169, 81, 0.05);
+}
+
+/* Layout principal — duas colunas */
+.bridge-card__split {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: stretch;
+}
+
+/* Lado esquerdo — texto cristão */
+.bridge-card__left {
+  padding:    var(--space-7);
+  background: linear-gradient(135deg, rgba(74, 111, 165, 0.06) 0%, transparent 100%);
+  border-right: 1px solid rgba(200, 169, 81, 0.06);
+}
+
+/* Lado direito — texto islâmico */
+.bridge-card__right {
+  padding:    var(--space-7);
+  background: linear-gradient(225deg, rgba(200, 169, 81, 0.06) 0%, transparent 100%);
+  border-left: 1px solid rgba(200, 169, 81, 0.06);
+}
+
+/* Centro — sobreposição / conexão */
+.bridge-card__center {
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  justify-content: center;
+  padding:         var(--space-4) var(--space-3);
+  position:        relative;
+  gap:             var(--space-3);
+}
+
+/* Linha vertical conectora */
+.bridge-card__center::before {
+  content:  '';
+  position: absolute;
+  top:      var(--space-8);
+  bottom:   var(--space-8);
+  left:     50%;
+  width:    1px;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(200, 169, 81, 0.25) 30%,
+    rgba(200, 169, 81, 0.25) 70%,
+    transparent
+  );
+}
+
+/* Símbolo de ponte no centro */
+.bridge-card__symbol {
+  font-family: 'Cormorant Garamond', serif;
+  font-size:   20px;
+  color:       var(--gold-100, #C8A951);
+  opacity:     0.6;
+  user-select: none;
+  position:    relative;
+  z-index:     1;
+  background:  var(--card-bg, #1A1815);
+  padding:     2px 4px;
+}
+
+/* Label de lado */
+.bridge-card__label {
+  font-family:    'Crimson Pro', serif;
+  font-size:      10px;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  margin-bottom:  var(--space-3);
+  display:        block;
+}
+
+.bridge-card__label--christian {
+  color: var(--color-expands, #4A6FA5);
+  opacity: 0.8;
+}
+
+.bridge-card__label--islamic {
+  color: var(--gold-100, #C8A951);
+  opacity: 0.8;
+}
+
+/* Texto de escritura */
+.bridge-card__scripture {
+  font-family: 'Cormorant Garamond', serif;
+  font-size:   clamp(15px, calc(14px + 0.28vw), 17px);
+  font-style:  italic;
+  color:       var(--cream-mid);
+  line-height: 1.7;
+  margin-bottom: var(--space-3);
+}
+
+/* Referência da escritura */
+.bridge-card__ref {
+  font-family:    'Crimson Pro', serif;
+  font-size:      11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color:          var(--cream-faint);
+}
+
+/* Seção de sobreposição — conexão entre as duas partes */
+.bridge-card__overlap {
+  padding:    var(--space-5) var(--space-7);
+  background: rgba(200, 169, 81, 0.04);
+  border-top: 1px solid rgba(200, 169, 81, 0.1);
+  display:    flex;
+  align-items: center;
+  gap:        var(--space-4);
+  flex-wrap:  wrap;
+}
+
+.bridge-card__overlap-label {
+  font-family:    'Crimson Pro', serif;
+  font-size:      11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color:          var(--cream-faint);
+}
+
+.bridge-card__overlap-text {
+  font-family: 'Crimson Pro', serif;
+  font-size:   clamp(13px, calc(12px + 0.28vw), 15px);
+  color:       var(--cream-mid);
+  line-height: 1.6;
+  flex:        1;
+}
+
+/* Badge de relação */
+.bridge-card__relation {
+  margin-left: auto;
+}
+
+@media (max-width: 640px) {
+  .bridge-card__split {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+  }
+
+  .bridge-card__left  { border-right: none; border-bottom: 1px solid rgba(200, 169, 81, 0.08); }
+  .bridge-card__right { border-left:  none; border-top:    1px solid rgba(200, 169, 81, 0.08); }
+
+  .bridge-card__center {
+    flex-direction: row;
+    padding: var(--space-3) var(--space-7);
+    order: -1;
+  }
+
+  .bridge-card__center::before {
+    top:  50%; bottom: 50%;
+    left: var(--space-8); right: var(--space-8);
+    width: auto; height: 1px;
+    transform: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .bridge-card__left,
+  .bridge-card__right { padding: var(--space-5); }
+  .bridge-card__overlap { padding: var(--space-4) var(--space-5); }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   §7  .system-protocol-card
+   ═══════════════════════════════════════════════════════════════════════════
+   Card de protocolo do Islam como OS (sistema operacional de vida):
+     - Ícone grande centralizado (emoji ou SVG)
+     - Nome do protocolo em Cormorant Garamond
+     - Descrição em Crimson Pro
+     - Impacto diário — linha concisa de benefício prático
+   ─────────────────────────────────────────────────────────────────────────── */
+
+.system-protocol-card {
+  background:    var(--card-bg, #1A1815);
+  border:        1px solid var(--card-border, rgba(200, 169, 81, 0.1));
+  border-radius: var(--radius, 8px);
+  padding:       var(--space-8) var(--space-7) var(--space-7);
+  box-shadow:    var(--card-shadow, 0 4px 20px rgba(0,0,0,0.4));
+  position:      relative;
+  overflow:      hidden;
+  text-align:    center;
+  transition:
+    border-color var(--ease-card),
+    box-shadow   var(--ease-card),
+    transform    var(--ease-card);
+}
+
+/* Glow sutil no topo */
+.system-protocol-card::before {
+  content:  '';
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width:   60%;
+  height:  1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(200, 169, 81, 0.4),
+    transparent
+  );
+}
+
+.system-protocol-card:hover {
+  border-color: rgba(200, 169, 81, 0.22);
+  transform:    translateY(-2px);
+  box-shadow:
+    0 8px 36px rgba(0, 0, 0, 0.5),
+    0 0  20px rgba(200, 169, 81, 0.06);
+}
+
+/* Ícone grande — emoji ou SVG */
+.system-protocol-card__icon {
+  font-size:     clamp(36px, calc(32px + 1.13vw), 48px);
+  line-height:   1;
+  margin-bottom: var(--space-5);
+  display:       block;
+  user-select:   none;
+  filter:        drop-shadow(0 0 12px rgba(200, 169, 81, 0.2));
+}
+
+/* Nome do protocolo */
+.system-protocol-card__name {
+  font-family:   'Cormorant Garamond', serif;
+  font-size:     clamp(19px, calc(17px + 0.56vw), 22px);
+  font-weight:   500;
+  color:         var(--cream);
+  line-height:   1.2;
+  margin-bottom: var(--space-2);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Nome árabe do protocolo */
+.system-protocol-card__arabic {
+  font-family:   'Noto Naskh Arabic', serif;
+  font-size:     clamp(16px, calc(14px + 0.56vw), 18px);
+  font-weight:   400;
+  color:         var(--gold-dim);
+  direction:     rtl;
+  letter-spacing: 0;
+  margin-bottom: var(--space-5);
+  display:       block;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Divider ornamental */
+.system-protocol-card__divider {
+  width:      32px;
+  height:     1px;
+  background: linear-gradient(90deg, transparent, rgba(200, 169, 81, 0.35), transparent);
+  margin:     0 auto var(--space-5);
+}
+
+/* Descrição do protocolo */
+.system-protocol-card__description {
+  font-family:   'Crimson Pro', serif;
+  font-size:     clamp(14px, calc(13px + 0.28vw), 16px);
+  line-height:   1.75;
+  color:         var(--cream-muted);
+  margin-bottom: var(--space-5);
+  text-align:    left;
+}
+
+/* Impacto diário — linha de benefício prático */
+.system-protocol-card__impact {
+  display:      flex;
+  align-items:  flex-start;
+  gap:          var(--space-3);
+  padding:      var(--space-4) var(--space-5);
+  background:   rgba(200, 169, 81, 0.05);
+  border:       1px solid rgba(200, 169, 81, 0.1);
+  border-radius: calc(var(--radius, 8px) - 2px);
+  text-align:   left;
+}
+
+.system-protocol-card__impact-icon {
+  font-size:   16px;
+  flex-shrink: 0;
+  margin-top:  1px;
+  opacity:     0.75;
+}
+
+.system-protocol-card__impact-text {
+  font-family: 'Crimson Pro', serif;
+  font-size:   clamp(12px, calc(11px + 0.28vw), 14px);
+  color:       var(--cream-mid);
+  line-height: 1.6;
+}
+
+@media (max-width: 480px) {
+  .system-protocol-card { padding: var(--space-6) var(--space-5); }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   §8  .question-answer-card
+   ═══════════════════════════════════════════════════════════════════════════
+   Card para perguntas difíceis sobre o Islam:
+     - Pergunta em negrito/destaque
+     - Resposta direta e objetiva
+     - Seção de contexto expandido
+     - Possível expansão/colapso
+   ─────────────────────────────────────────────────────────────────────────── */
+
+.question-answer-card {
+  background:    var(--card-bg, #1A1815);
+  border:        1px solid var(--card-border, rgba(200, 169, 81, 0.1));
+  border-radius: var(--radius, 8px);
+  overflow:      hidden;
+  box-shadow:    var(--card-shadow, 0 4px 20px rgba(0,0,0,0.4));
+  transition:
+    border-color var(--ease-card),
+    box-shadow   var(--ease-card);
+}
+
+.question-answer-card:hover {
+  border-color: rgba(200, 169, 81, 0.2);
+  box-shadow:
+    0 6px 28px rgba(0, 0, 0, 0.45),
+    0 0  14px rgba(200, 169, 81, 0.04);
+}
+
+/* Pergunta — header do card */
+.question-answer-card__question {
+  padding:    var(--space-6) var(--space-7);
+  border-bottom: 1px solid rgba(200, 169, 81, 0.08);
+  display:    flex;
+  align-items: flex-start;
+  gap:        var(--space-4);
+}
+
+/* Símbolo de interrogação decorativo */
+.question-answer-card__q-mark {
+  font-family:    'Cormorant Garamond', serif;
+  font-size:      clamp(26px, calc(22px + 1.13vw), 32px);
+  font-weight:    300;
+  color:          var(--gold-100, #C8A951);
+  opacity:        0.5;
+  line-height:    1;
+  flex-shrink:    0;
+  margin-top:     -2px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Texto da pergunta */
+.question-answer-card__question-text {
+  font-family:   'Cormorant Garamond', serif;
+  font-size:     clamp(17px, calc(15px + 0.56vw), 20px);
+  font-weight:   600;
+  color:         var(--cream);
+  line-height:   1.4;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Resposta direta */
+.question-answer-card__answer {
+  padding: var(--space-6) var(--space-7);
+}
+
+/* Label "Resposta Direta" */
+.question-answer-card__answer-label {
+  font-family:    'Crimson Pro', serif;
+  font-size:      10px;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color:          var(--gold-100, #C8A951);
+  opacity:        0.65;
+  margin-bottom:  var(--space-3);
+  display:        block;
+}
+
+/* Texto da resposta */
+.question-answer-card__answer-text {
+  font-family:   'Crimson Pro', serif;
+  font-size:     clamp(15px, calc(14px + 0.28vw), 17px);
+  font-weight:   500;
+  color:         var(--cream-bright);
+  line-height:   1.7;
+  margin-bottom: var(--space-5);
+}
+
+/* Seção de contexto expandido */
+.question-answer-card__context {
+  padding:       var(--space-5) var(--space-6);
+  background:    rgba(200, 169, 81, 0.04);
+  border-top:    1px solid rgba(200, 169, 81, 0.08);
+  border-radius: 0 0 calc(var(--radius, 8px) - 1px) calc(var(--radius, 8px) - 1px);
+}
+
+.question-answer-card__context-label {
+  font-family:    'Crimson Pro', serif;
+  font-size:      10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color:          var(--cream-faint);
+  margin-bottom:  var(--space-3);
+  display:        block;
+}
+
+.question-answer-card__context-text {
+  font-family: 'Crimson Pro', serif;
+  font-size:   clamp(13px, calc(12px + 0.28vw), 15px);
+  line-height: 1.7;
+  color:       var(--cream-muted);
+}
+
+/* Botão de expansão */
+.question-answer-card__expand {
+  display:        flex;
+  align-items:    center;
+  gap:            var(--space-2);
+  font-family:    'Crimson Pro', serif;
+  font-size:      11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color:          var(--gold-dim);
+  cursor:         pointer;
+  background:     none;
+  border:         none;
+  padding:        var(--space-4) var(--space-7);
+  width:          100%;
+  text-align:     left;
+  transition:     color var(--ease-hover);
+  border-top:     1px solid rgba(200, 169, 81, 0.06);
+}
+
+.question-answer-card__expand:hover {
+  color: var(--gold-100, #C8A951);
+}
+
+.question-answer-card__expand-icon {
+  font-size:   14px;
+  transition:  transform var(--ease-hover);
+  margin-left: auto;
+}
+
+.question-answer-card--expanded .question-answer-card__expand-icon {
+  transform: rotate(180deg);
+}
+
+/* Conteúdo expandível — oculto por padrão */
+.question-answer-card__expandable {
+  max-height: 0;
+  overflow:   hidden;
+  transition: max-height 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.question-answer-card--expanded .question-answer-card__expandable {
+  max-height: 600px;
+}
+
+@media (max-width: 480px) {
+  .question-answer-card__question { padding: var(--space-5); }
+  .question-answer-card__answer   { padding: var(--space-5); }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   §9  .prophet-card-expanded
+   ═══════════════════════════════════════════════════════════════════════════
+   Card expandido de profeta — full-width, rico em conteúdo:
+     - Área de imagem/gradiente full-width no topo
+     - Nome + árabe + período
+     - Timeline de momentos-chave
+     - Referência no Alcorão
+     - Paralelo bíblico
+   ─────────────────────────────────────────────────────────────────────────── */
+
+.prophet-card-expanded {
+  background:    var(--card-bg, #1A1815);
+  border:        1px solid rgba(200, 169, 81, 0.16);
+  border-radius: var(--radius, 8px);
+  overflow:      hidden;
+  box-shadow:
+    var(--card-shadow, 0 4px 20px rgba(0,0,0,0.4)),
+    0 0 40px rgba(200, 169, 81, 0.03);
+  width:         100%;
+  transition:
+    border-color var(--ease-card),
+    box-shadow   var(--ease-card);
+}
+
+/* Área de imagem full-width */
+.prophet-card-expanded__image-area {
+  width:    100%;
+  height:   clamp(160px, 25vw, 240px);
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 30% 50%, rgba(200, 169, 81, 0.08) 0%, transparent 60%),
+    linear-gradient(135deg, #1E1B17 0%, #2A2418 40%, #1A1510 100%);
+  display:  flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Ornamento árabe como fundo */
+.prophet-card-expanded__image-area::before {
+  content:     attr(data-arabic-name);
+  font-family: 'Noto Naskh Arabic', serif;
+  font-size:   clamp(80px, 15vw, 140px);
+  font-weight: 300;
+  color:       var(--gold-100, #C8A951);
+  opacity:     0.07;
+  direction:   rtl;
+  letter-spacing: 0;
+  position:    absolute;
+  user-select: none;
+  line-height: 1;
+}
+
+/* Barra de linha dourada na base da área de imagem */
+.prophet-card-expanded__image-area::after {
+  content:  '';
+  position: absolute;
+  bottom:   0; left: 0; right: 0;
+  height:   2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(200, 169, 81, 0.5) 30%,
+    var(--gold-100, #C8A951) 50%,
+    rgba(200, 169, 81, 0.5) 70%,
+    transparent 100%
+  );
+}
+
+/* Imagem real sobreposta */
+.prophet-card-expanded__image-area img {
+  position:   absolute;
+  inset:      0;
+  width:      100%;
+  height:     100%;
+  object-fit: cover;
+  opacity:    0.4;
+}
+
+/* Overlay de gradiente sobre a imagem */
+.prophet-card-expanded__overlay {
+  position:   absolute;
+  inset:      0;
+  background: linear-gradient(
+    180deg,
+    rgba(12, 11, 9, 0.2) 0%,
+    rgba(12, 11, 9, 0.6) 100%
+  );
+}
+
+/* Nome do profeta sobre a imagem */
+.prophet-card-expanded__image-title {
+  position:   relative;
+  z-index:    1;
+  text-align: center;
+}
+
+.prophet-card-expanded__name-arabic {
+  font-family: 'Noto Naskh Arabic', serif;
+  font-size:   clamp(32px, calc(26px + 1.69vw), 48px);
+  font-weight: 400;
+  color:       var(--gold-100, #C8A951);
+  opacity:     0.85;
+  direction:   rtl;
+  letter-spacing: 0;
+  font-feature-settings: 'liga' 1, 'calt' 1;
+  display:     block;
+  line-height: 2.0;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Corpo do card */
+.prophet-card-expanded__body {
+  padding: var(--space-8) var(--space-8) var(--space-7);
+}
+
+/* Header — nome latino + era */
+.prophet-card-expanded__header {
+  display:       flex;
+  align-items:   flex-end;
+  gap:           var(--space-4);
+  flex-wrap:     wrap;
+  margin-bottom: var(--space-5);
+  padding-bottom: var(--space-5);
+  border-bottom: 1px solid rgba(200, 169, 81, 0.1);
+}
+
+.prophet-card-expanded__name {
+  font-family:   'Cormorant Garamond', serif;
+  font-size:     clamp(24px, calc(20px + 1.13vw), 32px);
+  font-weight:   300;
+  color:         var(--cream);
+  line-height:   1.1;
+  -webkit-font-smoothing: antialiased;
+}
+
+.prophet-card-expanded__title-tag {
+  font-family:    'Crimson Pro', serif;
+  font-size:      11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color:          var(--gold-dim);
+  border:         1px solid rgba(200, 169, 81, 0.2);
+  padding:        3px 10px;
+  border-radius:  3px;
+  align-self:     center;
+}
+
+.prophet-card-expanded__era {
+  font-family: 'Cormorant Garamond', serif;
+  font-size:   clamp(12px, calc(11px + 0.28vw), 14px);
+  font-style:  italic;
+  color:       var(--gold-dim);
+  margin-left: auto;
+  white-space: nowrap;
+}
+
+/* Grid: descrição + timeline */
+.prophet-card-expanded__content {
+  display:               grid;
+  grid-template-columns: 1fr 1fr;
+  gap:                   var(--space-8);
+  margin-bottom:         var(--space-7);
+}
+
+/* Descrição principal */
+.prophet-card-expanded__desc {
+  font-family: 'Crimson Pro', serif;
+  font-size:   clamp(14px, calc(13px + 0.28vw), 16px);
+  line-height: 1.75;
+  color:       var(--cream-mid);
+}
+
+/* Timeline de momentos-chave */
+.prophet-card-expanded__timeline {
+  list-style:    none;
+  padding:       0;
+  margin:        0;
+  display:       flex;
+  flex-direction: column;
+  gap:           var(--space-4);
+}
+
+.prophet-card-expanded__moment {
+  display:  flex;
+  gap:      var(--space-3);
+  position: relative;
+}
+
+/* Ponto da timeline */
+.prophet-card-expanded__moment-dot {
+  width:           8px;
+  height:          8px;
+  border-radius:   50%;
+  background:      rgba(200, 169, 81, 0.5);
+  border:          1px solid rgba(200, 169, 81, 0.8);
+  flex-shrink:     0;
+  margin-top:      5px;
+  position:        relative;
+  z-index:         1;
+}
+
+/* Linha vertical conectora entre pontos */
+.prophet-card-expanded__moment:not(:last-child) .prophet-card-expanded__moment-dot::after {
+  content:  '';
+  position: absolute;
+  top:      10px;
+  left:     50%;
+  transform: translateX(-50%);
+  width:    1px;
+  height:   calc(100% + var(--space-4) + 4px);
+  background: linear-gradient(180deg, rgba(200, 169, 81, 0.3), rgba(200, 169, 81, 0.05));
+}
+
+.prophet-card-expanded__moment-text {
+  font-family: 'Crimson Pro', serif;
+  font-size:   clamp(13px, calc(12px + 0.28vw), 14px);
+  line-height: 1.6;
+  color:       var(--cream-muted);
+  flex:        1;
+}
+
+/* Referências — Alcorão + Bíblia */
+.prophet-card-expanded__references {
+  display:    grid;
+  grid-template-columns: 1fr 1fr;
+  gap:        var(--space-4);
+  padding-top: var(--space-5);
+  border-top: 1px solid rgba(200, 169, 81, 0.08);
+}
+
+.prophet-card-expanded__ref-block {
+  padding:       var(--space-4) var(--space-5);
+  border-radius: calc(var(--radius, 8px) - 2px);
+  border:        1px solid rgba(200, 169, 81, 0.1);
+}
+
+.prophet-card-expanded__ref-block--quran {
+  background: rgba(200, 169, 81, 0.05);
+}
+
+.prophet-card-expanded__ref-block--bible {
+  background: rgba(74, 111, 165, 0.05);
+  border-color: rgba(74, 111, 165, 0.12);
+}
+
+.prophet-card-expanded__ref-label {
+  font-family:    'Crimson Pro', serif;
+  font-size:      10px;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  margin-bottom:  var(--space-2);
+  display:        block;
+}
+
+.prophet-card-expanded__ref-block--quran .prophet-card-expanded__ref-label {
+  color: var(--gold-100, #C8A951);
+  opacity: 0.7;
+}
+
+.prophet-card-expanded__ref-block--bible .prophet-card-expanded__ref-label {
+  color: var(--color-expands, #4A6FA5);
+  opacity: 0.8;
+}
+
+.prophet-card-expanded__ref-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size:   clamp(14px, calc(13px + 0.28vw), 16px);
+  font-style:  italic;
+  color:       var(--cream-mid);
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .prophet-card-expanded__content    { grid-template-columns: 1fr; gap: var(--space-6); }
+  .prophet-card-expanded__references { grid-template-columns: 1fr; }
+  .prophet-card-expanded__body       { padding: var(--space-6); }
+  .prophet-card-expanded__image-area { height: 140px; }
+}
+
+@media (max-width: 480px) {
+  .prophet-card-expanded__body { padding: var(--space-5); }
+  .prophet-card-expanded__header { gap: var(--space-3); }
+  .prophet-card-expanded__era { margin-left: 0; width: 100%; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   §10  .fact-badge
+   ═══════════════════════════════════════════════════════════════════════════
+   Badges de pílula para classificar fatos:
+     verified    — verificado historicamente
+     historical  — registro histórico
+     composed    — composição/narrativa
+     new         — novo dado ou descoberta
+   ─────────────────────────────────────────────────────────────────────────── */
+
+/* Base da pílula */
+.fact-badge {
+  display:        inline-flex;
+  align-items:    center;
+  gap:            5px;
+  font-family:    'Crimson Pro', serif;
+  font-size:      10px;
+  font-weight:    500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding:        3px 10px;
+  border-radius:  var(--radius-full, 9999px);
+  border:         1px solid transparent;
+  line-height:    1.4;
+  white-space:    nowrap;
+  transition:
+    background   var(--ease-hover),
+    border-color var(--ease-hover),
+    opacity      var(--ease-hover);
+}
+
+/* Ponto de cor indicativo antes do texto */
+.fact-badge::before {
+  content:       '';
+  display:       inline-block;
+  width:         5px;
+  height:        5px;
+  border-radius: 50%;
+  flex-shrink:   0;
+  background:    currentColor;
+}
+
+/* verified — dourado sólido */
+.fact-badge--verified {
+  color:        var(--gold-100, #C8A951);
+  background:   rgba(200, 169, 81, 0.1);
+  border-color: rgba(200, 169, 81, 0.3);
+}
+
+.fact-badge--verified:hover {
+  background:   rgba(200, 169, 81, 0.18);
+  border-color: rgba(200, 169, 81, 0.5);
+}
+
+/* historical — verde musgo / confirms */
+.fact-badge--historical {
+  color:        var(--color-confirms, #2D6B4F);
+  background:   var(--color-confirms-bg, rgba(45, 107, 79, 0.13));
+  border-color: rgba(45, 107, 79, 0.28);
+}
+
+.fact-badge--historical:hover {
+  background:   rgba(45, 107, 79, 0.2);
+  border-color: rgba(45, 107, 79, 0.45);
+}
+
+/* composed — azul suave / expands */
+.fact-badge--composed {
+  color:        var(--color-expands, #4A6FA5);
+  background:   var(--color-expands-bg, rgba(74, 111, 165, 0.13));
+  border-color: rgba(74, 111, 165, 0.28);
+}
+
+.fact-badge--composed:hover {
+  background:   rgba(74, 111, 165, 0.2);
+  border-color: rgba(74, 111, 165, 0.45);
+}
+
+/* new — ouro brilhante, mais destaque */
+.fact-badge--new {
+  color:        #0C0B09;
+  background:   var(--gold-100, #C8A951);
+  border-color: var(--gold-100, #C8A951);
+  font-weight:  600;
+}
+
+.fact-badge--new::before {
+  background: rgba(12, 11, 9, 0.5);
+}
+
+.fact-badge--new:hover {
+  background:   rgba(200, 169, 81, 0.85);
+  border-color: rgba(200, 169, 81, 0.85);
+}
+
+/* Variante maior */
+.fact-badge--lg {
+  font-size:   11px;
+  padding:     5px 14px;
+  letter-spacing: 1.5px;
+}
+
+/* Variante sem ponto */
+.fact-badge--clean::before {
+  display: none;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   §11  .arabic-display
+   ═══════════════════════════════════════════════════════════════════════════
+   Elemento de exibição de texto árabe grande centralizado,
+   com efeito shimmer dourado no hover.
+   ─────────────────────────────────────────────────────────────────────────── */
+
+.arabic-display {
+  font-family:   'Noto Naskh Arabic', serif;
+  font-size:     clamp(40px, calc(32px + 3.38vw), 64px);
+  font-weight:   400;
+  line-height:   2.0;
+  direction:     rtl;
+  text-align:    center;
+  letter-spacing: 0;
+  font-feature-settings: 'liga' 1, 'calt' 1, 'kern' 1;
+  display:       block;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Cor base — gold sólido */
+  color: var(--gold-100, #C8A951);
+
+  /* Transição para o shimmer */
+  transition: color 0.3s ease;
+  position:   relative;
+  cursor:     default;
+  user-select: none;
+}
+
+/* Shimmer dourado no hover via background-clip */
+.arabic-display:hover {
+  color: transparent;
+  background: linear-gradient(
+    90deg,
+    rgba(200, 169, 81, 0.4)  0%,
+    rgba(232, 213, 160, 1.0) 25%,
+    rgba(200, 169, 81, 1.0)  50%,
+    rgba(232, 213, 160, 1.0) 75%,
+    rgba(200, 169, 81, 0.4)  100%
+  );
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  background-clip:         text;
+  animation: shimmerGold 2.5s linear infinite;
+}
+
+/* Variante menor — para seções internas */
+.arabic-display--sm {
+  font-size: clamp(28px, calc(22px + 1.69vw), 40px);
+  line-height: 1.9;
+}
+
+/* Variante cream — sem dourado, mais suave */
+.arabic-display--cream {
+  color: var(--cream-bright);
+}
+
+.arabic-display--cream:hover {
+  color: transparent;
+  background: linear-gradient(
+    90deg,
+    rgba(245, 239, 224, 0.5) 0%,
+    rgba(245, 239, 224, 1.0) 50%,
+    rgba(245, 239, 224, 0.5) 100%
+  );
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: shimmerGold 2.5s linear infinite;
+}
+
+/* Container decorativo com ornamentos laterais */
+.arabic-display-wrap {
+  display:     flex;
+  align-items: center;
+  gap:         var(--space-5);
+  justify-content: center;
+}
+
+.arabic-display-wrap::before,
+.arabic-display-wrap::after {
+  content:    '';
+  flex:       1;
+  max-width:  80px;
+  height:     1px;
+  background: linear-gradient(90deg, transparent, rgba(200, 169, 81, 0.25));
+}
+
+.arabic-display-wrap::after {
+  background: linear-gradient(90deg, rgba(200, 169, 81, 0.25), transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arabic-display:hover {
+    animation: none;
+    background-position: center;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   §12  .verse-reference
+   ═══════════════════════════════════════════════════════════════════════════
+   Badge compacto de referência de versículo:
+     Exibe Livro:Capítulo:Versículo em estilo editorial compacto.
+     Ex: "Al-Baqarah 2:255" ou "João 3:16"
+   ─────────────────────────────────────────────────────────────────────────── */
+
+/* Base */
+.verse-reference {
+  display:        inline-flex;
+  align-items:    center;
+  gap:            4px;
+  font-family:    'Crimson Pro', serif;
+  font-size:      clamp(10px, calc(9px + 0.28vw), 12px);
+  font-weight:    500;
+  letter-spacing: 0.8px;
+  color:          var(--gold-100, #C8A951);
+  opacity:        0.75;
+  background:     rgba(200, 169, 81, 0.07);
+  border:         1px solid rgba(200, 169, 81, 0.18);
+  padding:        2px 8px 2px 6px;
+  border-radius:  3px;
+  white-space:    nowrap;
+  text-decoration: none;
+  transition:
+    opacity      var(--ease-hover),
+    background   var(--ease-hover),
+    border-color var(--ease-hover);
+  cursor:         pointer;
+}
+
+/* Ícone de livro antes do texto */
+.verse-reference::before {
+  content:   '📖';
+  font-size: 9px;
+  opacity:   0.7;
+}
+
+.verse-reference:hover {
+  opacity:      1;
+  background:   rgba(200, 169, 81, 0.12);
+  border-color: rgba(200, 169, 81, 0.35);
+}
+
+/* Variante Alcorão — ouro mais saturado */
+.verse-reference--quran {
+  color:        var(--gold-100, #C8A951);
+  background:   rgba(200, 169, 81, 0.09);
+  border-color: rgba(200, 169, 81, 0.22);
+}
+
+.verse-reference--quran::before {
+  content: '☽';
+  font-size: 10px;
+}
+
+/* Variante Bíblia — azul suave */
+.verse-reference--bible {
+  color:        var(--color-expands, #4A6FA5);
+  background:   rgba(74, 111, 165, 0.08);
+  border-color: rgba(74, 111, 165, 0.2);
+}
+
+.verse-reference--bible::before {
+  content: '✝';
+  font-size: 9px;
+}
+
+/* Variante Hadith — verde */
+.verse-reference--hadith {
+  color:        var(--color-confirms, #2D6B4F);
+  background:   rgba(45, 107, 79, 0.08);
+  border-color: rgba(45, 107, 79, 0.2);
+}
+
+.verse-reference--hadith::before {
+  content: '◆';
+  font-size: 8px;
+}
+
+/* Variante grande — para uso proeminente */
+.verse-reference--lg {
+  font-size:    clamp(12px, calc(11px + 0.28vw), 14px);
+  padding:      4px 12px 4px 10px;
+  border-radius: 4px;
+  letter-spacing: 1px;
+}
+
+/* Variante sem ícone */
+.verse-reference--clean::before {
+  display: none;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   §13  BADGES DE RELAÇÃO ESCRITURAL (LEGADO)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.badge {
+  display:        inline-flex;
+  align-items:    center;
+  gap:            5px;
+  font-family:    'Crimson Pro', serif;
+  font-size:      10px;
+  font-weight:    500;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  padding:        3px 10px;
+  border-radius:  3px;
+  border:         1px solid transparent;
+  line-height:    1.4;
+  white-space:    nowrap;
+}
+
+.badge::before {
+  content:       '';
+  display:       inline-block;
+  width:         5px;
+  height:        5px;
+  border-radius: 50%;
+  flex-shrink:   0;
+  background:    currentColor;
+}
+
+.badge-confirms {
+  color:        var(--color-confirms, #2D6B4F);
+  background:   var(--color-confirms-bg);
+  border-color: rgba(45, 107, 79, 0.28);
+}
+
+.badge-expands {
+  color:        var(--color-expands, #4A6FA5);
+  background:   var(--color-expands-bg);
+  border-color: rgba(74, 111, 165, 0.28);
+}
+
+.badge-corrects {
+  color:        var(--color-corrects, #A0522D);
+  background:   var(--color-corrects-bg);
+  border-color: rgba(160, 82, 45, 0.28);
+}
+
+.badge-differs {
+  color:        var(--color-differs, #6B6B6B);
+  background:   var(--color-differs-bg);
+  border-color: rgba(107, 107, 107, 0.22);
+}
+
+.badge--lg {
+  font-size:   11px;
+  padding:     5px 14px;
+  letter-spacing: 1.5px;
+}
+
+.badge--pill {
+  border-radius: 20px;
+  padding:       4px 14px;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   §14  SECTION HEADERS EDITORIAIS
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.section-header-editorial {
+  display:        flex;
+  align-items:    flex-end;
+  gap:            var(--space-5);
+  margin-bottom:  var(--space-10);
+  padding-bottom: var(--space-5);
+  border-bottom:  1px solid rgba(200, 169, 81, 0.1);
+  position:       relative;
+}
+
+.section-header-editorial__number {
+  font-family:    'Cormorant Garamond', serif;
+  font-size:      clamp(48px, calc(40px + 2.26vw), 72px);
+  font-weight:    300;
+  color:          var(--gold-100, #C8A951);
+  opacity:        0.18;
+  line-height:    0.85;
+  flex-shrink:    0;
+  user-select:    none;
+  letter-spacing: -2px;
+}
+
+.section-header-editorial__content {
+  flex: 1;
+}
+
+.section-header-editorial__label {
+  font-family:    'Crimson Pro', serif;
+  font-size:      11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color:          var(--gold-100, #C8A951);
+  opacity:        0.6;
+  margin-bottom:  var(--space-2);
+  display:        block;
+}
+
+.section-header-editorial__title {
+  font-family:    'Cormorant Garamond', serif;
+  font-size:      clamp(26px, calc(22px + 1.13vw), 34px);
+  font-weight:    300;
+  color:          var(--cream);
+  letter-spacing: 1px;
+  line-height:    1.15;
+  margin-bottom:  var(--space-2);
+  -webkit-font-smoothing: antialiased;
+}
+
+.section-header-editorial__sub {
+  font-family: 'Noto Naskh Arabic', serif;
+  font-size:   clamp(16px, calc(14px + 0.56vw), 18px);
+  color:       rgba(200, 169, 81, 0.45);
+  display:     block;
+  direction:   rtl;
+  letter-spacing: 0;
+}
+
+.section-header-editorial::after {
+  content:  '';
+  position: absolute;
+  bottom:   -1px;
+  left:     0;
+  width:    48px;
+  height:   2px;
+  background: linear-gradient(90deg, var(--gold-100, #C8A951), transparent);
+}
+
+@media (max-width: 768px) {
+  .section-header-editorial         { gap: var(--space-3); }
+  .section-header-editorial__number { font-size: 48px; }
+  .section-header-editorial__title  { font-size: 26px; }
+}
+
+@media (max-width: 480px) {
+  .section-header-editorial__number { display: none; }
+  .section-header-editorial__title  { font-size: 22px; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   §15  CALLOUTS
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.callout {
+  border-radius:  0 var(--radius, 8px) var(--radius, 8px) 0;
+  padding:        var(--space-5) var(--space-6);
+  margin:         var(--space-7) 0;
+  border-left:    3px solid transparent;
+  position:       relative;
+}
+
+.callout__label {
+  font-family:    'Crimson Pro', serif;
+  font-size:      10px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  margin-bottom:  var(--space-2);
+  display:        flex;
+  align-items:    center;
+  gap:            var(--space-2);
+}
+
+.callout__label::before {
+  font-size:   13px;
+  line-height: 1;
+}
+
+.callout__text {
+  font-size:   16px;
+  line-height: 1.75;
+  color:       rgba(245, 239, 224, 0.82);
+}
+
+.callout-sabiaque {
+  background:   linear-gradient(135deg, rgba(200, 169, 81, 0.08) 0%, rgba(200, 169, 81, 0.03) 100%);
+  border-color: rgba(200, 169, 81, 0.7);
+  box-shadow:   0 2px 16px rgba(200, 169, 81, 0.04);
+}
+
+.callout-sabiaque .callout__label       { color: var(--gold-100, #C8A951); opacity: 0.85; }
+.callout-sabiaque .callout__label::before { content: '✦'; color: var(--gold-100, #C8A951); }
+
+.callout-keyconcept {
+  background:  linear-gradient(135deg, rgba(200, 169, 81, 0.09) 0%, rgba(200, 169, 81, 0.04) 100%);
+  border:      1px solid rgba(200, 169, 81, 0.22);
+  border-left: 3px solid rgba(200, 169, 81, 0.6);
+  box-shadow:  0 0 20px rgba(200, 169, 81, 0.04);
+}
+
+.callout-keyconcept .callout__label         { color: var(--gold-100, #C8A951); }
+.callout-keyconcept .callout__label::before { content: '◆'; font-size: 10px; color: var(--gold-100, #C8A951); opacity: 0.7; }
+
+.callout-warning {
+  background:   rgba(160, 82, 45, 0.07);
+  border-color: rgba(160, 82, 45, 0.55);
+  box-shadow:   0 2px 16px rgba(160, 82, 45, 0.04);
+}
+
+.callout-warning .callout__label         { color: var(--color-corrects, #A0522D); opacity: 0.9; }
+.callout-warning .callout__label::before { content: '⚠'; color: var(--color-corrects, #A0522D); }
+.callout-warning .callout__text          { color: rgba(245, 239, 224, 0.78); }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   §16  DIVIDERS DE COMPONENTE
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.divider {
+  border:      none;
+  margin:      var(--space-8) 0;
+  display:     flex;
+  align-items: center;
+  gap:         var(--space-4);
+}
+
+.divider-ornament {
+  margin:      var(--space-10) 0;
+  display:     flex;
+  align-items: center;
+  gap:         var(--space-4);
+}
+
+.divider-ornament::before {
+  content:    '';
+  flex:       1;
+  height:     1px;
+  background: linear-gradient(90deg, transparent, rgba(200, 169, 81, 0.25));
+}
+
+.divider-ornament::after {
+  content:    '';
+  flex:       1;
+  height:     1px;
+  background: linear-gradient(90deg, rgba(200, 169, 81, 0.25), transparent);
+}
+
+.divider-ornament__symbol {
+  font-size:   14px;
+  color:       var(--gold-100, #C8A951);
+  opacity:     0.45;
+  flex-shrink: 0;
+  user-select: none;
+  letter-spacing: 4px;
+}
+
+.divider-simple {
+  border:     none;
+  height:     1px;
+  background: rgba(200, 169, 81, 0.08);
+  margin:     var(--space-7) 0;
+}
+
+.divider-gradient {
+  border:     none;
+  height:     1px;
+  background: linear-gradient(90deg, transparent, rgba(200, 169, 81, 0.2), transparent);
+  margin:     var(--space-8) 0;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   §17  PROGRESS / STEPS
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.steps-wrap {
+  position:     relative;
+  padding-left: var(--space-8);
+}
+
+.steps-wrap::before {
+  content:  '';
+  position: absolute;
+  left:     16px;
+  top:      var(--space-6);
+  bottom:   var(--space-6);
+  width:    1px;
+  background: linear-gradient(
+    180deg,
+    rgba(200, 169, 81, 0.35) 0%,
+    rgba(200, 169, 81, 0.15) 70%,
+    transparent 100%
+  );
+}
+
+.step-item {
+  position:      relative;
+  margin-bottom: var(--space-6);
+  padding-left:  var(--space-7);
+}
+
+.step-item:last-child { margin-bottom: 0; }
+
+.step-number {
+  position:        absolute;
+  left:            -32px;
+  top:             3px;
+  width:           32px;
+  height:          32px;
+  border-radius:   50%;
+  background:      var(--dark2, #1A1815);
+  border:          1px solid rgba(200, 169, 81, 0.35);
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  font-family:     'Cormorant Garamond', serif;
+  font-size:       14px;
+  font-weight:     500;
+  color:           var(--gold-100, #C8A951);
+  z-index:         1;
+  transition:
+    background   var(--ease-hover),
+    border-color var(--ease-hover);
+}
+
+.step-item--active .step-number {
+  background:   rgba(200, 169, 81, 0.12);
+  border-color: rgba(200, 169, 81, 0.6);
+  box-shadow:   0 0 12px rgba(200, 169, 81, 0.12);
+}
+
+.step-item--done .step-number {
+  background:   rgba(45, 107, 79, 0.15);
+  border-color: rgba(45, 107, 79, 0.5);
+  color:        var(--color-confirms, #2D6B4F);
+}
+
+.step-content {
+  background:    var(--card-bg, #1A1815);
+  border:        1px solid var(--card-border, rgba(200, 169, 81, 0.1));
+  border-radius: var(--radius, 8px);
+  padding:       var(--space-5) var(--space-6);
+  box-shadow:    var(--card-shadow, 0 4px 20px rgba(0,0,0,0.4));
+  transition:    border-color var(--ease-card);
+}
+
+.step-content:hover { border-color: rgba(200, 169, 81, 0.18); }
+
+.step-content__phase {
+  font-family:    'Cormorant Garamond', serif;
+  font-size:      11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color:          var(--gold-100, #C8A951);
+  opacity:        0.55;
+  margin-bottom:  var(--space-2);
+  display:        block;
+}
+
+.step-content__title {
+  font-family:   'Cormorant Garamond', serif;
+  font-size:     clamp(17px, calc(15px + 0.56vw), 20px);
+  font-weight:   500;
+  color:         var(--cream);
+  margin-bottom: var(--space-2);
+  -webkit-font-smoothing: antialiased;
+}
+
+.step-content__desc {
+  font-size:   15px;
+  line-height: 1.7;
+  color:       rgba(245, 239, 224, 0.65);
+}
+
+.step-connector {
+  width:      1px;
+  height:     var(--space-5);
+  background: linear-gradient(180deg, rgba(200, 169, 81, 0.3), rgba(200, 169, 81, 0.1));
+  margin:     0 auto;
+}
+
+@media (max-width: 768px) {
+  .steps-wrap  { padding-left: var(--space-6); }
+  .step-item   { padding-left: var(--space-5); }
+  .step-number { width: 28px; height: 28px; font-size: 12px; left: -28px; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   §18  QUOTE STYLES
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.quote {
+  position:      relative;
+  margin:        var(--space-8) 0;
+  border-radius: 0 var(--radius, 8px) var(--radius, 8px) 0;
+}
+
+.quote-verse {
+  background:  linear-gradient(135deg, rgba(200, 169, 81, 0.07) 0%, rgba(200, 169, 81, 0.02) 100%);
+  border-left: 3px solid rgba(200, 169, 81, 0.6);
+  padding:     var(--space-7) var(--space-8);
+  box-shadow:  var(--card-shadow, 0 4px 20px rgba(0,0,0,0.4));
+}
+
+.quote-verse::before {
+  content:    '"';
+  position:   absolute;
+  top:        -10px;
+  left:       18px;
+  font-size:  80px;
+  font-family:'Cormorant Garamond', serif;
+  color:      var(--gold-100, #C8A951);
+  opacity:    0.14;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.quote-verse__text {
+  font-family:   'Cormorant Garamond', serif;
+  font-size:     clamp(17px, calc(15px + 0.56vw), 20px);
+  font-style:    italic;
+  color:         rgba(245, 239, 224, 0.88);
+  line-height:   1.75;
+  margin-bottom: var(--space-4);
+  position:      relative;
+  z-index:       1;
+}
+
+.quote-verse__source {
+  font-family:    'Crimson Pro', serif;
+  font-size:      12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color:          var(--gold-100, #C8A951);
+  opacity:        0.65;
+}
+
+.quote-hadith {
+  background:  rgba(45, 107, 79, 0.06);
+  border-left: 3px solid rgba(45, 107, 79, 0.5);
+  padding:     var(--space-6) var(--space-7);
+  box-shadow:  var(--card-shadow, 0 4px 20px rgba(0,0,0,0.4));
+}
+
+.quote-hadith__text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size:   clamp(16px, calc(14px + 0.56vw), 18px);
+  font-style:  italic;
+  color:       rgba(245, 239, 224, 0.84);
+  line-height: 1.75;
+  margin-bottom: var(--space-3);
+  position:    relative;
+  z-index:     1;
+}
+
+.quote-hadith__source {
+  font-family:    'Crimson Pro', serif;
+  font-size:      12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color:          var(--color-confirms, #2D6B4F);
+  opacity:        0.75;
+}
+
+.quote-person {
+  background:  transparent;
+  border-left: 2px solid rgba(200, 169, 81, 0.25);
+  padding:     var(--space-4) var(--space-6);
+}
+
+.quote-person__text {
+  font-family:   'Cormorant Garamond', serif;
+  font-size:     clamp(16px, calc(14px + 0.56vw), 18px);
+  font-style:    italic;
+  color:         rgba(245, 239, 224, 0.72);
+  line-height:   1.7;
+  margin-bottom: var(--space-3);
+}
+
+.quote-person__attribution {
+  display:        flex;
+  align-items:    center;
+  gap:            var(--space-3);
+  font-family:    'Crimson Pro', serif;
+  font-size:      12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color:          rgba(200, 169, 81, 0.5);
+}
+
+.quote-person__attribution::before {
+  content:     '—';
+  color:       rgba(200, 169, 81, 0.35);
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .quote-verse { padding: var(--space-5) var(--space-6); }
+  .quote-verse__text  { font-size: 17px; }
+  .quote-hadith__text { font-size: 16px; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   §19  GRID LAYOUTS
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.grid-2col {
+  display:               grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap:                   var(--space-4);
+}
+
+.grid-3col {
+  display:               grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:                   var(--space-4);
+}
+
+.grid-auto {
+  display:               grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap:                   var(--space-4);
+}
+
+.grid-auto-sm {
+  display:               grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap:                   var(--space-3);
+}
+
+.grid-masonry {
+  display:               grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap:                   var(--space-4);
+  align-items:           start;
+}
+
+@media (max-width: 768px) {
+  .grid-2col    { grid-template-columns: 1fr; }
+  .grid-3col    { grid-template-columns: 1fr; gap: var(--space-3); }
+  .grid-auto    { grid-template-columns: 1fr; }
+  .grid-auto-sm { grid-template-columns: repeat(2, 1fr); }
+  .grid-masonry { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+  .grid-auto-sm { grid-template-columns: 1fr; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   §20  UTILITÁRIOS ISLÂMICOS
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.arabic-inline {
+  font-family: 'Noto Naskh Arabic', serif;
+  font-size:   1.15em;
+  color:       var(--gold-100, #C8A951);
+  opacity:     0.8;
+  direction:   rtl;
+  display:     inline-block;
+  letter-spacing: 0;
+}
+
+.arabic-block {
+  font-family: 'Noto Naskh Arabic', serif;
+  font-size:   clamp(24px, calc(20px + 1.13vw), 32px);
+  color:       var(--gold-100, #C8A951);
+  opacity:     0.65;
+  text-align:  center;
+  direction:   rtl;
+  line-height: 1.8;
+  display:     block;
+  margin:      var(--space-5) 0;
+  letter-spacing: 0;
+}
+
+.label-editorial {
+  font-family:    'Crimson Pro', serif;
+  font-size:      11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color:          var(--gold-100, #C8A951);
+  opacity:        0.6;
+}
+
+.number-watermark {
+  font-family:    'Cormorant Garamond', serif;
+  font-size:      clamp(80px, calc(64px + 4.51vw), 120px);
+  font-weight:    300;
+  color:          var(--gold-100, #C8A951);
+  opacity:        0.05;
+  line-height:    1;
+  user-select:    none;
+  pointer-events: none;
+  letter-spacing: -4px;
+}
+
+.text-divider {
+  display:     flex;
+  align-items: center;
+  gap:         var(--space-4);
+  margin:      var(--space-6) 0;
+  color:       rgba(200, 169, 81, 0.45);
+  font-family: 'Crimson Pro', serif;
+  font-size:   12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.text-divider::before,
+.text-divider::after {
+  content:    '';
+  flex:       1;
+  height:     1px;
+  background: rgba(200, 169, 81, 0.12);
+}
+
+.scripture-pill {
+  display:        inline-block;
+  font-family:    'Crimson Pro', serif;
+  font-size:      10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color:          rgba(200, 169, 81, 0.6);
+  padding:        2px 9px;
+  border:         1px solid rgba(200, 169, 81, 0.18);
+  border-radius:  2px;
+}
+
+.dot-sep {
+  display:        inline-block;
+  width:          3px;
+  height:         3px;
+  border-radius:  50%;
+  background:     rgba(200, 169, 81, 0.35);
+  vertical-align: middle;
+  margin:         0 var(--space-2);
+}
+
+.era-tag {
+  display:        inline-flex;
+  align-items:    center;
+  font-family:    'Crimson Pro', serif;
+  font-size:      11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color:          rgba(200, 169, 81, 0.5);
+  gap:            var(--space-2);
+}
+
+.content-accent {
+  padding-left: var(--space-5);
+  border-left:  2px solid rgba(200, 169, 81, 0.35);
+  margin:       var(--space-4) 0;
+}
+
+.highlight {
+  color:   var(--gold-100, #C8A951);
+  opacity: 0.9;
+}
+
+/* Hover reveal */
+.hover-reveal {
+  opacity:    0;
+  transition: opacity var(--ease-hover);
+}
+
+.card:hover .hover-reveal,
+.card-featured:hover .hover-reveal {
+  opacity: 1;
+}
+
+/* Tooltip mínimo */
+.tooltip-wrap {
+  position: relative;
+  display:  inline-block;
+}
+
+.tooltip-wrap .tooltip-text {
+  visibility:     hidden;
+  opacity:        0;
+  position:       absolute;
+  bottom:         calc(100% + 6px);
+  left:           50%;
+  transform:      translateX(-50%);
+  background:     #1E1B17;
+  border:         1px solid rgba(200, 169, 81, 0.2);
+  border-radius:  var(--radius-sm, 5px);
+  padding:        5px 10px;
+  font-family:    'Crimson Pro', serif;
+  font-size:      12px;
+  letter-spacing: 0.3px;
+  color:          rgba(245, 239, 224, 0.75);
+  white-space:    nowrap;
+  pointer-events: none;
+  transition:     opacity var(--ease-hover);
+  z-index:        100;
+}
+
+.tooltip-wrap:hover .tooltip-text {
+  visibility: visible;
+  opacity:    1;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   §21  ESTADOS LOADING / EMPTY / ERROR
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Skeleton loader */
+.skeleton {
+  background:      linear-gradient(90deg, #1A1815 25%, #242119 50%, #1A1815 75%);
+  background-size: 200% 100%;
+  animation:       shimmer 1.8s infinite linear;
+  border-radius:   var(--radius-sm, 5px);
+  display:         block;
+}
+
+.skeleton--text  { height: 16px; margin-bottom: var(--space-2); }
+.skeleton--title { height: 24px; width: 60%; margin-bottom: var(--space-3); }
+.skeleton--card  {
+  height:        120px;
+  border-radius: var(--radius, 8px);
+  border:        1px solid var(--card-border, rgba(200, 169, 81, 0.1));
+}
+
+/* Empty state */
+.empty-state {
+  text-align: center;
+  padding:    var(--space-12) var(--space-8);
+  color:      rgba(245, 239, 224, 0.35);
+}
+
+.empty-state__icon  { font-size: 36px; margin-bottom: var(--space-4); display: block; opacity: 0.4; }
+
+.empty-state__title {
+  font-family:   'Cormorant Garamond', serif;
+  font-size:     clamp(17px, calc(15px + 0.56vw), 20px);
+  color:         rgba(245, 239, 224, 0.5);
+  margin-bottom: var(--space-2);
+  -webkit-font-smoothing: antialiased;
+}
+
+.empty-state__desc {
+  font-family: 'Crimson Pro', serif;
+  font-size:   14px;
+  line-height: 1.6;
+  max-width:   320px;
+  margin:      0 auto;
+}
+
+/* Error state */
+.error-state {
+  text-align:    center;
+  padding:       var(--space-8);
+  border:        1px solid rgba(160, 82, 45, 0.2);
+  border-radius: var(--radius, 8px);
+  background:    rgba(160, 82, 45, 0.05);
+}
+
+.error-state__title {
+  font-family:   'Cormorant Garamond', serif;
+  font-size:     18px;
+  color:         var(--color-corrects, #A0522D);
+  opacity:       0.85;
+  margin-bottom: var(--space-2);
+  -webkit-font-smoothing: antialiased;
+}
+
+.error-state__desc {
+  font-family:   'Crimson Pro', serif;
+  font-size:     14px;
+  color:         rgba(245, 239, 224, 0.5);
+  margin-bottom: var(--space-4);
+}
+
+.error-state__retry {
+  font-family:    'Crimson Pro', serif;
+  font-size:      11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color:          var(--gold-100, #C8A951);
+  opacity:        0.65;
+  cursor:         pointer;
+  background:     transparent;
+  border:         1px solid rgba(200, 169, 81, 0.2);
+  padding:        6px 18px;
+  border-radius:  var(--radius-sm, 5px);
+  transition:
+    opacity      var(--ease-hover),
+    border-color var(--ease-hover);
+}
+
+.error-state__retry:hover {
+  opacity:      1;
+  border-color: rgba(200, 169, 81, 0.4);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   §22  UTILITÁRIOS GERAIS
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Visibilidade */
+.sr-only {
+  position: absolute;
+  width:    1px;
+  height:   1px;
+  padding:  0;
+  margin:   -1px;
+  overflow: hidden;
+  clip:     rect(0, 0, 0, 0);
+  border:   0;
+}
+
+/* Truncate */
+.truncate {
+  overflow:      hidden;
+  text-overflow: ellipsis;
+  white-space:   nowrap;
+}
+
+/* Line clamp */
+.line-clamp-2 {
+  display:            -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow:           hidden;
+}
+
+.line-clamp-3 {
+  display:            -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow:           hidden;
+}
+
+/* Flex utils */
+.flex       { display: flex; }
+.flex-col   { display: flex; flex-direction: column; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.gap-2      { gap: var(--space-2); }
+.gap-3      { gap: var(--space-3); }
+.gap-4      { gap: var(--space-4); }
+
+/* Margin utils */
+.mt-0  { margin-top: 0; }
+.mb-4  { margin-bottom: var(--space-4); }
+.mb-6  { margin-bottom: var(--space-6); }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   §23  RESPONSIVE GLOBAL — AJUSTES DE COMPONENTE
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  .card          { padding: var(--space-5); }
+  .card-featured { padding: var(--space-6); }
+  .callout       { padding: var(--space-4) var(--space-5); }
+  .steps-wrap    { padding-left: var(--space-7); }
+  .quote         { margin: var(--space-6) 0; }
+  .section-header-editorial { margin-bottom: var(--space-7); }
+  .skeleton--card { height: 90px; }
+  .number-watermark { font-size: 80px; }
+}
+
+@media (max-width: 480px) {
+  .section-header-editorial__number { display: none; }
+  .section-header-editorial__title  { font-size: 22px; }
+  .card-hadith__text   { font-size: 16px; padding-left: var(--space-4); }
+  .card-fact__title    { font-size: 17px; }
+  .step-number         { width: 28px; height: 28px; font-size: 12px; left: -28px; }
+}
+
+@media (max-width: 375px) {
+  .card          { padding: var(--space-4); }
+  .bridge-card__left,
+  .bridge-card__right  { padding: var(--space-4); }
+  .recognition-story-card { padding: var(--space-4); }
+  .system-protocol-card   { padding: var(--space-4); }
+}

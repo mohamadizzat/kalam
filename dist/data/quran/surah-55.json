@@ -1,0 +1,470 @@
+[
+  {
+    "key": "55:1",
+    "number": 1,
+    "arabic": " ٱلرَّحْمَـٰنُ",
+    "portuguese": "O Misericordioso."
+  },
+  {
+    "key": "55:2",
+    "number": 2,
+    "arabic": "عَلَّمَ ٱلْقُرْءَانَ",
+    "portuguese": "Ensinou o Alcorão."
+  },
+  {
+    "key": "55:3",
+    "number": 3,
+    "arabic": "خَلَقَ ٱلْإِنسَـٰنَ",
+    "portuguese": "Criou o ser humano,"
+  },
+  {
+    "key": "55:4",
+    "number": 4,
+    "arabic": "عَلَّمَهُ ٱلْبَيَانَ",
+    "portuguese": "Ensinou-o a expressar-se."
+  },
+  {
+    "key": "55:5",
+    "number": 5,
+    "arabic": "ٱلشَّمْسُ وَٱلْقَمَرُ بِحُسْبَانٍ",
+    "portuguese": "O sol e a lua movem-se com cômputo."
+  },
+  {
+    "key": "55:6",
+    "number": 6,
+    "arabic": "وَٱلنَّجْمُ وَٱلشَّجَرُ يَسْجُدَانِ",
+    "portuguese": "E a grama e as árvores prosternam-se."
+  },
+  {
+    "key": "55:7",
+    "number": 7,
+    "arabic": "وَٱلسَّمَآءَ رَفَعَهَا وَوَضَعَ ٱلْمِيزَانَ",
+    "portuguese": "E o céu, Ele o elevou; e estabeleceu a balança,"
+  },
+  {
+    "key": "55:8",
+    "number": 8,
+    "arabic": "أَلَّا تَطْغَوْا۟ فِى ٱلْمِيزَانِ",
+    "portuguese": "Para que, na balança, não cometais transgressão:"
+  },
+  {
+    "key": "55:9",
+    "number": 9,
+    "arabic": "وَأَقِيمُوا۟ ٱلْوَزْنَ بِٱلْقِسْطِ وَلَا تُخْسِرُوا۟ ٱلْمِيزَانَ",
+    "portuguese": "E, assim, cumpri o peso com equidade, e não defraudeis na balança."
+  },
+  {
+    "key": "55:10",
+    "number": 10,
+    "arabic": "وَٱلْأَرْضَ وَضَعَهَا لِلْأَنَامِ",
+    "portuguese": "E a terra, pô-la à disposição dos viventes."
+  },
+  {
+    "key": "55:11",
+    "number": 11,
+    "arabic": "فِيهَا فَـٰكِهَةٌ وَٱلنَّخْلُ ذَاتُ ٱلْأَكْمَامِ",
+    "portuguese": "Nela, há frutas, e as tamareiras de invólucros,"
+  },
+  {
+    "key": "55:12",
+    "number": 12,
+    "arabic": "وَٱلْحَبُّ ذُو ٱلْعَصْفِ وَٱلرَّيْحَانُ",
+    "portuguese": "E os grãos em palhas, e as plantas aromáticas."
+  },
+  {
+    "key": "55:13",
+    "number": 13,
+    "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+    "portuguese": "- Então, qual das mercês de vosso Senhor vós ambos desmentis?"
+  },
+  {
+    "key": "55:14",
+    "number": 14,
+    "arabic": "خَلَقَ ٱلْإِنسَـٰنَ مِن صَلْصَـٰلٍ كَٱلْفَخَّارِ",
+    "portuguese": "Ele criou o ser humano de argila sonorosa, como a cerâmica,"
+  },
+  {
+    "key": "55:15",
+    "number": 15,
+    "arabic": "وَخَلَقَ ٱلْجَآنَّ مِن مَّارِجٍ مِّن نَّارٍ",
+    "portuguese": "E criou o jinn de pura chama de fogo."
+  },
+  {
+    "key": "55:16",
+    "number": 16,
+    "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+    "portuguese": "- Então, qual das mercês de vosso Senhor vós ambos desmentis? -"
+  },
+  {
+    "key": "55:17",
+    "number": 17,
+    "arabic": "رَبُّ ٱلْمَشْرِقَيْنِ وَرَبُّ ٱلْمَغْرِبَيْنِ",
+    "portuguese": "O Senhor dos dois levantes e O Senhor dos dois poentes."
+  },
+  {
+    "key": "55:18",
+    "number": 18,
+    "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+    "portuguese": "- Então, qual das mercês de vosso Senhor vós ambos desmentis? -"
+  },
+  {
+    "key": "55:19",
+    "number": 19,
+    "arabic": "مَرَجَ ٱلْبَحْرَيْنِ يَلْتَقِيَانِ",
+    "portuguese": "Desenleia os dois mares, para se depararem;"
+  },
+  {
+    "key": "55:20",
+    "number": 20,
+    "arabic": "بَيْنَهُمَا بَرْزَخٌ لَّا يَبْغِيَانِ",
+    "portuguese": "Entre ambos, há uma barreira; nenhum dos dois comete transgressão."
+  },
+  {
+    "key": "55:21",
+    "number": 21,
+    "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+    "portuguese": "- Então, qual das mercês de vosso Senhor vós ambos desmentis? -"
+  },
+  {
+    "key": "55:22",
+    "number": 22,
+    "arabic": "يَخْرُجُ مِنْهُمَا ٱللُّؤْلُؤُ وَٱلْمَرْجَانُ",
+    "portuguese": "De ambos saem as pérolas e o coral."
+  },
+  {
+    "key": "55:23",
+    "number": 23,
+    "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+    "portuguese": "- Então, qual das mercês de vosso Senhor vós ambos desmentis? -"
+  },
+  {
+    "key": "55:24",
+    "number": 24,
+    "arabic": "وَلَهُ ٱلْجَوَارِ ٱلْمُنشَـَٔاتُ فِى ٱلْبَحْرِ كَٱلْأَعْلَـٰمِ",
+    "portuguese": "E são dEle as naus correntes, por vós feitas, como montanhas, no mar."
+  },
+  {
+    "key": "55:25",
+    "number": 25,
+    "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+    "portuguese": "- Então, qual das mercês de vosso Senhor vós ambos desmentis? -"
+  },
+  {
+    "key": "55:26",
+    "number": 26,
+    "arabic": "كُلُّ مَنْ عَلَيْهَا فَانٍ",
+    "portuguese": "Tudo o que está sobre ela é finito,"
+  },
+  {
+    "key": "55:27",
+    "number": 27,
+    "arabic": "وَيَبْقَىٰ وَجْهُ رَبِّكَ ذُو ٱلْجَلَـٰلِ وَٱلْإِكْرَامِ",
+    "portuguese": "E só permanecerá a face de teu Senhor, Possuidor de majestade e honorabilidade."
+  },
+  {
+    "key": "55:28",
+    "number": 28,
+    "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+    "portuguese": "- Então, qual das mercês de vosso Senhor vós ambos desmentis? -"
+  },
+  {
+    "key": "55:29",
+    "number": 29,
+    "arabic": "يَسْـَٔلُهُۥ مَن فِى ٱلسَّمَـٰوَٰتِ وَٱلْأَرْضِ ۚ كُلَّ يَوْمٍ هُوَ فِى شَأْنٍ",
+    "portuguese": "Pede-lhe benevolência quem está nos céus e na terra. Em cada dia, Ele executa uma obra nova."
+  },
+  {
+    "key": "55:30",
+    "number": 30,
+    "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+    "portuguese": "- Então, qual das mercês de vosso Senhor vós ambos desmentis? -"
+  },
+  {
+    "key": "55:31",
+    "number": 31,
+    "arabic": "سَنَفْرُغُ لَكُمْ أَيُّهَ ٱلثَّقَلَانِ",
+    "portuguese": "Nós nos dedicaremos a vós ambos, ó humanos e gênios."
+  },
+  {
+    "key": "55:32",
+    "number": 32,
+    "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+    "portuguese": "- Então, qual das mercês de vosso Senhor vós ambos desmentis? -"
+  },
+  {
+    "key": "55:33",
+    "number": 33,
+    "arabic": "يَـٰمَعْشَرَ ٱلْجِنِّ وَٱلْإِنسِ إِنِ ٱسْتَطَعْتُمْ أَن تَنفُذُوا۟ مِنْ أَقْطَارِ ٱلسَّمَـٰوَٰتِ وَٱلْأَرْضِ فَٱنفُذُوا۟ ۚ لَا تَنفُذُونَ إِلَّا بِسُلْطَـٰنٍ",
+    "portuguese": "Ó coorte de jinns e humanos! Se podeis atravessar os limites dos céus e da terra, atravessai-os. Vós não os atravessareis senão com um poder."
+  },
+  {
+    "key": "55:34",
+    "number": 34,
+    "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+    "portuguese": "- Então, qual das mercês de vosso Senhor vós ambos desmentis? -"
+  },
+  {
+    "key": "55:35",
+    "number": 35,
+    "arabic": "يُرْسَلُ عَلَيْكُمَا شُوَاظٌ مِّن نَّارٍ وَنُحَاسٌ فَلَا تَنتَصِرَانِ",
+    "portuguese": "Enviar-se-ão contra vós ambos chamas de fogo e cobre fundido; e não sereis socorridos."
+  },
+  {
+    "key": "55:36",
+    "number": 36,
+    "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+    "portuguese": "- Então, qual das mercês de vosso Senhor vós ambos desmentis? -"
+  },
+  {
+    "key": "55:37",
+    "number": 37,
+    "arabic": "فَإِذَا ٱنشَقَّتِ ٱلسَّمَآءُ فَكَانَتْ وَرْدَةً كَٱلدِّهَانِ",
+    "portuguese": "E, quando o céu fender e se tornar róseo como a pele,"
+  },
+  {
+    "key": "55:38",
+    "number": 38,
+    "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+    "portuguese": "- Então, qual das mercês de vosso Senhor vós ambos desmentis? -"
+  },
+  {
+    "key": "55:39",
+    "number": 39,
+    "arabic": "فَيَوْمَئِذٍ لَّا يُسْـَٔلُ عَن ذَنۢبِهِۦٓ إِنسٌ وَلَا جَآنٌّ",
+    "portuguese": "Então, nesse dia, não será interrogado, acerca de seu delito, nem humano nem jinn."
+  },
+  {
+    "key": "55:40",
+    "number": 40,
+    "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+    "portuguese": "- Então, qual das mercês de vosso Senhor vós ambos desmentis? -"
+  },
+  {
+    "key": "55:41",
+    "number": 41,
+    "arabic": "يُعْرَفُ ٱلْمُجْرِمُونَ بِسِيمَـٰهُمْ فَيُؤْخَذُ بِٱلنَّوَٰصِى وَٱلْأَقْدَامِ",
+    "portuguese": "Serão reconhecidos os criminosos por seus semblantes e serão apanhados pelos topetes e pelos pés."
+  },
+  {
+    "key": "55:42",
+    "number": 42,
+    "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+    "portuguese": "- Então, qual das mercês de vosso Senhor vós ambos desmentis? -"
+  },
+  {
+    "key": "55:43",
+    "number": 43,
+    "arabic": "هَـٰذِهِۦ جَهَنَّمُ ٱلَّتِى يُكَذِّبُ بِهَا ٱلْمُجْرِمُونَ",
+    "portuguese": "Dir-se-Ihes-á: \"Eis a Geena que os criminosos desmentiam.\""
+  },
+  {
+    "key": "55:44",
+    "number": 44,
+    "arabic": "يَطُوفُونَ بَيْنَهَا وَبَيْنَ حَمِيمٍ ءَانٍ",
+    "portuguese": "Eles circularão entre ela e água ebuliente, escaldante."
+  },
+  {
+    "key": "55:45",
+    "number": 45,
+    "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+    "portuguese": "- Então, qual das mercês de vosso Senhor vós ambos desmentis? -"
+  },
+  {
+    "key": "55:46",
+    "number": 46,
+    "arabic": "وَلِمَنْ خَافَ مَقَامَ رَبِّهِۦ جَنَّتَانِ",
+    "portuguese": "E para quem teme a preeminência de seu senhor, haverá dois Jardins."
+  },
+  {
+    "key": "55:47",
+    "number": 47,
+    "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+    "portuguese": "- Então, qual das mercês de vosso Senhor vós ambos desmentis? -"
+  },
+  {
+    "key": "55:48",
+    "number": 48,
+    "arabic": "ذَوَاتَآ أَفْنَانٍ",
+    "portuguese": "Ambos de ramos florescentes."
+  },
+  {
+    "key": "55:49",
+    "number": 49,
+    "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+    "portuguese": "- Então, qual das mercês de vosso Senhor vós ambos desmentis? -"
+  },
+  {
+    "key": "55:50",
+    "number": 50,
+    "arabic": "فِيهِمَا عَيْنَانِ تَجْرِيَانِ",
+    "portuguese": "Em ambos, correm duas fontes."
+  },
+  {
+    "key": "55:51",
+    "number": 51,
+    "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+    "portuguese": "- Então, qual das mercês de vosso Senhor vós ambos desmentis? -"
+  },
+  {
+    "key": "55:52",
+    "number": 52,
+    "arabic": "فِيهِمَا مِن كُلِّ فَـٰكِهَةٍ زَوْجَانِ",
+    "portuguese": "Em ambos, há, de cada fruta, duas espécies."
+  },
+  {
+    "key": "55:53",
+    "number": 53,
+    "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+    "portuguese": "- Então, qual das mercês de vosso Senhor vós ambos desmentis? -"
+  },
+  {
+    "key": "55:54",
+    "number": 54,
+    "arabic": "مُتَّكِـِٔينَ عَلَىٰ فُرُشٍۭ بَطَآئِنُهَا مِنْ إِسْتَبْرَقٍ ۚ وَجَنَى ٱلْجَنَّتَيْنِ دَانٍ",
+    "portuguese": "Reclinados estarão sobre acolchoados, cujos forros são de brocado. E os frutos de ambos os Jardins estarão à mão."
+  },
+  {
+    "key": "55:55",
+    "number": 55,
+    "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+    "portuguese": "- Então, qual das mercês de vosso Senhor vós ambos desmentis? -"
+  },
+  {
+    "key": "55:56",
+    "number": 56,
+    "arabic": "فِيهِنَّ قَـٰصِرَٰتُ ٱلطَّرْفِ لَمْ يَطْمِثْهُنَّ إِنسٌ قَبْلَهُمْ وَلَا جَآنٌّ",
+    "portuguese": "Neles, haverá donzelas de olhares restritos a seus amados. Não as tocou, antes deles, nem humano nem jinn."
+  },
+  {
+    "key": "55:57",
+    "number": 57,
+    "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+    "portuguese": "- Então, qual das mercês de vosso Senhor vós ambos desmentis? -"
+  },
+  {
+    "key": "55:58",
+    "number": 58,
+    "arabic": "كَأَنَّهُنَّ ٱلْيَاقُوتُ وَٱلْمَرْجَانُ",
+    "portuguese": "Como se fossem o rubi e o coral."
+  },
+  {
+    "key": "55:59",
+    "number": 59,
+    "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+    "portuguese": "- Então, qual das mercês de vosso Senhor vós ambos desmentis? -"
+  },
+  {
+    "key": "55:60",
+    "number": 60,
+    "arabic": "هَلْ جَزَآءُ ٱلْإِحْسَـٰنِ إِلَّا ٱلْإِحْسَـٰنُ",
+    "portuguese": "Há outra recompensa da benevolência senão benevolência?"
+  },
+  {
+    "key": "55:61",
+    "number": 61,
+    "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+    "portuguese": "- Então, qual das mercês de vosso Senhor vós ambos desmentis? -"
+  },
+  {
+    "key": "55:62",
+    "number": 62,
+    "arabic": "وَمِن دُونِهِمَا جَنَّتَانِ",
+    "portuguese": "E, além de ambos, haverá dois outros Jardins."
+  },
+  {
+    "key": "55:63",
+    "number": 63,
+    "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+    "portuguese": "- Então, qual das mercês de vosso Senhor vós ambos desmentis? -"
+  },
+  {
+    "key": "55:64",
+    "number": 64,
+    "arabic": "مُدْهَآمَّتَانِ",
+    "portuguese": "Ambos verde-escuros."
+  },
+  {
+    "key": "55:65",
+    "number": 65,
+    "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+    "portuguese": "- Então, qual das mercês de vosso Senhor vós ambos desmentis? -"
+  },
+  {
+    "key": "55:66",
+    "number": 66,
+    "arabic": "فِيهِمَا عَيْنَانِ نَضَّاخَتَانِ",
+    "portuguese": "Em ambos, haverá duas fontes jorrando."
+  },
+  {
+    "key": "55:67",
+    "number": 67,
+    "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+    "portuguese": "- Então, qual das mercês de vosso Senhor vós ambos desmentis? -"
+  },
+  {
+    "key": "55:68",
+    "number": 68,
+    "arabic": "فِيهِمَا فَـٰكِهَةٌ وَنَخْلٌ وَرُمَّانٌ",
+    "portuguese": "Em ambos, haverá frutas, e tamareiras, e romãs."
+  },
+  {
+    "key": "55:69",
+    "number": 69,
+    "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+    "portuguese": "- Então, qual das mercês de vosso Senhor vós ambos desmentis? -"
+  },
+  {
+    "key": "55:70",
+    "number": 70,
+    "arabic": "فِيهِنَّ خَيْرَٰتٌ حِسَانٌ",
+    "portuguese": "Neles, haverá fidalgas, formosas"
+  },
+  {
+    "key": "55:71",
+    "number": 71,
+    "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+    "portuguese": "- Então, qual das mercês de vosso Senhor vós ambos desmentis? -"
+  },
+  {
+    "key": "55:72",
+    "number": 72,
+    "arabic": "حُورٌ مَّقْصُورَٰتٌ فِى ٱلْخِيَامِ",
+    "portuguese": "Húris, reclusas nas tendas."
+  },
+  {
+    "key": "55:73",
+    "number": 73,
+    "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+    "portuguese": "- Então, qual das mercês de vosso Senhor vós ambos desmentis? -"
+  },
+  {
+    "key": "55:74",
+    "number": 74,
+    "arabic": "لَمْ يَطْمِثْهُنَّ إِنسٌ قَبْلَهُمْ وَلَا جَآنٌّ",
+    "portuguese": "Não as tocou, antes deles, nem humano nem jinn."
+  },
+  {
+    "key": "55:75",
+    "number": 75,
+    "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+    "portuguese": "- Então, qual das mercês de vosso Senhor vós ambos desmentis? -"
+  },
+  {
+    "key": "55:76",
+    "number": 76,
+    "arabic": "مُتَّكِـِٔينَ عَلَىٰ رَفْرَفٍ خُضْرٍ وَعَبْقَرِىٍّ حِسَانٍ",
+    "portuguese": "Reclinados estarão sobre almofadas verdes e formosos tapetes."
+  },
+  {
+    "key": "55:77",
+    "number": 77,
+    "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+    "portuguese": "- Então, qual das mercês de vosso Senhor vós ambos desmentis? -"
+  },
+  {
+    "key": "55:78",
+    "number": 78,
+    "arabic": "تَبَـٰرَكَ ٱسْمُ رَبِّكَ ذِى ٱلْجَلَـٰلِ وَٱلْإِكْرَامِ",
+    "portuguese": "Bendito seja o Nome de teu Senhor, Possuidor de majestade e honorabilidade!"
+  }
+]

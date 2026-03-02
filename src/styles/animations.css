@@ -1,0 +1,682 @@
+/*
+ * animations.css — Kalam Brasil
+ * Micro-interações funcionais. Cada animação comunica estado, hierarquia ou feedback.
+ * Regra: se remover e a experiência não piorar, a animação não deveria existir.
+ *
+ * Tokens de referência do projeto:
+ *   --gold: #C8A951
+ *   --gold-light: #E8D5A0
+ *   --dark: #0F0E0C
+ *   --dark2: #1A1815
+ *   --dark3: #242119
+ *   --cream: #F5EFE0
+ *   --card-shadow: 0 2px 16px rgba(0,0,0,0.35)
+ */
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   SCROLL SUAVE GLOBAL
+   Propósito: ancora internas e navegação por tab não causam corte abrupto.
+───────────────────────────────────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   CURSOR CUSTOMIZADO
+   Propósito: reforça a identidade premium. O cursor dourado sinaliza
+   que o site tem caráter editorial — diferente de um produto genérico.
+   O cursor padrão é mantido para elementos interativos (pointer).
+───────────────────────────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  cursor: none;
+}
+
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  background: #C8A951;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.12s ease, opacity 0.2s ease, width 0.2s ease, height 0.2s ease;
+  will-change: transform;
+}
+
+/* Estado hover em link/botão: cursor expande levemente */
+.cursor-dot.cursor-hover {
+  width: 12px;
+  height: 12px;
+  opacity: 0.7;
+}
+
+/* Fallback: dispositivos touch não precisam do cursor customizado */
+@media (hover: none) {
+  *, *::before, *::after {
+    cursor: auto;
+  }
+  .cursor-dot {
+    display: none;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   FOCUS RING — ACESSIBILIDADE
+   Propósito: usuários de teclado precisam saber onde estão.
+   Ring dourado é coerente com a identidade visual.
+   Usa :focus-visible para não aparecer em cliques com mouse.
+───────────────────────────────────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid #C8A951;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Remove outline padrão do navegador — já substituído acima */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   KEYFRAMES — ENTRADA
+───────────────────────────────────────────────────────────────────────────── */
+
+/*
+ * fadeUp — entrada padrão de seções/cards.
+ * Propósito: conteúdo que aparece do nada é confuso.
+ * Movimento para cima indica que o elemento "chegou" — sobe para seu lugar.
+ * 20px é suficiente para percepção sem distração.
+ */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/*
+ * fadeIn — entrada suave sem movimento.
+ * Usar quando o elemento já ocupa espaço (layout shift proibido).
+ * Ex: troca de tab, modal overlay, tooltip.
+ */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/*
+ * slideInLeft / slideInRight — timeline items.
+ * Propósito: direção da entrada reforça posição na timeline.
+ * Item da esquerda vem da esquerda; item da direita vem da direita.
+ * Isso cria senso espacial sem precisar de explicação.
+ */
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/*
+ * scaleIn — modais e overlays.
+ * Propósito: modal que aparece do centro indica que está "acima" do conteúdo.
+ * Scale sutil (0.95 → 1) evita a sensação de pop abrupto.
+ */
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   KEYFRAMES — ESTADOS ESPECIAIS
+───────────────────────────────────────────────────────────────────────────── */
+
+/*
+ * arabicShimmer — texto árabe decorativo grande (hero, cabeçalhos).
+ * Propósito: o texto árabe é identidade visual. O shimmer dourado comunica
+ * "isso é sagrado / especial" sem exagero. Ciclo lento (4s) para não distrair.
+ * Usa background-clip + text para shimmer apenas no texto.
+ */
+@keyframes arabicShimmer {
+  0%, 100% {
+    background-position: -200% center;
+  }
+  50% {
+    background-position: 200% center;
+  }
+}
+
+/*
+ * shimmer — skeleton loading.
+ * Propósito: usuário sabe que conteúdo está carregando (não que quebrou).
+ * Movimento da esquerda para direita = "lendo" = loading.
+ */
+@keyframes shimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+/*
+ * pulse — notificações, badges "novo".
+ * Propósito: elemento pisca para indicar "preste atenção aqui".
+ * Opacidade (não scale) para não deslocar layout.
+ */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+/*
+ * spin — ícone de carregamento rotativo.
+ * Propósito: feedback imediato para ação que está processando.
+ */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/*
+ * bounceIn — confirmação/sucesso.
+ * Propósito: feedback positivo de ação concluída.
+ * Bounce leve (não caricato) sinaliza "feito!" sem infantilizar.
+ */
+@keyframes bounceIn {
+  0%   { opacity: 0; transform: scale(0.8); }
+  60%  { opacity: 1; transform: scale(1.04); }
+  100% { transform: scale(1); }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   CLASSES DE APLICAÇÃO — ENTRADA
+───────────────────────────────────────────────────────────────────────────── */
+
+.animate-fade-up {
+  animation: fadeUp 0.6s ease both;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease both;
+}
+
+.animate-slide-left {
+  animation: slideInLeft 0.5s ease both;
+}
+
+.animate-slide-right {
+  animation: slideInRight 0.5s ease both;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.3s ease both;
+}
+
+.animate-bounce-in {
+  animation: bounceIn 0.45s ease both;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   STAGGER — ENTRADA ESCALONADA DE LISTAS
+   Propósito: cards que entram todos ao mesmo tempo parecem gerados em bloco.
+   Entrar em sequência cria hierarquia visual — o usuário segue a ordem.
+   Delay de 80ms: perceptível mas não impaciente.
+───────────────────────────────────────────────────────────────────────────── */
+.animate-stagger > * {
+  animation: fadeUp 0.55s ease both;
+}
+
+.animate-stagger > *:nth-child(1)  { animation-delay: 0ms;   }
+.animate-stagger > *:nth-child(2)  { animation-delay: 80ms;  }
+.animate-stagger > *:nth-child(3)  { animation-delay: 160ms; }
+.animate-stagger > *:nth-child(4)  { animation-delay: 240ms; }
+.animate-stagger > *:nth-child(5)  { animation-delay: 320ms; }
+.animate-stagger > *:nth-child(6)  { animation-delay: 400ms; }
+.animate-stagger > *:nth-child(7)  { animation-delay: 480ms; }
+.animate-stagger > *:nth-child(8)  { animation-delay: 560ms; }
+.animate-stagger > *:nth-child(n+9) { animation-delay: 640ms; }
+
+/* Variante mais rápida para listas densas (glossário, FAQ) */
+.animate-stagger-fast > * {
+  animation: fadeUp 0.4s ease both;
+}
+
+.animate-stagger-fast > *:nth-child(1)  { animation-delay: 0ms;   }
+.animate-stagger-fast > *:nth-child(2)  { animation-delay: 50ms;  }
+.animate-stagger-fast > *:nth-child(3)  { animation-delay: 100ms; }
+.animate-stagger-fast > *:nth-child(4)  { animation-delay: 150ms; }
+.animate-stagger-fast > *:nth-child(5)  { animation-delay: 200ms; }
+.animate-stagger-fast > *:nth-child(6)  { animation-delay: 250ms; }
+.animate-stagger-fast > *:nth-child(n+7) { animation-delay: 300ms; }
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   HOVER STATES
+   Propósito: feedback táctil. O usuário precisa saber que o elemento reage.
+───────────────────────────────────────────────────────────────────────────── */
+
+/*
+ * hover-lift — cards com ação clicável.
+ * Elevar o card sinaliza "isso é interativo" sem precisar de tooltip.
+ * Shadow aumenta junto com o lift para manter consistência física.
+ */
+.hover-lift {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  will-change: transform;
+}
+
+.hover-lift:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 2px 12px rgba(200, 169, 81, 0.08);
+}
+
+.hover-lift:active {
+  transform: translateY(-1px);
+  transition-duration: 0.1s;
+}
+
+/*
+ * hover-glow — cards com borda dourada ao hover.
+ * Propósito: reforça tema dourado. Borda + glow simultaneamente evitam
+ * que pareça acidente — é claramente "ativado".
+ */
+.hover-glow {
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.hover-glow:hover {
+  box-shadow: 0 0 0 1px rgba(200, 169, 81, 0.3), 0 4px 24px rgba(200, 169, 81, 0.1);
+  border-color: rgba(200, 169, 81, 0.3);
+}
+
+/*
+ * hover-text-gold — links de texto, itens de nav.
+ * Propósito: cor muda para dourado no hover = "link ativo".
+ */
+.hover-text-gold {
+  transition: color 0.2s ease;
+}
+
+.hover-text-gold:hover {
+  color: #C8A951;
+}
+
+/*
+ * hover-underline — links editoriais no corpo do texto.
+ * Underline que cresce da esquerda = leitura ocidental natural.
+ */
+.hover-underline {
+  position: relative;
+  text-decoration: none;
+}
+
+.hover-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: #C8A951;
+  transition: width 0.25s ease;
+}
+
+.hover-underline:hover::after {
+  width: 100%;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   ARABIC SHIMMER
+   Propósito: texto árabe decorativo (hero titles, section headers).
+   Shimmer dourado comunica "sagrado / especial" — linguagem visual coerente
+   com a identidade do projeto. Ciclo de 4s: suave, não distrai da leitura.
+───────────────────────────────────────────────────────────────────────────── */
+.arabic-shimmer {
+  background: linear-gradient(
+    90deg,
+    #C8A951 0%,
+    #E8D5A0 25%,
+    #C8A951 50%,
+    #F5EFE0 75%,
+    #C8A951 100%
+  );
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: arabicShimmer 4s ease infinite;
+}
+
+/* Versão mais sutil para subtítulos árabes menores */
+.arabic-shimmer-subtle {
+  background: linear-gradient(
+    90deg,
+    #C8A951 0%,
+    #D4B96A 40%,
+    #E8D5A0 55%,
+    #D4B96A 70%,
+    #C8A951 100%
+  );
+  background-size: 250% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: arabicShimmer 6s ease infinite;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   LOADING STATES
+   Propósito: usuário nunca deve ver tela em branco sem entender o que acontece.
+───────────────────────────────────────────────────────────────────────────── */
+
+/*
+ * skeleton — placeholder de conteúdo enquanto carrega.
+ * Shimmer da esquerda para direita = "scanning" = loading universalmente reconhecido.
+ */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    #1A1815 25%,
+    #242119 50%,
+    #1A1815 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+.skeleton-text {
+  height: 1em;
+  margin-bottom: 0.5em;
+  border-radius: 3px;
+}
+
+.skeleton-text:last-child {
+  width: 70%;
+}
+
+.skeleton-title {
+  height: 1.5em;
+  margin-bottom: 0.75em;
+  border-radius: 4px;
+}
+
+.skeleton-circle {
+  border-radius: 50%;
+}
+
+/*
+ * spinner — ícone rotativo para ações pontuais (botão de submit, fetch).
+ * Propósito: feedback imediato sem bloquear o layout inteiro.
+ */
+.spinner {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(200, 169, 81, 0.2);
+  border-top-color: #C8A951;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+.spinner-sm {
+  width: 14px;
+  height: 14px;
+  border-width: 1.5px;
+}
+
+.spinner-lg {
+  width: 28px;
+  height: 28px;
+  border-width: 3px;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   PAGE TRANSITION
+   Propósito: mudança de tab/seção sem fade = corte abrupto que desorienenta.
+   Fade de 0.3s: suficiente para perceber a troca sem criar delay frustrante.
+───────────────────────────────────────────────────────────────────────────── */
+.page-enter {
+  animation: fadeIn 0.3s ease both;
+}
+
+.page-enter-up {
+  animation: fadeUp 0.35s ease both;
+}
+
+/* Subtab transition — mais rápido que page, pois é hierarquia menor */
+.subtab-enter {
+  animation: fadeIn 0.2s ease both;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   ACCORDION — FAQ
+   Propósito: conteúdo que aparece/some sem transição parece bug.
+   A transição de max-height + opacity comunica "expandindo" e "colapsando".
+   Note: max-height precisa ser definido via JS com a altura real,
+   ou usar um valor alto o suficiente (400px para FAQ médio).
+───────────────────────────────────────────────────────────────────────────── */
+.accordion-content {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.35s ease, opacity 0.25s ease;
+}
+
+.accordion-content.accordion-open {
+  max-height: 400px;
+  opacity: 1;
+}
+
+/* Ícone do accordion rota 180° quando abre */
+.accordion-icon {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.accordion-open .accordion-icon,
+.accordion-trigger[aria-expanded="true"] .accordion-icon {
+  transform: rotate(180deg);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   PULSE — NOTIFICAÇÕES E BADGES
+   Propósito: "novo" ou "atenção aqui". Pisca devagar para não irritar,
+   mas rápido o suficiente para ser notado.
+───────────────────────────────────────────────────────────────────────────── */
+.pulse-dot {
+  animation: pulse 2s ease infinite;
+}
+
+/* Badge "novo" com pulse */
+.badge-new {
+  display: inline-block;
+  padding: 2px 7px;
+  background: rgba(200, 169, 81, 0.15);
+  border: 1px solid rgba(200, 169, 81, 0.3);
+  border-radius: 20px;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #C8A951;
+  animation: pulse 2.5s ease infinite;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   TIMELINE — SCROLL REVEAL
+   Propósito: itens da timeline entram da direção correta conforme posição.
+   left side → slideInLeft | right side → slideInRight
+   Reforça a leitura espacial da linha do tempo.
+───────────────────────────────────────────────────────────────────────────── */
+.timeline-item-left {
+  animation: slideInLeft 0.55s ease both;
+}
+
+.timeline-item-right {
+  animation: slideInRight 0.55s ease both;
+}
+
+/* Delays para sequência da timeline */
+.timeline-item-left:nth-child(1),
+.timeline-item-right:nth-child(1)  { animation-delay: 0ms;   }
+.timeline-item-left:nth-child(2),
+.timeline-item-right:nth-child(2)  { animation-delay: 100ms; }
+.timeline-item-left:nth-child(3),
+.timeline-item-right:nth-child(3)  { animation-delay: 200ms; }
+.timeline-item-left:nth-child(4),
+.timeline-item-right:nth-child(4)  { animation-delay: 300ms; }
+.timeline-item-left:nth-child(5),
+.timeline-item-right:nth-child(5)  { animation-delay: 400ms; }
+.timeline-item-left:nth-child(n+6),
+.timeline-item-right:nth-child(n+6) { animation-delay: 500ms; }
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   MODAL / OVERLAY
+   Propósito: modal com scaleIn + backdrop com fadeIn = clareza de que
+   uma nova camada foi aberta sobre o conteúdo.
+───────────────────────────────────────────────────────────────────────────── */
+.modal-backdrop {
+  animation: fadeIn 0.2s ease both;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.modal-content {
+  animation: scaleIn 0.25s ease both;
+  transform-origin: center center;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   BUTTON STATES
+   Propósito: botões que não respondem ao toque parecem quebrados.
+   Feedback de press (active state) é o mínimo para qualidade percebida.
+───────────────────────────────────────────────────────────────────────────── */
+.btn-press {
+  transition: transform 0.12s ease, opacity 0.12s ease;
+}
+
+.btn-press:active {
+  transform: scale(0.97);
+  opacity: 0.85;
+}
+
+/* Transição padrão para botões com background */
+.btn-transition {
+  transition: background-color 0.2s ease,
+              border-color 0.2s ease,
+              color 0.2s ease,
+              box-shadow 0.2s ease,
+              transform 0.12s ease;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   SELECTION HIGHLIGHT
+   Propósito: seleção de texto com cor da marca em vez do azul padrão.
+   Coerência visual até no detalhe de seleção de texto.
+───────────────────────────────────────────────────────────────────────────── */
+::selection {
+  background: rgba(200, 169, 81, 0.25);
+  color: #F5EFE0;
+}
+
+::-moz-selection {
+  background: rgba(200, 169, 81, 0.25);
+  color: #F5EFE0;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   SCROLLBAR CUSTOMIZADA
+   Propósito: scrollbar padrão do OS em tema claro dentro de um dark theme
+   é incongruente. Scrollbar fina e escura mantém a estética.
+───────────────────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0F0E0C;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(200, 169, 81, 0.2);
+  border-radius: 10px;
+  transition: background 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(200, 169, 81, 0.4);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   RESPECT MOTION PREFERENCES
+   Propósito: usuários com vestibular disorders ou que ativaram
+   "reduce motion" no OS precisam que o site não cause desconforto.
+   Transitions curtas (0.01ms) mantêm a funcionalidade sem o movimento.
+───────────────────────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* shimmer e arabicShimmer são puramente decorativos — remover por completo */
+  .skeleton,
+  .arabic-shimmer,
+  .arabic-shimmer-subtle,
+  .pulse-dot,
+  .badge-new {
+    animation: none !important;
+  }
+
+  /* arabic-shimmer perde o shimmer mas mantém a cor dourada */
+  .arabic-shimmer,
+  .arabic-shimmer-subtle {
+    background: none;
+    -webkit-text-fill-color: #C8A951;
+    color: #C8A951;
+  }
+
+  /* skeleton vira bloco sólido sem animação */
+  .skeleton {
+    background: #242119;
+  }
+}
