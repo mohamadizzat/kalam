@@ -162,6 +162,38 @@ export interface Database {
           updated_at?: string
         }
       }
+      user_memberships: {
+        Row: {
+          id: string
+          user_id: string
+          tier: string
+          status: string
+          started_at: string | null
+          expires_at: string | null
+          stripe_subscription_id: string | null
+          stripe_customer_id: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          user_id: string
+          tier?: string
+          status?: string
+          started_at?: string | null
+          expires_at?: string | null
+          stripe_subscription_id?: string | null
+          stripe_customer_id?: string | null
+        }
+        Update: {
+          tier?: string
+          status?: string
+          started_at?: string | null
+          expires_at?: string | null
+          stripe_subscription_id?: string | null
+          stripe_customer_id?: string | null
+          updated_at?: string
+        }
+      }
       kids_progress: {
         Row: {
           user_id: string
