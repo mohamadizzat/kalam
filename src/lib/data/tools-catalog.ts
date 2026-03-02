@@ -148,6 +148,34 @@ export const TOOLS_CATALOG: KalamTool[] = [
     href: '/a-jornada/zakat',
   },
 
+  {
+    id: 'santuario',
+    name: 'Santuario de Estudo',
+    description: 'Experiencia imersiva de estudo do Quran com audio por verso e ambiente sonoro',
+    icon: 'BookOpen',
+    category: 'estudo',
+    status: 'available',
+    href: '/a-palavra/santuario',
+  },
+  {
+    id: 'habit-tracker',
+    name: 'Habitos Espirituais',
+    description: 'Acompanhe 7 habitos espirituais diarios com streak e heatmap',
+    icon: 'CheckSquare',
+    category: 'reflexao',
+    status: 'available',
+    href: '/a-alma/habitos',
+  },
+  {
+    id: 'mood-practice',
+    name: 'Como Voce Esta?',
+    description: 'Selecione sua emocao e receba praticas espirituais personalizadas',
+    icon: 'SmilePlus',
+    category: 'reflexao',
+    status: 'available',
+    href: '/a-alma/como-voce-esta',
+  },
+
   // ── EM BREVE ──────────────────────────────────────────────────────────
   {
     id: 'timeline',
@@ -175,11 +203,12 @@ export const TOOLS_CATALOG: KalamTool[] = [
   },
   {
     id: 'guided-meditation',
-    name: 'Meditação Guiada',
-    description: 'Sessões de contemplação com áudio guiado',
+    name: 'Sleep Stories',
+    description: 'Historias dos profetas para dormir com som ambiente imersivo',
     icon: 'Headphones',
     category: 'reflexao',
-    status: 'coming-soon',
+    status: 'available',
+    href: '/contemplativo/sleep',
   },
   {
     id: 'translation-compare',
@@ -283,7 +312,8 @@ export const TOOLS_CATALOG: KalamTool[] = [
     description: 'Acompanhe seu progresso na leitura do Quran completo',
     icon: 'BookOpen',
     category: 'estudo',
-    status: 'coming-soon',
+    status: 'available',
+    href: '/a-palavra/progresso',
   },
   {
     id: 'mecca-guide',
@@ -331,7 +361,8 @@ export const TOOLS_CATALOG: KalamTool[] = [
     description: 'Aprenda as 300 palavras mais usadas no Quran',
     icon: 'Languages',
     category: 'estudo',
-    status: 'coming-soon',
+    status: 'available',
+    href: '/a-presenca/arabe-quran',
   },
   {
     id: 'wudu-simulator',

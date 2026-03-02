@@ -33,6 +33,9 @@ import {
   BookMarked,
   Scale,
   Crown,
+  CheckSquare,
+  TrendingUp,
+  Moon,
 } from 'lucide-react'
 
 // ── SIDEBAR CONTEXT ─────────────────────────────────────────────────────────
@@ -136,6 +139,9 @@ const NAV_CATEGORIES: NavCategory[] = [
       { label: 'Trilhas', href: '/trilhas', icon: Route },
       { label: 'A Bíblia do Kalam', href: '/a-biblia-do-kalam', icon: BookText },
       { label: 'Estudos', href: '/a-palavra/estudo', icon: BookMarked },
+      { label: 'Santuario', href: '/a-palavra/santuario', icon: Sparkles },
+      { label: 'Progresso', href: '/a-palavra/progresso', icon: TrendingUp },
+      { label: 'Arabe do Quran', href: '/a-presenca/arabe-quran', icon: Languages },
     ],
   },
   {
@@ -153,6 +159,7 @@ const NAV_CATEGORIES: NavCategory[] = [
       { label: 'Salah', href: '/a-presenca/salah', icon: Sun },
       { label: 'Hifz', href: '/a-palavra/hifz', icon: BookMarked },
       { label: 'Contemplativo', href: '/contemplativo', icon: Sparkles },
+      { label: 'Sleep Stories', href: '/contemplativo/sleep', icon: Moon },
       { label: 'Stories', href: '/conteudo', icon: Layers },
     ],
   },
@@ -165,6 +172,8 @@ const NAV_CATEGORIES: NavCategory[] = [
       { label: 'Journal', href: '/a-alma/journal', icon: PenLine },
       { label: 'Rotina', href: '/a-alma/rotina', icon: Clock },
       { label: 'Plano Diário', href: '/a-jornada/plano-diario', icon: Calendar },
+      { label: 'Habitos', href: '/a-alma/habitos', icon: CheckSquare },
+      { label: 'Como Voce Esta', href: '/a-alma/como-voce-esta', icon: Heart },
     ],
   },
   {

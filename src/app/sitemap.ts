@@ -392,6 +392,49 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
 
+    // Santuario (Quran Study)
+    {
+      url: `${baseUrl}/a-palavra/santuario`,
+      lastModified: now,
+      changeFrequency: 'daily' as const,
+      priority: 0.8,
+    },
+    // Quran Progress
+    {
+      url: `${baseUrl}/a-palavra/progresso`,
+      lastModified: now,
+      changeFrequency: 'daily' as const,
+      priority: 0.6,
+    },
+    // Habitos
+    {
+      url: `${baseUrl}/a-alma/habitos`,
+      lastModified: now,
+      changeFrequency: 'daily' as const,
+      priority: 0.7,
+    },
+    // Mood
+    {
+      url: `${baseUrl}/a-alma/como-voce-esta`,
+      lastModified: now,
+      changeFrequency: 'daily' as const,
+      priority: 0.6,
+    },
+    // Arabe do Quran
+    {
+      url: `${baseUrl}/a-presenca/arabe-quran`,
+      lastModified: now,
+      changeFrequency: 'weekly' as const,
+      priority: 0.7,
+    },
+    // Sleep Stories
+    {
+      url: `${baseUrl}/contemplativo/sleep`,
+      lastModified: now,
+      changeFrequency: 'weekly' as const,
+      priority: 0.6,
+    },
+
     // Aprender SEO pages (15 pages)
     ...seoPages,
   ]
