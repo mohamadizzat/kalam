@@ -45,9 +45,15 @@ export function EntrarClient({ redirect }: { redirect?: string }) {
           setLoading(false)
           return
         }
-        const { error } = await signUpWithEmail(email, password, name)
+        const { error, needsConfirmation } = await signUpWithEmail(email, password, name)
         if (error) {
-          setError('Erro ao criar conta. Tente novamente.')
+          setError(
+            error.message?.includes('already registered') || error.message?.includes('already been registered')
+              ? 'Este email já tem uma conta. Entre com sua senha.'
+              : 'Erro ao criar conta. Tente novamente.'
+          )
+        } else if (needsConfirmation) {
+          setSuccess('Conta criada! Verifique seu email para confirmar o acesso.')
         } else {
           router.push(destination)
         }

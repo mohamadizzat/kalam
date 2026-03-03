@@ -11,7 +11,7 @@ interface AuthContextType {
   isPremium: boolean
   membershipTier: 'free' | 'premium'
   signInWithEmail: (email: string, password: string) => Promise<{ error: Error | null }>
-  signUpWithEmail: (email: string, password: string, name: string) => Promise<{ error: Error | null }>
+  signUpWithEmail: (email: string, password: string, name: string) => Promise<{ error: Error | null; needsConfirmation: boolean }>
   signInWithGoogle: () => Promise<void>
   signOut: () => Promise<void>
 }
@@ -71,12 +71,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, [supabase])
 
   const signUpWithEmail = useCallback(async (email: string, password: string, name: string) => {
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: { data: { full_name: name } },
     })
-    return { error: error as Error | null }
+    // needsConfirmation = signup ok mas email ainda não confirmado (sessão null)
+    const needsConfirmation = !error && !data.session
+    return { error: error as Error | null, needsConfirmation }
   }, [supabase])
 
   const signInWithGoogle = useCallback(async () => {
