@@ -8,6 +8,12 @@ import { useAuth } from '@/providers/auth-provider'
 import { useSidebar } from './Sidebar'
 import { SearchDialog } from '@/components/shared/SearchDialog'
 
+const T = {
+  gold: '#C9A84C',
+  muted: '#7A7870',
+  text: '#F0EBE2',
+}
+
 export function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
@@ -56,7 +62,7 @@ export function Header() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          padding: '14px 20px',
+          padding: '16px 20px',
           background: scrolled
             ? 'rgba(13,11,18,0.92)'
             : 'rgba(13,11,18,0.8)',
@@ -118,7 +124,7 @@ export function Header() {
         </div>
 
         {/* Right actions: Search + Auth + Settings */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           {/* Search */}
           <button
             onClick={() => setSearchOpen(true)}
@@ -130,13 +136,13 @@ export function Header() {
               background: 'none',
               border: 'none',
               cursor: 'pointer',
-              color: '#7A7870',
+              color: T.muted,
               transition: 'color 0.2s ease',
-              padding: '6px',
+              padding: '10px',
               borderRadius: '8px',
             }}
-            onMouseEnter={(e) => { e.currentTarget.style.color = '#C9A84C' }}
-            onMouseLeave={(e) => { e.currentTarget.style.color = '#7A7870' }}
+            onMouseEnter={(e) => { e.currentTarget.style.color = T.gold }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = T.muted }}
           >
             <Search size={18} strokeWidth={1.5} />
           </button>
@@ -153,13 +159,13 @@ export function Header() {
                 background: 'none',
                 border: 'none',
                 cursor: 'pointer',
-                color: '#7A7870',
+                color: T.muted,
                 transition: 'color 0.2s ease',
-                padding: '6px',
+                padding: '10px',
                 borderRadius: '8px',
               }}
-              onMouseEnter={(e) => { e.currentTarget.style.color = '#C9A84C' }}
-              onMouseLeave={(e) => { e.currentTarget.style.color = '#7A7870' }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = T.gold }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = T.muted }}
             >
               <LogOut size={18} strokeWidth={1.5} />
             </button>
@@ -172,13 +178,13 @@ export function Header() {
                 alignItems: 'center',
                 justifyContent: 'center',
                 textDecoration: 'none',
-                color: pathname === '/entrar' ? '#C9A84C' : '#7A7870',
+                color: pathname === '/entrar' ? T.gold : T.muted,
                 transition: 'color 0.2s ease',
-                padding: '6px',
+                padding: '10px',
                 borderRadius: '8px',
               }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = '#C9A84C' }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = pathname === '/entrar' ? '#C9A84C' : '#7A7870' }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = T.gold }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = pathname === '/entrar' ? T.gold : T.muted }}
             >
               <User size={18} strokeWidth={1.5} />
             </Link>
@@ -193,16 +199,16 @@ export function Header() {
               alignItems: 'center',
               gap: '6px',
               textDecoration: 'none',
-              color: pathname === '/configuracoes' ? '#C9A84C' : '#7A7870',
+              color: pathname === '/configuracoes' ? T.gold : T.muted,
               transition: 'color 0.2s ease',
-              padding: '6px',
+              padding: '10px',
               borderRadius: '8px',
             }}
             onMouseEnter={(e) => {
-              (e.currentTarget as HTMLAnchorElement).style.color = '#C9A84C'
+              (e.currentTarget as HTMLAnchorElement).style.color = T.gold
             }}
             onMouseLeave={(e) => {
-              (e.currentTarget as HTMLAnchorElement).style.color = pathname === '/configuracoes' ? '#C9A84C' : '#7A7870'
+              (e.currentTarget as HTMLAnchorElement).style.color = pathname === '/configuracoes' ? T.gold : T.muted
             }}
           >
             <Settings size={18} strokeWidth={1.5} />

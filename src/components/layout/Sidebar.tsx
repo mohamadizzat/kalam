@@ -189,12 +189,22 @@ const MORE_GROUPS: Array<{ label: string; items: NavItem[] }> = [
     ],
   },
   {
-    label: 'Premium & Kids',
+    label: 'Comunidade',
     items: [
       { label: 'Meus Sahabas', href: '/meus-sahabas', icon: Crown },
       { label: 'Hub Kids', href: '/kids', icon: Star },
     ],
   },
+]
+
+// ── DESTAQUES — 5 top content quick links ────────────────────────────────────
+
+const DESTAQUES: NavItem[] = [
+  { label: 'Liderança Profética', href: '/lideranca-profetica', icon: Crown },
+  { label: 'A Bíblia do Kalam', href: '/a-biblia-do-kalam', icon: BookText },
+  { label: 'Trilhas Guiadas', href: '/trilhas', icon: Route },
+  { label: 'Mulheres no Quran', href: '/a-jornada/mulheres', icon: Heart },
+  { label: 'Kalam Academy', href: '/academy', icon: Sparkles },
 ]
 
 const BOTTOM_LINKS: NavItem[] = [
@@ -336,7 +346,7 @@ function SecondaryNavItem({
         fontSize: 13,
         textDecoration: 'none',
         color: active ? T.gold : T.secondary,
-        fontWeight: active ? 500 : 400,
+        fontWeight: active ? 600 : 400,
         background: active ? 'rgba(201,168,76,0.07)' : 'transparent',
         transition: 'all 0.15s ease',
         marginBottom: 1,
@@ -573,7 +583,25 @@ export function Sidebar() {
           </nav>
 
           {/* Divider */}
-          <div style={{ height: 1, background: T.border, margin: '8px 12px 0' }} />
+          <div style={{ height: 1, background: T.border, margin: '8px 12px 4px' }} />
+
+          {/* DESTAQUES — 5 top content quick links */}
+          <div style={{ padding: '0 12px', flexShrink: 0 }}>
+            <div style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: T.muted, padding: '4px 10px 3px', opacity: 0.55 }}>
+              Destaques
+            </div>
+            {DESTAQUES.map(item => (
+              <SecondaryNavItem
+                key={item.href}
+                item={item}
+                active={isActive(item.href)}
+                indicators={indicators}
+              />
+            ))}
+          </div>
+
+          {/* Divider */}
+          <div style={{ height: 1, background: T.border, margin: '4px 12px 0' }} />
 
           {/* Mais → accordion */}
           <div
@@ -870,6 +898,42 @@ export function Sidebar() {
             {/* Divider */}
             <div style={{ height: 1, background: T.border, margin: '0 14px 4px' }} />
 
+            {/* DESTAQUES — mobile */}
+            <div style={{ padding: '4px 14px 0', flexShrink: 0 }}>
+              <div style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: T.muted, padding: '4px 10px 3px', opacity: 0.55 }}>
+                Destaques
+              </div>
+              {DESTAQUES.map(item => {
+                const active = isActive(item.href)
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={close}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 8,
+                      padding: '7px 10px',
+                      borderRadius: 7,
+                      fontSize: 13,
+                      fontWeight: active ? 600 : 400,
+                      textDecoration: 'none',
+                      color: active ? T.gold : T.secondary,
+                      background: active ? 'rgba(201,168,76,0.07)' : 'transparent',
+                      marginBottom: 1,
+                    }}
+                  >
+                    <item.icon size={14} style={{ flexShrink: 0, opacity: active ? 1 : 0.55 }} />
+                    <span>{item.label}</span>
+                  </Link>
+                )
+              })}
+            </div>
+
+            {/* Divider */}
+            <div style={{ height: 1, background: T.border, margin: '4px 14px 0' }} />
+
             {/* Mais → mobile (scrollable) */}
             <MobileMaisNav isActive={isActive} indicators={indicators} onNavigate={close} />
 
@@ -968,9 +1032,9 @@ function MobileMaisNav({
                   fontWeight: 700,
                   letterSpacing: '0.12em',
                   textTransform: 'uppercase',
-                  color: '#7A7870',
+                  color: T.muted,
                   padding: '4px 10px 2px',
-                  opacity: 0.6,
+                  opacity: 0.55,
                 }}
               >
                 {group.label}
@@ -988,9 +1052,10 @@ function MobileMaisNav({
                       gap: 8,
                       padding: '7px 10px',
                       borderRadius: 7,
-                      fontSize: 14,
+                      fontSize: 13,
+                      fontWeight: active ? 600 : 400,
                       textDecoration: 'none',
-                      color: active ? '#C9A84C' : '#B3B0A6',
+                      color: active ? T.gold : T.secondary,
                       background: active ? 'rgba(201,168,76,0.07)' : 'transparent',
                       marginBottom: 1,
                     }}
@@ -998,7 +1063,7 @@ function MobileMaisNav({
                     <item.icon size={14} style={{ flexShrink: 0, opacity: active ? 1 : 0.5 }} />
                     <span style={{ flex: 1 }}>{item.label}</span>
                     {item.href === '/meus-sahabas' && (
-                      <span style={{ fontSize: 9, fontWeight: 700, color: '#C9A84C', background: 'rgba(201,168,76,0.12)', padding: '2px 5px', borderRadius: 4 }}>
+                      <span style={{ fontSize: 9, fontWeight: 700, color: T.gold, background: 'rgba(201,168,76,0.12)', padding: '2px 5px', borderRadius: 4 }}>
                         PRO
                       </span>
                     )}

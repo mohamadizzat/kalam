@@ -778,6 +778,133 @@ function WavePlanSection() {
   )
 }
 
+// ── Protocolo do Conselho — Obrigatório para toda feature ─────────────────────
+
+const PROTOCOL_ROLES = [
+  { name: 'Murshid', arabic: 'مرشد', role: 'Avalia navegação, hierarquia e findability — usuario consegue achar?', iconName: 'Map' as const },
+  { name: 'Muktashif', arabic: 'مكتشف', role: 'Avalia descoberta, first impression e onboarding — usuario entende o valor?', iconName: 'Compass' as const },
+  { name: 'Rabit', arabic: 'رابط', role: 'Avalia conexões entre conteúdos e arquitetura de links — silos ou rede?', iconName: 'Link2' as const },
+  { name: 'Rafiq', arabic: 'رفيق', role: 'Avalia retenção, hábito e engagement mobile — usuario volta?', iconName: 'TrendingUp' as const },
+  { name: 'Mufakkir', arabic: 'مفكر', role: 'Avalia profundidade, reflexão e valor do conteúdo — transforma?', iconName: 'BookOpen' as const },
+  { name: 'Bahith', arabic: 'باحث', role: 'CTO · Pesquisa, viabilidade técnica e decisão final', iconName: 'Search' as const, isCTO: true },
+  { name: 'Munadi', arabic: 'منادي', role: 'Avalia personalização, retorno e comunicação com o usuário — lembra?', iconName: 'Bell' as const },
+]
+
+function SahabaProtocolSection() {
+  return (
+    <motion.section
+      id="protocolo"
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-60px' }}
+      transition={{ duration: 0.7 }}
+      style={{ maxWidth: 960, margin: '72px auto 0', padding: '0 20px 0' }}
+    >
+      {/* Header */}
+      <div style={{ textAlign: 'center', marginBottom: 36 }}>
+        <div style={{
+          display: 'inline-flex', alignItems: 'center', gap: 8,
+          padding: '4px 14px',
+          background: C.goldDim, border: `1px solid ${C.gold}30`,
+          borderRadius: 3, marginBottom: 14,
+        }}>
+          <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#4ade80', display: 'inline-block' }} />
+          <span style={{ fontFamily: 'var(--font-sans)', fontSize: 9, fontWeight: 700, letterSpacing: '3px', textTransform: 'uppercase', color: C.gold }}>
+            ATIVO — desde 03/03/2026
+          </span>
+        </div>
+
+        <div style={{ fontFamily: 'var(--font-arabic)', fontSize: 'clamp(24px, 4vw, 36px)', color: C.gold, direction: 'rtl', marginBottom: 6, textShadow: '0 0 20px rgba(201,168,76,0.15)' }}>
+          مجلس القرار
+        </div>
+        <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(22px, 3.5vw, 30px)', fontWeight: 700, color: C.text, marginBottom: 10 }}>
+          Protocolo Obrigatório de Features
+        </h2>
+        <p style={{ fontFamily: 'var(--font-sans)', fontSize: 14, color: C.secondary, lineHeight: 1.7, maxWidth: 520, margin: '0 auto' }}>
+          A partir de agora, toda feature nova passa pelo conselho antes de ir ao ar.
+          Cada Sahaba opina na sua especialidade. Bahith (CTO) decide.
+        </p>
+      </div>
+
+      {/* Flow visual */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, flexWrap: 'wrap', marginBottom: 28 }}>
+        {['Feature nova', '7 opiniões', 'CTO decide', 'Ship →'].map((step, i, arr) => (
+          <div key={step} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <div style={{
+              padding: '6px 14px',
+              background: i === arr.length - 1 ? C.goldDim : 'rgba(255,255,255,0.04)',
+              border: `1px solid ${i === arr.length - 1 ? C.gold + '50' : C.border}`,
+              borderRadius: 3,
+              fontFamily: 'var(--font-sans)', fontSize: 11,
+              fontWeight: i === arr.length - 1 ? 700 : 400,
+              color: i === arr.length - 1 ? C.gold : C.secondary,
+              letterSpacing: '0.5px',
+            }}>
+              {step}
+            </div>
+            {i < arr.length - 1 && (
+              <span style={{ color: C.border, fontSize: 16 }}>→</span>
+            )}
+          </div>
+        ))}
+      </div>
+
+      {/* 7 Sahabas roles */}
+      <div style={{ background: C.surface, border: `1px solid ${C.border}`, borderRadius: 4, overflow: 'hidden' }}>
+        {PROTOCOL_ROLES.map((role, i) => (
+          <div
+            key={role.name}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 16,
+              padding: '14px 24px',
+              background: role.isCTO ? C.goldDim : 'transparent',
+              borderBottom: i < PROTOCOL_ROLES.length - 1 ? `1px solid ${C.border}` : 'none',
+              borderLeft: role.isCTO ? `3px solid ${C.gold}` : '3px solid transparent',
+            }}
+          >
+            {/* Arabic name */}
+            <span style={{ fontFamily: 'var(--font-arabic)', fontSize: 20, color: role.isCTO ? C.gold : C.secondary, direction: 'rtl', minWidth: 60, flexShrink: 0, lineHeight: 1.3 }}>
+              {role.arabic}
+            </span>
+
+            {/* Vertical divider */}
+            <div style={{ width: 1, height: 32, background: C.border, flexShrink: 0 }} />
+
+            {/* Name */}
+            <span style={{ fontFamily: 'var(--font-serif)', fontSize: 13, fontWeight: 600, color: role.isCTO ? C.gold : C.text, minWidth: 84, flexShrink: 0 }}>
+              {role.name}
+            </span>
+
+            {/* Role description */}
+            <span style={{ fontFamily: 'var(--font-sans)', fontSize: 12, color: role.isCTO ? C.secondary : C.muted, lineHeight: 1.5, flex: 1 }}>
+              {role.role}
+            </span>
+
+            {/* CTO badge */}
+            {role.isCTO && (
+              <span style={{
+                fontFamily: 'var(--font-sans)', fontSize: 9, fontWeight: 700,
+                letterSpacing: '2px', color: C.gold,
+                background: 'rgba(201,168,76,0.15)',
+                padding: '3px 8px', borderRadius: 3,
+                flexShrink: 0, border: `1px solid ${C.gold}35`,
+              }}>
+                CTO
+              </span>
+            )}
+          </div>
+        ))}
+      </div>
+
+      <p style={{ fontFamily: 'var(--font-sans)', fontSize: 11, color: C.muted, textAlign: 'center', marginTop: 16, lineHeight: 1.6 }}>
+        Protocolo aplicado em toda sessão de desenvolvimento. Opiniões documentadas antes de qualquer código.
+      </p>
+    </motion.section>
+  )
+}
+
 // ── Componente principal ──────────────────────────────────────────────────────
 export function DevKalamClient() {
   const criticalCount = AUDIT_RESULTS.filter(e => e.severity === 'CRITICO').length
@@ -953,6 +1080,9 @@ export function DevKalamClient() {
 
       {/* ── Plano ────────────────────────────────────────────────────────── */}
       <WavePlanSection />
+
+      {/* ── Protocolo do Conselho ─────────────────────────────────────────── */}
+      <SahabaProtocolSection />
     </div>
   )
 }

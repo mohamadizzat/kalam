@@ -10,7 +10,7 @@ const TABS = [
   { label: 'Explorar', href: '/a-mensagem', Icon: Compass, matchPaths: ['/a-mensagem', '/a-ponte', '/os-profetas', '/o-sistema', '/biblioteca', '/perguntas', '/comprovacoes', '/descobrir'] },
   { label: 'Estudar', href: '/a-palavra', Icon: BookOpen, matchPaths: ['/a-palavra', '/trilhas', '/a-biblia-do-kalam', '/a-presenca'] },
   { label: 'Refletir', href: '/a-alma', Icon: Heart, matchPaths: ['/a-alma', '/a-jornada'] },
-  { label: 'Mais', href: '#more', Icon: MoreHorizontal },
+  { label: 'Menu', href: '#more', Icon: MoreHorizontal },
 ]
 
 export function BottomNav() {
@@ -28,7 +28,7 @@ export function BottomNav() {
           left: 0,
           right: 0,
           zIndex: 200,
-          height: 68,
+          minHeight: 68,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-around',
@@ -60,10 +60,11 @@ export function BottomNav() {
                   alignItems: 'center',
                   gap: 3,
                   padding: '8px 12px',
-                  color: '#7A7870',
+                  color: '#A09880',
                   background: 'none',
                   border: 'none',
                   cursor: 'pointer',
+                  transition: 'color 0.2s ease',
                   position: 'relative',
                 }}
               >
@@ -92,7 +93,7 @@ export function BottomNav() {
                 gap: 3,
                 padding: '8px 12px',
                 textDecoration: 'none',
-                color: isActive ? '#C9A84C' : '#7A7870',
+                color: isActive ? '#C9A84C' : '#A09880',
                 transition: 'color 0.2s ease',
                 position: 'relative',
               }}
@@ -104,11 +105,11 @@ export function BottomNav() {
                   top: '0px',
                   left: '50%',
                   transform: 'translateX(-50%)',
-                  width: '4px',
-                  height: '4px',
+                  width: '7px',
+                  height: '7px',
                   borderRadius: '50%',
                   background: '#C9A84C',
-                  boxShadow: '0 0 8px rgba(201,168,76,0.5)',
+                  boxShadow: '0 0 14px rgba(201,168,76,0.8)',
                 }} />
               )}
               <Icon size={22} strokeWidth={isActive ? 2 : 1.5} />
