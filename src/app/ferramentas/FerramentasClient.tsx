@@ -43,6 +43,10 @@ import {
   Handshake,
   Droplets,
   Shirt,
+  SmilePlus,
+  ListChecks,
+  Microscope,
+  BookText,
   type LucideIcon,
 } from 'lucide-react'
 import { SectionReveal } from '@/components/shared/SectionReveal'
@@ -109,6 +113,10 @@ const ICON_MAP: Record<string, LucideIcon> = {
   HandshakeIcon: Handshake,
   Droplets,
   Shirt,
+  SmilePlus,
+  ListChecks,
+  Microscope,
+  BookText,
 }
 
 // ── PRAYER HELPERS ───────────────────────────────────────────────────────────

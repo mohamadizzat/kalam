@@ -322,11 +322,14 @@ export function SaudeMentalClient() {
                 exit={{ opacity: 0, y: 40 }}
                 transition={{ duration: 0.35, ease: 'easeOut' }}
                 onClick={(e) => e.stopPropagation()}
+                data-lenis-prevent
+                onWheel={(e) => e.stopPropagation()}
                 style={{
                   position: 'absolute',
                   inset: 0,
                   background: '#0D0B12',
                   overflowY: 'auto',
+                  overscrollBehavior: 'contain',
                   WebkitOverflowScrolling: 'touch',
                 }}
               >
