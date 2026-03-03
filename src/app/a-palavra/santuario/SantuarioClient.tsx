@@ -473,7 +473,7 @@ export function SantuarioClient() {
         <div style={{ padding: '0 20px' }}>
           {filteredSurahs.map((s) => {
             const readSurahs: number[] = (() => {
-              try { return JSON.parse(localStorage.getItem('kalam-surahs-read') || '[]') } catch { return [] }
+              try { return typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('kalam-surahs-read') || '[]') : [] } catch { return [] }
             })()
             const isRead = readSurahs.includes(s.number)
 
