@@ -47,6 +47,13 @@ import {
   ListChecks,
   Microscope,
   BookText,
+  Target,
+  Wallet,
+  Shield,
+  Crown,
+  Hash,
+  Sunrise,
+  Users,
   type LucideIcon,
 } from 'lucide-react'
 import { SectionReveal } from '@/components/shared/SectionReveal'
@@ -117,6 +124,13 @@ const ICON_MAP: Record<string, LucideIcon> = {
   ListChecks,
   Microscope,
   BookText,
+  Target,
+  Wallet,
+  Shield,
+  Crown,
+  Hash,
+  Sunrise,
+  Users,
 }
 
 // ── PRAYER HELPERS ───────────────────────────────────────────────────────────
