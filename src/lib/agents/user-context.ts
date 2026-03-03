@@ -154,23 +154,93 @@ async function syncFromSupabase(userId: string): Promise<SupabaseOverlay | null>
   try {
     const supabase = createClient()
 
+    // Schema real:
+    // user_progress:  item_slug, completed_at (sem content_id, sem boolean completed)
+    // user_bookmarks: reference (sem content_id)
     const [progressRes, bookmarksRes, streakRes] = await Promise.all([
       supabase
         .from('user_progress')
-        .select('content_id')
+        .select('item_slug')
         .eq('user_id', userId)
-        .eq('completed', true),
-      supabase.from('user_bookmarks').select('content_id').eq('user_id', userId),
+        .not('completed_at', 'is', null),
+      supabase
+        .from('user_bookmarks')
+        .select('reference')
+        .eq('user_id', userId),
       supabase.from('user_streaks').select('*').eq('user_id', userId).single(),
     ])
 
     return {
-      completedIds: (progressRes.data || []).map((r) => r.content_id),
-      bookmarkIds: (bookmarksRes.data || []).map((r) => r.content_id),
+      completedIds: (progressRes.data || []).map((r) => r.item_slug).filter(Boolean),
+      bookmarkIds: (bookmarksRes.data || []).map((r) => r.reference).filter(Boolean),
       currentStreak: streakRes.data?.current_streak ?? 0,
       longestStreak: streakRes.data?.longest_streak ?? 0,
     }
   } catch {
     return null
+  }
+}
+
+// ── Escreve progresso de conteúdo no Supabase (chamar quando user completa algo) ──
+export async function saveProgressToSupabase(
+  userId: string,
+  category: string,
+  itemSlug: string
+): Promise<void> {
+  try {
+    const supabase = createClient()
+    await supabase
+      .from('user_progress')
+      .upsert(
+        { user_id: userId, category, item_slug: itemSlug, completed_at: new Date().toISOString() },
+        { onConflict: 'user_id,category,item_slug' }
+      )
+  } catch {
+    // Falha silenciosa — localStorage é o fallback
+  }
+}
+
+// ── Escreve bookmark no Supabase ──
+export async function saveBookmarkToSupabase(
+  userId: string,
+  type: string,
+  reference: string,
+  note?: string
+): Promise<void> {
+  try {
+    const supabase = createClient()
+    await supabase
+      .from('user_bookmarks')
+      .upsert(
+        { user_id: userId, type, reference, note: note || null },
+        { onConflict: 'user_id,type,reference' }
+      )
+  } catch {
+    // Falha silenciosa
+  }
+}
+
+// ── Atualiza streak no Supabase ──
+export async function syncStreakToSupabase(
+  userId: string,
+  currentStreak: number,
+  longestStreak: number
+): Promise<void> {
+  try {
+    const supabase = createClient()
+    await supabase
+      .from('user_streaks')
+      .upsert(
+        {
+          user_id: userId,
+          current_streak: currentStreak,
+          longest_streak: longestStreak,
+          last_visit: new Date().toISOString().split('T')[0],
+          updated_at: new Date().toISOString(),
+        },
+        { onConflict: 'user_id' }
+      )
+  } catch {
+    // Falha silenciosa
   }
 }

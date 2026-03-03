@@ -561,6 +561,59 @@ export function LeadershipClient({ chapter, prevChapter, nextChapter }: Props) {
         </Link>
       </motion.div>
 
+      {/* ── Conectado a ──────────────────────────────────────────── */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        style={{ maxWidth: 720, margin: '48px auto 0', padding: '0 20px' }}
+      >
+        <p style={{
+          fontFamily: 'var(--font-sans)',
+          fontSize: 10,
+          letterSpacing: '3px',
+          textTransform: 'uppercase',
+          color: C.muted,
+          marginBottom: 14,
+        }}>
+          Conectado a
+        </p>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: 10 }}>
+          {[
+            { href: '/a-ponte', label: 'A Ponte', desc: 'Bíblia × Alcorão — o que se conecta' },
+            { href: '/trilhas', label: 'Trilhas Guiadas', desc: 'Jornadas com {prophetName} como tema' },
+            { href: '/os-profetas', label: 'Os Profetas', desc: 'Todas as histórias no Quran' },
+          ].map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              style={{ textDecoration: 'none' }}
+            >
+              <div
+                style={{
+                  padding: '14px 16px',
+                  borderRadius: 10,
+                  background: C.surface,
+                  border: `1px solid ${C.border}`,
+                  transition: 'border-color 0.2s ease',
+                  height: '100%',
+                }}
+                onMouseEnter={e => (e.currentTarget.style.borderColor = 'rgba(201,168,76,0.3)')}
+                onMouseLeave={e => (e.currentTarget.style.borderColor = C.border)}
+              >
+                <p style={{ fontFamily: 'var(--font-sans)', fontSize: 13, fontWeight: 600, color: C.text, marginBottom: 4 }}>
+                  {link.label}
+                </p>
+                <p style={{ fontFamily: 'var(--font-sans)', fontSize: 12, color: C.muted, lineHeight: 1.4 }}>
+                  {link.desc.replace('{prophetName}', chapter.prophetName)}
+                </p>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </motion.div>
+
       {/* ── Chapter Navigation ───────────────────────────────────── */}
       <div style={{
         maxWidth: 720,

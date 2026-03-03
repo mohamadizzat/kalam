@@ -11,6 +11,7 @@ import {
   Heart,
   Star,
   Flame,
+  Crown,
   BookMarked,
   PenLine,
   GitBranch,
@@ -43,9 +44,11 @@ import { RamadanDailyCard } from '@/components/ramadan/RamadanDailyCard'
 import { RamadanPhaseProgress } from '@/components/ramadan/RamadanPhaseProgress'
 import { usePersona } from '@/lib/hooks/usePersona'
 import type { PersonaId } from '@/lib/hooks/usePersona'
+import { useAuth } from '@/providers/auth-provider'
 import { ProximoPassoCard } from '@/components/home/ProximoPassoCard'
 import { DescobertaDoDiaCard } from '@/components/home/DescobertaDoDiaCard'
 import { ProgressoSection } from '@/components/home/ProgressoSection'
+import { syncStreakToSupabase } from '@/lib/agents/user-context'
 
 // ── DESIGN TOKENS ────────────────────────────────────────────────────────────
 
@@ -216,9 +219,9 @@ export function DashboardHome() {
   const [dateLabel, setDateLabel] = useState('')
   const [greeting, setGreeting] = useState('')
   const [verseIndex, setVerseIndex] = useState(0)
-  // nameOfDay removed — hero de-arabizado
   const [streak, setStreak] = useState(0)
   const { persona } = usePersona()
+  const { user } = useAuth()
   const [lastRead, setLastRead] = useState<LastRead | null>(null)
   const [surahsReadCount, setSurahsReadCount] = useState(0)
   const [journalCount, setJournalCount] = useState(0)
@@ -257,19 +260,23 @@ export function DashboardHome() {
     try {
       const lastVisit = localStorage.getItem('kalam-last-visit')
       const currentStreak = parseInt(localStorage.getItem('kalam-streak') || '0')
+      const longestStreak = parseInt(localStorage.getItem('kalam-streak-longest') || '0')
       const today = new Date().toISOString().split('T')[0]
 
+      let newStreak = currentStreak
       if (lastVisit !== today) {
         const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0]
-        const newStreak = lastVisit === yesterday ? currentStreak + 1 : 1
+        newStreak = lastVisit === yesterday ? currentStreak + 1 : 1
+        const newLongest = Math.max(newStreak, longestStreak)
         localStorage.setItem('kalam-streak', String(newStreak))
+        localStorage.setItem('kalam-streak-longest', String(newLongest))
         localStorage.setItem('kalam-last-visit', today)
-        setStreak(newStreak)
-      } else {
-        setStreak(currentStreak)
+        // Sync para Supabase se autenticado
+        if (user?.id) syncStreakToSupabase(user.id, newStreak, newLongest)
       }
+      setStreak(newStreak)
     } catch {}
-  }, [])
+  }, [user])
 
   // ── Last read + stats ──
   useEffect(() => {
@@ -357,7 +364,9 @@ export function DashboardHome() {
           style={{ marginBottom: 16 }}
         >
           <p style={{ fontFamily: 'var(--font-serif)', fontSize: 26, color: T.text, fontWeight: 500, marginBottom: 4 }}>
-            {greeting}
+            {greeting}{user?.user_metadata?.full_name || user?.user_metadata?.name
+              ? `, ${(user.user_metadata.full_name || user.user_metadata.name).split(' ')[0]}`
+              : ''}
           </p>
           <p style={{ fontSize: 13, color: T.muted }}>
             {dateLabel || '\u00A0'}
@@ -614,6 +623,124 @@ export function DashboardHome() {
             ))}
           </div>
         </PremiumCard>
+      </motion.section>
+
+      {/* ═══════════════════════════════════════════════════════════════════════
+          SECTION 5.5 — O Melhor do Kalam (conteúdo gold enterrado)
+      ═══════════════════════════════════════════════════════════════════════ */}
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-40px' }}
+        transition={{ duration: 0.7 }}
+        style={{ padding: '32px 24px 0' }}
+      >
+        <p style={{
+          fontSize: 11,
+          letterSpacing: '0.2em',
+          color: T.muted,
+          textTransform: 'uppercase',
+          marginBottom: 14,
+        }}>
+          O Melhor do Kalam
+        </p>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {[
+            {
+              href: '/lideranca-profetica',
+              icon: Crown,
+              title: 'Liderança Profética',
+              desc: '8 líderes — Ibrahim, Yusuf, Musa, Dawud e mais',
+              badge: 'EXCLUSIVO',
+            },
+            {
+              href: '/a-biblia-do-kalam',
+              icon: BookText,
+              title: 'A Bíblia do Kalam',
+              desc: 'Capítulo a capítulo — o que a Bíblia diz sobre o Islam',
+              badge: null,
+            },
+            {
+              href: '/trilhas',
+              icon: Route,
+              title: 'Trilhas Guiadas',
+              desc: '6 jornadas temáticas com progresso e certificado',
+              badge: null,
+            },
+            {
+              href: '/a-jornada/mulheres',
+              icon: Heart,
+              title: 'Mulheres no Quran',
+              desc: 'Maryam, Khadijah, Asiya — histórias que a Bíblia não conta',
+              badge: null,
+            },
+            {
+              href: '/academy',
+              icon: Sparkles,
+              title: 'Kalam Academy',
+              desc: 'Conteúdo aprofundado com os Sahabas como guias',
+              badge: 'NOVO',
+            },
+          ].map((item) => (
+            <Link key={item.href} href={item.href} style={{ textDecoration: 'none' }}>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 14,
+                  padding: '14px 16px',
+                  borderRadius: 12,
+                  background: T.surface,
+                  border: `1px solid ${T.border}`,
+                  transition: 'border-color 0.2s ease',
+                  position: 'relative',
+                }}
+                onMouseEnter={e => (e.currentTarget.style.borderColor = 'rgba(201,168,76,0.35)')}
+                onMouseLeave={e => (e.currentTarget.style.borderColor = T.border)}
+              >
+                {item.badge && (
+                  <span style={{
+                    position: 'absolute',
+                    top: 10,
+                    right: 12,
+                    fontSize: 8,
+                    fontWeight: 700,
+                    letterSpacing: '1.5px',
+                    color: T.gold,
+                    background: 'rgba(201,168,76,0.12)',
+                    padding: '2px 6px',
+                    borderRadius: 3,
+                  }}>
+                    {item.badge}
+                  </span>
+                )}
+                <div style={{
+                  width: 38,
+                  height: 38,
+                  borderRadius: 10,
+                  background: 'rgba(201,168,76,0.08)',
+                  border: '1px solid rgba(201,168,76,0.15)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0,
+                }}>
+                  <item.icon size={17} style={{ color: T.gold }} />
+                </div>
+                <div style={{ flex: 1 }}>
+                  <p style={{ fontSize: 14, fontWeight: 600, color: T.text, marginBottom: 2 }}>
+                    {item.title}
+                  </p>
+                  <p style={{ fontSize: 12, color: T.secondary, lineHeight: 1.4 }}>
+                    {item.desc}
+                  </p>
+                </div>
+                <ArrowRight size={14} style={{ color: T.muted, flexShrink: 0 }} />
+              </div>
+            </Link>
+          ))}
+        </div>
       </motion.section>
 
       {/* ═══════════════════════════════════════════════════════════════════════
