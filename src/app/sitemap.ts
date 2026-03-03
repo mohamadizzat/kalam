@@ -1,9 +1,45 @@
 import { MetadataRoute } from 'next'
+import { createClient } from '@supabase/supabase-js'
 import { SEO_PAGES } from '@/lib/data/seo-pages'
 
-export default function sitemap(): MetadataRoute.Sitemap {
+async function getBlogSlugs(): Promise<{ slug: string; published_at: string }[]> {
+  try {
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    )
+    const { data } = await supabase
+      .from('blog_posts')
+      .select('slug, published_at')
+      .eq('is_published', true)
+      .order('published_at', { ascending: false })
+      .limit(200)
+    return data || []
+  } catch {
+    return []
+  }
+}
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://kalambrasil.com'
   const now = new Date()
+
+  // Blog posts (dynamic from DB)
+  const blogSlugs = await getBlogSlugs()
+  const blogPages: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}/blog`,
+      lastModified: now,
+      changeFrequency: 'daily' as const,
+      priority: 0.9,
+    },
+    ...blogSlugs.map(({ slug, published_at }) => ({
+      url: `${baseUrl}/blog/${slug}`,
+      lastModified: published_at ? new Date(published_at) : now,
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    })),
+  ]
 
   // SEO pages (dynamic)
   const seoPages: MetadataRoute.Sitemap = SEO_PAGES.map((page) => ({
@@ -515,5 +551,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     // Aprender SEO pages (15 pages)
     ...seoPages,
+
+    // Blog
+    ...blogPages,
   ]
 }
