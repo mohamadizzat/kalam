@@ -19,7 +19,7 @@ function readLocalStorageJson<T>(key: string, fallback: T): T {
 function readCompletedIds(): Set<string> {
   const set = new Set<string>()
   try {
-    // user_progress tracks content completion
+    // user_progress tracks content completion (legacy underscore key)
     const progress = readLocalStorageJson<Record<string, { completed?: boolean }>>(
       'kalam_user_progress',
       {}
@@ -31,6 +31,20 @@ function readCompletedIds(): Set<string> {
     // kalam_completed_content is a direct array
     const completed = readLocalStorageJson<string[]>('kalam_completed_content', [])
     for (const id of completed) set.add(id)
+
+    // A Bíblia do Kalam — completedChapters array
+    const bibliaProgress = readLocalStorageJson<{ completedChapters?: string[] }>(
+      'kalam-biblia-progress',
+      {}
+    )
+    for (const slug of bibliaProgress.completedChapters ?? []) set.add(`biblia:${slug}`)
+
+    // Ramadan — completedDays array
+    const ramadanProgress = readLocalStorageJson<{ completedDays?: number[] }>(
+      'kalam-ramadan-progress',
+      {}
+    )
+    for (const day of ramadanProgress.completedDays ?? []) set.add(`ramadan:${day}`)
   } catch {
     // ignore
   }
@@ -39,11 +53,14 @@ function readCompletedIds(): Set<string> {
 
 function readBookmarkedIds(): Set<string> {
   try {
-    const bookmarks = readLocalStorageJson<{ contentId?: string; id?: string }[]>(
-      'kalam_bookmarks',
-      []
-    )
-    return new Set(bookmarks.map((b) => b.contentId || b.id || '').filter(Boolean))
+    // kalam-bookmarks (dash) is written by SurahReader & FavoritosClient
+    type VerseBookmark = { surah?: number; verse?: number; contentId?: string; id?: string }
+    const bookmarks = readLocalStorageJson<VerseBookmark[]>('kalam-bookmarks', [])
+    const ids = bookmarks.map((b) => {
+      if (b.surah && b.verse) return `quran:${b.surah}:${b.verse}`
+      return b.contentId || b.id || ''
+    }).filter(Boolean)
+    return new Set(ids)
   } catch {
     return new Set()
   }
@@ -79,12 +96,14 @@ export function useUserContext(): UserContext & { loading: boolean } {
       'kalam_streak_data',
       {}
     )
-    const journalEntries = readLocalStorageJson<unknown[]>('kalam_journal_entries', []).length
+    // kalam-journal (dash) is written by JournalClient
+    const journalEntries = readLocalStorageJson<unknown[]>('kalam-journal', []).length
     const trailProgress = readLocalStorageJson<Record<string, number>>(
       'kalam_trail_progress',
       {}
     )
-    const moodHistory = readLocalStorageJson<{ mood?: string }[]>('kalam_mood_history', [])
+    // kalam-mood-log (dash) is written by mood-practices.ts → saveMoodEntry()
+    const moodHistory = readLocalStorageJson<{ mood?: string }[]>('kalam-mood-log', [])
     const firstVisit = localStorage.getItem('kalam-first-visit')
     const lastVisitedPaths = getRecentPaths()
 

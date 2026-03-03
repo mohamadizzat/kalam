@@ -62,8 +62,10 @@ export function useReflexaoAgent(): { data: ReflexaoStats | null; loading: boole
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const entries = readJson<RawEntry[]>('kalam_journal_entries', [])
-    const moodHistory = readJson<RawMood[]>('kalam_mood_history', [])
+    // kalam-journal (dash) is the key written by JournalClient
+    const entries = readJson<RawEntry[]>('kalam-journal', [])
+    // kalam-mood-log (dash) is written by saveMoodEntry() in mood-practices.ts
+    const moodHistory = readJson<RawMood[]>('kalam-mood-log', [])
 
     const now = new Date()
     const sevenDaysAgo = new Date(now.getTime() - 7 * 86400000)
@@ -111,8 +113,12 @@ export function useReflexaoAgent(): { data: ReflexaoStats | null; loading: boole
       .map((m) => m.mood)
 
     // Also pull moods from journal entries themselves
+    // JournalClient saves `emotion` field (e.g. "Grato", "Em paz") and `content`
     for (const e of entries) {
       if (e.mood) recentMoods.push(e.mood)
+      // emotion is the field JournalClient uses
+      const rawEmotion = (e as unknown as Record<string, string>).emotion
+      if (rawEmotion) recentMoods.push(rawEmotion)
     }
 
     const moodCounts: Record<string, number> = {}

@@ -5,6 +5,8 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { ArrowLeft, ArrowRight, BookOpen, BookText, GitBranch, CheckCircle, Lightbulb, Clock, Check } from 'lucide-react'
 import { type NarrativeChapter } from '@/lib/data/biblia-do-kalam-chapters'
+import { useAuth } from '@/providers/auth-provider'
+import { saveProgressToSupabase } from '@/lib/agents/user-context'
 
 const ponteMap: Record<string, string> = {
   'adam': 'adam',
@@ -37,6 +39,7 @@ const SECTION_PILLS = [
 ]
 
 export function ChapterReaderClient({ chapter }: Props) {
+  const { user } = useAuth()
   const [scrollProgress, setScrollProgress] = useState(0)
   const [isMarkedRead, setIsMarkedRead] = useState(false)
   const [showPills, setShowPills] = useState(false)
@@ -75,9 +78,26 @@ export function ChapterReaderClient({ chapter }: Props) {
         progress.completedChapters.push(chapter.slug)
       }
       localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress))
+
+      // Also update kalam_completed_content so Sahabas can see it
+      try {
+        const completedRaw = localStorage.getItem('kalam_completed_content')
+        const completedArr: string[] = completedRaw ? JSON.parse(completedRaw) : []
+        const id = `biblia:${chapter.slug}`
+        if (!completedArr.includes(id)) {
+          completedArr.push(id)
+          localStorage.setItem('kalam_completed_content', JSON.stringify(completedArr))
+        }
+      } catch {}
+
+      // Sync to Supabase for cross-device memory
+      if (user?.id) {
+        saveProgressToSupabase(user.id, 'biblia', chapter.slug)
+      }
+
       setIsMarkedRead(true)
     } catch {}
-  }, [chapter.slug])
+  }, [chapter.slug, user])
 
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id)

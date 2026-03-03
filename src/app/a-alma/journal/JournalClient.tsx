@@ -6,6 +6,8 @@ import { BookOpen } from 'lucide-react'
 import { journalQuestions } from '@/lib/data/journal-questions'
 import { EmptyState } from '@/components/shared/EmptyState'
 import { BackButton } from '@/components/shared/BackButton'
+import { useAuth } from '@/providers/auth-provider'
+import { createClient } from '@/lib/supabase/client'
 
 type JournalEntry = {
   id: string
@@ -28,6 +30,7 @@ const EMOTIONS = [
 ]
 
 export function JournalClient() {
+  const { user } = useAuth()
   const [content, setContent] = useState('')
   const [emotion, setEmotion] = useState('')
   const [entries, setEntries] = useState<JournalEntry[]>([])
@@ -44,9 +47,10 @@ export function JournalClient() {
 
   const handleSave = () => {
     if (!content.trim()) return
+    const today = new Date().toISOString().split('T')[0]
     const entry: JournalEntry = {
       id: crypto.randomUUID(),
-      date: new Date().toISOString().split('T')[0],
+      date: today,
       question: todayQuestion,
       content: content.trim(),
       emotion,
@@ -55,6 +59,22 @@ export function JournalClient() {
     const updated = [entry, ...entries]
     setEntries(updated)
     localStorage.setItem('kalam-journal', JSON.stringify(updated))
+
+    // Sync to Supabase
+    if (user?.id) {
+      const supabase = createClient()
+      supabase.from('user_journal').upsert(
+        {
+          user_id: user.id,
+          entry_date: today,
+          emotion: emotion || null,
+          reflection: content.trim(),
+          gratitude: null,
+        },
+        { onConflict: 'user_id,entry_date' }
+      ).then(() => {/* silent fail */})
+    }
+
     setContent('')
     setEmotion('')
     setSaved(true)

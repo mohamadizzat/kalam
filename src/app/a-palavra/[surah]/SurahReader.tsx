@@ -9,6 +9,8 @@ import { VerseShareCard } from '@/components/shared/VerseShareCard'
 import { BackButton } from '@/components/shared/BackButton'
 import { AudioPlayer } from '@/components/shared/AudioPlayer'
 import { ReadingMode } from '@/components/shared/ReadingMode'
+import { useAuth } from '@/providers/auth-provider'
+import { saveBookmarkToSupabase } from '@/lib/agents/user-context'
 
 type Verse = {
   number: number
@@ -40,6 +42,7 @@ const sizeOptions: { key: ArabicSize; label: string; previewSize: string }[] = [
 ]
 
 export function SurahReader({ surah }: { surah: Surah }) {
+  const { user } = useAuth()
   const [verses, setVerses] = useState<Verse[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
@@ -178,10 +181,17 @@ export function SurahReader({ surah }: { surah: Surah }) {
           ? prev.filter((b) => !(b.surah === surah.number && b.verse === verse.number))
           : [...prev, { surah: surah.number, verse: verse.number, arabic: verse.arabic, portuguese: verse.portuguese }]
         localStorage.setItem('kalam-bookmarks', JSON.stringify(next))
+
+        // Sync to Supabase when adding (not removing) a bookmark
+        if (!exists && user?.id) {
+          const reference = `quran:${surah.number}:${verse.number}`
+          saveBookmarkToSupabase(user.id, 'verse', reference)
+        }
+
         return next
       })
     },
-    [surah.number]
+    [surah.number, user]
   )
 
   // ── Fetch verses ────────────────────────────────────────────────────────────
