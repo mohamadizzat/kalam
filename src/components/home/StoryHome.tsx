@@ -216,15 +216,7 @@ export function StoryHome({ onNavigate }: StoryHomeProps) {
   const verse = SANCTUARY_VERSES[verseIndex]
   // nameOfDay removed — hero de-arabizado
 
-  // Auto-advance carousel
-  useEffect(() => {
-    carouselRef.current = setInterval(() => {
-      setCarouselIndex(prev => (prev + 1) % CAROUSEL_FACTS.length)
-    }, 5000)
-    return () => {
-      if (carouselRef.current) clearInterval(carouselRef.current)
-    }
-  }, [])
+  // Carousel sem auto-advance — usuário controla
 
   const goToFact = (dir: 'prev' | 'next') => {
     if (carouselRef.current) clearInterval(carouselRef.current)
@@ -270,7 +262,80 @@ export function StoryHome({ onNavigate }: StoryHomeProps) {
       )}
 
       {/* ═══════════════════════════════════════════════════════════════════════
-          SECTION 2 — FATOS QUE SURPREENDEM (Carousel)
+          SECTION 1.5 — HERO ÂNCORA: Fato impactante + CTA primário
+      ═══════════════════════════════════════════════════════════════════════ */}
+      {!ramadanToday && (
+        <motion.section
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          style={{ padding: '0 clamp(16px, 5vw, 40px) 48px', textAlign: 'center', maxWidth: 640, margin: '0 auto' }}
+        >
+          {/* Fato impactante isolado */}
+          <div
+            style={{
+              padding: '28px 24px',
+              borderRadius: 18,
+              background: 'linear-gradient(135deg, rgba(201,168,76,0.07), rgba(201,168,76,0.02))',
+              border: '1px solid rgba(201,168,76,0.2)',
+              marginBottom: 28,
+            }}
+          >
+            <p
+              style={{
+                fontFamily: 'var(--font-serif)',
+                fontSize: 'clamp(16px, 3.5vw, 20px)',
+                color: T.text,
+                lineHeight: 1.65,
+                marginBottom: 14,
+              }}
+            >
+              Jesus é mencionado <span style={{ color: T.gold, fontWeight: 600 }}>25 vezes</span> no Alcorão.
+              <br />
+              Maria tem uma <span style={{ color: T.gold, fontWeight: 600 }}>sura inteira</span> dedicada a ela.
+            </p>
+            <p
+              style={{
+                fontFamily: 'var(--font-serif)',
+                fontSize: 14,
+                color: T.gold,
+                fontStyle: 'italic',
+              }}
+            >
+              Você sabia disso?
+            </p>
+          </div>
+
+          {/* CTA primário full-width mobile */}
+          <Link
+            href="/a-mensagem"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 8,
+              width: '100%',
+              maxWidth: 400,
+              margin: '0 auto',
+              padding: '16px 28px',
+              borderRadius: 14,
+              background: 'rgba(201,168,76,0.15)',
+              border: '1px solid rgba(201,168,76,0.35)',
+              color: T.gold,
+              fontSize: 15,
+              fontWeight: 600,
+              textDecoration: 'none',
+              letterSpacing: '0.01em',
+            }}
+          >
+            Descobrir meu primeiro versículo
+            <ArrowRight size={16} />
+          </Link>
+        </motion.section>
+      )}
+
+      {/* ═══════════════════════════════════════════════════════════════════════
+          SECTION 2 — FATOS QUE SURPREENDEM (Carousel — sem auto-rotate)
       ═══════════════════════════════════════════════════════════════════════ */}
       <motion.section
         initial={{ opacity: 0, y: 20 }}

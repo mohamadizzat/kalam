@@ -213,6 +213,68 @@ function orderByPersona<T extends { category?: string; href?: string }>(
   })
 }
 
+// ── CHAMADO DE HOJE ──────────────────────────────────────────────────────────
+
+const CHAMADO_DE_HOJE_DATA = [
+  { day: 'Domingo',  title: 'Os Profetas',     desc: '17 histórias que você já conhece — com o final que faltava',     href: '/os-profetas',         icon: Star },
+  { day: 'Segunda', title: 'A Ponte',          desc: 'Uma conexão inesperada entre Bíblia e Alcorão',                  href: '/a-ponte',             icon: GitBranch },
+  { day: 'Terça',   title: 'Os Profetas',      desc: 'A jornada de quem mudou o mundo sem exércitos',                  href: '/os-profetas',         icon: Star },
+  { day: 'Quarta',  title: 'O Sistema',        desc: 'O que o Alcorão diz sobre dinheiro, saúde e família',            href: '/o-sistema',           icon: Compass },
+  { day: 'Quinta',  title: '99 Nomes de Deus', desc: 'Um dos 99 Nomes — o que ele revela sobre quem criou tudo',      href: '/a-presenca/99-nomes', icon: Sparkles },
+  { day: 'Sexta',   title: 'A Palavra',        desc: 'A Surah da semana — 3 minutos que valem a pena',                 href: '/a-palavra',           icon: BookOpen },
+  { day: 'Sábado',  title: 'Trilhas Guiadas',  desc: 'Uma jornada temática para aprofundar o que você já sabe',       href: '/trilhas',             icon: Route },
+] as const
+
+function ChamadoDeHoje() {
+  const dayOfWeek = new Date().getDay()
+  const data = CHAMADO_DE_HOJE_DATA[dayOfWeek]
+  const IconComponent = data.icon
+
+  return (
+    <Link href={data.href} style={{ textDecoration: 'none', display: 'block' }}>
+      <div
+        style={{
+          padding: '18px 20px',
+          borderRadius: 14,
+          background: 'linear-gradient(135deg, rgba(201,168,76,0.08), rgba(201,168,76,0.03))',
+          border: '1px solid rgba(201,168,76,0.2)',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 16,
+        }}
+      >
+        <div
+          style={{
+            width: 46,
+            height: 46,
+            borderRadius: 12,
+            background: 'rgba(201,168,76,0.12)',
+            border: '1px solid rgba(201,168,76,0.22)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexShrink: 0,
+          }}
+        >
+          <IconComponent size={20} style={{ color: T.gold }} />
+        </div>
+        <div style={{ flex: 1 }}>
+          <p style={{ fontSize: 10, color: T.gold, letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 5 }}>
+            Chamado de hoje — {data.day}
+          </p>
+          <p style={{ fontFamily: 'var(--font-serif)', fontSize: 15, color: T.text, fontWeight: 600, marginBottom: 4, lineHeight: 1.3 }}>
+            {data.title}
+          </p>
+          <p style={{ fontSize: 12, color: T.secondary, lineHeight: 1.5 }}>
+            {data.desc}
+          </p>
+        </div>
+        <ArrowRight size={15} style={{ color: T.gold, flexShrink: 0 }} />
+      </div>
+    </Link>
+  )
+}
+
 // ── COMPONENT ────────────────────────────────────────────────────────────────
 
 export function DashboardHome() {
@@ -355,7 +417,7 @@ export function DashboardHome() {
       {/* ═══════════════════════════════════════════════════════════════════════
           SECTION 1 — Sanctuary Greeting + Compact Verse + Persona
       ═══════════════════════════════════════════════════════════════════════ */}
-      <section style={{ padding: '48px 24px 0' }}>
+      <section style={{ padding: 'clamp(20px, 5vw, 48px) clamp(16px, 4vw, 24px) 0' }}>
         {/* Greeting */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
@@ -363,14 +425,36 @@ export function DashboardHome() {
           transition={{ duration: 0.6 }}
           style={{ marginBottom: 16 }}
         >
-          <p style={{ fontFamily: 'var(--font-serif)', fontSize: 26, color: T.text, fontWeight: 500, marginBottom: 4 }}>
+          <p style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(22px, 6vw, 28px)', color: T.text, fontWeight: 500, marginBottom: 4 }}>
             {greeting}{user?.user_metadata?.full_name || user?.user_metadata?.name
               ? `, ${(user.user_metadata.full_name || user.user_metadata.name).split(' ')[0]}`
               : ''}
           </p>
-          <p style={{ fontSize: 13, color: T.muted }}>
+          <p style={{ fontSize: 13, color: T.muted, marginBottom: streak > 0 ? 12 : 0 }}>
             {dateLabel || '\u00A0'}
           </p>
+
+          {/* Streak como presença */}
+          {streak > 0 ? (
+            <div>
+              <p style={{ fontSize: 12, color: T.gold, marginBottom: 6 }}>
+                {streak} {streak === 1 ? 'dia' : 'dias'} de presença consecutiva
+              </p>
+              <div style={{ height: 2, background: T.border, borderRadius: 1 }}>
+                <div style={{
+                  height: '100%',
+                  width: `${Math.min((streak / (streak < 7 ? 7 : streak < 30 ? 30 : 100)) * 100, 100)}%`,
+                  background: 'linear-gradient(to right, rgba(201,168,76,0.5), #C9A84C)',
+                  borderRadius: 1,
+                  transition: 'width 0.8s ease',
+                }} />
+              </div>
+            </div>
+          ) : (
+            <p style={{ fontSize: 12, color: T.muted, fontStyle: 'italic' }}>
+              Hoje é um novo começo.
+            </p>
+          )}
         </motion.div>
 
         {/* Persona Banner */}
@@ -407,7 +491,7 @@ export function DashboardHome() {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.2 }}
-        style={{ padding: '16px 24px 0' }}
+        style={{ padding: '12px clamp(16px, 4vw, 24px) 0' }}
       >
         {lastRead ? (
           <Link
@@ -469,7 +553,7 @@ export function DashboardHome() {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.3 }}
-        style={{ padding: '16px 24px 0' }}
+        style={{ padding: '16px clamp(16px, 4vw, 24px) 0' }}
       >
         <ProgressoSection />
       </motion.section>
@@ -481,7 +565,7 @@ export function DashboardHome() {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.35 }}
-        style={{ padding: '16px 24px 0' }}
+        style={{ padding: '16px clamp(16px, 4vw, 24px) 0' }}
       >
         <ProximoPassoCard />
       </motion.section>
@@ -493,18 +577,30 @@ export function DashboardHome() {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.4 }}
-        style={{ padding: '16px 24px 0' }}
+        style={{ padding: '16px clamp(16px, 4vw, 24px) 0' }}
       >
         <DescobertaDoDiaCard />
       </motion.section>
 
       {/* ═══════════════════════════════════════════════════════════════════════
-          SECTION 4 — Quick Actions (horizontal scroll with icons)
+          SECTION 3.9 — Chamado de Hoje (baseado no dia da semana)
+      ═══════════════════════════════════════════════════════════════════════ */}
+      <motion.section
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.43 }}
+        style={{ padding: '16px clamp(16px, 4vw, 24px) 0' }}
+      >
+        <ChamadoDeHoje />
+      </motion.section>
+
+      {/* ═══════════════════════════════════════════════════════════════════════
+          SECTION 4 — Quick Actions (3 por persona, scroll horizontal, 44px)
       ═══════════════════════════════════════════════════════════════════════ */}
       <motion.section
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.4 }}
+        transition={{ duration: 0.5, delay: 0.46 }}
         style={{ padding: '20px 0 0' }}
       >
         <div
@@ -512,7 +608,7 @@ export function DashboardHome() {
             display: 'flex',
             gap: 8,
             overflowX: 'auto',
-            padding: '0 24px 4px',
+            padding: '0 clamp(16px, 4vw, 24px) 4px',
             WebkitOverflowScrolling: 'touch',
             msOverflowStyle: 'none',
             scrollbarWidth: 'none',
@@ -520,7 +616,7 @@ export function DashboardHome() {
           className="hide-scrollbar"
         >
           <style>{`.hide-scrollbar::-webkit-scrollbar { display: none; }`}</style>
-          {personalizedActions.map((action) => (
+          {(ramadanToday ? personalizedActions : personalizedActions.slice(0, 3)).map((action) => (
             <Link
               key={action.href}
               href={action.href}
@@ -529,6 +625,7 @@ export function DashboardHome() {
                 alignItems: 'center',
                 gap: 6,
                 padding: '10px 16px',
+                minHeight: 44,
                 borderRadius: 999,
                 border: '1px solid rgba(201,168,76,0.15)',
                 background: 'transparent',
@@ -555,7 +652,7 @@ export function DashboardHome() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-40px' }}
         transition={{ duration: 0.7 }}
-        style={{ padding: '28px 24px 0' }}
+        style={{ padding: '28px clamp(16px, 4vw, 24px) 0' }}
       >
         <p
           style={{
@@ -633,7 +730,7 @@ export function DashboardHome() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-40px' }}
         transition={{ duration: 0.7 }}
-        style={{ padding: '32px 24px 0' }}
+        style={{ padding: '32px clamp(16px, 4vw, 24px) 0' }}
       >
         <p style={{
           fontSize: 11,
@@ -751,7 +848,7 @@ export function DashboardHome() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-50px' }}
         transition={{ duration: 0.8 }}
-        style={{ padding: '32px 24px 0' }}
+        style={{ padding: '32px clamp(16px, 4vw, 24px) 0' }}
       >
         <p
           style={{
@@ -1004,7 +1101,7 @@ export function DashboardHome() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-50px' }}
         transition={{ duration: 0.8 }}
-        style={{ padding: '32px 24px 0' }}
+        style={{ padding: '32px clamp(16px, 4vw, 24px) 0' }}
       >
         <p
           style={{

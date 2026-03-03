@@ -199,3 +199,33 @@ body {
     margin-left: 0;
   }
 }
+
+/* ── Mobile Typography + Responsividade ────────────────────────────────── */
+
+/* Touch targets — iOS HIG 44px */
+@media (hover: none) {
+  button, a[role="button"] {
+    min-height: 44px;
+  }
+}
+
+/* Small screens — squeeze base font slightly */
+@media (max-width: 380px) {
+  body {
+    font-size: 15px;
+  }
+}
+
+/* Landscape mobile — recolher bottom nav se tela muito curta */
+@media (max-height: 500px) and (orientation: landscape) {
+  .bottom-nav {
+    display: none !important;
+  }
+}
+
+/* iPhone SE (320px) — garantir que nada corte */
+@media (max-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
