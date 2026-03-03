@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server'
-import Groq from 'groq-sdk'
 
 // ── Kalam content knowledge (injected as context) ────────────────────────────
 const KALAM_KNOWLEDGE = `
@@ -158,7 +157,7 @@ REGRAS:
 
 // ── API Route ─────────────────────────────────────────────────────────────────
 
-export const runtime = 'nodejs'
+export const runtime = 'edge'
 export const maxDuration = 30
 
 export async function POST(req: NextRequest) {
@@ -191,28 +190,59 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'GROQ_API_KEY não configurada' }, { status: 500 })
     }
 
-    const groq = new Groq({ apiKey })
-
-    const stream = await groq.chat.completions.create({
-      model: 'llama-3.3-70b-versatile',
-      messages: [
-        { role: 'system', content: systemPrompt },
-        { role: 'user', content: message },
-      ],
-      max_tokens: 600,
-      temperature: 0.75,
-      stream: true,
+    // Use fetch directly — avoids groq-sdk bundling issues on Vercel
+    const groqRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model: 'llama-3.3-70b-versatile',
+        messages: [
+          { role: 'system', content: systemPrompt },
+          { role: 'user', content: message },
+        ],
+        max_tokens: 600,
+        temperature: 0.75,
+        stream: true,
+      }),
     })
 
-    // Return streaming response
+    if (!groqRes.ok || !groqRes.body) {
+      const errText = await groqRes.text()
+      console.error('[sahaba/chat] Groq error:', errText)
+      return NextResponse.json({ error: 'Falha ao chamar Groq' }, { status: 500 })
+    }
+
+    // Transform SSE stream → plain text stream (extract delta content)
     const encoder = new TextEncoder()
+    const decoder = new TextDecoder()
+
     const readable = new ReadableStream({
       async start(controller) {
+        const reader = groqRes.body!.getReader()
+        let buffer = ''
         try {
-          for await (const chunk of stream) {
-            const text = chunk.choices[0]?.delta?.content || ''
-            if (text) {
-              controller.enqueue(encoder.encode(text))
+          while (true) {
+            const { done, value } = await reader.read()
+            if (done) break
+
+            buffer += decoder.decode(value, { stream: true })
+            const lines = buffer.split('\n')
+            buffer = lines.pop() ?? ''
+
+            for (const line of lines) {
+              if (!line.startsWith('data: ')) continue
+              const data = line.slice(6).trim()
+              if (data === '[DONE]') continue
+              try {
+                const json = JSON.parse(data)
+                const text = json.choices?.[0]?.delta?.content
+                if (text) controller.enqueue(encoder.encode(text))
+              } catch {
+                // malformed SSE chunk — skip
+              }
             }
           }
         } finally {
@@ -224,8 +254,8 @@ export async function POST(req: NextRequest) {
     return new Response(readable, {
       headers: {
         'Content-Type': 'text/plain; charset=utf-8',
-        'Transfer-Encoding': 'chunked',
         'Cache-Control': 'no-cache',
+        'X-Accel-Buffering': 'no',
       },
     })
   } catch (err) {
