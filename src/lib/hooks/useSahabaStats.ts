@@ -4,6 +4,9 @@ import { useMemo } from 'react'
 import { useGuiaAgent } from '@/lib/agents/guia-agent'
 import { useCuradorPick } from '@/lib/agents/curador-agent'
 import { useProgressoAgent } from '@/lib/agents/progresso-agent'
+import { useReflexaoAgent } from '@/lib/agents/reflexao-agent'
+import { useBuscaAgent } from '@/lib/agents/busca-agent'
+import { useReengajamentoAgent } from '@/lib/agents/reengajamento-agent'
 import { SAHABAS, type SahabaIdentity } from '@/lib/data/sahabas'
 
 export interface SahabaStat {
@@ -17,13 +20,11 @@ export function useSahabaStats(): { stats: SahabaStat[]; loading: boolean } {
   const guia = useGuiaAgent()
   const curador = useCuradorPick()
   const progresso = useProgressoAgent()
+  const reflexao = useReflexaoAgent()
+  const busca = useBuscaAgent()
+  const reengajamento = useReengajamentoAgent()
 
   const stats = useMemo(() => {
-    // Read lightweight localStorage stats for agents without hooks
-    const journalCount = getLocalStorageCount('kalam_journal_entries')
-    const searchCount = getLocalStorageCount('kalam_search_history')
-    const nudgeCount = getLocalStorageCount('kalam_nudge_impressions')
-
     return SAHABAS.map((sahaba): SahabaStat => {
       switch (sahaba.agentKey) {
         case 'guia': {
@@ -37,6 +38,7 @@ export function useSahabaStats(): { stats: SahabaStat[]; loading: boolean } {
             value: count,
           }
         }
+
         case 'curador': {
           const pick = curador.pick
           return {
@@ -46,6 +48,7 @@ export function useSahabaStats(): { stats: SahabaStat[]; loading: boolean } {
             value: pick ? 1 : 0,
           }
         }
+
         case 'conector':
           return {
             sahaba,
@@ -53,6 +56,7 @@ export function useSahabaStats(): { stats: SahabaStat[]; loading: boolean } {
             detail: 'Ligando os pontos entre tudo que você lê',
             value: '∞',
           }
+
         case 'progresso': {
           const p = progresso.data
           const pct = p?.overall.percentage ?? 0
@@ -66,35 +70,67 @@ export function useSahabaStats(): { stats: SahabaStat[]; loading: boolean } {
             value: `${Math.round(pct)}%`,
           }
         }
-        case 'reflexao':
+
+        case 'reflexao': {
+          const r = reflexao.data
+          if (!r || r.totalEntries === 0) {
+            return {
+              sahaba,
+              headline: 'Esperando suas reflexões',
+              detail: 'Abra o journal e escreva o que sente',
+              value: 0,
+            }
+          }
           return {
             sahaba,
-            headline: journalCount > 0
-              ? `${journalCount} reflexão${journalCount > 1 ? 'ões' : ''} guardada${journalCount > 1 ? 's' : ''}`
-              : 'Esperando suas reflexões',
-            detail: journalCount > 0
-              ? 'Seus pensamentos estão seguros comigo'
-              : 'Abra o journal e escreva o que sente',
-            value: journalCount,
+            headline: r.insight,
+            detail: r.dominantMood
+              ? `Humor dominante: ${r.dominantMood}`
+              : `${r.totalEntries} entrada${r.totalEntries > 1 ? 's' : ''} no total`,
+            value: r.totalEntries,
           }
-        case 'busca':
+        }
+
+        case 'busca': {
+          const b = busca.data
+          if (!b || b.totalSearches === 0) {
+            return {
+              sahaba,
+              headline: 'Pronto pra qualquer pergunta',
+              detail: 'Conheço cada versículo e história',
+              value: 0,
+            }
+          }
           return {
             sahaba,
-            headline: searchCount > 0
-              ? `${searchCount} busca${searchCount > 1 ? 's' : ''} realizada${searchCount > 1 ? 's' : ''}`
-              : 'Pronto pra qualquer pergunta',
-            detail: 'Conheço cada versículo e história',
-            value: searchCount,
+            headline: b.insight,
+            detail: b.topCategory
+              ? `Foco principal: ${b.topCategory}`
+              : `${b.uniqueTopics} tópicos únicos explorados`,
+            value: b.totalSearches,
           }
-        case 'reengajamento':
+        }
+
+        case 'reengajamento': {
+          const re = reengajamento.data
+          if (!re) {
+            return {
+              sahaba,
+              headline: 'Sempre atento',
+              detail: 'Nunca vou desistir de você',
+              value: 0,
+            }
+          }
           return {
             sahaba,
-            headline: nudgeCount > 0
-              ? `${nudgeCount} vez${nudgeCount > 1 ? 'es' : ''} chamou você de volta`
-              : 'Sempre atento',
-            detail: 'Nunca vou desistir de você',
-            value: nudgeCount,
+            headline: re.insight,
+            detail: re.nudgeCount > 0
+              ? `${re.nudgeCount} vez${re.nudgeCount > 1 ? 'es' : ''} chamou você de volta`
+              : `Score de presença: ${re.engagementScore}/100`,
+            value: re.engagementScore,
           }
+        }
+
         default:
           return {
             sahaba,
@@ -104,23 +140,22 @@ export function useSahabaStats(): { stats: SahabaStat[]; loading: boolean } {
           }
       }
     })
-  }, [guia.data, curador.pick, progresso.data])
+  }, [
+    guia.data,
+    curador.pick,
+    progresso.data,
+    reflexao.data,
+    busca.data,
+    reengajamento.data,
+  ])
 
-  const loading = guia.loading || curador.loading || progresso.loading
+  const loading =
+    guia.loading ||
+    curador.loading ||
+    progresso.loading ||
+    reflexao.loading ||
+    busca.loading ||
+    reengajamento.loading
 
   return { stats, loading }
-}
-
-function getLocalStorageCount(key: string): number {
-  if (typeof window === 'undefined') return 0
-  try {
-    const raw = localStorage.getItem(key)
-    if (!raw) return 0
-    const parsed = JSON.parse(raw)
-    if (Array.isArray(parsed)) return parsed.length
-    if (typeof parsed === 'number') return parsed
-    return 0
-  } catch {
-    return 0
-  }
 }
