@@ -342,7 +342,7 @@ export function StoryHome({ onNavigate }: StoryHomeProps) {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-60px' }}
         transition={{ duration: 0.7 }}
-        style={{ padding: '0 24px 64px' }}
+        style={{ padding: '0 clamp(16px, 5vw, 24px) clamp(48px, 12vw, 64px)' }}
       >
         <p
           style={{
@@ -427,8 +427,8 @@ export function StoryHome({ onNavigate }: StoryHomeProps) {
                 background: 'rgba(201,168,76,0.08)',
                 border: `1px solid ${T.border}`,
                 borderRadius: 999,
-                width: 36,
-                height: 36,
+                minWidth: 44,
+                minHeight: 44,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -458,6 +458,9 @@ export function StoryHome({ onNavigate }: StoryHomeProps) {
                     cursor: 'pointer',
                     transition: 'all 0.3s ease',
                     padding: 0,
+                    /* transparent tap area */
+                    boxShadow: '0 0 0 10px transparent',
+                    outline: 'none',
                   }}
                 />
               ))}
@@ -470,8 +473,8 @@ export function StoryHome({ onNavigate }: StoryHomeProps) {
                 background: 'rgba(201,168,76,0.08)',
                 border: `1px solid ${T.border}`,
                 borderRadius: 999,
-                width: 36,
-                height: 36,
+                minWidth: 44,
+                minHeight: 44,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -493,7 +496,7 @@ export function StoryHome({ onNavigate }: StoryHomeProps) {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-50px' }}
         transition={{ duration: 0.7 }}
-        style={{ padding: '0 24px 64px' }}
+        style={{ padding: '0 clamp(16px, 5vw, 24px) clamp(48px, 12vw, 64px)' }}
       >
         <p
           style={{
@@ -523,8 +526,8 @@ export function StoryHome({ onNavigate }: StoryHomeProps) {
             maxWidth: 720,
             margin: '0 auto',
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-            gap: 14,
+            gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(160px, 45vw, 220px), 1fr))',
+            gap: 'clamp(10px, 3vw, 14px)',
           }}
         >
           {/* Card 1: Acervo */}

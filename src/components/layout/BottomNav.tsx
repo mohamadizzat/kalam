@@ -32,10 +32,11 @@ export function BottomNav() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-around',
-          background: 'rgba(13,11,18,0.95)',
-          backdropFilter: 'blur(16px)',
-          WebkitBackdropFilter: 'blur(16px)',
-          borderTop: '1px solid rgba(39,34,48,0.8)',
+          background: 'rgba(13,11,18,0.72)',
+          backdropFilter: 'blur(28px) saturate(180%)',
+          WebkitBackdropFilter: 'blur(28px) saturate(180%)',
+          borderTop: '1px solid rgba(255,255,255,0.05)',
+          boxShadow: '0 -1px 0 rgba(39,34,48,0.8), inset 0 1px 0 rgba(255,255,255,0.04)',
           paddingBottom: 'env(safe-area-inset-bottom)',
         }}
       >

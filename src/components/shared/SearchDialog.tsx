@@ -277,19 +277,21 @@ export function SearchDialog({ open, onClose }: SearchDialogProps) {
             transition={{ duration: 0.2, ease: [0.25, 0.4, 0.25, 1] }}
             style={{
               position: 'fixed',
-              top: '15%',
+              top: 'clamp(16px, 8vh, 15%)',
               left: '50%',
               transform: 'translateX(-50%)',
-              width: 'min(520px, calc(100vw - 32px))',
-              maxHeight: '65vh',
-              background: T.bg,
-              border: `1px solid ${T.border}`,
+              width: 'min(520px, calc(100vw - 24px))',
+              maxHeight: 'min(65vh, calc(100svh - 40px))',
+              background: 'rgba(16, 13, 24, 0.92)',
+              backdropFilter: 'blur(32px) saturate(150%)',
+              WebkitBackdropFilter: 'blur(32px) saturate(150%)',
+              border: '1px solid rgba(39,34,48,0.85)',
               borderRadius: 16,
               overflow: 'hidden',
               zIndex: 501,
               display: 'flex',
               flexDirection: 'column',
-              boxShadow: '0 24px 80px rgba(0,0,0,0.5)',
+              boxShadow: '0 32px 80px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.05)',
             }}
           >
             {/* Search input */}

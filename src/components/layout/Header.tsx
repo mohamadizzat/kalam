@@ -62,14 +62,17 @@ export function Header() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          padding: '16px 20px',
+          padding: 'clamp(12px, 3vw, 16px) clamp(16px, 4vw, 24px)',
           background: scrolled
-            ? 'rgba(13,11,18,0.92)'
-            : 'rgba(13,11,18,0.8)',
-          backdropFilter: 'blur(16px)',
-          WebkitBackdropFilter: 'blur(16px)',
-          borderBottom: scrolled ? '1px solid rgba(39,34,48,0.8)' : '1px solid transparent',
-          transition: 'all 0.3s ease',
+            ? 'rgba(13,11,18,0.88)'
+            : 'rgba(13,11,18,0.7)',
+          backdropFilter: 'blur(24px) saturate(160%)',
+          WebkitBackdropFilter: 'blur(24px) saturate(160%)',
+          borderBottom: scrolled ? '1px solid rgba(39,34,48,0.8)' : '1px solid rgba(255,255,255,0.04)',
+          boxShadow: scrolled
+            ? '0 1px 0 rgba(255,255,255,0.04), 0 4px 24px rgba(0,0,0,0.3)'
+            : '0 1px 0 rgba(255,255,255,0.03)',
+          transition: 'background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease',
         }}
       >
         {/* Left: Hamburger (mobile) + Logo */}
@@ -87,7 +90,10 @@ export function Header() {
               border: 'none',
               color: '#F0EBE2',
               cursor: 'pointer',
-              padding: 4,
+              padding: 8,
+              minHeight: 44,
+              minWidth: 44,
+              borderRadius: 8,
             }}
           >
             <Menu size={22} strokeWidth={1.5} />
@@ -105,7 +111,7 @@ export function Header() {
           >
             <span style={{
               fontFamily: 'var(--font-arabic)',
-              fontSize: '20px',
+              fontSize: 'clamp(17px, 4vw, 20px)',
               color: '#C9A84C',
               lineHeight: 1,
             }}>
@@ -114,7 +120,7 @@ export function Header() {
             <span style={{
               fontFamily: 'var(--font-serif)',
               fontWeight: 700,
-              fontSize: '20px',
+              fontSize: 'clamp(16px, 4vw, 20px)',
               letterSpacing: '-0.02em',
               color: '#F0EBE2',
             }}>

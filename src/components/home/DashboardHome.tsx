@@ -715,6 +715,8 @@ export function DashboardHome() {
                   cursor: 'pointer',
                   transition: 'all 0.3s ease',
                   padding: 0,
+                  boxShadow: '0 0 0 10px transparent',
+                  outline: 'none',
                 }}
               />
             ))}
@@ -785,8 +787,8 @@ export function DashboardHome() {
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: 14,
-                  padding: '14px 16px',
+                  gap: 'clamp(10px, 3vw, 14px)',
+                  padding: 'clamp(12px, 3vw, 14px) clamp(12px, 3vw, 16px)',
                   borderRadius: 12,
                   background: T.surface,
                   border: `1px solid ${T.border}`,
@@ -868,8 +870,8 @@ export function DashboardHome() {
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: 16,
-              padding: '18px 20px',
+              gap: 'clamp(12px, 4vw, 16px)',
+              padding: 'clamp(14px, 4vw, 18px) clamp(14px, 4vw, 20px)',
               borderRadius: 14,
               background: 'linear-gradient(135deg, rgba(201,168,76,0.1) 0%, rgba(201,168,76,0.04) 100%)',
               border: '1px solid rgba(201,168,76,0.22)',
@@ -908,15 +910,15 @@ export function DashboardHome() {
           style={{
             display: 'grid',
             gridTemplateColumns: '1fr 1fr',
-            gap: 10,
-            marginBottom: 10,
+            gap: 'clamp(8px, 2.5vw, 10px)',
+            marginBottom: 'clamp(8px, 2.5vw, 10px)',
           }}
         >
           {/* Os Profetas */}
           <Link href="/os-profetas" style={{ textDecoration: 'none' }}>
             <div
               style={{
-                padding: '16px 14px',
+                padding: 'clamp(12px, 3vw, 16px) clamp(10px, 2.5vw, 14px)',
                 borderRadius: 12,
                 background: T.surface,
                 border: `1px solid ${T.border}`,
@@ -947,7 +949,7 @@ export function DashboardHome() {
           <Link href="/a-ponte" style={{ textDecoration: 'none' }}>
             <div
               style={{
-                padding: '16px 14px',
+                padding: 'clamp(12px, 3vw, 16px) clamp(10px, 2.5vw, 14px)',
                 borderRadius: 12,
                 background: T.surface,
                 border: `1px solid ${T.border}`,
@@ -978,7 +980,7 @@ export function DashboardHome() {
           <Link href="/descobrir/qual-profeta-voce-e" style={{ textDecoration: 'none' }}>
             <div
               style={{
-                padding: '16px 14px',
+                padding: 'clamp(12px, 3vw, 16px) clamp(10px, 2.5vw, 14px)',
                 borderRadius: 12,
                 background: T.surface,
                 border: `1px solid ${T.border}`,
@@ -1026,7 +1028,7 @@ export function DashboardHome() {
           <Link href="/descobrir/seu-nome-em-arabe" style={{ textDecoration: 'none' }}>
             <div
               style={{
-                padding: '16px 14px',
+                padding: 'clamp(12px, 3vw, 16px) clamp(10px, 2.5vw, 14px)',
                 borderRadius: 12,
                 background: T.surface,
                 border: `1px solid ${T.border}`,
@@ -1060,8 +1062,8 @@ export function DashboardHome() {
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: 14,
-              padding: '14px 16px',
+              gap: 'clamp(10px, 3vw, 14px)',
+              padding: 'clamp(12px, 3vw, 14px) clamp(12px, 3vw, 16px)',
               borderRadius: 12,
               background: T.surface,
               border: `1px solid ${T.border}`,
@@ -1119,8 +1121,8 @@ export function DashboardHome() {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-            gap: 14,
+            gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(180px, 45vw, 250px), 1fr))',
+            gap: 'clamp(10px, 3vw, 14px)',
             maxWidth: 720,
             margin: '0 auto',
           }}
@@ -1132,7 +1134,7 @@ export function DashboardHome() {
               spotlight
               style={{
                 borderRadius: 14,
-                padding: '16px 14px',
+                padding: 'clamp(12px, 3vw, 16px) clamp(10px, 2.5vw, 14px)',
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 10 }}>
@@ -1151,7 +1153,8 @@ export function DashboardHome() {
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'space-between',
-                      padding: '8px 10px',
+                      padding: '10px 10px',
+                      minHeight: 44,
                       borderRadius: 6,
                       fontSize: 13,
                       textDecoration: 'none',
@@ -1176,7 +1179,7 @@ export function DashboardHome() {
       ═══════════════════════════════════════════════════════════════════════ */}
       <section
         style={{
-          padding: '40px 24px 64px',
+          padding: 'clamp(28px, 8vw, 40px) clamp(16px, 5vw, 24px) clamp(48px, 12vw, 64px)',
           borderTop: `1px solid ${T.border}`,
           marginTop: 32,
           textAlign: 'center',
