@@ -65,7 +65,7 @@ export function FloatingContinue() {
           transition={{ duration: 0.3, ease: 'easeOut' }}
           style={{
             position: 'fixed',
-            bottom: 84,
+            bottom: 'calc(env(safe-area-inset-bottom, 0px) + 84px)',
             right: 16,
             zIndex: 100,
           }}
@@ -111,18 +111,20 @@ export function FloatingContinue() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                background: 'rgba(122,120,112,0.2)',
+                background: 'rgba(122,120,112,0.15)',
                 border: 'none',
                 borderRadius: '50%',
-                width: 20,
-                height: 20,
+                minWidth: 36,
+                minHeight: 36,
+                width: 36,
+                height: 36,
                 cursor: 'pointer',
                 padding: 0,
-                marginLeft: 4,
+                marginLeft: 2,
                 flexShrink: 0,
               }}
             >
-              <X size={10} style={{ color: '#7A7870' }} />
+              <X size={12} style={{ color: '#7A7870' }} />
             </button>
           </Link>
         </motion.div>

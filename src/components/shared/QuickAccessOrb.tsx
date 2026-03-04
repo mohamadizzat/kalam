@@ -178,13 +178,18 @@ export function QuickAccessOrb() {
     <>
       <style>{`
         @media (max-width: 768px) {
-          .qa-orb-btn { bottom: 80px !important; right: 16px !important; }
+          .qa-orb-btn {
+            bottom: calc(env(safe-area-inset-bottom, 0px) + 80px) !important;
+            right: 16px !important;
+          }
           .qa-panel {
             left: 12px !important;
             right: 12px !important;
-            bottom: 80px !important;
+            bottom: calc(env(safe-area-inset-bottom, 0px) + 80px) !important;
             width: auto !important;
             max-width: none !important;
+            max-height: 70svh !important;
+            overflow-y: auto !important;
           }
         }
         @media (min-width: 769px) {
@@ -274,7 +279,7 @@ export function QuickAccessOrb() {
               bottom: 20,
               right: 20,
               width: 360,
-              zIndex: 200,
+              zIndex: 210,
               background: 'rgba(13,11,18,0.96)',
               border: '1px solid rgba(201,168,76,0.12)',
               borderRadius: 20,
@@ -310,8 +315,13 @@ export function QuickAccessOrb() {
                   border: 'none',
                   cursor: 'pointer',
                   color: T.muted,
-                  padding: 4,
+                  padding: 12,
+                  minHeight: 44,
+                  minWidth: 44,
                   display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginRight: -8,
                 }}
               >
                 <X size={16} />

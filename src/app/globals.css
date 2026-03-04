@@ -200,6 +200,16 @@ body {
   }
 }
 
+/* ── Main content padding — mobile safe area ───────────────────────────
+   Garante que o conteúdo não fique oculto atrás do BottomNav (68px)
+   + home indicator do iOS (até 34px em iPhone 14 Pro Max)
+   ─────────────────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  main {
+    padding-bottom: max(80px, calc(68px + env(safe-area-inset-bottom, 0px) + 8px)) !important;
+  }
+}
+
 /* ── Mobile Typography + Responsividade ────────────────────────────────── */
 
 /* Touch targets — iOS HIG 44px */
